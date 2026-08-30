@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { 
   Calendar, 
@@ -10,7 +10,10 @@ import {
   Sparkles, 
   AlertCircle, 
   CheckCircle2,
-  Info
+  Info,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown
 } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
@@ -22,6 +25,10 @@ export default function SeasonClientContent({
 }) {
   const [standings, setStandings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sortState, setSortState] = useState<{ key: string; dir: "asc" | "desc" }>({
+    key: "final_rank",
+    dir: "asc"
+  });
 
   useEffect(() => {
     async function loadSeason() {
@@ -42,6 +49,57 @@ export default function SeasonClientContent({
     }
     loadSeason();
   }, [year]);
+
+  const sortedStandings = useMemo(() => {
+    return [...standings].sort((a, b) => {
+      let valA = a[sortState.key];
+      let valB = b[sortState.key];
+      if (sortState.key === "winPct") {
+        valA = (a.wins + a.losses) > 0 ? (a.wins / (a.wins + a.losses)) : 0;
+        valB = (b.wins + b.losses) > 0 ? (b.wins / (b.wins + b.losses)) : 0;
+      }
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return sortState.dir === "asc" ? -1 : 1;
+      if (valA > valB) return sortState.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [standings, sortState]);
+
+  const handleSort = (key: string) => {
+    if (sortState.key === key) {
+      setSortState({ key, dir: sortState.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setSortState({ key, dir: ["final_rank", "historical_name", "franchise_name"].includes(key) ? "asc" : "desc" });
+    }
+  };
+
+  const renderSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left", extraClass: string = "") => {
+    const isSorted = sortState.key === key;
+    return (
+      <th
+        onClick={() => handleSort(key)}
+        className={`py-3 px-4 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"} ${extraClass}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            sortState.dir === "desc" ? (
+              <span className="text-brand-orange">▼</span>
+            ) : (
+              <span className="text-brand-orange">▲</span>
+            )
+          ) : (
+            <span className="opacity-20">↕</span>
+          )}
+        </div>
+      </th>
+    );
+  };
 
   const is2026 = year === 2026;
   const isPre2018 = year < 2018 && !is2026;
@@ -102,27 +160,6 @@ export default function SeasonClientContent({
               )}
             </div>
           </div>
-
-          {/* Evidence Quality Badge */}
-          <div className="rounded-xl bg-card-elevated p-4 border border-rule space-y-1.5 max-w-xs text-xs">
-            <div className="flex items-center gap-2 font-mono font-semibold text-ink">
-              {is2026 ? (
-                <Info className="h-4 w-4 text-brand-blue" />
-              ) : isPre2018 ? (
-                <AlertCircle className="h-4 w-4 text-brand-yellow" />
-              ) : (
-                <CheckCircle2 className="h-4 w-4 text-brand-lime" />
-              )}
-              <span>Evidence Coverage</span>
-            </div>
-            <p className="text-[11px] text-ink-dim leading-relaxed">
-              {is2026
-                ? "Planning metadata only. Will record observed lineups upon league start."
-                : isPre2018
-                ? "Direct starter evidence verified from ESPN matchup rosters. Exact lineup slots are NULL with explicit 'Unavailable' label."
-                : "Full roster, bench, and exact lineup slot observations recorded directly from ESPN weekly scoring periods."}
-            </p>
-          </div>
         </div>
       </div>
 
@@ -150,27 +187,32 @@ export default function SeasonClientContent({
       ) : (
         /* Standings Table for Completed Seasons */
         <div className="space-y-4">
-          <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
-            {year} Final Standings & Historical Results
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+              {year} Final Standings & Historical Results
+            </h2>
+            <span className="text-[11px] font-mono text-ink-dim">
+              Click any column header to sort
+            </span>
+          </div>
 
           <div className="rounded-xl border border-rule bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-rule bg-card-elevated/70 text-[11px] font-mono uppercase tracking-wider text-ink-dim">
-                    <th className="py-3 px-4">Rank</th>
-                    <th className="py-3 px-4">Historical Team Identity</th>
-                    <th className="py-3 px-3">Canonical Franchise</th>
-                    <th className="py-3 px-3 text-center">Record</th>
-                    <th className="py-3 px-3 text-center">Win %</th>
-                    <th className="py-3 px-4 text-right">Points For</th>
-                    <th className="py-3 px-4 text-right">Points Against</th>
-                    <th className="py-3 px-4 text-center">Status</th>
+                  <tr className="border-b border-rule bg-card-elevated/70 text-[11px] font-mono uppercase tracking-wider">
+                    {renderSortHeader("Rank", "final_rank", "left")}
+                    {renderSortHeader("Historical Team Identity", "historical_name", "left")}
+                    {renderSortHeader("Canonical Franchise", "franchise_name", "left")}
+                    {renderSortHeader("Record", "wins", "center")}
+                    {renderSortHeader("Win %", "winPct", "center")}
+                    {renderSortHeader("Points For", "points_for", "right")}
+                    {renderSortHeader("Points Against", "points_against", "right")}
+                    {renderSortHeader("Status", "final_rank", "center")}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule/60 stat-mono">
-                  {standings.map((s, idx) => {
+                  {sortedStandings.map((s, idx) => {
                     const isChamp = s.is_champion === 1 || s.final_rank === 1;
                     const winPct = (s.wins + s.losses) > 0 ? (s.wins / (s.wins + s.losses) * 100).toFixed(1) : "0.0";
 

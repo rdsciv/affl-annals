@@ -47,8 +47,28 @@ export default function FranchisesPage() {
     loadStats();
   }, []);
 
+  const [sortBy, setSortBy] = useState<string>("titles");
+
   const activeFranchises = CANONICAL_FRANCHISES.filter((f) => f.is_active === 1);
   const alumniFranchises = CANONICAL_FRANCHISES.filter((f) => f.is_active === 0);
+
+  const sortedActiveFranchises = [...activeFranchises].sort((a, b) => {
+    const sA = franchiseStats[a.franchise_id] || { wins: 0, losses: 0, points_for: 0, titles: 0 };
+    const sB = franchiseStats[b.franchise_id] || { wins: 0, losses: 0, points_for: 0, titles: 0 };
+    if (sortBy === "titles") {
+      if (sB.titles !== sA.titles) return sB.titles - sA.titles;
+      return sB.wins - sA.wins;
+    }
+    if (sortBy === "wins") return sB.wins - sA.wins;
+    if (sortBy === "win_pct") {
+      const pA = (sA.wins + sA.losses) > 0 ? (sA.wins / (sA.wins + sA.losses)) : 0;
+      const pB = (sB.wins + sB.losses) > 0 ? (sB.wins / (sB.wins + sB.losses)) : 0;
+      return pB - pA;
+    }
+    if (sortBy === "points") return sB.points_for - sA.points_for;
+    if (sortBy === "name") return a.display_name.localeCompare(b.display_name);
+    return 0;
+  });
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-10">
@@ -67,15 +87,32 @@ export default function FranchisesPage() {
 
       {/* Current 2026 Planning Field */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Star className="h-4 w-4 text-brand-lime" />
-          <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
-            Current 2026 Planning Field (12 Franchises)
-          </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Star className="h-4 w-4 text-brand-lime" />
+            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+              Current 2026 Planning Field (12 Franchises)
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs">
+            <span className="font-mono text-ink-dim uppercase text-[10px]">Sort:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="rounded-md bg-card-elevated px-2.5 py-1 text-xs text-ink font-semibold border border-rule focus:outline-none cursor-pointer"
+            >
+              <option value="titles">Championships</option>
+              <option value="win_pct">Career Win Pct</option>
+              <option value="wins">Total Wins</option>
+              <option value="points">Total Points</option>
+              <option value="name">Franchise Name (A-Z)</option>
+            </select>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {activeFranchises.map((f) => {
+          {sortedActiveFranchises.map((f) => {
             const stats = franchiseStats[f.franchise_id] || { wins: 0, losses: 0, ties: 0, points_for: 0, titles: 0, historical_names: new Set() };
             const winPct = (stats.wins + stats.losses) > 0 ? (stats.wins / (stats.wins + stats.losses) * 100).toFixed(1) : "0.0";
             const aliases = Array.from(stats.historical_names || []).filter((name) => name !== f.display_name);

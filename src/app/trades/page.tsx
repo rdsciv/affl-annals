@@ -27,8 +27,10 @@ export default function TradesPage() {
     loadTrades();
   }, []);
 
+  const [sortBy, setSortBy] = useState<string>("newest");
+
   const filteredTrades = useMemo(() => {
-    return (trades || []).filter((t) => {
+    const raw = (trades || []).filter((t) => {
       if (selectedSeason !== "ALL" && t.season !== selectedSeason) return false;
       if (
         selectedFranchise !== "ALL" &&
@@ -51,7 +53,27 @@ export default function TradesPage() {
       }
       return true;
     });
-  }, [trades, selectedSeason, selectedFranchise, search]);
+
+    return [...raw].sort((a, b) => {
+      if (sortBy === "newest") {
+        if (b.season !== a.season) return b.season - a.season;
+        return (b.week || 0) - (a.week || 0);
+      }
+      if (sortBy === "oldest") {
+        if (a.season !== b.season) return a.season - b.season;
+        return (a.week || 0) - (b.week || 0);
+      }
+      if (sortBy === "most_assets") {
+        const totalA = (a.team1_sent?.length || 0) + (a.team2_sent?.length || 0);
+        const totalB = (b.team1_sent?.length || 0) + (b.team2_sent?.length || 0);
+        return totalB - totalA;
+      }
+      if (sortBy === "team1") {
+        return (a.team1_name || "").localeCompare(b.team1_name || "");
+      }
+      return 0;
+    });
+  }, [trades, selectedSeason, selectedFranchise, search, sortBy]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -108,6 +130,21 @@ export default function TradesPage() {
                   {f.display_name}
                 </option>
               ))}
+            </select>
+          </div>
+
+          {/* Sort Selector */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-mono text-ink-dim uppercase text-[10px]">Sort:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-card-elevated text-ink font-semibold rounded px-2.5 py-1 border border-rule focus:outline-none cursor-pointer"
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="most_assets">Most Assets Exchanged</option>
+              <option value="team1">By Club Name</option>
             </select>
           </div>
         </div>

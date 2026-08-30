@@ -208,9 +208,18 @@ function ExploreContent() {
     const sortField = queryState.sortBy;
     const isDesc = queryState.sortDir === "desc";
     aggregated.sort((a, b) => {
-      const valA = a[sortField] ?? 0;
-      const valB = b[sortField] ?? 0;
-      return isDesc ? valB - valA : valA - valB;
+      let valA = a[sortField];
+      let valB = b[sortField];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      } else {
+        valA = Number(valA || 0);
+        valB = Number(valB || 0);
+      }
+      if (valA < valB) return isDesc ? 1 : -1;
+      if (valA > valB) return isDesc ? -1 : 1;
+      return 0;
     });
 
     return {

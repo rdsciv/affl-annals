@@ -11,7 +11,10 @@ import {
   BarChart2, 
   Activity,
   Layers,
-  ArrowRight
+  ArrowRight,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown
 } from "lucide-react";
 import { fetchMartJson } from "@/lib/api";
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip } from "recharts";
@@ -22,6 +25,10 @@ export default function RotoStandingsPage() {
   const [selectedFranchise, setSelectedFranchise] = useState<string>("ALL");
   const [viewMode, setViewMode] = useState<"points" | "values">("points");
   const [loading, setLoading] = useState<boolean>(true);
+  const [sortState, setSortState] = useState<{ key: string; dir: "asc" | "desc" }>({
+    key: "roto_score",
+    dir: "desc"
+  });
 
   useEffect(() => {
     async function loadData() {
@@ -38,13 +45,71 @@ export default function RotoStandingsPage() {
   }, []);
 
   const seasonList = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "ALL-TIME"];
+
   const currentSeasonData = useMemo(() => {
     if (!rotoData) return [];
+    let raw = [];
     if (selectedSeason === "ALL-TIME") {
-      return rotoData.all_time_roto || [];
+      raw = rotoData.all_time_roto || [];
+    } else {
+      raw = rotoData.season_roto?.[selectedSeason] || [];
     }
-    return rotoData.season_roto?.[selectedSeason] || [];
-  }, [rotoData, selectedSeason]);
+
+    return [...raw].sort((a, b) => {
+      const isAllTime = selectedSeason === "ALL-TIME";
+      let k = sortState.key;
+      if (k === "roto_score" && isAllTime) k = "career_roto_score";
+      if (isAllTime && k.startsWith("pass_")) k = "avg_" + k;
+      if (isAllTime && k.startsWith("rush_")) k = "avg_" + k;
+      if (isAllTime && k.startsWith("rec_")) k = "avg_" + k;
+      if (isAllTime && k === "ypc") k = "avg_ypc";
+      if (isAllTime && k === "ypr") k = "avg_ypr";
+
+      let valA = a[k] !== undefined ? a[k] : a[sortState.key];
+      let valB = b[k] !== undefined ? b[k] : b[sortState.key];
+
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return sortState.dir === "asc" ? -1 : 1;
+      if (valA > valB) return sortState.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [rotoData, selectedSeason, sortState]);
+
+  const handleSort = (key: string) => {
+    if (sortState.key === key) {
+      setSortState({ key, dir: sortState.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setSortState({ key, dir: "desc" });
+    }
+  };
+
+  const renderSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left", extraClass: string = "") => {
+    const isSorted = sortState.key === key;
+    return (
+      <th
+        onClick={() => handleSort(key)}
+        className={`py-3 px-3 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"} ${extraClass}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            sortState.dir === "desc" ? (
+              <ArrowDown className="h-3 w-3 text-brand-orange" />
+            ) : (
+              <ArrowUp className="h-3 w-3 text-brand-orange" />
+            )
+          ) : (
+            <ArrowUpDown className="h-2.5 w-2.5 opacity-30 group-hover:opacity-100" />
+          )}
+        </div>
+      </th>
+    );
+  };
 
   // Radar chart data for selected franchise
   const radarData = useMemo(() => {
@@ -217,16 +282,16 @@ export default function RotoStandingsPage() {
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase text-ink-dim">
-                  <th className="py-3 px-3 text-center">Rank</th>
-                  <th className="py-3 px-3">Franchise</th>
-                  <th className="py-3 px-2 text-right">Pass Yds</th>
-                  <th className="py-3 px-2 text-right">Pass TD</th>
-                  <th className="py-3 px-2 text-right">Rush Yds</th>
-                  <th className="py-3 px-2 text-right">Rush TD</th>
-                  <th className="py-3 px-2 text-right">YPC</th>
-                  <th className="py-3 px-2 text-right">Rec Yds</th>
-                  <th className="py-3 px-2 text-right">Rec TD</th>
-                  <th className="py-3 px-3 text-center font-bold text-brand-yellow">Total Roto</th>
+                  {renderSortHeader("Rank", "overall_roto_rank", "center")}
+                  {renderSortHeader("Franchise", "franchise_name", "left")}
+                  {renderSortHeader("Pass Yds", "pass_yds", "right")}
+                  {renderSortHeader("Pass TD", "pass_tds", "right")}
+                  {renderSortHeader("Rush Yds", "rush_yds", "right")}
+                  {renderSortHeader("Rush TD", "rush_tds", "right")}
+                  {renderSortHeader("YPC", "ypc", "right")}
+                  {renderSortHeader("Rec Yds", "rec_yds", "right")}
+                  {renderSortHeader("Rec TD", "rec_tds", "right")}
+                  {renderSortHeader("Total Roto", "roto_score", "center", "font-bold text-brand-yellow")}
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
@@ -258,37 +323,37 @@ export default function RotoStandingsPage() {
                           <span className="truncate max-w-[130px]">{row.franchise_name}</span>
                         </Link>
                       </td>
-                      <td className="py-2.5 px-2 text-right font-mono">
+                      <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
                           ? (isAllTime ? row.avg_pass_yds_pts?.toFixed(1) : row.pass_yds_pts) 
                           : Math.round(isAllTime ? row.avg_pass_yds : row.pass_yds)}
                       </td>
-                      <td className="py-2.5 px-2 text-right font-mono">
+                      <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
                           ? (isAllTime ? row.avg_pass_tds_pts?.toFixed(1) : row.pass_tds_pts) 
                           : Math.round(isAllTime ? row.avg_pass_tds : row.pass_tds)}
                       </td>
-                      <td className="py-2.5 px-2 text-right font-mono">
+                      <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
                           ? (isAllTime ? row.avg_rush_yds_pts?.toFixed(1) : row.rush_yds_pts) 
                           : Math.round(isAllTime ? row.avg_rush_yds : row.rush_yds)}
                       </td>
-                      <td className="py-2.5 px-2 text-right font-mono">
+                      <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
                           ? (isAllTime ? row.avg_rush_tds_pts?.toFixed(1) : row.rush_tds_pts) 
                           : Math.round(isAllTime ? row.avg_rush_tds : row.rush_tds)}
                       </td>
-                      <td className="py-2.5 px-2 text-right font-mono">
+                      <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
                           ? (isAllTime ? row.avg_ypc_pts?.toFixed(1) : row.ypc_pts) 
                           : (isAllTime ? row.avg_ypc?.toFixed(2) : row.ypc?.toFixed(2))}
                       </td>
-                      <td className="py-2.5 px-2 text-right font-mono">
+                      <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
                           ? (isAllTime ? row.avg_rec_yds_pts?.toFixed(1) : row.rec_yds_pts) 
                           : Math.round(isAllTime ? row.avg_rec_yds : row.rec_yds)}
                       </td>
-                      <td className="py-2.5 px-2 text-right font-mono">
+                      <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
                           ? (isAllTime ? row.avg_rec_tds_pts?.toFixed(1) : row.rec_tds_pts) 
                           : Math.round(isAllTime ? row.avg_rec_tds : row.rec_tds)}

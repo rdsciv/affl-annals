@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { 
   Sparkles, 
@@ -15,7 +15,10 @@ import {
   Trophy,
   ArrowRight,
   Flame,
-  Award
+  Award,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown
 } from "lucide-react";
 import { fetchMartJson } from "@/lib/api";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
@@ -24,6 +27,14 @@ export default function LuckAndSkillPage() {
   const [data, setData] = useState<any>(null);
   const [selectedSeason, setSelectedSeason] = useState<string>("ALL-TIME");
   const [loading, setLoading] = useState(true);
+
+  // Sorting states for tables
+  const [ledgerSort, setLedgerSort] = useState<{ key: string; dir: "asc" | "desc" }>({ key: "luck_delta", dir: "desc" });
+  const [hbSort, setHbSort] = useState<{ key: string; dir: "asc" | "desc" }>({ key: "points", dir: "desc" });
+  const [heistSort, setHeistSort] = useState<{ key: string; dir: "asc" | "desc" }>({ key: "points", dir: "asc" });
+  const [simSort, setSimSort] = useState<{ key: string; dir: "asc" | "desc" }>({ key: "actual_wins", dir: "desc" });
+  const [effSort, setEffSort] = useState<{ key: string; dir: "asc" | "desc" }>({ key: "efficiency_pct", dir: "desc" });
+  const [blunderSort, setBlunderSort] = useState<{ key: string; dir: "asc" | "desc" }>({ key: "pt_difference", dir: "desc" });
 
   useEffect(() => {
     async function loadData() {
@@ -38,6 +49,89 @@ export default function LuckAndSkillPage() {
     }
     loadData();
   }, []);
+
+  const sortItems = (items: any[], key: string, dir: "asc" | "desc") => {
+    return [...(items || [])].sort((a, b) => {
+      let valA = a[key];
+      let valB = b[key];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return dir === "asc" ? -1 : 1;
+      if (valA > valB) return dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  };
+
+  const handleSort = (
+    currentSort: { key: string; dir: "asc" | "desc" },
+    setSort: (val: { key: string; dir: "asc" | "desc" }) => void,
+    newKey: string
+  ) => {
+    if (currentSort.key === newKey) {
+      setSort({ key: newKey, dir: currentSort.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setSort({ key: newKey, dir: "desc" });
+    }
+  };
+
+  const renderSortHeader = (
+    label: string,
+    key: string,
+    currentSort: { key: string; dir: "asc" | "desc" },
+    onSort: (key: string) => void,
+    align: "left" | "center" | "right" = "left",
+    extraClass: string = ""
+  ) => {
+    const isSorted = currentSort.key === key;
+    return (
+      <th
+        onClick={() => onSort(key)}
+        className={`py-3 px-3 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"} ${extraClass}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            currentSort.dir === "desc" ? (
+              <ArrowDown className="h-3 w-3 text-brand-orange" />
+            ) : (
+              <ArrowUp className="h-3 w-3 text-brand-orange" />
+            )
+          ) : (
+            <ArrowUpDown className="h-2.5 w-2.5 opacity-30 group-hover:opacity-100" />
+          )}
+        </div>
+      </th>
+    );
+  };
+
+  const sortedLedger = useMemo(() => {
+    return sortItems(data?.all_time_ledger || [], ledgerSort.key, ledgerSort.dir);
+  }, [data?.all_time_ledger, ledgerSort]);
+
+  const sortedHeartbreakers = useMemo(() => {
+    return sortItems(data?.heartbreakers || [], hbSort.key, hbSort.dir);
+  }, [data?.heartbreakers, hbSort]);
+
+  const sortedHeists = useMemo(() => {
+    return sortItems(data?.heists || [], heistSort.key, heistSort.dir);
+  }, [data?.heists, heistSort]);
+
+  const sortedSimData = useMemo(() => {
+    const raw = data?.season_simulations?.[selectedSeason] || [];
+    return sortItems(raw, simSort.key, simSort.dir);
+  }, [data?.season_simulations, selectedSeason, simSort]);
+
+  const sortedEfficiency = useMemo(() => {
+    return sortItems(data?.lineup_efficiency || [], effSort.key, effSort.dir);
+  }, [data?.lineup_efficiency, effSort]);
+
+  const sortedBlunders = useMemo(() => {
+    return sortItems(data?.worst_blunders || [], blunderSort.key, blunderSort.dir);
+  }, [data?.worst_blunders, blunderSort]);
 
   if (loading) {
     return (
@@ -55,8 +149,7 @@ export default function LuckAndSkillPage() {
     );
   }
 
-  const { kpis, all_time_ledger, heartbreakers, heists, matrix, season_simulations, lineup_efficiency, worst_blunders, repeatability } = data;
-  const currentSimData = season_simulations[selectedSeason] || [];
+  const { kpis, matrix, repeatability } = data;
   const activeFids = [
     "FRAN_SVS", "FRAN_FFC", "FRAN_GGG", "FRAN_SDS", "FRAN_DCMC", "FRAN_GTF",
     "FRAN_WWL", "FRAN_TJS", "FRAN_PTP", "FRAN_HLH", "FRAN_COG", "FRAN_PLW"
@@ -144,7 +237,7 @@ export default function LuckAndSkillPage() {
             </h2>
           </div>
           <span className="text-[11px] font-mono text-ink-dim">
-            Sorted by Net Luck Delta (Actual Wins - Expected All-Play Wins)
+            Click any column header to sort
           </span>
         </div>
 
@@ -152,21 +245,21 @@ export default function LuckAndSkillPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider text-ink-dim">
-                  <th className="py-3 px-4">Franchise</th>
-                  <th className="py-3 px-2 text-center">Seasons</th>
-                  <th className="py-3 px-3 text-center">Actual Record</th>
-                  <th className="py-3 px-3 text-center">All-Play Rec</th>
-                  <th className="py-3 px-3 text-center">All-Play %</th>
-                  <th className="py-3 px-3 text-center">Exp Wins</th>
-                  <th className="py-3 px-4 text-center">Luck Rating</th>
-                  <th className="py-3 px-4 text-right">Points For</th>
-                  <th className="py-3 px-4 text-right">Points Against</th>
-                  <th className="py-3 px-3 text-center">Titles</th>
+                <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider">
+                  {renderSortHeader("Franchise", "franchise_name", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "left", "px-4")}
+                  {renderSortHeader("Seasons", "seasons_count", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "center")}
+                  {renderSortHeader("Actual Wins", "actual_wins", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "center")}
+                  {renderSortHeader("All-Play Wins", "ap_wins", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "center")}
+                  {renderSortHeader("All-Play %", "ap_win_pct", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "center")}
+                  {renderSortHeader("Exp Wins", "expected_wins", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "center")}
+                  {renderSortHeader("Luck Rating", "luck_delta", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "center")}
+                  {renderSortHeader("Points For", "total_pf", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "right")}
+                  {renderSortHeader("Points Against", "total_pa", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "right")}
+                  {renderSortHeader("Titles", "titles", ledgerSort, (k) => handleSort(ledgerSort, setLedgerSort, k), "center")}
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
-                {all_time_ledger.map((row: any, idx: number) => {
+                {sortedLedger.map((row: any, idx: number) => {
                   const isLucky = row.luck_delta > 0;
                   return (
                     <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
@@ -182,7 +275,7 @@ export default function LuckAndSkillPage() {
                           <span>{row.franchise_name}</span>
                         </Link>
                       </td>
-                      <td className="py-3 px-2 text-center font-mono text-ink-dim">{row.seasons_count}</td>
+                      <td className="py-3 px-3 text-center font-mono text-ink-dim">{row.seasons_count}</td>
                       <td className="py-3 px-3 text-center font-mono font-bold text-ink">
                         {row.actual_wins}-{row.actual_losses}{row.actual_ties > 0 ? `-${row.actual_ties}` : ""}
                       </td>
@@ -195,7 +288,7 @@ export default function LuckAndSkillPage() {
                       <td className="py-3 px-3 text-center font-mono text-ink-dim">
                         {row.expected_wins}
                       </td>
-                      <td className="py-3 px-4 text-center font-mono font-bold">
+                      <td className="py-3 px-3 text-center font-mono font-bold">
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${
                             isLucky
@@ -206,10 +299,10 @@ export default function LuckAndSkillPage() {
                           {isLucky ? `+${row.luck_delta}` : row.luck_delta}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-right font-mono font-semibold text-brand-blue">
+                      <td className="py-3 px-3 text-right font-mono font-semibold text-brand-blue">
                         {Number(row.total_pf).toLocaleString(undefined, { maximumFractionDigits: 1 })}
                       </td>
-                      <td className="py-3 px-4 text-right font-mono text-ink-dim">
+                      <td className="py-3 px-3 text-right font-mono text-ink-dim">
                         {Number(row.total_pa).toLocaleString(undefined, { maximumFractionDigits: 1 })}
                       </td>
                       <td className="py-3 px-3 text-center font-mono font-bold text-brand-yellow">
@@ -234,31 +327,31 @@ export default function LuckAndSkillPage() {
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Heartbreakers */}
         <div className="space-y-3">
-          <div className="flex items-center gap-2 text-rose-400">
-            <TrendingDown className="h-4 w-4" />
-            <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-ink">
-              Wins The Schedule Gave Away (Heartbreakers)
-            </h3>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-rose-400">
+              <TrendingDown className="h-4 w-4" />
+              <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-ink">
+                Wins The Schedule Gave Away
+              </h3>
+            </div>
+            <span className="text-[10px] font-mono text-ink-dim">Click column to sort</span>
           </div>
-          <p className="text-[11px] text-ink-dim">
-            Top weekly scoring performances in league history that resulted in a loss.
-          </p>
 
           <div className="rounded-xl border border-rule bg-card overflow-hidden shadow-md">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase text-ink-dim">
-                    <th className="py-2.5 px-3">Season/Wk</th>
-                    <th className="py-2.5 px-3">Franchise</th>
-                    <th className="py-2.5 px-3 text-right">Score</th>
-                    <th className="py-2.5 px-3">Opponent</th>
-                    <th className="py-2.5 px-3 text-right">Opp Score</th>
-                    <th className="py-2.5 px-2 text-center">Rank</th>
+                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase">
+                    {renderSortHeader("Season", "season", hbSort, (k) => handleSort(hbSort, setHbSort, k))}
+                    {renderSortHeader("Franchise", "franchise_name", hbSort, (k) => handleSort(hbSort, setHbSort, k))}
+                    {renderSortHeader("Score", "points", hbSort, (k) => handleSort(hbSort, setHbSort, k), "right")}
+                    {renderSortHeader("Opponent", "opp_franchise_name", hbSort, (k) => handleSort(hbSort, setHbSort, k))}
+                    {renderSortHeader("Opp Score", "opponent_points", hbSort, (k) => handleSort(hbSort, setHbSort, k), "right")}
+                    {renderSortHeader("Rank", "weekly_rank", hbSort, (k) => handleSort(hbSort, setHbSort, k), "center")}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
-                  {heartbreakers.slice(0, 8).map((hb: any, i: number) => (
+                  {sortedHeartbreakers.slice(0, 8).map((hb: any, i: number) => (
                     <tr key={i} className="hover:bg-card-hover/80 transition-colors">
                       <td className="py-2.5 px-3 font-mono font-bold text-ink">
                         {hb.season} Wk{hb.week}
@@ -275,7 +368,7 @@ export default function LuckAndSkillPage() {
                       <td className="py-2.5 px-3 text-right font-mono font-bold text-rose-400">
                         {hb.opponent_points.toFixed(1)}
                       </td>
-                      <td className="py-2.5 px-2 text-center">
+                      <td className="py-2.5 px-3 text-center">
                         <span className="px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-400 font-mono text-[10px] font-bold border border-rose-500/30">
                           #{hb.weekly_rank}
                         </span>
@@ -290,31 +383,31 @@ export default function LuckAndSkillPage() {
 
         {/* Heists */}
         <div className="space-y-3">
-          <div className="flex items-center gap-2 text-brand-lime">
-            <TrendingUp className="h-4 w-4" />
-            <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-ink">
-              Wins The Schedule Stole (Highway Robbery)
-            </h3>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-brand-lime">
+              <TrendingUp className="h-4 w-4" />
+              <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-ink">
+                Wins The Schedule Stole
+              </h3>
+            </div>
+            <span className="text-[10px] font-mono text-ink-dim">Click column to sort</span>
           </div>
-          <p className="text-[11px] text-ink-dim">
-            Lowest weekly scoring performances in league history that still walked away with a victory.
-          </p>
 
           <div className="rounded-xl border border-rule bg-card overflow-hidden shadow-md">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase text-ink-dim">
-                    <th className="py-2.5 px-3">Season/Wk</th>
-                    <th className="py-2.5 px-3">Franchise</th>
-                    <th className="py-2.5 px-3 text-right">Score</th>
-                    <th className="py-2.5 px-3">Opponent</th>
-                    <th className="py-2.5 px-3 text-right">Opp Score</th>
-                    <th className="py-2.5 px-2 text-center">Rank</th>
+                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase">
+                    {renderSortHeader("Season", "season", heistSort, (k) => handleSort(heistSort, setHeistSort, k))}
+                    {renderSortHeader("Franchise", "franchise_name", heistSort, (k) => handleSort(heistSort, setHeistSort, k))}
+                    {renderSortHeader("Score", "points", heistSort, (k) => handleSort(heistSort, setHeistSort, k), "right")}
+                    {renderSortHeader("Opponent", "opp_franchise_name", heistSort, (k) => handleSort(heistSort, setHeistSort, k))}
+                    {renderSortHeader("Opp Score", "opponent_points", heistSort, (k) => handleSort(heistSort, setHeistSort, k), "right")}
+                    {renderSortHeader("Rank", "weekly_rank", heistSort, (k) => handleSort(heistSort, setHeistSort, k), "center")}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
-                  {heists.slice(0, 8).map((heist: any, i: number) => (
+                  {sortedHeists.slice(0, 8).map((heist: any, i: number) => (
                     <tr key={i} className="hover:bg-card-hover/80 transition-colors">
                       <td className="py-2.5 px-3 font-mono font-bold text-ink">
                         {heist.season} Wk{heist.week}
@@ -331,7 +424,7 @@ export default function LuckAndSkillPage() {
                       <td className="py-2.5 px-3 text-right font-mono text-ink-dim">
                         {heist.opponent_points.toFixed(1)}
                       </td>
-                      <td className="py-2.5 px-2 text-center">
+                      <td className="py-2.5 px-3 text-center">
                         <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/30">
                           #{heist.weekly_rank}
                         </span>
@@ -377,18 +470,18 @@ export default function LuckAndSkillPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider text-ink-dim">
-                  <th className="py-3 px-4">Franchise</th>
-                  <th className="py-3 px-3 text-center">Actual Wins</th>
-                  <th className="py-3 px-3 text-center">Exp Wins</th>
-                  <th className="py-3 px-3 text-center">Luck Rating</th>
-                  <th className="py-3 px-4 text-center">Win %</th>
-                  <th className="py-3 px-4 text-right">Points For</th>
-                  <th className="py-3 px-4 text-right">Opp PPG</th>
+                <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider">
+                  {renderSortHeader("Franchise", "franchise_name", simSort, (k) => handleSort(simSort, setSimSort, k), "left", "px-4")}
+                  {renderSortHeader("Actual Wins", "actual_wins", simSort, (k) => handleSort(simSort, setSimSort, k), "center")}
+                  {renderSortHeader("Exp Wins", "expected_wins", simSort, (k) => handleSort(simSort, setSimSort, k), "center")}
+                  {renderSortHeader("Luck Rating", "luck_delta", simSort, (k) => handleSort(simSort, setSimSort, k), "center")}
+                  {renderSortHeader("Win %", "win_pct", simSort, (k) => handleSort(simSort, setSimSort, k), "center")}
+                  {renderSortHeader("Points For", "total_pf", simSort, (k) => handleSort(simSort, setSimSort, k), "right")}
+                  {renderSortHeader("Opp PPG", "opp_ppg", simSort, (k) => handleSort(simSort, setSimSort, k), "right")}
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
-                {currentSimData.map((row: any, idx: number) => {
+                {sortedSimData.map((row: any, idx: number) => {
                   const isLucky = row.luck_delta > 0;
                   return (
                     <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
@@ -418,13 +511,13 @@ export default function LuckAndSkillPage() {
                           {isLucky ? `+${row.luck_delta}` : row.luck_delta}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-center font-mono text-ink font-semibold">
+                      <td className="py-3 px-3 text-center font-mono text-ink font-semibold">
                         {row.win_pct}%
                       </td>
-                      <td className="py-3 px-4 text-right font-mono font-semibold text-brand-blue">
+                      <td className="py-3 px-3 text-right font-mono font-semibold text-brand-blue">
                         {Number(row.total_pf).toFixed(1)}
                       </td>
-                      <td className="py-3 px-4 text-right font-mono text-ink-dim">
+                      <td className="py-3 px-3 text-right font-mono text-ink-dim">
                         {row.opp_ppg}
                       </td>
                     </tr>
@@ -525,7 +618,7 @@ export default function LuckAndSkillPage() {
             </h2>
           </div>
           <span className="text-[11px] font-mono text-ink-dim">
-            Actual Starting Lineup Points vs Best Possible Lineup from Bench
+            Click column to sort
           </span>
         </div>
 
@@ -535,16 +628,16 @@ export default function LuckAndSkillPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase text-ink-dim">
-                    <th className="py-3 px-4">Franchise</th>
-                    <th className="py-3 px-3 text-right">Actual Pts</th>
-                    <th className="py-3 px-3 text-right">Optimal Pts</th>
-                    <th className="py-3 px-3 text-center">Efficiency %</th>
-                    <th className="py-3 px-4 text-right">Bench Left</th>
+                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase">
+                    {renderSortHeader("Franchise", "franchise_name", effSort, (k) => handleSort(effSort, setEffSort, k), "left", "px-4")}
+                    {renderSortHeader("Actual Pts", "actual_points", effSort, (k) => handleSort(effSort, setEffSort, k), "right")}
+                    {renderSortHeader("Optimal Pts", "optimal_points", effSort, (k) => handleSort(effSort, setEffSort, k), "right")}
+                    {renderSortHeader("Efficiency %", "efficiency_pct", effSort, (k) => handleSort(effSort, setEffSort, k), "center")}
+                    {renderSortHeader("Bench Left", "bench_points_left", effSort, (k) => handleSort(effSort, setEffSort, k), "right")}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
-                  {lineup_efficiency.map((row: any, idx: number) => (
+                  {sortedEfficiency.map((row: any, idx: number) => (
                     <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
                       <td className="py-3 px-4 font-sans font-semibold text-ink">
                         <div className="flex items-center gap-2">
@@ -581,16 +674,15 @@ export default function LuckAndSkillPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase text-ink-dim">
-                      <th className="py-2.5 px-3">Season/Wk</th>
-                      <th className="py-2.5 px-3">Franchise</th>
-                      <th className="py-2.5 px-3">Benched vs Started</th>
-                      <th className="py-2.5 px-2 text-right">Diff</th>
-                      <th className="py-2.5 px-3 text-center">Result</th>
+                    <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase">
+                      {renderSortHeader("Season", "season", blunderSort, (k) => handleSort(blunderSort, setBlunderSort, k))}
+                      {renderSortHeader("Franchise", "franchise_name", blunderSort, (k) => handleSort(blunderSort, setBlunderSort, k))}
+                      {renderSortHeader("Diff", "pt_difference", blunderSort, (k) => handleSort(blunderSort, setBlunderSort, k), "right")}
+                      {renderSortHeader("Result", "margin", blunderSort, (k) => handleSort(blunderSort, setBlunderSort, k), "center")}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
-                    {worst_blunders.slice(0, 7).map((b: any, idx: number) => (
+                    {sortedBlunders.slice(0, 7).map((b: any, idx: number) => (
                       <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
                         <td className="py-2.5 px-3 font-mono font-bold text-ink">
                           {b.season} Wk{b.week}
@@ -598,10 +690,7 @@ export default function LuckAndSkillPage() {
                         <td className="py-2.5 px-3 font-sans font-semibold text-ink">
                           {b.franchise_name}
                         </td>
-                        <td className="py-2.5 px-3 text-[11px] font-sans">
-                          <span className="text-brand-lime font-bold">{b.benched_player}</span> ({b.benched_pts}) over <span className="text-ink-dim">{b.started_player}</span> ({b.started_pts})
-                        </td>
-                        <td className="py-2.5 px-2 text-right font-mono font-bold text-brand-orange">
+                        <td className="py-2.5 px-3 text-right font-mono font-bold text-brand-orange">
                           +{b.pt_difference.toFixed(1)}
                         </td>
                         <td className="py-2.5 px-3 text-center">

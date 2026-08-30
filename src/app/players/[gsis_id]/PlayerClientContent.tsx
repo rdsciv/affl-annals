@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { 
   Users, 
@@ -108,14 +108,118 @@ export default function PlayerClientContent({
   const avgTgtShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.target_share || 0), 0) / seasonsData.length) : 0;
   const avgAyShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.air_yards_share || 0), 0) / seasonsData.length) : 0;
 
+  const [custodySort, setCustodySort] = useState<{ key: string; dir: "asc" | "desc" }>({
+    key: "season",
+    dir: "desc"
+  });
+
+  const [logSort, setLogSort] = useState<{ key: string; dir: "asc" | "desc" }>({
+    key: "season",
+    dir: "desc"
+  });
+
+  const sortedSeasonsData = useMemo(() => {
+    return [...seasonsData].sort((a, b) => {
+      let valA = a[custodySort.key];
+      let valB = b[custodySort.key];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return custodySort.dir === "asc" ? -1 : 1;
+      if (valA > valB) return custodySort.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [seasonsData, custodySort]);
+
+  const handleCustodySort = (key: string) => {
+    if (custodySort.key === key) {
+      setCustodySort({ key, dir: custodySort.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setCustodySort({ key, dir: ["season", "affl_points", "bench_points", "xfp", "fpoe", "custody_par"].includes(key) ? "desc" : "asc" });
+    }
+  };
+
+  const renderCustodySortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left") => {
+    const isSorted = custodySort.key === key;
+    return (
+      <th
+        onClick={() => handleCustodySort(key)}
+        className={`py-3 px-4 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            custodySort.dir === "desc" ? (
+              <span className="text-brand-orange">▼</span>
+            ) : (
+              <span className="text-brand-orange">▲</span>
+            )
+          ) : (
+            <span className="opacity-20">↕</span>
+          )}
+        </div>
+      </th>
+    );
+  };
+
+  const handleLogSort = (key: string) => {
+    if (logSort.key === key) {
+      setLogSort({ key, dir: logSort.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setLogSort({ key, dir: ["points", "week", "season"].includes(key) ? "desc" : "asc" });
+    }
+  };
+
+  const renderLogSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left", extraClass: string = "py-2.5 px-4") => {
+    const isSorted = logSort.key === key;
+    return (
+      <th
+        onClick={() => handleLogSort(key)}
+        className={`${extraClass} cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            logSort.dir === "desc" ? (
+              <span className="text-brand-orange">▼</span>
+            ) : (
+              <span className="text-brand-orange">▲</span>
+            )
+          ) : (
+            <span className="opacity-20">↕</span>
+          )}
+        </div>
+      </th>
+    );
+  };
+
   const availableSeasons = Array.from(new Set(gameLogs.map((g) => g.season))).sort((a: any, b: any) => b - a);
 
-  const filteredLogs = selectedSeasonFilter === "ALL"
+  const rawFilteredLogs = selectedSeasonFilter === "ALL"
     ? gameLogs
     : gameLogs.filter((g) => g.season.toString() === selectedSeasonFilter);
 
+  const sortedLogs = useMemo(() => {
+    return [...rawFilteredLogs].sort((a, b) => {
+      let valA = a[logSort.key];
+      let valB = b[logSort.key];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return logSort.dir === "asc" ? -1 : 1;
+      if (valA > valB) return logSort.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [rawFilteredLogs, logSort]);
+
   // Chart data sorted chronologically for area chart
-  const chronologicalLogs = [...filteredLogs].reverse().map((g) => ({
+  const chronologicalLogs = [...rawFilteredLogs].reverse().map((g) => ({
     name: `${g.season} Wk${g.week}`,
     points: Number(g.points || 0),
     started: g.started,
@@ -355,20 +459,20 @@ export default function PlayerClientContent({
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-rule bg-card-elevated/70 text-[11px] font-mono uppercase tracking-wider text-ink-dim">
-                  <th className="py-3 px-4">Season</th>
-                  <th className="py-3 px-4">AFFL Franchise</th>
-                  <th className="py-3 px-3 text-right">Rostered</th>
-                  <th className="py-3 px-3 text-right">Started</th>
-                  <th className="py-3 px-4 text-right">AFFL Points</th>
-                  <th className="py-3 px-4 text-right">Bench Points</th>
-                  <th className="py-3 px-4 text-right">xFP</th>
-                  <th className="py-3 px-4 text-right">FPOE</th>
-                  <th className="py-3 px-4 text-right">Custody PAR</th>
+                <tr className="border-b border-rule bg-card-elevated/70 text-[11px] font-mono uppercase tracking-wider">
+                  {renderCustodySortHeader("Season", "season", "left")}
+                  {renderCustodySortHeader("AFFL Franchise", "franchise_name", "left")}
+                  {renderCustodySortHeader("Rostered", "weeks_rostered", "right")}
+                  {renderCustodySortHeader("Started", "weeks_started", "right")}
+                  {renderCustodySortHeader("AFFL Points", "affl_points", "right")}
+                  {renderCustodySortHeader("Bench Points", "bench_points", "right")}
+                  {renderCustodySortHeader("xFP", "xfp", "right")}
+                  {renderCustodySortHeader("FPOE", "fpoe", "right")}
+                  {renderCustodySortHeader("Custody PAR", "custody_par", "right")}
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule/60 stat-mono">
-                {seasonsData.map((s, idx) => (
+                {sortedSeasonsData.map((s, idx) => (
                   <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
                     <td className="py-3 px-4 font-mono font-bold text-ink">{s.season}</td>
                     <td className="py-3 px-4 font-sans font-semibold">
@@ -406,29 +510,34 @@ export default function PlayerClientContent({
       {/* Weekly Game Logs Table */}
       {gameLogs.length > 0 && (
         <div className="space-y-4 pt-4 border-t border-rule">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-brand-orange" />
-            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
-              Weekly Game Logs & Lineup Status ({filteredLogs.length} Games)
-            </h2>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-brand-orange" />
+              <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+                Weekly Game Logs & Lineup Status ({rawFilteredLogs.length} Games)
+              </h2>
+            </div>
+            <span className="text-[11px] font-mono text-ink-dim">
+              Click any column header to sort
+            </span>
           </div>
 
           <div className="rounded-xl border border-rule bg-card overflow-hidden shadow-md">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider text-ink-dim">
-                    <th className="py-2.5 px-4">Season</th>
-                    <th className="py-2.5 px-3">Week</th>
-                    <th className="py-2.5 px-4">AFFL Franchise</th>
-                    <th className="py-2.5 px-4">Opponent</th>
-                    <th className="py-2.5 px-3 text-center">Slot</th>
-                    <th className="py-2.5 px-3 text-center">Status</th>
-                    <th className="py-2.5 px-4 text-right">Points</th>
+                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider">
+                    {renderLogSortHeader("Season", "season", "left", "py-2.5 px-4")}
+                    {renderLogSortHeader("Week", "week", "left", "py-2.5 px-3")}
+                    {renderLogSortHeader("AFFL Franchise", "team_name", "left", "py-2.5 px-4")}
+                    {renderLogSortHeader("Opponent", "opponent_name", "left", "py-2.5 px-4")}
+                    {renderLogSortHeader("Slot", "slot", "center", "py-2.5 px-3")}
+                    {renderLogSortHeader("Status", "started", "center", "py-2.5 px-3")}
+                    {renderLogSortHeader("Points", "points", "right", "py-2.5 px-4")}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule/60 font-mono">
-                  {filteredLogs.map((log, idx) => (
+                  {sortedLogs.map((log, idx) => (
                     <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
                       <td className="py-2.5 px-4 font-bold text-ink">{log.season}</td>
                       <td className="py-2.5 px-3 text-ink-dim">Wk {log.week}</td>

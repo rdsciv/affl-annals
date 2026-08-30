@@ -39,14 +39,60 @@ export default function ExploreTable({
               <th className="py-3 px-4 font-semibold text-ink">#</th>
               
               {/* Primary Label Column */}
-              <th className="py-3 px-4 font-semibold text-ink">
-                {isPlayerGrain ? "Player" : isFranchiseGrain ? "AFFL Franchise" : "Entity"}
+              <th
+                onClick={() => onSort(isPlayerGrain ? "player_name" : "franchise_name")}
+                className={`py-3 px-4 font-semibold cursor-pointer hover:text-brand-blue transition-colors select-none ${
+                  state.sortBy === (isPlayerGrain ? "player_name" : "franchise_name") ? "text-brand-orange bg-brand-orange/5" : "text-ink"
+                }`}
+              >
+                <div className="flex items-center gap-1">
+                  <span>{isPlayerGrain ? "Player" : isFranchiseGrain ? "AFFL Franchise" : "Entity"}</span>
+                  {state.sortBy === (isPlayerGrain ? "player_name" : "franchise_name") && (
+                    state.sortDir === "desc" ? (
+                      <ArrowDown className="h-3 w-3 text-brand-orange" />
+                    ) : (
+                      <ArrowUp className="h-3 w-3 text-brand-orange" />
+                    )
+                  )}
+                </div>
               </th>
 
               {isPlayerGrain && (
                 <>
-                  <th className="py-3 px-3 font-semibold text-ink-dim">Pos</th>
-                  <th className="py-3 px-3 font-semibold text-ink-dim">AFFL Franchise</th>
+                  <th
+                    onClick={() => onSort("position")}
+                    className={`py-3 px-3 font-semibold cursor-pointer hover:text-brand-blue transition-colors select-none ${
+                      state.sortBy === "position" ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1">
+                      <span>Pos</span>
+                      {state.sortBy === "position" && (
+                        state.sortDir === "desc" ? (
+                          <ArrowDown className="h-3 w-3 text-brand-orange" />
+                        ) : (
+                          <ArrowUp className="h-3 w-3 text-brand-orange" />
+                        )
+                      )}
+                    </div>
+                  </th>
+                  <th
+                    onClick={() => onSort("franchise_name")}
+                    className={`py-3 px-3 font-semibold cursor-pointer hover:text-brand-blue transition-colors select-none ${
+                      state.sortBy === "franchise_name" ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1">
+                      <span>AFFL Franchise</span>
+                      {state.sortBy === "franchise_name" && (
+                        state.sortDir === "desc" ? (
+                          <ArrowDown className="h-3 w-3 text-brand-orange" />
+                        ) : (
+                          <ArrowUp className="h-3 w-3 text-brand-orange" />
+                        )
+                      )}
+                    </div>
+                  </th>
                 </>
               )}
 

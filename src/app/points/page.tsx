@@ -12,7 +12,10 @@ import {
   Activity, 
   ArrowRight,
   Award,
-  Filter
+  Filter,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown
 } from "lucide-react";
 import { fetchMartJson } from "@/lib/api";
 
@@ -20,6 +23,10 @@ export default function PointsAcquisitionPage() {
   const [data, setData] = useState<any>(null);
   const [selectedSeason, setSelectedSeason] = useState<string>("2025");
   const [loading, setLoading] = useState<boolean>(true);
+  const [sortState, setSortState] = useState<{ key: string; dir: "asc" | "desc" }>({
+    key: "non_draft_pct",
+    dir: "desc"
+  });
 
   useEffect(() => {
     async function loadData() {
@@ -39,11 +46,58 @@ export default function PointsAcquisitionPage() {
 
   const currentData = useMemo(() => {
     if (!data) return [];
+    let raw = [];
     if (selectedSeason === "ALL-TIME") {
-      return data.all_time_acquisitions || [];
+      raw = data.all_time_acquisitions || [];
+    } else {
+      raw = (data.season_acquisitions || []).filter((r: any) => r.season === parseInt(selectedSeason));
     }
-    return (data.season_acquisitions || []).filter((r: any) => r.season === parseInt(selectedSeason));
-  }, [data, selectedSeason]);
+
+    return [...raw].sort((a, b) => {
+      let valA = a[sortState.key];
+      let valB = b[sortState.key];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return sortState.dir === "asc" ? -1 : 1;
+      if (valA > valB) return sortState.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [data, selectedSeason, sortState]);
+
+  const handleSort = (key: string) => {
+    if (sortState.key === key) {
+      setSortState({ key, dir: sortState.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setSortState({ key, dir: "desc" });
+    }
+  };
+
+  const renderSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left", extraClass: string = "") => {
+    const isSorted = sortState.key === key;
+    return (
+      <th
+        onClick={() => handleSort(key)}
+        className={`py-3 px-3 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"} ${extraClass}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            sortState.dir === "desc" ? (
+              <ArrowDown className="h-3 w-3 text-brand-orange" />
+            ) : (
+              <ArrowUp className="h-3 w-3 text-brand-orange" />
+            )
+          ) : (
+            <ArrowUpDown className="h-2.5 w-2.5 opacity-30 group-hover:opacity-100" />
+          )}
+        </div>
+      </th>
+    );
+  };
 
   // Aggregate totals
   const summaryTotals = useMemo(() => {
@@ -123,21 +177,26 @@ export default function PointsAcquisitionPage() {
       </div>
 
       {/* Season Selector */}
-      <div className="flex flex-wrap items-center gap-1.5 bg-card p-3 rounded-xl border border-rule">
-        <span className="text-xs font-mono text-ink-dim uppercase mr-2">Select Season:</span>
-        {seasonsList.map((yr) => (
-          <button
-            key={yr}
-            onClick={() => setSelectedSeason(yr)}
-            className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-colors ${
-              selectedSeason === yr
-                ? "bg-brand-blue text-white"
-                : "text-ink-muted hover:text-ink hover:bg-card-elevated"
-            }`}
-          >
-            {yr}
-          </button>
-        ))}
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-card p-3 rounded-xl border border-rule">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-xs font-mono text-ink-dim uppercase mr-2">Select Season:</span>
+          {seasonsList.map((yr) => (
+            <button
+              key={yr}
+              onClick={() => setSelectedSeason(yr)}
+              className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-colors ${
+                selectedSeason === yr
+                  ? "bg-brand-blue text-white"
+                  : "text-ink-muted hover:text-ink hover:bg-card-elevated"
+              }`}
+            >
+              {yr}
+            </button>
+          ))}
+        </div>
+        <span className="text-[11px] font-mono text-ink-dim">
+          Click any column header to sort
+        </span>
       </div>
 
       {/* Main Table */}
@@ -145,16 +204,16 @@ export default function PointsAcquisitionPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase text-ink-dim">
-                <th className="py-3 px-4">Franchise</th>
-                <th className="py-3 px-3 text-right">Total Pts</th>
-                <th className="py-3 px-3 text-right">Draft Pts</th>
-                <th className="py-3 px-3 text-center">Draft %</th>
-                <th className="py-3 px-3 text-right">Waiver Pts</th>
-                <th className="py-3 px-3 text-center">Waiver %</th>
-                <th className="py-3 px-3 text-right">Free Agent Pts</th>
-                <th className="py-3 px-3 text-center">FA %</th>
-                <th className="py-3 px-4 text-center font-bold text-brand-lime">Wire Creation %</th>
+              <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase">
+                {renderSortHeader("Franchise", "franchise_name", "left", "px-4")}
+                {renderSortHeader("Total Pts", "total_starter_points", "right")}
+                {renderSortHeader("Draft Pts", "draft_points", "right")}
+                {renderSortHeader("Draft %", "draft_pct", "center")}
+                {renderSortHeader("Waiver Pts", "waiver_points", "right")}
+                {renderSortHeader("Waiver %", "waiver_pct", "center")}
+                {renderSortHeader("Free Agent Pts", "free_agent_points", "right")}
+                {renderSortHeader("FA %", "fa_pct", "center")}
+                {renderSortHeader("Wire Creation %", "non_draft_pct", "center", "px-4 font-bold text-brand-lime")}
               </tr>
             </thead>
             <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">

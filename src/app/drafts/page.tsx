@@ -34,14 +34,64 @@ export default function DraftsPage() {
     return (draftPicks || []).filter((p) => p.season === selectedSeason);
   }, [draftPicks, selectedSeason]);
 
+  const [sortState, setSortState] = useState<{ key: string; dir: "asc" | "desc" }>({
+    key: "pick_overall",
+    dir: "asc"
+  });
+
   const filteredPicks = useMemo(() => {
-    return seasonPicks.filter((p) => {
+    const raw = seasonPicks.filter((p) => {
       if (selectedFranchise !== "ALL" && p.franchise_id !== selectedFranchise) return false;
       if (selectedPos !== "ALL" && p.position !== selectedPos) return false;
       if (search && !(p.player_name || "").toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [seasonPicks, selectedFranchise, selectedPos, search]);
+
+    return [...raw].sort((a, b) => {
+      let valA = a[sortState.key];
+      let valB = b[sortState.key];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return sortState.dir === "asc" ? -1 : 1;
+      if (valA > valB) return sortState.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [seasonPicks, selectedFranchise, selectedPos, search, sortState]);
+
+  const handleSort = (key: string) => {
+    if (sortState.key === key) {
+      setSortState({ key, dir: sortState.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setSortState({ key, dir: ["pick_overall", "player_name", "position", "franchise_name"].includes(key) ? "asc" : "desc" });
+    }
+  };
+
+  const renderSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left", extraClass: string = "") => {
+    const isSorted = sortState.key === key;
+    return (
+      <th
+        onClick={() => handleSort(key)}
+        className={`py-3 px-4 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"} ${extraClass}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            sortState.dir === "desc" ? (
+              <span className="text-brand-orange">▼</span>
+            ) : (
+              <span className="text-brand-orange">▲</span>
+            )
+          ) : (
+            <span className="opacity-20">↕</span>
+          )}
+        </div>
+      </th>
+    );
+  };
 
   // All-time steals & busts calculations
   const allTimeSteals = useMemo(() => {
@@ -372,16 +422,16 @@ export default function DraftsPage() {
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="border-b border-rule bg-card-elevated text-ink-dim font-mono uppercase text-[10px] tracking-wider">
-                  <th className="py-3 px-4">Pick</th>
-                  <th className="py-3 px-4">Player</th>
-                  <th className="py-3 px-4">Pos</th>
-                  <th className="py-3 px-4">Franchise</th>
-                  <th className="py-3 px-4 text-right">Auction $</th>
-                  <th className="py-3 px-4 text-center">Status</th>
-                  <th className="py-3 px-4 text-right">Rostered</th>
-                  <th className="py-3 px-4 text-right">Started</th>
-                  <th className="py-3 px-4 text-right">Points</th>
-                  <th className="py-3 px-4 text-right">Draft PAR</th>
+                  {renderSortHeader("Pick", "pick_overall", "left")}
+                  {renderSortHeader("Player", "player_name", "left")}
+                  {renderSortHeader("Pos", "position", "left")}
+                  {renderSortHeader("Franchise", "franchise_name", "left")}
+                  {renderSortHeader("Auction $", "auction_price", "right")}
+                  {renderSortHeader("Status", "is_keeper", "center")}
+                  {renderSortHeader("Rostered", "weeks_rostered", "right")}
+                  {renderSortHeader("Started", "weeks_started", "right")}
+                  {renderSortHeader("Points", "total_season_points", "right")}
+                  {renderSortHeader("Draft PAR", "draft_par", "right")}
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule font-mono">

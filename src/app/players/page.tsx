@@ -63,8 +63,10 @@ export default function PlayersPage() {
     loadPlayers();
   }, []);
 
+  const [sortBy, setSortBy] = useState<string>("points");
+
   const filtered = useMemo(() => {
-    return players.filter((p) => {
+    const raw = players.filter((p) => {
       if (search) {
         const q = search.toLowerCase();
         const matchesName = (p.player_name || "").toLowerCase().includes(q);
@@ -75,7 +77,17 @@ export default function PlayersPage() {
       if (franchiseFilter !== "ALL" && !p.franchises_list.includes(franchiseFilter)) return false;
       return true;
     });
-  }, [players, search, positionFilter, franchiseFilter]);
+
+    return [...raw].sort((a, b) => {
+      if (sortBy === "points") return b.total_points - a.total_points;
+      if (sortBy === "par") return b.total_par - a.total_par;
+      if (sortBy === "xfp") return b.total_xfp - a.total_xfp;
+      if (sortBy === "fpoe") return b.total_fpoe - a.total_fpoe;
+      if (sortBy === "starts") return b.total_started - a.total_started;
+      if (sortBy === "name") return (a.player_name || "").localeCompare(b.player_name || "");
+      return 0;
+    });
+  }, [players, search, positionFilter, franchiseFilter, sortBy]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-6">
@@ -141,6 +153,23 @@ export default function PlayersPage() {
                   {f.display_name}
                 </option>
               ))}
+            </select>
+          </div>
+
+          {/* Sort Selector */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="font-mono text-ink-dim uppercase text-[10px]">Sort:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="rounded-md bg-card-elevated px-2.5 py-1.5 text-xs text-ink font-medium border border-rule focus:outline-none"
+            >
+              <option value="points">Total AFFL Points</option>
+              <option value="par">Career Custody PAR</option>
+              <option value="xfp">Expected Points (xFP)</option>
+              <option value="fpoe">Efficiency (FPOE)</option>
+              <option value="starts">Most Starts</option>
+              <option value="name">Name (A-Z)</option>
             </select>
           </div>
         </div>

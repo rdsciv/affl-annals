@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { 
   Shield, 
@@ -49,21 +49,61 @@ export default function FranchiseClientContent({
   const [seasons, setSeasons] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function loadSeasons() {
-      try {
-        const allSeasons = await fetchMartJson("mart_affl_franchise_season.json");
-        const matches = allSeasons.filter((s: any) => s.franchise_id === fid);
-        matches.sort((a: any, b: any) => b.season - a.season);
-        setSeasons(matches);
-      } catch (err) {
-        console.error("Error loading franchise seasons:", err);
-      } finally {
-        setLoading(false);
+  const [seasonSort, setSeasonSort] = useState<{ key: string; dir: "asc" | "desc" }>({
+    key: "season",
+    dir: "desc"
+  });
+
+  const sortedSeasons = useMemo(() => {
+    return [...seasons].sort((a, b) => {
+      let valA = a[seasonSort.key];
+      let valB = b[seasonSort.key];
+      if (seasonSort.key === "winPct") {
+        valA = (a.wins + a.losses) > 0 ? (a.wins / (a.wins + a.losses)) : 0;
+        valB = (b.wins + b.losses) > 0 ? (b.wins / (b.wins + b.losses)) : 0;
       }
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return seasonSort.dir === "asc" ? -1 : 1;
+      if (valA > valB) return seasonSort.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [seasons, seasonSort]);
+
+  const handleSeasonSort = (key: string) => {
+    if (seasonSort.key === key) {
+      setSeasonSort({ key, dir: seasonSort.dir === "asc" ? "desc" : "asc" });
+    } else {
+      setSeasonSort({ key, dir: ["season", "points_for", "points_against", "wins", "winPct"].includes(key) ? "desc" : "asc" });
     }
-    loadSeasons();
-  }, [fid]);
+  };
+
+  const renderSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left") => {
+    const isSorted = seasonSort.key === key;
+    return (
+      <th
+        onClick={() => handleSeasonSort(key)}
+        className={`py-3 px-3 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+          align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
+        } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"}`}
+      >
+        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+          <span>{label}</span>
+          {isSorted ? (
+            seasonSort.dir === "desc" ? (
+              <span className="text-brand-orange">▼</span>
+            ) : (
+              <span className="text-brand-orange">▲</span>
+            )
+          ) : (
+            <span className="opacity-20">↕</span>
+          )}
+        </div>
+      </th>
+    );
+  };
 
   const totalWins = seasons.reduce((acc, s) => acc + Number(s.wins || 0), 0);
   const totalLosses = seasons.reduce((acc, s) => acc + Number(s.losses || 0), 0);
@@ -275,20 +315,20 @@ export default function FranchiseClientContent({
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-rule bg-card-elevated/70 text-[11px] font-mono uppercase tracking-wider text-ink-dim">
-                  <th className="py-3 px-4">Season</th>
-                  <th className="py-3 px-4">Historical Team Name</th>
-                  <th className="py-3 px-3">Abbrev</th>
-                  <th className="py-3 px-3 text-center">Record</th>
-                  <th className="py-3 px-3 text-center">Win %</th>
-                  <th className="py-3 px-4 text-right">Points For</th>
-                  <th className="py-3 px-4 text-right">Points Against</th>
-                  <th className="py-3 px-3 text-center">Finish</th>
-                  <th className="py-3 px-3 text-center">Result</th>
+                <tr className="border-b border-rule bg-card-elevated/70 text-[11px] font-mono uppercase tracking-wider">
+                  {renderSortHeader("Season", "season", "left")}
+                  {renderSortHeader("Historical Team Name", "historical_name", "left")}
+                  {renderSortHeader("Abbrev", "historical_abbrev", "left")}
+                  {renderSortHeader("Record", "wins", "center")}
+                  {renderSortHeader("Win %", "winPct", "center")}
+                  {renderSortHeader("Points For", "points_for", "right")}
+                  {renderSortHeader("Points Against", "points_against", "right")}
+                  {renderSortHeader("Finish", "final_rank", "center")}
+                  {renderSortHeader("Result", "final_rank", "center")}
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule/60 stat-mono">
-                {seasons.map((s, idx) => {
+                {sortedSeasons.map((s, idx) => {
                   const sWinPct = (s.wins + s.losses) > 0 ? (s.wins / (s.wins + s.losses) * 100).toFixed(1) : "0.0";
                   const isChamp = s.is_champion === 1 || s.final_rank === 1;
 
