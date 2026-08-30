@@ -2,6 +2,7 @@
 
 import { BookOpen, Shield, Database, Lock, CheckCircle2, AlertCircle, FileText, Code2 } from "lucide-react";
 import { METRIC_DEFINITIONS } from "@/lib/constants";
+import MethodologyCalculators from "@/components/MethodologyCalculators";
 
 export default function MethodologyPage() {
   return (
@@ -154,6 +155,9 @@ export default function MethodologyPage() {
           </div>
         </div>
       </section>
+
+      {/* 4. Interactive Calculators */}
+      <MethodologyCalculators />
 
       {/* 5. Metric Formulas */}
       <section className="space-y-4">
