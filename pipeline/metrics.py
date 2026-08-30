@@ -88,10 +88,13 @@ def calc_expected_fp(
     return round(xfp, 2)
 
 def calc_custody_par(points: float, weeks_active: int, position: str) -> float:
-    """Custody Points Above Replacement"""
-    baseline = REPLACEMENT_BASELINES.get(position.upper(), REPLACEMENT_BASELINES["UNKNOWN"])
-    expected_replacement = baseline * max(1, weeks_active)
-    return round(points - expected_replacement, 2)
+    """Calculates points above replacement for a player custody stint."""
+    if not weeks_active or weeks_active <= 0:
+        return 0.0
+    pos_str = str(position or "UNKNOWN").upper()
+    baseline = REPLACEMENT_BASELINES.get(pos_str, REPLACEMENT_BASELINES["UNKNOWN"])
+    expected_baseline_pts = baseline * weeks_active
+    return round(points - expected_baseline_pts, 1)
 
 def calc_draft_par(points: float, weeks_active: int, position: str, auction_price: int) -> float:
     """Draft Points Above Replacement adjusted for draft cost baseline"""

@@ -1,6 +1,6 @@
 """
 Public Analytical Marts Compiler & Manifest Generator for AFFL Savant.
-Creates versioned, partitioned Parquet datasets and manifest.json for DuckDB-Wasm and client hydration.
+Compiles marts from the authoritative SQLite database (data/affl.db).
 """
 
 import os
@@ -26,6 +26,31 @@ MARTS_DIR = ROOT_DIR / "public" / "data" / "marts"
 RAW_NFL_DIR = DATA_DIR / "raw_nfl"
 DB_PATH = DATA_DIR / "affl.db"
 
+OWNER_FRANCHISE_MAP = {
+    "m11": ("FRAN_SVS", "Squaw Valley Skinners", "Chris Zweifel", "#ff6a00", "/assets/logos/skinners.svg"),
+    "m06": ("FRAN_FFC", "Fairview Fat Cats", "Alex Renney", "#ffc400", "/assets/logos/fatcats.svg"),
+    "m08": ("FRAN_GGG", "Goleta Gringos", "Kevin Sliger", "#00a2ff", "/assets/logos/gringos.svg"),
+    "m05": ("FRAN_SDS", "San Diego Shadowcöcks", "John Newton", "#7928ca", "/assets/logos/shadowcocks.svg"),
+    "m02": ("FRAN_DCMC", "DC Mighty Cucks", "Austin Williams", "#e02424", "/assets/logos/cucks.svg"),
+    "m18": ("FRAN_GTF", "Grand Teeton Feelers", "Ryan Childress", "#c8ff00", "/assets/logos/feelers.svg"),
+    "m15": ("FRAN_WWL", "Westeros Warlords", "Levi Sanchez", "#d97706", "/assets/logos/warlords.svg"),
+    "m17": ("FRAN_TJS", "Tijuana Sanchitos", "Zack Blotz", "#10b981", "/assets/logos/sanchitos.svg"),
+    "m21": ("FRAN_PTP", "Patagonia Pipers", "Patrick O'Neill", "#06b6d4", "/assets/logos/pipers.svg"),
+    "m12": ("FRAN_PTP", "Patagonia Pipers", "Garrett Jones", "#06b6d4", "/assets/logos/pipers.svg"),
+    "m13": ("FRAN_HLH", "Honolulu Horndogs", "Alex Clausen", "#8b5cf6", "/assets/logos/horndogs.svg"),
+    "m10": ("FRAN_COG", "Central Oregon Gabagooners", "Tanner Dunn", "#ec4899", "/assets/logos/gabagooners.svg"),
+    "m07": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/assets/logos/chupacabras.svg"),
+    "m01": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/assets/logos/chupacabras.svg"),
+    "m19": ("FRAN_PND", "Pasco Pounders", "Tyler Sanchez", "#64748b", "/assets/logos/pounders.svg"),
+    "m14": ("FRAN_PLW", "Poulsbo Pollywogs", "Steven Breitmayer", "#22c55e", "/assets/logos/pollywogs.svg"),
+    "m04": ("FRAN_WWL", "Westeros Warlords", "Jake Hibbard", "#d97706", "/assets/logos/warlords.svg"),
+    "m09": ("FRAN_DCMC", "DC Mighty Cucks", "Scott Ace", "#e02424", "/assets/logos/cucks.svg"),
+    "m16": ("FRAN_TJS", "Tijuana Sanchitos", "David Allardyce", "#10b981", "/assets/logos/sanchitos.svg"),
+}
+
+def get_franchise_meta(owner_id: str):
+    return OWNER_FRANCHISE_MAP.get(owner_id, ("FRAN_UNKNOWN", "Unknown Franchise", "Unknown Owner", "#00a2ff", "/assets/logos/skinners.svg"))
+
 def compute_md5(file_path: Path) -> str:
     hash_md5 = hashlib.md5()
     with open(file_path, "rb") as f:
@@ -42,10 +67,10 @@ def build_all_marts():
     ensure_dirs()
     conn = sqlite3.connect(DB_PATH)
     
-    print("Building joined public marts...")
+    print("Building joined public marts from affl.db...")
     manifest = {
         "version": "1.0.0",
-        "generated_at": "2026-08-29T21:00:00Z",
+        "generated_at": "2026-08-29T22:15:00Z",
         "league_id": "51418",
         "canonical_era": "2014-2025",
         "scoring_system": "Standard Non-PPR (0 PPR)",
@@ -53,71 +78,91 @@ def build_all_marts():
     }
     
     # 1. mart_affl_franchise_season
-    df_fs = pd.read_sql_query("""
+    df_raw_fs = pd.read_sql_query("""
         SELECT 
-            ts.season,
-            ts.team_id,
-            ts.franchise_id,
-            f.display_name AS franchise_name,
-            f.owner_display_name,
-            f.current_logo_path,
-            f.primary_color,
-            f.secondary_color,
-            ts.historical_name,
-            ts.historical_abbrev,
-            ts.wins,
-            ts.losses,
-            ts.ties,
-            ts.points_for,
-            ts.points_against,
-            ts.regular_season_rank,
-            ts.final_rank,
-            ts.is_champion
-        FROM dim_affl_team_season ts
-        JOIN dim_affl_franchise f ON ts.franchise_id = f.franchise_id
-        ORDER BY ts.season DESC, ts.final_rank ASC
+            t.season,
+            t.team_id,
+            t.owner_id,
+            t.owner_name,
+            t.name AS historical_name,
+            t.abbrev AS historical_abbrev,
+            t.logo AS historical_logo_path,
+            t.wins,
+            t.losses,
+            t.ties,
+            t.points_for,
+            t.points_against,
+            t.playoff_seed AS regular_season_rank,
+            t.final_rank,
+            CASE WHEN t.final_rank = 1 THEN 1 ELSE 0 END AS is_champion
+        FROM v_team t
+        ORDER BY t.season DESC, t.final_rank ASC
     """, conn)
+    
+    # Enrich with canonical franchise metadata
+    def enrich_fs(row):
+        fid, fname, oname, color, logo = get_franchise_meta(row["owner_id"])
+        return pd.Series([fid, fname, oname or row["owner_name"], logo, color, "#1c2536"])
+    
+    df_raw_fs[["franchise_id", "franchise_name", "owner_display_name", "current_logo_path", "primary_color", "secondary_color"]] = df_raw_fs.apply(enrich_fs, axis=1)
     
     fs_parquet = MARTS_DIR / "mart_affl_franchise_season.parquet"
     fs_json = MARTS_DIR / "mart_affl_franchise_season.json"
-    df_fs.to_parquet(fs_parquet, index=False)
-    df_fs.to_json(fs_json, orient="records", indent=2)
+    df_raw_fs.to_parquet(fs_parquet, index=False)
+    df_raw_fs.to_json(fs_json, orient="records", indent=2)
     
     manifest["marts"]["mart_affl_franchise_season"] = {
         "parquet": "mart_affl_franchise_season.parquet",
         "json": "mart_affl_franchise_season.json",
-        "rows": len(df_fs),
+        "rows": len(df_raw_fs),
         "md5": compute_md5(fs_parquet)
     }
-    print(f"Built mart_affl_franchise_season: {len(df_fs)} rows")
+    print(f"Built mart_affl_franchise_season: {len(df_raw_fs)} rows")
     
     # 2. mart_affl_draft_value
     df_draft = pd.read_sql_query("""
         SELECT 
             dp.season,
             dp.round,
-            dp.pick_overall,
+            dp.overall AS pick_overall,
             dp.team_id,
-            dp.franchise_id,
-            f.display_name AS franchise_name,
-            dp.espn_player_id,
-            dp.gsis_id,
-            COALESCE(p.display_name, dp.player_name) AS player_name,
-            COALESCE(p.position, dp.position) AS position,
-            COALESCE(p.headshot_url, '') AS headshot_url,
-            COALESCE(p.college, '') AS college,
-            dp.auction_price,
+            dp.player_id,
+            dp.bid AS auction_price,
             dp.is_keeper,
-            COALESCE(SUM(b.affl_points), 0.0) AS total_season_points,
-            COUNT(DISTINCT b.week) AS weeks_rostered,
-            COALESCE(SUM(b.started), 0) AS weeks_started
-        FROM fact_affl_draft_pick dp
-        LEFT JOIN dim_affl_franchise f ON dp.franchise_id = f.franchise_id
-        LEFT JOIN dim_nfl_player p ON dp.gsis_id = p.gsis_id
-        LEFT JOIN bridge_affl_player_week b ON dp.season = b.season AND dp.franchise_id = b.franchise_id AND dp.espn_player_id = b.espn_player_id
-        GROUP BY dp.pick_id
-        ORDER BY dp.season DESC, dp.pick_overall ASC
+            p.name AS player_name,
+            p.position,
+            p.gsis_id,
+            COALESCE(p.headshot_url, '') AS headshot_url,
+            t.owner_id
+        FROM fact_draft_pick dp
+        LEFT JOIN dim_player p ON dp.player_id = p.player_id
+        LEFT JOIN v_team t ON dp.season = t.season AND dp.team_id = t.team_id
+        ORDER BY dp.season DESC, dp.overall ASC
     """, conn)
+    
+    def enrich_draft(row):
+        fid, fname, oname, color, logo = get_franchise_meta(row["owner_id"])
+        return pd.Series([fid, fname])
+    
+    df_draft[["franchise_id", "franchise_name"]] = df_draft.apply(enrich_draft, axis=1)
+    
+    # Compute season points from fact_roster_week
+    df_roster_pts = pd.read_sql_query("""
+        SELECT 
+            season,
+            team_id,
+            player_id,
+            COUNT(DISTINCT week) AS weeks_rostered,
+            SUM(CASE WHEN started = 1 THEN 1 ELSE 0 END) AS weeks_started,
+            SUM(points) AS total_season_points
+        FROM fact_roster_week
+        GROUP BY season, team_id, player_id
+    """, conn)
+    
+    df_draft = df_draft.merge(df_roster_pts, on=["season", "team_id", "player_id"], how="left")
+    df_draft["total_season_points"] = df_draft["total_season_points"].fillna(0.0).round(1)
+    df_draft["weeks_rostered"] = df_draft["weeks_rostered"].fillna(0).astype(int)
+    df_draft["weeks_started"] = df_draft["weeks_started"].fillna(0).astype(int)
     
     df_draft["draft_par"] = df_draft.apply(
         lambda r: calc_draft_par(r["total_season_points"], r["weeks_rostered"], r["position"], r["auction_price"]),
@@ -137,7 +182,33 @@ def build_all_marts():
     }
     print(f"Built mart_affl_draft_value: {len(df_draft)} rows")
     
-    # 3. mart_affl_player_week & explore partitions
+    # 3. mart_affl_player_week
+    df_rw = pd.read_sql_query("""
+        SELECT 
+            rw.season,
+            rw.week,
+            rw.team_id,
+            rw.player_id,
+            rw.slot AS slot_code,
+            rw.points AS affl_points,
+            rw.started,
+            p.name AS player_name,
+            p.position,
+            p.gsis_id,
+            COALESCE(p.headshot_url, '') AS headshot_url,
+            t.owner_id
+        FROM fact_roster_week rw
+        LEFT JOIN dim_player p ON rw.player_id = p.player_id
+        LEFT JOIN v_team t ON rw.season = t.season AND rw.team_id = t.team_id
+    """, conn)
+    
+    def enrich_rw(row):
+        fid, fname, oname, color, logo = get_franchise_meta(row["owner_id"])
+        return pd.Series([fid, fname, color])
+    
+    df_rw[["franchise_id", "franchise_name", "franchise_color"]] = df_rw.apply(enrich_rw, axis=1)
+    
+    # Load nflverse stats
     stats_dfs = []
     for y in range(2014, 2026):
         sf = RAW_NFL_DIR / "stats" / f"player_stats_{y}.parquet"
@@ -150,190 +221,85 @@ def build_all_marts():
     else:
         df_all_nfl_stats = pd.DataFrame()
         
-    print(f"Loaded {len(df_all_nfl_stats)} weekly NFL player rows.")
+    df_rw = df_rw.merge(
+        df_all_nfl_stats,
+        left_on=["season", "week", "gsis_id"],
+        right_on=["season", "week", "player_id"],
+        how="left",
+        suffixes=("", "_nfl")
+    )
     
-    df_custody = pd.read_sql_query("""
-        SELECT 
-            b.season,
-            b.week,
-            b.franchise_id,
-            f.display_name AS franchise_name,
-            f.current_logo_path AS franchise_logo,
-            f.primary_color AS franchise_color,
-            ts.historical_name,
-            b.team_id,
-            b.espn_player_id,
-            b.gsis_id,
-            b.nfl_team_season_id,
-            b.rostered,
-            b.started,
-            b.slot_code,
-            b.slot_evidence,
-            b.affl_points,
-            COALESCE(p.display_name, rw.player_name) AS player_name,
-            COALESCE(p.position, rw.position) AS position,
-            COALESCE(p.headshot_url, '') AS headshot_url,
-            COALESCE(p.college, '') AS college
-        FROM bridge_affl_player_week b
-        JOIN dim_affl_franchise f ON b.franchise_id = f.franchise_id
-        LEFT JOIN dim_affl_team_season ts ON b.season = ts.season AND b.team_id = ts.team_id
-        LEFT JOIN dim_nfl_player p ON b.gsis_id = p.gsis_id
-        LEFT JOIN fact_affl_roster_week rw ON b.season = rw.season AND b.week = rw.week AND b.team_id = rw.team_id AND b.espn_player_id = rw.espn_player_id
-    """, conn)
-    
-    num_cols = [
-        "pass_yds", "pass_td", "pass_int", "rush_yds", "rush_td", "rush_att",
-        "pass_att", "pass_cmp", "receptions", "rec_yds", "rec_td", "targets",
-        "target_share", "air_yards_share", "pass_air_yds", "rec_air_yds", "rec_yac",
-        "pass_epa", "rush_epa", "rec_epa"
-    ]
-    str_cols = ["nfl_team", "opponent", "slot_code", "historical_name", "college", "headshot_url", "gsis_id", "nfl_team_season_id"]
-
-    if not df_all_nfl_stats.empty and "player_id" in df_all_nfl_stats.columns:
-        nfl_cols = {
-            "player_id": "gsis_id",
-            "recent_team": "nfl_team",
-            "opponent_team": "opponent",
-            "passing_yards": "pass_yds",
-            "passing_tds": "pass_td",
-            "interceptions": "pass_int",
-            "rushing_yards": "rush_yds",
-            "rushing_tds": "rush_td",
-            "rushing_attempts": "rush_att",
-            "attempts": "pass_att",
-            "completions": "pass_cmp",
-            "receptions": "receptions",
-            "receiving_yards": "rec_yds",
-            "receiving_tds": "rec_td",
-            "targets": "targets",
-            "target_share": "target_share",
-            "air_yards_share": "air_yards_share",
-            "passing_air_yards": "pass_air_yds",
-            "receiving_air_yards": "rec_air_yds",
-            "receiving_yards_after_catch": "rec_yac",
-            "passing_epa": "pass_epa",
-            "rushing_epa": "rush_epa",
-            "receiving_epa": "rec_epa",
-        }
-        keep_nfl_cols = ["season", "week", "player_id"] + [c for c in nfl_cols.keys() if c in df_all_nfl_stats.columns and c != "player_id"]
-        df_nfl_sub = df_all_nfl_stats[keep_nfl_cols].rename(columns=nfl_cols)
-        
-        df_merged_pw = pd.merge(
-            df_custody,
-            df_nfl_sub,
-            how="left",
-            on=["season", "week", "gsis_id"]
-        )
-    else:
-        df_merged_pw = df_custody.copy()
-        
+    # Metrics
+    num_cols = ["carries", "rushing_yards", "rushing_tds", "rushing_fumbles_lost",
+                "receptions", "targets", "receiving_yards", "receiving_tds", "receiving_fumbles_lost",
+                "completions", "attempts", "passing_yards", "passing_tds", "interceptions",
+                "passing_air_yards", "passing_yards_after_catch", "fantasy_points_ppr", "target_share", "air_yards_share", "wopr"]
     for c in num_cols:
-        if c not in df_merged_pw.columns:
-            df_merged_pw[c] = 0.0
+        if c in df_rw.columns:
+            df_rw[c] = df_rw[c].fillna(0.0)
         else:
-            df_merged_pw[c] = pd.to_numeric(df_merged_pw[c], errors="coerce").fillna(0.0)
-
-    for c in str_cols:
-        if c not in df_merged_pw.columns:
-            df_merged_pw[c] = ""
-        else:
-            df_merged_pw[c] = df_merged_pw[c].fillna("").astype(str)
-
-    # Reconcile standard non-PPR fantasy points
-    def resolve_points(row):
-        pts = float(row.get("affl_points") or 0.0)
-        if pts == 0.0 and row.get("position") != "D/ST":
-            calc_pts = calc_non_ppr_points(
-                pass_yds=float(row.get("pass_yds", 0)),
-                pass_td=float(row.get("pass_td", 0)),
-                pass_int=float(row.get("pass_int", 0)),
-                rush_yds=float(row.get("rush_yds", 0)),
-                rush_td=float(row.get("rush_td", 0)),
-                rec_yds=float(row.get("rec_yds", 0)),
-                rec_td=float(row.get("rec_td", 0)),
-            )
-            return round(calc_pts, 1)
-        return round(pts, 1)
-
-    df_merged_pw["affl_points"] = df_merged_pw.apply(resolve_points, axis=1)
-
-    df_merged_pw["wopr"] = df_merged_pw.apply(
+            df_rw[c] = 0.0
+            
+    df_rw["wopr"] = df_rw.apply(
         lambda r: calc_wopr(r.get("target_share", 0), r.get("air_yards_share", 0)),
         axis=1
     )
-    df_merged_pw["xfp"] = df_merged_pw.apply(
+    df_rw["xfp"] = df_rw.apply(
         lambda r: calc_expected_fp(
-            position=r.get("position", ""),
-            pass_att=r.get("pass_att", 0),
-            rush_att=r.get("rush_att", 0),
+            pass_att=r.get("attempts", 0),
+            rush_att=r.get("carries", 0),
             targets=r.get("targets", 0),
-            air_yards=r.get("rec_air_yds", 0)
+            air_yards=r.get("passing_air_yards", 0),
+            position=r.get("position", "WR")
         ),
         axis=1
     )
-    df_merged_pw["fpoe"] = df_merged_pw["affl_points"] - df_merged_pw["xfp"]
-    df_merged_pw["custody_par"] = df_merged_pw.apply(
-        lambda r: calc_custody_par(r["affl_points"], 1, r.get("position", "")),
+    df_rw["fpoe"] = (df_rw["affl_points"] - df_rw["xfp"]).round(1)
+    df_rw["custody_par"] = df_rw.apply(
+        lambda r: calc_custody_par(r.get("affl_points", 0), 1, r.get("position", "WR")),
         axis=1
     )
     
     pw_parquet = MARTS_DIR / "mart_affl_player_week.parquet"
-    df_merged_pw.to_parquet(pw_parquet, index=False)
-    
+    df_rw.to_parquet(pw_parquet, index=False)
     manifest["marts"]["mart_affl_player_week"] = {
         "parquet": "mart_affl_player_week.parquet",
-        "rows": len(df_merged_pw),
+        "rows": len(df_rw),
         "md5": compute_md5(pw_parquet)
     }
-    print(f"Built mart_affl_player_week: {len(df_merged_pw)} rows")
+    print(f"Built mart_affl_player_week: {len(df_rw)} rows")
     
-    manifest["explore_player_week_partitions"] = {}
-    for season, season_df in df_merged_pw.groupby("season"):
-        part_file = MARTS_DIR / "explore_player_week" / f"season_{season}.parquet"
-        season_df.to_parquet(part_file, index=False)
-        manifest["explore_player_week_partitions"][str(season)] = {
-            "file": f"explore_player_week/season_{season}.parquet",
-            "rows": len(season_df),
-            "md5": compute_md5(part_file)
-        }
-    print("Partitioned explore_player_week by season.")
+    # 4. Partition explore_player_week
+    for yr in range(2014, 2026):
+        df_yr = df_rw[df_rw["season"] == yr]
+        yr_p = MARTS_DIR / "explore_player_week" / f"season_{yr}.parquet"
+        df_yr.to_parquet(yr_p, index=False)
     
-    # 4. mart_affl_player_season_custody
-    group_keys = ["season", "franchise_id", "franchise_name", "franchise_logo", "franchise_color", "gsis_id", "player_name", "position", "headshot_url", "college"]
-    for k in group_keys:
-        df_merged_pw[k] = df_merged_pw[k].fillna("").astype(str) if k != "season" else df_merged_pw[k]
-
-    df_custody_season = df_merged_pw.groupby(
-        group_keys,
+    # 5. mart_affl_player_season_custody
+    df_custody_season = df_rw.groupby(
+        ["season", "gsis_id", "player_name", "position", "headshot_url", "franchise_id", "franchise_name", "franchise_color"],
         as_index=False
-    ).agg({
-        "rostered": "sum",
-        "started": "sum",
-        "affl_points": "sum",
-        "xfp": "sum",
-        "fpoe": "sum",
-        "custody_par": "sum",
-        "targets": "sum",
-        "receptions": "sum",
-        "rec_yds": "sum",
-        "rec_td": "sum",
-        "rush_att": "sum",
-        "rush_yds": "sum",
-        "rush_td": "sum",
-        "pass_att": "sum",
-        "pass_cmp": "sum",
-        "pass_yds": "sum",
-        "pass_td": "sum",
-        "pass_int": "sum"
-    }).rename(columns={
-        "rostered": "weeks_rostered",
-        "started": "weeks_started"
-    })
-    
-    # Calculate bench points
-    df_bench = df_merged_pw[df_merged_pw["started"] == 0].groupby(group_keys, as_index=False)["affl_points"].sum().rename(columns={"affl_points": "bench_points"})
-    df_custody_season = pd.merge(df_custody_season, df_bench, on=group_keys, how="left")
-    df_custody_season["bench_points"] = df_custody_season["bench_points"].fillna(0.0)
+    ).agg(
+        weeks_rostered=("week", "count"),
+        weeks_started=("started", "sum"),
+        affl_points=("affl_points", "sum"),
+        bench_points=("affl_points", lambda pts: pts[df_rw.loc[pts.index, "started"] == 0].sum()),
+        xfp=("xfp", "sum"),
+        fpoe=("fpoe", "sum"),
+        custody_par=("custody_par", "sum"),
+        carries=("carries", "sum"),
+        rush_yds=("rushing_yards", "sum"),
+        rush_tds=("rushing_tds", "sum"),
+        targets=("targets", "sum"),
+        receptions=("receptions", "sum"),
+        rec_yds=("receiving_yards", "sum"),
+        rec_tds=("receiving_tds", "sum"),
+        pass_att=("attempts", "sum"),
+        pass_cmp=("completions", "sum"),
+        pass_yds=("passing_yards", "sum"),
+        pass_tds=("passing_tds", "sum"),
+        pass_int=("interceptions", "sum")
+    )
     
     psc_parquet = MARTS_DIR / "mart_affl_player_season_custody.parquet"
     psc_json = MARTS_DIR / "mart_affl_player_season_custody.json"
@@ -348,82 +314,10 @@ def build_all_marts():
     }
     print(f"Built mart_affl_player_season_custody: {len(df_custody_season)} rows")
     
-    # 5. Play Actor Explore Marts
-    print("Building fact_nfl_play_actor and explore_play_actor partitions...")
-    manifest["explore_play_actor_partitions"] = {}
-    pbp_files = sorted(list((RAW_NFL_DIR / "pbp").glob("play_by_play_*.parquet")))
-    
-    df_custody_dedup = df_custody.dropna(subset=["gsis_id"]).drop_duplicates(subset=["season", "week", "gsis_id"])
-    custody_lookup = df_custody_dedup.set_index(["season", "week", "gsis_id"])[["franchise_id", "franchise_name", "started", "rostered"]].to_dict("index")
-    
-    for pf in pbp_files:
-        season_num = int(pf.stem.replace("play_by_play_", ""))
-        df_pbp = pd.read_parquet(pf)
-        
-        actors = []
-        actor_cols = [
-            ("passer_id", "passer"),
-            ("rusher_id", "rusher"),
-            ("receiver_id", "target"),
-        ]
-        
-        for id_col, role in actor_cols:
-            if id_col in df_pbp.columns:
-                sub = df_pbp.dropna(subset=[id_col]).copy()
-                sub["actor_role"] = role
-                sub["gsis_id"] = sub[id_col].astype(str)
-                actors.append(sub)
-        
-        if actors:
-            df_actors = pd.concat(actors, ignore_index=True)
-            
-            keep_cols = [
-                "play_id", "game_id", "season", "week", "actor_role", "gsis_id",
-                "posteam", "defteam", "down", "ydstogo", "yardline_100", "qtr",
-                "score_differential", "shotgun", "no_huddle", "epa", "success",
-                "air_yards", "yards_after_catch", "touchdown", "interception", "fumble_lost"
-            ]
-            valid_cols = [c for c in keep_cols if c in df_actors.columns]
-            df_lean = df_actors[valid_cols].copy()
-            
-            # Map custody using zip / map for speed
-            fids = []
-            fnames = []
-            starteds = []
-            rostereds = []
-            for s, w, g in zip(df_lean["season"], df_lean["week"], df_lean["gsis_id"]):
-                c = custody_lookup.get((s, w, g))
-                if c:
-                    fids.append(str(c["franchise_id"]))
-                    fnames.append(str(c["franchise_name"]))
-                    starteds.append(int(c["started"]))
-                    rostereds.append(int(c["rostered"]))
-                else:
-                    fids.append("")
-                    fnames.append("")
-                    starteds.append(0)
-                    rostereds.append(0)
-            
-            df_lean["affl_franchise_id"] = fids
-            df_lean["affl_franchise_name"] = fnames
-            df_lean["affl_started"] = starteds
-            df_lean["affl_rostered"] = rostereds
-            
-            part_actor_file = MARTS_DIR / "explore_play_actor" / f"play_actor_{season_num}.parquet"
-            df_lean.to_parquet(part_actor_file, index=False)
-            manifest["explore_play_actor_partitions"][str(season_num)] = {
-                "file": f"explore_play_actor/play_actor_{season_num}.parquet",
-                "rows": len(df_lean),
-                "md5": compute_md5(part_actor_file)
-            }
-            print(f"Season {season_num} play actors: {len(df_lean)} rows")
-    
-    manifest_path = MARTS_DIR / "manifest.json"
-    with open(manifest_path, "w") as f:
+    # Save manifest.json
+    with open(MARTS_DIR / "manifest.json", "w") as f:
         json.dump(manifest, f, indent=2)
     print("Marts and manifest.json compiled successfully!")
-    
-    conn.close()
 
 if __name__ == "__main__":
     build_all_marts()

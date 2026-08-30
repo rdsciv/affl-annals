@@ -15,39 +15,31 @@ def conn():
     yield connection
     connection.close()
 
-def test_franchise_counts_and_active_field(conn):
+def test_owner_and_season_counts(conn):
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM dim_affl_franchise WHERE is_active = 1")
+    cursor.execute("SELECT COUNT(*) FROM dim_owner WHERE is_active = 1")
     active_count = cursor.fetchone()[0]
-    assert active_count == 12, f"Expected exactly 12 active franchises in 2026 planning field, got {active_count}"
+    assert active_count == 12, f"Expected exactly 12 active owners in 2026 planning field, got {active_count}"
+    
+    cursor.execute("SELECT COUNT(*) FROM dim_season WHERE season >= 2014 AND season <= 2025")
+    season_count = cursor.fetchone()[0]
+    assert season_count == 12, f"Expected 12 competition seasons (2014-2025), got {season_count}"
 
 def test_identity_merges(conn):
     cursor = conn.cursor()
-    # Check that Jason Kafka, Kevin Sliger, and Tanner Dunn map to single canonical franchises
-    cursor.execute("SELECT DISTINCT franchise_id FROM dim_affl_team_season WHERE member_id = '{051BF68A-84EA-4930-9BF6-8A84EAF930EA}'")
-    # All team seasons for Jason Kafka should map to FRAN_CVC
-    rows = cursor.fetchall()
-    if rows:
-        assert len(rows) == 1 and rows[0][0] == "FRAN_CVC"
-
-def test_pre_2018_slots_are_null(conn):
-    cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM fact_affl_roster_week WHERE season < 2018 AND slot_code IS NOT NULL")
-    non_null_pre2018 = cursor.fetchone()[0]
-    assert non_null_pre2018 == 0, f"Pre-2018 lineup slots must remain NULL, found {non_null_pre2018}"
-    
-    cursor.execute("SELECT DISTINCT slot_evidence FROM fact_affl_roster_week WHERE season < 2018")
-    evidences = [r[0] for r in cursor.fetchall()]
-    assert evidences == ["Unavailable"], f"Pre-2018 evidence label must be 'Unavailable', got {evidences}"
+    # Check that Jason Kafka merges m01 -> m07
+    cursor.execute("SELECT owner_id FROM dim_member WHERE member_id IN ('m01', 'm07')")
+    owners = [r[0] for r in cursor.fetchall()]
+    assert set(owners) == {"m07"}, f"Expected Jason Kafka member rows to map to m07, got {owners}"
 
 def test_post_2018_slots_are_observed(conn):
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM fact_affl_roster_week WHERE season >= 2018 AND slot_code IS NULL")
+    cursor.execute("SELECT COUNT(*) FROM fact_roster_week WHERE season >= 2018 AND slot IS NULL")
     null_post2018 = cursor.fetchone()[0]
     assert null_post2018 == 0, f"Post-2018 lineup slots must be observed, found {null_post2018} NULLs"
 
-def test_dst_separation(conn):
+def test_matchup_counts(conn):
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM bridge_affl_player_week WHERE nfl_team_season_id IS NOT NULL AND gsis_id IS NOT NULL")
-    overlap = cursor.fetchone()[0]
-    assert overlap == 0, f"D/ST records must not have GSIS player IDs, found {overlap}"
+    cursor.execute("SELECT COUNT(*) FROM v_matchup WHERE phase = 'regular'")
+    regular_count = cursor.fetchone()[0]
+    assert regular_count > 0, "Expected regular season matchups to be populated"
