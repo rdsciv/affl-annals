@@ -11,7 +11,8 @@ import {
   ListOrdered,
   Repeat,
   Trophy,
-  BookOpen
+  BookOpen,
+  Award
 } from "lucide-react";
 import Seal from "@/components/Seal";
 
@@ -21,6 +22,8 @@ export default function Navbar() {
   const links = [
     { href: "/explore", label: "Explore", icon: Search, badge: "Savant Engine" },
     { href: "/luck", label: "Luck & Skill", icon: Sparkles, badge: "Empirical" },
+    { href: "/points", label: "Points", icon: BookOpen, badge: "Sources" },
+    { href: "/records/roto", label: "Roto", icon: Award, badge: "10-Cat" },
     { href: "/players", label: "Players", icon: Users },
     { href: "/franchises", label: "Franchises", icon: Shield },
     { href: "/seasons", label: "Seasons", icon: Calendar },

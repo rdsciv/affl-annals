@@ -92,6 +92,8 @@ export default function CommandPalette() {
   const staticItems: SearchItem[] = [
     { id: "p-explore", title: "/explore Savant Query Builder", subtitle: "Query NFL & AFFL custody dimensions", category: "Page", url: "/explore" },
     { id: "p-luck", title: "Luck & Skill Analytics", subtitle: "Schedule luck simulations, All-Play ledger, lineup efficiency", category: "Page", url: "/luck" },
+    { id: "p-points", title: "Where Points Came From", subtitle: "Points by acquisition: Draft, Waiver FAAB, Free Agency", category: "Page", url: "/points" },
+    { id: "p-roto", title: "10-Category Roto Skill Radar", subtitle: "Fantasy Genius Passing, Rushing, Receiving categories", category: "Record", url: "/records/roto" },
     { id: "p-records", title: "Canonical Record Book", subtitle: "Championships, Win Pct, All-Time Leaders", category: "Record", url: "/records" },
     { id: "p-drafts", title: "Draft & Auction Value", subtitle: "2014–2025 Auction spend, Draft PAR, steals & busts", category: "Page", url: "/drafts" },
     { id: "p-trades", title: "Trade Ledger", subtitle: "221 verified bilateral player swaps", category: "Page", url: "/trades" },

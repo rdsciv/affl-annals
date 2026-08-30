@@ -47,6 +47,21 @@
       "json": "mart_affl_luck_and_skill.json",
       "rows": 18,
       "md5": "613943db5b282e79f1192b6e571d1cfc"
+    },
+    "mart_affl_auction_allocation": {
+      "json": "mart_affl_auction_allocation.json",
+      "rows": 115,
+      "md5": "074b767053d743686aa000a352b60001"
+    },
+    "mart_affl_roto_skill_radar": {
+      "json": "mart_affl_roto_skill_radar.json",
+      "rows": 16,
+      "md5": "f057a48a536d678952b23e27a116902b"
+    },
+    "mart_affl_points_acquisition": {
+      "json": "mart_affl_points_acquisition.json",
+      "rows": 14,
+      "md5": "0660bf3c95d7850a79e5405f3f4e7b2b"
     }
   }
 }

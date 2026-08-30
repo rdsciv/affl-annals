@@ -777,6 +777,269 @@ def build_all_marts():
     }
     print(f"Built mart_affl_luck_and_skill: {len(all_time_ledger)} franchises compiled")
 
+    # 10. mart_affl_auction_allocation
+    print("Building mart_affl_auction_allocation...")
+    df_dp_all = pd.read_sql_query("""
+        SELECT 
+            dp.season,
+            dp.team_id,
+            dp.player_id,
+            dp.bid,
+            dp.overall,
+            dp.is_keeper,
+            p.name as player_name,
+            p.position,
+            t.owner_id
+        FROM fact_draft_pick dp
+        JOIN dim_player p ON dp.player_id = p.player_id
+        JOIN v_team t ON dp.season = t.season AND dp.team_id = t.team_id
+    """, conn)
+    df_dp_all[["franchise_id", "franchise_name", "owner_display_name", "primary_color", "logo_path"]] = df_dp_all["owner_id"].apply(lambda oid: pd.Series(get_franchise_meta(oid)))
+
+    # Positional allocation per franchise-season (2016-2025 where bids > 0)
+    auction_allocations = []
+    for (season, fid), grp in df_dp_all[df_dp_all["season"] >= 2016].groupby(["season", "franchise_id"]):
+        total_spent = grp["bid"].sum()
+        if total_spent == 0:
+            continue
+        qb_spend = grp[grp["position"] == "QB"]["bid"].sum()
+        rb_spend = grp[grp["position"] == "RB"]["bid"].sum()
+        wr_spend = grp[grp["position"] == "WR"]["bid"].sum()
+        te_spend = grp[grp["position"] == "TE"]["bid"].sum()
+        dst_spend = grp[grp["position"] == "D/ST"]["bid"].sum()
+        k_spend = grp[grp["position"] == "K"]["bid"].sum()
+        
+        top3_spend = grp.sort_values("bid", ascending=False)["bid"].head(3).sum()
+        top3_pct = (top3_spend / total_spent) * 100
+        strategy = "Stars & Scrubs" if top3_pct >= 60 else ("Balanced Depth" if top3_pct <= 45 else "Hybrid")
+        
+        meta = get_franchise_meta(grp["owner_id"].iloc[0])
+        auction_allocations.append({
+            "season": int(season),
+            "franchise_id": fid,
+            "franchise_name": meta[1],
+            "owner_name": meta[2],
+            "primary_color": meta[3],
+            "total_budget_spent": int(total_spent),
+            "qb_spend": int(qb_spend),
+            "rb_spend": int(rb_spend),
+            "wr_spend": int(wr_spend),
+            "te_spend": int(te_spend),
+            "dst_spend": int(dst_spend),
+            "k_spend": int(k_spend),
+            "qb_pct": round(qb_spend / total_spent * 100, 1),
+            "rb_pct": round(rb_spend / total_spent * 100, 1),
+            "wr_pct": round(wr_spend / total_spent * 100, 1),
+            "te_pct": round(te_spend / total_spent * 100, 1),
+            "dst_pct": round(dst_spend / total_spent * 100, 1),
+            "k_pct": round(k_spend / total_spent * 100, 1),
+            "top3_pct": round(top3_pct, 1),
+            "strategy": strategy,
+            "top_player": grp.sort_values("bid", ascending=False).iloc[0]["player_name"],
+            "top_bid": int(grp.sort_values("bid", ascending=False).iloc[0]["bid"])
+        })
+
+    # All-time best steals ($1-$5 with massive production) and busts ($40+ with poor return)
+    # Join with player season points
+    df_psp = pd.read_sql_query("SELECT season, player_id, total_points as points FROM fact_player_season_points", conn)
+    df_dp_psp = df_dp_all[df_dp_all["season"] >= 2016].merge(df_psp, on=["season", "player_id"], how="left")
+    df_dp_psp["points"] = df_dp_psp["points"].fillna(0)
+
+    steals = df_dp_psp[(df_dp_psp["bid"] <= 5) & (df_dp_psp["points"] >= 120)].sort_values("points", ascending=False).head(10)
+    steals_list = []
+    for _, r in steals.iterrows():
+        steals_list.append({
+            "season": int(r["season"]),
+            "franchise_name": r["franchise_name"],
+            "player_name": r["player_name"],
+            "position": r["position"],
+            "bid": int(r["bid"]),
+            "points": round(r["points"], 1),
+            "efficiency": round(r["points"] / max(1, r["bid"]), 1)
+        })
+
+    busts = df_dp_psp[(df_dp_psp["bid"] >= 40) & (df_dp_psp["points"] <= 60)].sort_values("points", ascending=True).head(10)
+    busts_list = []
+    for _, r in busts.iterrows():
+        busts_list.append({
+            "season": int(r["season"]),
+            "franchise_name": r["franchise_name"],
+            "player_name": r["player_name"],
+            "position": r["position"],
+            "bid": int(r["bid"]),
+            "points": round(r["points"], 1),
+            "cost_per_pt": round(r["bid"] / max(1, r["points"]), 2)
+        })
+
+    auction_data = {
+        "allocations": auction_allocations,
+        "steals": steals_list,
+        "busts": busts_list
+    }
+    auc_json = MARTS_DIR / "mart_affl_auction_allocation.json"
+    with open(auc_json, "w") as f:
+        json.dump(auction_data, f, indent=2)
+
+    manifest["marts"]["mart_affl_auction_allocation"] = {
+        "json": "mart_affl_auction_allocation.json",
+        "rows": len(auction_allocations),
+        "md5": compute_md5(auc_json)
+    }
+    print(f"Built mart_affl_auction_allocation: {len(auction_allocations)} franchise-seasons")
+
+    # 11. mart_affl_roto_skill_radar
+    print("Building mart_affl_roto_skill_radar...")
+    df_roto_raw = pd.read_sql_query("""
+        SELECT 
+            rw.season,
+            t.owner_id,
+            SUM(nw.pass_yards) as pass_yds,
+            SUM(nw.pass_tds) as pass_tds,
+            SUM(nw.completions) * 1.0 / NULLIF(SUM(nw.attempts), 0) as cmp_pct,
+            SUM(nw.rush_yards) as rush_yds,
+            SUM(nw.rush_tds) as rush_tds,
+            SUM(nw.rush_yards) * 1.0 / NULLIF(SUM(nw.carries), 0) as ypc,
+            SUM(nw.rec_yards) as rec_yds,
+            SUM(nw.rec_tds) as rec_tds,
+            SUM(nw.receptions) as receptions,
+            SUM(nw.rec_yards) * 1.0 / NULLIF(SUM(nw.receptions), 0) as ypr
+        FROM fact_roster_week rw
+        JOIN dim_player p ON rw.player_id = p.player_id
+        JOIN fact_nfl_week nw ON rw.season = nw.season AND rw.week = nw.week AND p.gsis_id = nw.gsis_id
+        JOIN v_team t ON rw.season = t.season AND rw.team_id = t.team_id
+        WHERE rw.started = 1
+        GROUP BY rw.season, t.owner_id
+    """, conn)
+    df_roto_raw[["franchise_id", "franchise_name", "owner_display_name", "primary_color", "logo_path"]] = df_roto_raw["owner_id"].apply(lambda oid: pd.Series(get_franchise_meta(oid)))
+
+    # Compute Roto points (12 for 1st, 11 for 2nd... down to 1 for 12th)
+    roto_seasons = {}
+    for season, grp in df_roto_raw.groupby("season"):
+        grp = grp.copy()
+        categories = ["pass_yds", "pass_tds", "cmp_pct", "rush_yds", "rush_tds", "ypc", "rec_yds", "rec_tds", "receptions", "ypr"]
+        for cat in categories:
+            grp[f"{cat}_rank"] = grp[cat].rank(ascending=False, method="min")
+            grp[f"{cat}_pts"] = grp[cat].rank(ascending=True, method="average")
+        
+        grp["roto_score"] = grp[[f"{cat}_pts" for cat in categories]].sum(axis=1)
+        grp["overall_roto_rank"] = grp["roto_score"].rank(ascending=False, method="min").astype(int)
+        grp = grp.sort_values("roto_score", ascending=False)
+        roto_seasons[str(season)] = grp.to_dict(orient="records")
+
+    # All-time roto career aggregates
+    all_time_roto = df_roto_raw.groupby(["franchise_id", "franchise_name", "owner_display_name", "primary_color"], as_index=False).agg(
+        seasons=("season", "count"),
+        avg_pass_yds=("pass_yds", "mean"),
+        avg_pass_tds=("pass_tds", "mean"),
+        avg_rush_yds=("rush_yds", "mean"),
+        avg_rush_tds=("rush_tds", "mean"),
+        avg_rec_yds=("rec_yds", "mean"),
+        avg_rec_tds=("rec_tds", "mean"),
+        avg_ypc=("ypc", "mean"),
+        avg_ypr=("ypr", "mean")
+    )
+    for cat in ["avg_pass_yds", "avg_pass_tds", "avg_rush_yds", "avg_rush_tds", "avg_rec_yds", "avg_rec_tds", "avg_ypc", "avg_ypr"]:
+        all_time_roto[f"{cat}_pts"] = all_time_roto[cat].rank(ascending=True, method="average")
+    all_time_roto["career_roto_score"] = all_time_roto[[f"{cat}_pts" for cat in ["avg_pass_yds", "avg_pass_tds", "avg_rush_yds", "avg_rush_tds", "avg_rec_yds", "avg_rec_tds", "avg_ypc", "avg_ypr"]]].sum(axis=1)
+    all_time_roto = all_time_roto.sort_values("career_roto_score", ascending=False)
+    
+    roto_data = {
+        "season_roto": roto_seasons,
+        "all_time_roto": all_time_roto.to_dict(orient="records")
+    }
+    roto_json = MARTS_DIR / "mart_affl_roto_skill_radar.json"
+    with open(roto_json, "w") as f:
+        json.dump(roto_data, f, indent=2)
+
+    manifest["marts"]["mart_affl_roto_skill_radar"] = {
+        "json": "mart_affl_roto_skill_radar.json",
+        "rows": len(all_time_roto),
+        "md5": compute_md5(roto_json)
+    }
+    print(f"Built mart_affl_roto_skill_radar: {len(all_time_roto)} franchises")
+
+    # 12. mart_affl_points_acquisition
+    print("Building mart_affl_points_acquisition...")
+    df_draft_set = set(zip(df_dp_all["season"], df_dp_all["team_id"], df_dp_all["player_id"]))
+    df_tx_adds = pd.read_sql_query("SELECT season, team_id, player_id, tx_type FROM fact_transaction WHERE direction = 'ADD'", conn)
+    tx_map = {(row["season"], row["team_id"], row["player_id"]): row["tx_type"] for _, row in df_tx_adds.iterrows()}
+
+    df_rw_starters = df_rw_eff[df_rw_eff["started"] == 1].copy()
+    src_list = []
+    for _, row in df_rw_starters.iterrows():
+        k = (row["season"], row["team_id"], row["player_id"])
+        if k in df_draft_set:
+            src_list.append("DRAFT")
+        elif k in tx_map:
+            src_list.append(tx_map[k])
+        else:
+            src_list.append("DRAFT")
+    df_rw_starters["acquisition_source"] = src_list
+
+    # Aggregate by franchise-season
+    points_acq_by_season = []
+    for (season, fid), grp in df_rw_starters.groupby(["season", "franchise_id"]):
+        tot_pts = grp["points"].sum()
+        draft_pts = grp[grp["acquisition_source"] == "DRAFT"]["points"].sum()
+        waiver_pts = grp[grp["acquisition_source"] == "WAIVER"]["points"].sum()
+        fa_pts = grp[grp["acquisition_source"] == "FREEAGENT"]["points"].sum()
+        non_draft_pct = ((waiver_pts + fa_pts) / max(1, tot_pts)) * 100
+        meta = get_franchise_meta(grp["owner_id"].iloc[0])
+        points_acq_by_season.append({
+            "season": int(season),
+            "franchise_id": fid,
+            "franchise_name": meta[1],
+            "owner_name": meta[2],
+            "primary_color": meta[3],
+            "total_starter_points": round(tot_pts, 1),
+            "draft_points": round(draft_pts, 1),
+            "waiver_points": round(waiver_pts, 1),
+            "free_agent_points": round(fa_pts, 1),
+            "draft_pct": round(draft_pts / max(1, tot_pts) * 100, 1),
+            "waiver_pct": round(waiver_pts / max(1, tot_pts) * 100, 1),
+            "fa_pct": round(fa_pts / max(1, tot_pts) * 100, 1),
+            "non_draft_pct": round(non_draft_pct, 1)
+        })
+
+    # All-time career point source totals
+    all_time_acq = []
+    for fid, grp in df_rw_starters.groupby("franchise_id"):
+        tot_pts = grp["points"].sum()
+        draft_pts = grp[grp["acquisition_source"] == "DRAFT"]["points"].sum()
+        waiver_pts = grp[grp["acquisition_source"] == "WAIVER"]["points"].sum()
+        fa_pts = grp[grp["acquisition_source"] == "FREEAGENT"]["points"].sum()
+        meta = get_franchise_meta(grp["owner_id"].iloc[0])
+        all_time_acq.append({
+            "franchise_id": fid,
+            "franchise_name": meta[1],
+            "owner_name": meta[2],
+            "primary_color": meta[3],
+            "total_starter_points": round(tot_pts, 1),
+            "draft_points": round(draft_pts, 1),
+            "waiver_points": round(waiver_pts, 1),
+            "free_agent_points": round(fa_pts, 1),
+            "draft_pct": round(draft_pts / max(1, tot_pts) * 100, 1),
+            "waiver_pct": round(waiver_pts / max(1, tot_pts) * 100, 1),
+            "fa_pct": round(fa_pts / max(1, tot_pts) * 100, 1),
+            "non_draft_pct": round(((waiver_pts + fa_pts) / max(1, tot_pts)) * 100, 1)
+        })
+    all_time_acq = sorted(all_time_acq, key=lambda x: x["non_draft_pct"], reverse=True)
+
+    points_acq_data = {
+        "season_acquisitions": points_acq_by_season,
+        "all_time_acquisitions": all_time_acq
+    }
+    pa_json = MARTS_DIR / "mart_affl_points_acquisition.json"
+    with open(pa_json, "w") as f:
+        json.dump(points_acq_data, f, indent=2)
+
+    manifest["marts"]["mart_affl_points_acquisition"] = {
+        "json": "mart_affl_points_acquisition.json",
+        "rows": len(all_time_acq),
+        "md5": compute_md5(pa_json)
+    }
+    print(f"Built mart_affl_points_acquisition: {len(all_time_acq)} franchises")
+
     # Save manifest.json
     with open(MARTS_DIR / "manifest.json", "w") as f:
         json.dump(manifest, f, indent=2)
