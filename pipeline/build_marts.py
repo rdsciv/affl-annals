@@ -380,7 +380,11 @@ def build_all_marts():
         else:
             t_entry["team2_sent"].append(item_obj)
 
-    trades_list = list(trades_map.values())
+    # Strictly filter for genuine bilateral (two-way) player trades
+    trades_list = [
+        t for t in trades_map.values() 
+        if len(t["team1_sent"]) > 0 and len(t["team2_sent"]) > 0
+    ]
     tr_json = MARTS_DIR / "mart_affl_trades.json"
     with open(tr_json, "w") as f:
         json.dump(trades_list, f, indent=2)
@@ -390,7 +394,7 @@ def build_all_marts():
         "rows": len(trades_list),
         "md5": compute_md5(tr_json)
     }
-    print(f"Built mart_affl_trades: {len(trades_list)} real trades")
+    print(f"Built mart_affl_trades: {len(trades_list)} verified two-way trades")
 
     # Save manifest.json
     with open(MARTS_DIR / "manifest.json", "w") as f:
