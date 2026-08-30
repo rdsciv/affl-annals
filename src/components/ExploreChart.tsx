@@ -60,7 +60,7 @@ export default function ExploreChart({
       x: Number(d[xMetric] || 0),
       y: Number(d[yMetric] || 0),
       label: d.player_name || d.franchise_name || "Item",
-      color: d.franchise_color || "#00a2ff",
+      color: d.franchise_color || "#5b87ac",
     }));
 
     return {
@@ -223,9 +223,9 @@ export default function ExploreChart({
               dataKey="x"
               name={xDef.name}
               domain={xDomain}
-              tick={{ fill: "#64748b", fontSize: 11, fontFamily: "monospace" }}
-              axisLine={{ stroke: "#334155" }}
-              tickLine={{ stroke: "#334155" }}
+              tick={{ fill: "#9a9d9f", fontSize: 11, fontFamily: "monospace" }}
+              axisLine={{ stroke: "#3d434c" }}
+              tickLine={{ stroke: "#3d434c" }}
               unit=""
             />
             <YAxis
@@ -233,9 +233,9 @@ export default function ExploreChart({
               dataKey="y"
               name={yDef.name}
               domain={yDomain}
-              tick={{ fill: "#64748b", fontSize: 11, fontFamily: "monospace" }}
-              axisLine={{ stroke: "#334155" }}
-              tickLine={{ stroke: "#334155" }}
+              tick={{ fill: "#9a9d9f", fontSize: 11, fontFamily: "monospace" }}
+              axisLine={{ stroke: "#3d434c" }}
+              tickLine={{ stroke: "#3d434c" }}
               unit=""
             />
             <ZAxis type="number" range={[50, 140]} />
@@ -243,22 +243,22 @@ export default function ExploreChart({
             {/* Quadrant Median Reference Lines */}
             <ReferenceLine
               x={xMedian}
-              stroke="#475569"
+              stroke="#3d434c"
               strokeDasharray="4 4"
               label={{
                 value: `Median: ${xMedian.toFixed(1)}`,
-                fill: "#64748b",
+                fill: "#9a9d9f",
                 fontSize: 10,
                 position: "insideTopRight",
               }}
             />
             <ReferenceLine
               y={yMedian}
-              stroke="#475569"
+              stroke="#3d434c"
               strokeDasharray="4 4"
               label={{
                 value: `Median: ${yMedian.toFixed(1)}`,
-                fill: "#64748b",
+                fill: "#9a9d9f",
                 fontSize: 10,
                 position: "insideTopLeft",
               }}
@@ -274,7 +274,7 @@ export default function ExploreChart({
               {filteredData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={entry.color || "#00a2ff"}
+                  fill={entry.color || "#5b87ac"}
                   opacity={0.85}
                   stroke="#ffffff20"
                   strokeWidth={1}

@@ -169,7 +169,7 @@ export default function TradesPage() {
                     <div className="flex items-center gap-2">
                       <div
                         className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: trade.team1_franchise_color || "#00a2ff" }}
+                        style={{ backgroundColor: trade.team1_franchise_color || "#5b87ac" }}
                       />
                       <span className="font-mono text-xs font-bold text-ink">
                         {trade.team1_name}
@@ -203,7 +203,7 @@ export default function TradesPage() {
                     <div className="flex items-center gap-2">
                       <div
                         className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: trade.team2_franchise_color || "#ff6a00" }}
+                        style={{ backgroundColor: trade.team2_franchise_color || "#c05a34" }}
                       />
                       <span className="font-mono text-xs font-bold text-ink">
                         {trade.team2_name}

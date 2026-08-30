@@ -310,28 +310,28 @@ export default function PlayerClientContent({
               <AreaChart data={chronologicalLogs} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorPoints" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#00a2ff" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#00a2ff" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#5b87ac" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#5b87ac" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: "#64748b", fontSize: 10, fontFamily: "monospace" }}
-                  axisLine={{ stroke: "#334155" }}
-                  tickLine={{ stroke: "#334155" }}
+                  tick={{ fill: "#9a9d9f", fontSize: 10, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#3d434c" }}
+                  tickLine={{ stroke: "#3d434c" }}
                   interval="preserveStartEnd"
                 />
                 <YAxis
-                  tick={{ fill: "#64748b", fontSize: 10, fontFamily: "monospace" }}
-                  axisLine={{ stroke: "#334155" }}
-                  tickLine={{ stroke: "#334155" }}
+                  tick={{ fill: "#9a9d9f", fontSize: 10, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#3d434c" }}
+                  tickLine={{ stroke: "#3d434c" }}
                 />
-                <ReferenceLine y={10} stroke="#475569" strokeDasharray="3 3" label={{ value: "10 Pts", fill: "#64748b", fontSize: 9 }} />
+                <ReferenceLine y={10} stroke="#3d434c" strokeDasharray="3 3" label={{ value: "10 Pts", fill: "#9a9d9f", fontSize: 9 }} />
                 <Tooltip content={<CustomChartTooltip />} />
                 <Area
                   type="monotone"
                   dataKey="points"
-                  stroke="#00a2ff"
+                  stroke="#5b87ac"
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#colorPoints)"
@@ -375,11 +375,11 @@ export default function PlayerClientContent({
                       <Link
                         href={`/franchises/${s.franchise_id}`}
                         className="hover:underline flex items-center gap-2"
-                        style={{ color: s.franchise_color || "#00a2ff" }}
+                        style={{ color: s.franchise_color || "#5b87ac" }}
                       >
                         <div
                           className="h-2.5 w-2.5 rounded-full shrink-0"
-                          style={{ backgroundColor: s.franchise_color || "#00a2ff" }}
+                          style={{ backgroundColor: s.franchise_color || "#5b87ac" }}
                         />
                         <span>{s.franchise_name}</span>
                       </Link>
@@ -436,7 +436,7 @@ export default function PlayerClientContent({
                         <div className="flex items-center gap-2">
                           <div
                             className="h-2 w-2 rounded-full shrink-0"
-                            style={{ backgroundColor: log.franchise_color || "#00a2ff" }}
+                            style={{ backgroundColor: log.franchise_color || "#5b87ac" }}
                           />
                           <span>{log.team_name}</span>
                         </div>

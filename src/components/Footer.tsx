@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Shield, Database, Lock, Terminal } from "lucide-react";
+import { Database, Lock, Terminal } from "lucide-react";
+import Seal from "@/components/Seal";
 
 export default function Footer() {
   return (
@@ -7,9 +8,9 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-ink font-mono font-bold">
-              <Shield className="h-4 w-4 text-brand-blue" />
-              <span>AFFL SAVANT</span>
+            <div className="flex items-center gap-2 text-ink">
+              <Seal size={22} className="text-brand-yellow" />
+              <span className="font-display font-bold tracking-wide uppercase">AFFL Savant</span>
             </div>
             <p className="text-[11px] leading-relaxed text-ink-muted">
               The permanent statistical home of the AFFL. Uniting 2014–2025 league custody,

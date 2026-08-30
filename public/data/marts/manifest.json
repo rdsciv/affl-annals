@@ -42,6 +42,11 @@
       "json": "mart_affl_player_gamelogs.json",
       "rows": 778,
       "md5": "056d71285523ec1c91fdc8a99c758e7f"
+    },
+    "mart_affl_luck_and_skill": {
+      "json": "mart_affl_luck_and_skill.json",
+      "rows": 18,
+      "md5": "613943db5b282e79f1192b6e571d1cfc"
     }
   }
 }

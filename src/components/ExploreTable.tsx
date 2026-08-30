@@ -85,7 +85,7 @@ export default function ExploreTable({
               const playerName = row.player_name || row.display_name || "—";
               const position = row.position || "—";
               const logoPath = row.franchise_logo || row.current_logo_path;
-              const franchiseColor = row.franchise_color || row.primary_color || "#00a2ff";
+              const franchiseColor = row.franchise_color || row.primary_color || "#5b87ac";
 
               return (
                 <tr

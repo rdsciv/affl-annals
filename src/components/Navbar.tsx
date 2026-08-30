@@ -2,23 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Sparkles, 
-  Search, 
-  Users, 
-  Shield, 
-  Calendar, 
-  ListOrdered, 
-  Repeat, 
-  Trophy, 
-  BookOpen 
+import {
+  Sparkles,
+  Search,
+  Users,
+  Shield,
+  Calendar,
+  ListOrdered,
+  Repeat,
+  Trophy,
+  BookOpen
 } from "lucide-react";
+import Seal from "@/components/Seal";
 
 export default function Navbar() {
   const pathname = usePathname();
 
   const links = [
     { href: "/explore", label: "Explore", icon: Search, badge: "Savant Engine" },
+    { href: "/luck", label: "Luck & Skill", icon: Sparkles, badge: "Empirical" },
     { href: "/players", label: "Players", icon: Users },
     { href: "/franchises", label: "Franchises", icon: Shield },
     { href: "/seasons", label: "Seasons", icon: Calendar },
@@ -33,14 +35,12 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-lime font-mono text-base font-black text-black shadow-lg shadow-brand-blue/20 group-hover:scale-105 transition-transform">
-              AS
-            </div>
+            <Seal size={34} className="text-brand-yellow group-hover:text-brand-blue transition-colors" />
             <div className="flex flex-col">
-              <span className="font-mono text-sm font-bold tracking-wider text-ink group-hover:text-brand-blue transition-colors">
-                AFFL SAVANT
+              <span className="font-display text-lg font-black tracking-wide text-ink uppercase leading-none group-hover:text-brand-blue transition-colors">
+                AFFL Savant
               </span>
-              <span className="text-[10px] font-medium text-ink-dim tracking-tight">
+              <span className="text-[10px] font-mono font-medium text-ink-dim tracking-tight">
                 2014–2025 CANONICAL ARCHIVE
               </span>
             </div>

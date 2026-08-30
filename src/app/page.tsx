@@ -16,6 +16,7 @@ import {
   BarChart2
 } from "lucide-react";
 import { CANONICAL_FRANCHISES, EXPLORE_PRESETS } from "@/lib/constants";
+import Seal from "@/components/Seal";
 
 export default function HomePage() {
   const champions = [
@@ -38,22 +39,26 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-      {/* Hero Marquee */}
-      <div className="relative overflow-hidden rounded-2xl border border-rule-bright bg-gradient-to-b from-card-elevated via-card to-canvas p-8 md:p-12 shadow-2xl">
-        <div className="absolute -right-16 -top-16 h-80 w-80 rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 h-80 w-80 rounded-full bg-brand-lime/10 blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 max-w-3xl space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-card-elevated px-3 py-1 text-xs font-mono text-brand-lime border border-brand-lime/30">
-            <Trophy className="h-3.5 w-3.5 text-brand-yellow" />
-            <span>Reigning Champion: San Diego Shadowcöcks (2025)</span>
+      {/* Masthead */}
+      <div className="relative border-y-2 border-rule-bright px-6 py-10 md:px-12 md:py-14">
+        <div className="max-w-3xl space-y-6">
+          <div className="flex items-center gap-3">
+            <Seal size={38} className="text-brand-yellow shrink-0" />
+            <div className="flex flex-col gap-0.5">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-dim">
+                Permanent Statistical Record
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-yellow">
+                Reigning Champion — San Diego Shadowcöcks, 2025
+              </span>
+            </div>
           </div>
 
-          <h1 className="font-mono text-3xl md:text-5xl font-black text-ink tracking-tight leading-tight">
-            The Permanent Statistical Home of the <span className="gradient-text-blue">AFFL</span>.
+          <h1 className="font-display text-5xl md:text-7xl font-black uppercase tracking-tight leading-[0.92] text-ink">
+            The Permanent Statistical Home of the <span className="text-brand-blue">AFFL</span>
           </h1>
 
-          <p className="text-sm md:text-base text-ink-muted leading-relaxed">
+          <p className="text-sm md:text-base text-ink-muted leading-relaxed max-w-2xl">
             Uniting 2014–2025 league custody, historical team identities, real franchise marks,
             auction drafts, and matchups with NFL play-by-play, xFP opportunity modeling, and the defining
             <strong className="text-ink"> /explore</strong> query builder.
@@ -62,7 +67,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
               href="/explore"
-              className="flex items-center gap-2 rounded-lg bg-brand-blue px-5 py-2.5 text-sm font-bold text-canvas hover:bg-brand-blue/90 shadow-lg shadow-brand-blue/20 transition-all hover:scale-[1.02]"
+              className="flex items-center gap-2 rounded-md bg-brand-blue px-5 py-2.5 text-sm font-bold text-canvas hover:bg-brand-blue/90 transition-colors"
             >
               <Sparkles className="h-4 w-4" />
               <span>Launch /explore Savant</span>
@@ -70,7 +75,7 @@ export default function HomePage() {
 
             <Link
               href="/records"
-              className="flex items-center gap-2 rounded-lg bg-card-elevated px-5 py-2.5 text-sm font-semibold text-ink hover:bg-card-hover border border-rule hover:border-rule-bright transition-all"
+              className="flex items-center gap-2 rounded-md bg-card-elevated px-5 py-2.5 text-sm font-semibold text-ink hover:bg-card-hover border border-rule hover:border-rule-bright transition-colors"
             >
               <Trophy className="h-4 w-4 text-brand-yellow" />
               <span>View Record Book</span>
@@ -135,12 +140,16 @@ export default function HomePage() {
           </div>
 
           <div className="rounded-xl border border-rule bg-card divide-y divide-rule/60">
-            {champions.map((c) => (
+            {champions.map((c, i) => (
               <div key={c.year} className="p-4 flex items-center justify-between hover:bg-card-hover/50 transition-colors">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-card-elevated border border-rule-bright font-mono font-bold text-brand-yellow text-sm">
-                    {c.year}
-                  </div>
+                  {i === 0 ? (
+                    <Seal size={40} className="text-brand-yellow shrink-0" />
+                  ) : (
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-card-elevated border border-rule-bright font-mono font-bold text-brand-yellow text-sm shrink-0">
+                      {c.year}
+                    </div>
+                  )}
                   <div>
                     <h4 className="font-mono font-bold text-ink text-sm hover:text-brand-blue cursor-pointer">
                       {c.franchise}

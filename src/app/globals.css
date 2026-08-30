@@ -3,14 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #08090c;
-  --foreground: #eef4ff;
+  --background: #0b0c0f;
+  --foreground: #ece8de;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -22,56 +21,43 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #08090c;
+  background: #0b0c0f;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1c2536;
+  background: #2b3038;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a374f;
+  background: #3d434c;
+}
+
+/* Big Shoulders is a variable optical-size family; pull the display cut at
+   headline sizes instead of the default text-weight optical size. */
+.font-display {
+  font-variation-settings: "opsz" 72;
 }
 
 /* Dense table typography */
 .stat-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-variant-numeric: tabular-nums;
 }
 
-/* Glass & Card panels */
+/* Dossier panels — flat hairline cards, no blur. A record office keeps its
+   ledgers flat on the table, not floating behind frosted glass. */
 .glass-panel {
-  background: rgba(14, 17, 25, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid #1c2536;
+  background: rgba(18, 20, 24, 0.92);
+  border: 1px solid #2b3038;
 }
 
 .glass-card {
-  background: #0e1119;
-  border: 1px solid #1c2536;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  background: #121418;
+  border: 1px solid #2b3038;
+  transition: border-color 0.15s ease;
 }
 
 .glass-card:hover {
-  border-color: #2a374f;
-}
-
-/* Gradients */
-.gradient-text-blue {
-  background: linear-gradient(135deg, #00a2ff, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gradient-text-orange {
-  background: linear-gradient(135deg, #ff6a00, #ffc400);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gradient-text-lime {
-  background: linear-gradient(135deg, #c8ff00, #10b981);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  border-color: #c9a227;
 }

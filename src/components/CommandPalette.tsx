@@ -91,6 +91,7 @@ export default function CommandPalette() {
   // Static Items
   const staticItems: SearchItem[] = [
     { id: "p-explore", title: "/explore Savant Query Builder", subtitle: "Query NFL & AFFL custody dimensions", category: "Page", url: "/explore" },
+    { id: "p-luck", title: "Luck & Skill Analytics", subtitle: "Schedule luck simulations, All-Play ledger, lineup efficiency", category: "Page", url: "/luck" },
     { id: "p-records", title: "Canonical Record Book", subtitle: "Championships, Win Pct, All-Time Leaders", category: "Record", url: "/records" },
     { id: "p-drafts", title: "Draft & Auction Value", subtitle: "2014–2025 Auction spend, Draft PAR, steals & busts", category: "Page", url: "/drafts" },
     { id: "p-trades", title: "Trade Ledger", subtitle: "221 verified bilateral player swaps", category: "Page", url: "/trades" },
@@ -201,7 +202,7 @@ export default function CommandPalette() {
                       {item.category === "Franchise" && (
                         <div
                           className="h-3.5 w-3.5 rounded-full"
-                          style={{ backgroundColor: item.color || "#00a2ff" }}
+                          style={{ backgroundColor: item.color || "#5b87ac" }}
                         />
                       )}
                       {item.category === "Player" && <Users className="h-4 w-4 text-brand-lime" />}

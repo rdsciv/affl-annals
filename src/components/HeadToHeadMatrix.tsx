@@ -240,7 +240,7 @@ export default function HeadToHeadMatrix() {
                   <div className="flex items-center gap-2 min-w-0">
                     <div
                       className="h-3 w-3 rounded-full shrink-0"
-                      style={{ backgroundColor: f1?.primary_color || "#00a2ff" }}
+                      style={{ backgroundColor: f1?.primary_color || "#5b87ac" }}
                     />
                     <div className="min-w-0">
                       <div className="font-bold text-xs text-ink truncate">{f1?.display_name || pair.franchise1_id}</div>
@@ -258,7 +258,7 @@ export default function HeadToHeadMatrix() {
                     </div>
                     <div
                       className="h-3 w-3 rounded-full shrink-0"
-                      style={{ backgroundColor: f2?.primary_color || "#ff6a00" }}
+                      style={{ backgroundColor: f2?.primary_color || "#c05a34" }}
                     />
                   </div>
                 </div>

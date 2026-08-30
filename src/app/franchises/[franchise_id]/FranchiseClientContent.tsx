@@ -39,8 +39,8 @@ export default function FranchiseClientContent({
     display_name: fid.replace("FRAN_", "").replace("_", " "),
     owner_display_name: "Franchise Owner",
     current_logo_path: "",
-    primary_color: "#00a2ff",
-    secondary_color: "#ff6a00",
+    primary_color: "#5b87ac",
+    secondary_color: "#c05a34",
     first_season: 2014,
     last_season: 2026,
     is_active: 1,
@@ -213,24 +213,24 @@ export default function FranchiseClientContent({
               <AreaChart data={progressionData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorPf" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={franchise.primary_color || "#00a2ff"} stopOpacity={0.4} />
-                    <stop offset="95%" stopColor={franchise.primary_color || "#00a2ff"} stopOpacity={0.0} />
+                    <stop offset="5%" stopColor={franchise.primary_color || "#5b87ac"} stopOpacity={0.4} />
+                    <stop offset="95%" stopColor={franchise.primary_color || "#5b87ac"} stopOpacity={0.0} />
                   </linearGradient>
                   <linearGradient id="colorPa" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#f43f5e" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#c05a34" stopOpacity={0.2} />
+                    <stop offset="95%" stopColor="#c05a34" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
                 <XAxis
                   dataKey="season"
-                  tick={{ fill: "#64748b", fontSize: 11, fontFamily: "monospace" }}
-                  axisLine={{ stroke: "#334155" }}
-                  tickLine={{ stroke: "#334155" }}
+                  tick={{ fill: "#9a9d9f", fontSize: 11, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#3d434c" }}
+                  tickLine={{ stroke: "#3d434c" }}
                 />
                 <YAxis
-                  tick={{ fill: "#64748b", fontSize: 10, fontFamily: "monospace" }}
-                  axisLine={{ stroke: "#334155" }}
-                  tickLine={{ stroke: "#334155" }}
+                  tick={{ fill: "#9a9d9f", fontSize: 10, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#3d434c" }}
+                  tickLine={{ stroke: "#3d434c" }}
                 />
                 <Tooltip content={<CustomChartTooltip />} />
                 <Legend
@@ -240,7 +240,7 @@ export default function FranchiseClientContent({
                 <Area
                   type="monotone"
                   dataKey="points_for"
-                  stroke={franchise.primary_color || "#00a2ff"}
+                  stroke={franchise.primary_color || "#5b87ac"}
                   strokeWidth={2.5}
                   fillOpacity={1}
                   fill="url(#colorPf)"
@@ -248,7 +248,7 @@ export default function FranchiseClientContent({
                 <Area
                   type="monotone"
                   dataKey="points_against"
-                  stroke="#f43f5e"
+                  stroke="#c05a34"
                   strokeWidth={1.5}
                   strokeDasharray="3 3"
                   fillOpacity={1}
