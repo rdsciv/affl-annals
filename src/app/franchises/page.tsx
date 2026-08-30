@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Shield, Trophy, Users, Calendar, ArrowRight, Star } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
+import { fetchMartJson } from "@/lib/api";
 
 export default function FranchisesPage() {
   const [franchiseStats, setFranchiseStats] = useState<Record<string, any>>({});
@@ -12,33 +13,30 @@ export default function FranchisesPage() {
   useEffect(() => {
     async function loadStats() {
       try {
-        const res = await fetch("/data/marts/mart_affl_franchise_season.json");
-        if (res.ok) {
-          const seasons = await res.json();
-          const map: Record<string, any> = {};
-          for (const s of seasons) {
-            const fid = s.franchise_id;
-            if (!map[fid]) {
-              map[fid] = {
-                wins: 0,
-                losses: 0,
-                ties: 0,
-                points_for: 0,
-                titles: 0,
-                seasons_count: 0,
-                historical_names: new Set(),
-              };
-            }
-            map[fid].wins += Number(s.wins || 0);
-            map[fid].losses += Number(s.losses || 0);
-            map[fid].ties += Number(s.ties || 0);
-            map[fid].points_for += Number(s.points_for || 0);
-            if (s.is_champion === 1 || s.final_rank === 1) map[fid].titles += 1;
-            map[fid].seasons_count += 1;
-            if (s.historical_name) map[fid].historical_names.add(s.historical_name);
+        const seasons = await fetchMartJson("mart_affl_franchise_season.json");
+        const map: Record<string, any> = {};
+        for (const s of seasons) {
+          const fid = s.franchise_id;
+          if (!map[fid]) {
+            map[fid] = {
+              wins: 0,
+              losses: 0,
+              ties: 0,
+              points_for: 0,
+              titles: 0,
+              seasons_count: 0,
+              historical_names: new Set(),
+            };
           }
-          setFranchiseStats(map);
+          map[fid].wins += Number(s.wins || 0);
+          map[fid].losses += Number(s.losses || 0);
+          map[fid].ties += Number(s.ties || 0);
+          map[fid].points_for += Number(s.points_for || 0);
+          if (s.is_champion === 1 || s.final_rank === 1) map[fid].titles += 1;
+          map[fid].seasons_count += 1;
+          if (s.historical_name) map[fid].historical_names.add(s.historical_name);
         }
+        setFranchiseStats(map);
       } catch (err) {
         console.error("Error loading franchise stats:", err);
       } finally {

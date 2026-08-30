@@ -9,6 +9,7 @@ import ExploreChart from "@/components/ExploreChart";
 import PlayDrilldownModal from "@/components/PlayDrilldownModal";
 import { ExploreQueryState, CustodyScope, ResultGrain } from "@/lib/types";
 import { EXPLORE_PRESETS, METRIC_DEFINITIONS } from "@/lib/constants";
+import { fetchMartJson } from "@/lib/api";
 import { Loader2 } from "lucide-react";
 
 function ExploreContent() {
@@ -71,20 +72,15 @@ function ExploreContent() {
     async function loadData() {
       setLoading(true);
       try {
-        const res = await fetch("/data/marts/mart_affl_player_season_custody.json");
-        if (res.ok) {
-          const data = await res.json();
-          setRawDataset(data);
-        } else {
-          // Fallback fetch franchise season
-          const resFs = await fetch("/data/marts/mart_affl_franchise_season.json");
-          if (resFs.ok) {
-            const dataFs = await resFs.json();
-            setRawDataset(dataFs);
-          }
-        }
+        const data = await fetchMartJson("mart_affl_player_season_custody.json");
+        setRawDataset(data);
       } catch (err) {
-        console.error("Error loading explore marts:", err);
+        try {
+          const dataFs = await fetchMartJson("mart_affl_franchise_season.json");
+          setRawDataset(dataFs);
+        } catch (e2) {
+          console.error("Error loading explore marts:", err);
+        }
       } finally {
         setLoading(false);
       }

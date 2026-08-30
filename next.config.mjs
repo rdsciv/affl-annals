@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
+const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
+const basePath = isGitHubActions ? '/affl-savant' : '';
+
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
   reactStrictMode: true,
+  basePath: basePath,
+  assetPrefix: basePath,
   images: {
     unoptimized: true,
     remotePatterns: [

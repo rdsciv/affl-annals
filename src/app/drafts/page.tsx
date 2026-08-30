@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ListOrdered, Search, Shield, DollarSign, Award, Sparkles, Filter } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
+import { fetchMartJson } from "@/lib/api";
 
 export default function DraftsPage() {
   const [draftPicks, setDraftPicks] = useState<any[]>([]);
@@ -16,11 +17,8 @@ export default function DraftsPage() {
   useEffect(() => {
     async function loadDrafts() {
       try {
-        const res = await fetch("/data/marts/mart_affl_draft_value.json");
-        if (res.ok) {
-          const data = await res.json();
-          setDraftPicks(data);
-        }
+        const data = await fetchMartJson("mart_affl_draft_value.json");
+        setDraftPicks(data);
       } catch (err) {
         console.error("Error loading draft values:", err);
       } finally {

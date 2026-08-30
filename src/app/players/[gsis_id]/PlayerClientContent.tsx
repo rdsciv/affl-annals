@@ -14,6 +14,8 @@ import {
   Layers
 } from "lucide-react";
 
+import { fetchMartJson } from "@/lib/api";
+
 export default function PlayerClientContent({
   gsisId,
 }: {
@@ -27,15 +29,12 @@ export default function PlayerClientContent({
   useEffect(() => {
     async function loadPlayerData() {
       try {
-        const res = await fetch("/data/marts/mart_affl_player_season_custody.json");
-        if (res.ok) {
-          const allData = await res.json();
-          const matches = allData.filter(
-            (r: any) => r.gsis_id === rawId || r.player_name.toLowerCase() === rawId.toLowerCase()
-          );
-          matches.sort((a: any, b: any) => b.season - a.season);
-          setSeasonsData(matches);
-        }
+        const allData = await fetchMartJson("mart_affl_player_season_custody.json");
+        const matches = allData.filter(
+          (r: any) => r.gsis_id === rawId || r.player_name.toLowerCase() === rawId.toLowerCase()
+        );
+        matches.sort((a: any, b: any) => b.season - a.season);
+        setSeasonsData(matches);
       } catch (err) {
         console.error("Error loading player details:", err);
       } finally {

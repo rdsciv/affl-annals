@@ -14,6 +14,7 @@ import {
   Layers
 } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
+import { fetchMartJson } from "@/lib/api";
 
 export default function FranchiseClientContent({
   franchiseId,
@@ -40,13 +41,10 @@ export default function FranchiseClientContent({
   useEffect(() => {
     async function loadSeasons() {
       try {
-        const res = await fetch("/data/marts/mart_affl_franchise_season.json");
-        if (res.ok) {
-          const allSeasons = await res.json();
-          const matches = allSeasons.filter((s: any) => s.franchise_id === fid);
-          matches.sort((a: any, b: any) => b.season - a.season);
-          setSeasons(matches);
-        }
+        const allSeasons = await fetchMartJson("mart_affl_franchise_season.json");
+        const matches = allSeasons.filter((s: any) => s.franchise_id === fid);
+        matches.sort((a: any, b: any) => b.season - a.season);
+        setSeasons(matches);
       } catch (err) {
         console.error("Error loading franchise seasons:", err);
       } finally {

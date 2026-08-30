@@ -13,6 +13,7 @@ import {
   Info
 } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
+import { fetchMartJson } from "@/lib/api";
 
 export default function SeasonClientContent({
   year,
@@ -29,13 +30,10 @@ export default function SeasonClientContent({
         return;
       }
       try {
-        const res = await fetch("/data/marts/mart_affl_franchise_season.json");
-        if (res.ok) {
-          const allSeasons = await res.json();
-          const matches = allSeasons.filter((s: any) => s.season === year);
-          matches.sort((a: any, b: any) => (a.final_rank || a.regular_season_rank || 99) - (b.final_rank || b.regular_season_rank || 99));
-          setStandings(matches);
-        }
+        const allSeasons = await fetchMartJson("mart_affl_franchise_season.json");
+        const matches = allSeasons.filter((s: any) => s.season === year);
+        matches.sort((a: any, b: any) => (a.final_rank || a.regular_season_rank || 99) - (b.final_rank || b.regular_season_rank || 99));
+        setStandings(matches);
       } catch (err) {
         console.error("Error loading season details:", err);
       } finally {

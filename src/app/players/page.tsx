@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Search, Users, Shield, TrendingUp, Sparkles, Filter } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
+import { fetchMartJson } from "@/lib/api";
 
 export default function PlayersPage() {
   const [players, setPlayers] = useState<any[]>([]);
@@ -15,49 +16,45 @@ export default function PlayersPage() {
   useEffect(() => {
     async function loadPlayers() {
       try {
-        const res = await fetch("/data/marts/mart_affl_player_season_custody.json");
-        if (res.ok) {
-          const data = await res.json();
-          // Aggregate by player
-          const playerMap: Record<string, any> = {};
-          for (const row of data) {
-            const key = row.gsis_id || row.player_name;
-            if (!playerMap[key]) {
-              playerMap[key] = {
-                gsis_id: row.gsis_id,
-                player_name: row.player_name,
-                position: row.position,
-                headshot_url: row.headshot_url,
-                college: row.college,
-                franchises: new Set(),
-                seasons: new Set(),
-                total_points: 0,
-                total_started: 0,
-                total_rostered: 0,
-                total_xfp: 0,
-                total_fpoe: 0,
-                total_par: 0,
-              };
-            }
-            const p = playerMap[key];
-            if (row.franchise_name) p.franchises.add(row.franchise_name);
-            p.seasons.add(row.season);
-            p.total_points += Number(row.affl_points || 0);
-            p.total_started += Number(row.weeks_started || 0);
-            p.total_rostered += Number(row.weeks_rostered || 0);
-            p.total_xfp += Number(row.xfp || 0);
-            p.total_fpoe += Number(row.fpoe || 0);
-            p.total_par += Number(row.custody_par || 0);
-          }
-          const list = Object.values(playerMap).map((p) => ({
-            ...p,
-            franchises_list: Array.from(p.franchises),
-            seasons_list: Array.from(p.seasons).sort(),
-          }));
-          list.sort((a, b) => b.total_points - a.total_points);
-          setPlayers(list);
+        const data = await fetchMartJson("mart_affl_player_season_custody.json");
+        const playerMap: Record<string, any> = {};
+        for (const row of data) {
+        const key = row.gsis_id || row.player_name;
+        if (!playerMap[key]) {
+          playerMap[key] = {
+            gsis_id: row.gsis_id,
+            player_name: row.player_name,
+            position: row.position,
+            headshot_url: row.headshot_url,
+            college: row.college,
+            franchises: new Set(),
+            seasons: new Set(),
+            total_points: 0,
+            total_started: 0,
+            total_rostered: 0,
+            total_xfp: 0,
+            total_fpoe: 0,
+            total_par: 0,
+          };
         }
-      } catch (err) {
+        const p = playerMap[key];
+        if (row.franchise_name) p.franchises.add(row.franchise_name);
+        p.seasons.add(row.season);
+        p.total_points += Number(row.affl_points || 0);
+        p.total_started += Number(row.weeks_started || 0);
+        p.total_rostered += Number(row.weeks_rostered || 0);
+        p.total_xfp += Number(row.xfp || 0);
+        p.total_fpoe += Number(row.fpoe || 0);
+        p.total_par += Number(row.custody_par || 0);
+      }
+      const list = Object.values(playerMap).map((p) => ({
+        ...p,
+        franchises_list: Array.from(p.franchises),
+        seasons_list: Array.from(p.seasons).sort(),
+      }));
+      list.sort((a, b) => b.total_points - a.total_points);
+      setPlayers(list);
+    } catch (err) {
         console.error("Error loading players:", err);
       } finally {
         setLoading(false);
