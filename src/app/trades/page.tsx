@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { Repeat, Shield, Calendar, Search, ArrowRight, UserCheck } from "lucide-react";
+import { Repeat, Shield, Calendar, Search, ArrowRight, ArrowLeftRight, Filter } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
 
@@ -10,6 +10,7 @@ export default function TradesPage() {
   const [trades, setTrades] = useState<any[]>([]);
   const [selectedSeason, setSelectedSeason] = useState<number | "ALL">("ALL");
   const [selectedFranchise, setSelectedFranchise] = useState<string>("ALL");
+  const [tradeTypeFilter, setTradeTypeFilter] = useState<"ALL" | "BILATERAL">("ALL");
   const [search, setSearch] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -37,6 +38,11 @@ export default function TradesPage() {
       ) {
         return false;
       }
+      if (tradeTypeFilter === "BILATERAL") {
+        const hasTeam1Items = t.team1_sent && t.team1_sent.length > 0;
+        const hasTeam2Items = t.team2_sent && t.team2_sent.length > 0;
+        if (!hasTeam1Items || !hasTeam2Items) return false;
+      }
       if (search) {
         const q = search.toLowerCase();
         const t1 = (t.team1_name || "").toLowerCase();
@@ -51,7 +57,7 @@ export default function TradesPage() {
       }
       return true;
     });
-  }, [trades, selectedSeason, selectedFranchise, search]);
+  }, [trades, selectedSeason, selectedFranchise, tradeTypeFilter, search]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -63,11 +69,11 @@ export default function TradesPage() {
             <span>AFFL Canonical Trade Ledger</span>
           </h1>
           <p className="text-xs md:text-sm text-ink-muted mt-1">
-            Complete historical record of all 392 executed trades across AFFL history (2014–2025).
+            Complete database of all {trades.length} historical trade records executed in the AFFL (2014–2025).
           </p>
         </div>
         <div className="flex items-center gap-2 font-mono text-xs text-ink-dim bg-card-elevated px-3 py-1.5 rounded-lg border border-rule">
-          <span>Total Executed:</span>
+          <span>Total Database Trades:</span>
           <strong className="text-brand-blue">{trades.length}</strong>
         </div>
       </div>
@@ -110,6 +116,19 @@ export default function TradesPage() {
               ))}
             </select>
           </div>
+
+          {/* Trade Type Filter */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <ArrowLeftRight className="h-3.5 w-3.5 text-ink-dim" />
+            <select
+              value={tradeTypeFilter}
+              onChange={(e) => setTradeTypeFilter(e.target.value as "ALL" | "BILATERAL")}
+              className="bg-card-elevated text-brand-blue font-semibold rounded px-2.5 py-1 border border-rule focus:outline-none cursor-pointer"
+            >
+              <option value="ALL">All Trades ({trades.length})</option>
+              <option value="BILATERAL">Two-Way Swaps Only</option>
+            </select>
+          </div>
         </div>
 
         {/* Search */}
@@ -136,103 +155,133 @@ export default function TradesPage() {
         </div>
       ) : (
         <div className="space-y-4">
-          {filteredTrades.map((trade) => (
-            <div
-              key={trade.trade_id}
-              className="rounded-xl p-5 border border-rule bg-card hover:border-rule-bright transition-all space-y-4 shadow-md"
-            >
-              {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
-                <div className="flex items-center gap-2.5">
-                  <span className="rounded bg-card-elevated font-mono font-bold text-xs text-brand-blue px-2 py-0.5 border border-rule">
-                    {trade.season} · Week {trade.week}
-                  </span>
-                  <span className="font-mono text-[11px] text-ink-dim">
-                    Trade #{trade.trade_id}
-                  </span>
-                </div>
-              </div>
+          {filteredTrades.map((trade, idx) => {
+            const isTwoWay =
+              trade.team1_sent &&
+              trade.team1_sent.length > 0 &&
+              trade.team2_sent &&
+              trade.team2_sent.length > 0;
 
-              {/* Two Sides of the Trade */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Team 1 Side */}
-                <div className="rounded-lg bg-card-elevated/60 border border-rule/70 p-4 space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: trade.team1_franchise_color || "#00a2ff" }}
-                      />
-                      <span className="font-mono text-xs font-bold text-ink">
-                        {trade.team1_name}
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-mono text-ink-dim">
-                      Acquires ({trade.team2_sent?.length || 0})
+            return (
+              <div
+                key={trade.trade_id}
+                className="rounded-xl p-5 border border-rule bg-card hover:border-rule-bright transition-all space-y-4 shadow-md"
+              >
+                {/* Header */}
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <span className="rounded bg-card-elevated font-mono font-bold text-xs text-brand-blue px-2 py-0.5 border border-rule">
+                      {trade.season} · Week {trade.week}
+                    </span>
+                    <span className="font-mono text-xs font-semibold text-ink">
+                      {trade.team1_name} &harr; {trade.team2_name}
                     </span>
                   </div>
-
-                  <div className="space-y-1.5 pt-1">
-                    {trade.team2_sent && trade.team2_sent.length > 0 ? (
-                      trade.team2_sent.map((p: any, pIdx: number) => (
-                        <div
-                          key={pIdx}
-                          className="flex items-center justify-between text-xs py-1 px-2 rounded bg-card border border-rule/50"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-[10px] font-bold text-brand-blue px-1.5 py-0.2 rounded bg-brand-blue/10 border border-brand-blue/20">
-                              {p.position}
-                            </span>
-                            <span className="font-medium text-ink">{p.player_name}</span>
-                          </div>
-                        </div>
-                      ))
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[11px] text-ink-dim">
+                      #{idx + 1} of {filteredTrades.length}
+                    </span>
+                    {isTwoWay ? (
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-blue/10 text-brand-blue border border-brand-blue/20">
+                        Two-Way Swap
+                      </span>
                     ) : (
-                      <div className="text-[11px] text-ink-dim italic">Draft / Future Assets</div>
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-card-elevated text-ink-muted border border-rule">
+                        Player Assignment
+                      </span>
                     )}
                   </div>
                 </div>
 
-                {/* Team 2 Side */}
-                <div className="rounded-lg bg-card-elevated/60 border border-rule/70 p-4 space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: trade.team2_franchise_color || "#ff6a00" }}
-                      />
-                      <span className="font-mono text-xs font-bold text-ink">
-                        {trade.team2_name}
+                {/* Two Sides of the Trade */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Team 1 Side */}
+                  <div className="rounded-lg bg-card-elevated/60 border border-rule/70 p-4 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="h-2.5 w-2.5 rounded-full"
+                          style={{ backgroundColor: trade.team1_franchise_color || "#00a2ff" }}
+                        />
+                        <span className="font-mono text-xs font-bold text-ink">
+                          {trade.team1_name}
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono text-ink-dim">
+                        {trade.team2_sent && trade.team2_sent.length > 0
+                          ? `Receives (${trade.team2_sent.length})`
+                          : "Sends Player"}
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-ink-dim">
-                      Acquires ({trade.team1_sent?.length || 0})
-                    </span>
+
+                    <div className="space-y-1.5 pt-1">
+                      {trade.team2_sent && trade.team2_sent.length > 0 ? (
+                        trade.team2_sent.map((p: any, pIdx: number) => (
+                          <div
+                            key={pIdx}
+                            className="flex items-center justify-between text-xs py-1.5 px-2.5 rounded bg-card border border-rule/50"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-[10px] font-bold text-brand-blue px-1.5 py-0.5 rounded bg-brand-blue/10 border border-brand-blue/20">
+                                {p.position}
+                              </span>
+                              <span className="font-medium text-ink">{p.player_name}</span>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-[11px] text-ink-dim italic py-1 px-2">
+                          Future considerations / Draft compensation
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="space-y-1.5 pt-1">
-                    {trade.team1_sent && trade.team1_sent.length > 0 ? (
-                      trade.team1_sent.map((p: any, pIdx: number) => (
+                  {/* Team 2 Side */}
+                  <div className="rounded-lg bg-card-elevated/60 border border-rule/70 p-4 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
                         <div
-                          key={pIdx}
-                          className="flex items-center justify-between text-xs py-1 px-2 rounded bg-card border border-rule/50"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-[10px] font-bold text-brand-orange px-1.5 py-0.2 rounded bg-brand-orange/10 border border-brand-orange/20">
-                              {p.position}
-                            </span>
-                            <span className="font-medium text-ink">{p.player_name}</span>
+                          className="h-2.5 w-2.5 rounded-full"
+                          style={{ backgroundColor: trade.team2_franchise_color || "#ff6a00" }}
+                        />
+                        <span className="font-mono text-xs font-bold text-ink">
+                          {trade.team2_name}
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono text-ink-dim">
+                        {trade.team1_sent && trade.team1_sent.length > 0
+                          ? `Receives (${trade.team1_sent.length})`
+                          : "Sends Player"}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1.5 pt-1">
+                      {trade.team1_sent && trade.team1_sent.length > 0 ? (
+                        trade.team1_sent.map((p: any, pIdx: number) => (
+                          <div
+                            key={pIdx}
+                            className="flex items-center justify-between text-xs py-1.5 px-2.5 rounded bg-card border border-rule/50"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-[10px] font-bold text-brand-orange px-1.5 py-0.5 rounded bg-brand-orange/10 border border-brand-orange/20">
+                                {p.position}
+                              </span>
+                              <span className="font-medium text-ink">{p.player_name}</span>
+                            </div>
                           </div>
+                        ))
+                      ) : (
+                        <div className="text-[11px] text-ink-dim italic py-1 px-2">
+                          Future considerations / Draft compensation
                         </div>
-                      ))
-                    ) : (
-                      <div className="text-[11px] text-ink-dim italic">Draft / Future Assets</div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
