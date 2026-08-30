@@ -67,7 +67,7 @@ export default function PlayersPage() {
     return players.filter((p) => {
       if (search) {
         const q = search.toLowerCase();
-        const matchesName = p.player_name.toLowerCase().includes(q);
+        const matchesName = (p.player_name || "").toLowerCase().includes(q);
         const matchesCollege = p.college && p.college.toLowerCase().includes(q);
         if (!matchesName && !matchesCollege) return false;
       }

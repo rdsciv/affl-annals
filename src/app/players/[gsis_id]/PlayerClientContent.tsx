@@ -30,8 +30,8 @@ export default function PlayerClientContent({
     async function loadPlayerData() {
       try {
         const allData = await fetchMartJson("mart_affl_player_season_custody.json");
-        const matches = allData.filter(
-          (r: any) => r.gsis_id === rawId || r.player_name.toLowerCase() === rawId.toLowerCase()
+        const matches = (allData || []).filter(
+          (r: any) => r.gsis_id === rawId || ((r.player_name || "").toLowerCase() === rawId.toLowerCase())
         );
         matches.sort((a: any, b: any) => b.season - a.season);
         setSeasonsData(matches);

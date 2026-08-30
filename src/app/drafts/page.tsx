@@ -29,11 +29,11 @@ export default function DraftsPage() {
   }, []);
 
   const filteredPicks = useMemo(() => {
-    return draftPicks.filter((p) => {
+    return (draftPicks || []).filter((p) => {
       if (p.season !== selectedSeason) return false;
       if (selectedFranchise !== "ALL" && p.franchise_id !== selectedFranchise) return false;
       if (selectedPos !== "ALL" && p.position !== selectedPos) return false;
-      if (search && !p.player_name.toLowerCase().includes(search.toLowerCase())) return false;
+      if (search && !(p.player_name || "").toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
   }, [draftPicks, selectedSeason, selectedFranchise, selectedPos, search]);

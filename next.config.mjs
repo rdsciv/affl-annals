@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
-const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
-const basePath = isGitHubActions ? '/affl-savant' : '';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/affl-savant';
 
 const nextConfig = {
   output: 'export',
