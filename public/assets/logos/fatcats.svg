@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="grad_FFC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffc400" />
+      <stop offset="100%" stop-color="#1c2536" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#grad_FFC)" />
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.2" />
+  <path d="M 30 40 Q 50 20 70 40 Q 80 60 70 75 Q 50 85 30 75 Q 20 60 30 40 Z" fill="#08090c" stroke="#08090c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill-opacity="0.85" />
+  <text x="50" y="88" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="12" fill="#08090c" text-anchor="middle" letter-spacing="1">FFC</text>
+</svg>

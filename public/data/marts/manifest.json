@@ -1,0 +1,156 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-08-29T21:00:00Z",
+  "league_id": "51418",
+  "canonical_era": "2014-2025",
+  "scoring_system": "Standard Non-PPR (0 PPR)",
+  "marts": {
+    "mart_affl_franchise_season": {
+      "parquet": "mart_affl_franchise_season.parquet",
+      "json": "mart_affl_franchise_season.json",
+      "rows": 105,
+      "md5": "4844f3ef219208ceb29f12859028d40c"
+    },
+    "mart_affl_draft_value": {
+      "parquet": "mart_affl_draft_value.parquet",
+      "json": "mart_affl_draft_value.json",
+      "rows": 2124,
+      "md5": "de7fb576e2c992d4f5ad4c913d526dee"
+    },
+    "mart_affl_player_week": {
+      "parquet": "mart_affl_player_week.parquet",
+      "rows": 23454,
+      "md5": "8d50aceb51dd990f94c2c82a9520d5ec"
+    },
+    "mart_affl_player_season_custody": {
+      "parquet": "mart_affl_player_season_custody.parquet",
+      "json": "mart_affl_player_season_custody.json",
+      "rows": 4647,
+      "md5": "f9a121e468fa3cc1ad9e9f5b675f9fbe"
+    }
+  },
+  "explore_player_week_partitions": {
+    "2014": {
+      "file": "explore_player_week/season_2014.parquet",
+      "rows": 604,
+      "md5": "a0e9c843cbd94707d1e049ec1578603a"
+    },
+    "2015": {
+      "file": "explore_player_week/season_2015.parquet",
+      "rows": 711,
+      "md5": "1cdcc8355ea1ceb1a8663ad04e125771"
+    },
+    "2016": {
+      "file": "explore_player_week/season_2016.parquet",
+      "rows": 829,
+      "md5": "d87b7185153bd1a3fec9fae3faf106fc"
+    },
+    "2017": {
+      "file": "explore_player_week/season_2017.parquet",
+      "rows": 1420,
+      "md5": "8c5de1f87666a4db494c46762844b1fe"
+    },
+    "2018": {
+      "file": "explore_player_week/season_2018.parquet",
+      "rows": 2385,
+      "md5": "223a97c3cbdd268499a786a2d5bc8096"
+    },
+    "2019": {
+      "file": "explore_player_week/season_2019.parquet",
+      "rows": 2369,
+      "md5": "b1005896629854a176d576584783f392"
+    },
+    "2020": {
+      "file": "explore_player_week/season_2020.parquet",
+      "rows": 2384,
+      "md5": "97bc2bdd0a77da3c24062f513bbea57f"
+    },
+    "2021": {
+      "file": "explore_player_week/season_2021.parquet",
+      "rows": 2388,
+      "md5": "f6fbfb0a5379c4e3095150c75b4b356d"
+    },
+    "2022": {
+      "file": "explore_player_week/season_2022.parquet",
+      "rows": 2367,
+      "md5": "7b195775d678c2faae71df5f16181118"
+    },
+    "2023": {
+      "file": "explore_player_week/season_2023.parquet",
+      "rows": 2375,
+      "md5": "511f071c5d59d8b09f9b7f552b0dbc30"
+    },
+    "2024": {
+      "file": "explore_player_week/season_2024.parquet",
+      "rows": 2524,
+      "md5": "1a0d3366dd05ecd63e09d5c3c6644655"
+    },
+    "2025": {
+      "file": "explore_player_week/season_2025.parquet",
+      "rows": 3098,
+      "md5": "f92c9cda8f5abd0c2f800d1f3bf6560c"
+    }
+  },
+  "explore_play_actor_partitions": {
+    "2014": {
+      "file": "explore_play_actor/play_actor_2014.parquet",
+      "rows": 55289,
+      "md5": "538c6e6f9436edb141d1d7f271eb5ee2"
+    },
+    "2015": {
+      "file": "explore_play_actor/play_actor_2015.parquet",
+      "rows": 56194,
+      "md5": "673d060114a8dbbb7663b70d0266ed88"
+    },
+    "2016": {
+      "file": "explore_play_actor/play_actor_2016.parquet",
+      "rows": 55788,
+      "md5": "08142a2fb11e70e08b7e9f7c2aaff7ac"
+    },
+    "2017": {
+      "file": "explore_play_actor/play_actor_2017.parquet",
+      "rows": 54602,
+      "md5": "de0c44342231616a738c19955800e41b"
+    },
+    "2018": {
+      "file": "explore_play_actor/play_actor_2018.parquet",
+      "rows": 54370,
+      "md5": "733f6f1b970b77a771ad9a774199d44f"
+    },
+    "2019": {
+      "file": "explore_play_actor/play_actor_2019.parquet",
+      "rows": 54637,
+      "md5": "0770e0ae49ad1ab368c2e51732450b0c"
+    },
+    "2020": {
+      "file": "explore_play_actor/play_actor_2020.parquet",
+      "rows": 55305,
+      "md5": "15a93d2dcd7372d94c7cb0b66c02a66d"
+    },
+    "2021": {
+      "file": "explore_play_actor/play_actor_2021.parquet",
+      "rows": 57802,
+      "md5": "36e215145854393f6dbc7bb83fff8791"
+    },
+    "2022": {
+      "file": "explore_play_actor/play_actor_2022.parquet",
+      "rows": 56508,
+      "md5": "ac35c2ee86f95df85a21f15223b407c5"
+    },
+    "2023": {
+      "file": "explore_play_actor/play_actor_2023.parquet",
+      "rows": 56876,
+      "md5": "6300bee681fa0d3e97274da2f69041c4"
+    },
+    "2024": {
+      "file": "explore_play_actor/play_actor_2024.parquet",
+      "rows": 56072,
+      "md5": "6eb5fe83c00d1b4770f3447ac079e686"
+    },
+    "2025": {
+      "file": "explore_play_actor/play_actor_2025.parquet",
+      "rows": 55140,
+      "md5": "471bcf54eb982b42b5474ac0b4ec6a18"
+    }
+  }
+}

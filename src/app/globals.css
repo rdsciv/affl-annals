@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #08090c;
+  --foreground: #eef4ff;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom analytical scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08090c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c2536;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a374f;
+}
+
+/* Dense table typography */
+.stat-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Glass & Card panels */
+.glass-panel {
+  background: rgba(14, 17, 25, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid #1c2536;
+}
+
+.glass-card {
+  background: #0e1119;
+  border: 1px solid #1c2536;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.glass-card:hover {
+  border-color: #2a374f;
+}
+
+/* Gradients */
+.gradient-text-blue {
+  background: linear-gradient(135deg, #00a2ff, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-orange {
+  background: linear-gradient(135deg, #ff6a00, #ffc400);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-lime {
+  background: linear-gradient(135deg, #c8ff00, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,28 @@
+# Environment and Private Credentials
+.env
+.env.local
+.env.*.local
+*.private
+*.key
+
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# Next.js / Build outputs
+.next/
+out/
+build/
+dist/
+
+# Cache & Temporary
+data/raw_espn/
+data/raw_nfl/
+.cache/
+.pytest_cache/
+.DS_Store
+*.log
+scratch/
+tmp/
