@@ -32,6 +32,16 @@
       "json": "mart_affl_trades.json",
       "rows": 221,
       "md5": "07850a5a7237747db812f870a4749ad4"
+    },
+    "mart_affl_head_to_head": {
+      "json": "mart_affl_head_to_head.json",
+      "rows": 92,
+      "md5": "bb1dc376c756a83e07e510711e36124d"
+    },
+    "mart_affl_player_gamelogs": {
+      "json": "mart_affl_player_gamelogs.json",
+      "rows": 778,
+      "md5": "056d71285523ec1c91fdc8a99c758e7f"
     }
   }
 }

@@ -74,12 +74,23 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
+            className="flex items-center gap-2 rounded-lg bg-card-elevated px-3 py-1.5 text-xs text-ink-muted border border-rule hover:border-brand-blue hover:text-ink transition-all shadow-sm"
+          >
+            <Search className="h-3.5 w-3.5 text-brand-blue" />
+            <span className="hidden sm:inline">Search...</span>
+            <kbd className="hidden sm:inline-block font-mono text-[9px] bg-card px-1.5 py-0.5 rounded text-ink-dim border border-rule">
+              ⌘K
+            </kbd>
+          </button>
+
           <Link
             href="/explore"
-            className="flex items-center gap-2 rounded-md bg-brand-blue px-3.5 py-1.5 text-xs font-semibold text-canvas hover:bg-brand-blue/90 shadow-sm transition-all"
+            className="flex items-center gap-2 rounded-lg bg-brand-blue px-3.5 py-1.5 text-xs font-bold text-canvas hover:bg-brand-blue/90 shadow-md shadow-brand-blue/20 transition-all hover:scale-105"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            <span>Query Savant</span>
+            <span className="hidden sm:inline">Query Savant</span>
           </Link>
         </div>
       </div>

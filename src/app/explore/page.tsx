@@ -253,6 +253,19 @@ function ExploreContent() {
     document.body.removeChild(link);
   };
 
+  // JSON Export
+  const handleExportJson = () => {
+    if (!filteredRows.length) return;
+    const blob = new Blob([JSON.stringify(filteredRows, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `affl_savant_explore_${queryState.grain}_${queryState.scope}.json`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Top Banner */}
@@ -286,6 +299,7 @@ function ExploreContent() {
         viewMode={viewMode}
         onToggleView={setViewMode}
         onExportCsv={handleExportCsv}
+        onExportJson={handleExportJson}
       />
 
       {/* Results View */}

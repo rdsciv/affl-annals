@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Shield, Trophy, Users, Calendar, ArrowRight, Star } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
+import HeadToHeadMatrix from "@/components/HeadToHeadMatrix";
 
 export default function FranchisesPage() {
   const [franchiseStats, setFranchiseStats] = useState<Record<string, any>>({});
@@ -136,6 +137,11 @@ export default function FranchisesPage() {
             );
           })}
         </div>
+      </div>
+
+      {/* Head-to-Head Rivalry Matrix Section */}
+      <div className="pt-6 border-t border-rule">
+        <HeadToHeadMatrix />
       </div>
 
       {/* Alumni Franchises */}

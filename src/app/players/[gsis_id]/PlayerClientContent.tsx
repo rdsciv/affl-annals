@@ -11,7 +11,9 @@ import {
   ArrowLeft, 
   Award, 
   Activity,
-  Layers
+  Layers,
+  CheckCircle2,
+  XCircle
 } from "lucide-react";
 
 import { fetchMartJson } from "@/lib/api";
@@ -24,6 +26,8 @@ export default function PlayerClientContent({
   const rawId = decodeURIComponent(gsisId);
 
   const [seasonsData, setSeasonsData] = useState<any[]>([]);
+  const [gameLogs, setGameLogs] = useState<any[]>([]);
+  const [selectedSeasonFilter, setSelectedSeasonFilter] = useState<string>("ALL");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,6 +39,17 @@ export default function PlayerClientContent({
         );
         matches.sort((a: any, b: any) => b.season - a.season);
         setSeasonsData(matches);
+
+        // Load weekly gamelogs
+        try {
+          const allLogs = await fetchMartJson("mart_affl_player_gamelogs.json");
+          const pLogs = allLogs[rawId] || (matches[0] ? allLogs[matches[0].gsis_id || `PID_${matches[0].player_id}`] : null);
+          if (pLogs && pLogs.gamelogs) {
+            setGameLogs(pLogs.gamelogs);
+          }
+        } catch (eLogs) {
+          console.warn("Could not load player weekly gamelogs:", eLogs);
+        }
       } catch (err) {
         console.error("Error loading player details:", err);
       } finally {
@@ -78,6 +93,12 @@ export default function PlayerClientContent({
   const totalFpoe = seasonsData.reduce((acc, r) => acc + Number(r.fpoe || 0), 0);
   const totalPar = seasonsData.reduce((acc, r) => acc + Number(r.custody_par || 0), 0);
 
+  const availableSeasons = Array.from(new Set(gameLogs.map((g) => g.season))).sort((a: any, b: any) => b - a);
+
+  const filteredLogs = selectedSeasonFilter === "ALL"
+    ? gameLogs
+    : gameLogs.filter((g) => g.season.toString() === selectedSeasonFilter);
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Back Link */}
@@ -101,50 +122,52 @@ export default function PlayerClientContent({
                 <img
                   src={headshot}
                   alt={playerName}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover object-top"
                 />
               ) : (
-                <div className="h-full w-full flex items-center justify-center font-mono font-bold text-xl text-ink-dim bg-card-elevated">
-                  {position}
+                <div className="flex h-full w-full items-center justify-center font-mono text-xl font-bold text-ink-dim">
+                  {playerName.slice(0, 2).toUpperCase()}
                 </div>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <div className="flex items-center gap-2.5">
-                <h1 className="font-mono text-2xl md:text-3xl font-black text-ink tracking-tight">
+              <div className="flex items-center gap-3">
+                <h1 className="font-mono text-2xl md:text-3xl font-black text-ink">
                   {playerName}
                 </h1>
-                <span className="rounded bg-brand-blue/15 px-2 py-0.5 text-xs font-mono font-bold text-brand-blue border border-brand-blue/30">
+                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-brand-blue/15 text-brand-blue border border-brand-blue/30">
                   {position}
                 </span>
               </div>
-
-              <p className="text-xs md:text-sm text-ink-muted">
-                {college ? `College: ${college}` : "NFL Veteran"} • Active Seasons: {seasonsData[seasonsData.length - 1].season}–{latest.season}
+              <p className="text-xs font-mono text-ink-dim">
+                {college ? `College: ${college} • ` : ""}
+                GSIS: {rawId}
               </p>
-
               <div className="flex items-center gap-2 pt-1">
-                <Link
-                  href={`/explore?grain=player&sort=affl_points&start=2014&end=2025`}
-                  className="inline-flex items-center gap-1.5 rounded-md bg-card-elevated px-3 py-1 text-xs font-mono text-brand-blue border border-rule hover:border-brand-blue transition-colors"
-                >
-                  <Sparkles className="h-3 w-3" />
-                  <span>Open in /explore</span>
-                </Link>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-card-elevated text-ink-muted border border-rule">
+                  {seasonsData.length} AFFL Seasons
+                </span>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-brand-lime/10 text-brand-lime border border-brand-lime/20 font-semibold">
+                  {totalPoints.toFixed(1)} Lifetime Pts
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Career Stat Cards */}
+          {/* Quick Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="rounded-xl bg-card-elevated p-3 border border-rule text-center">
-              <span className="text-[10px] font-mono uppercase text-ink-dim block">Career AFFL Pts</span>
-              <span className="text-lg font-mono font-bold text-brand-lime">{totalPoints.toFixed(1)}</span>
+              <span className="text-[10px] font-mono uppercase text-ink-dim block">Started</span>
+              <span className="text-lg font-mono font-bold text-brand-lime">
+                {totalStarted} <span className="text-xs text-ink-dim font-normal">/ {totalRostered}</span>
+              </span>
             </div>
             <div className="rounded-xl bg-card-elevated p-3 border border-rule text-center">
-              <span className="text-[10px] font-mono uppercase text-ink-dim block">Career xFP</span>
-              <span className="text-lg font-mono font-bold text-brand-blue">{totalXfp.toFixed(1)}</span>
+              <span className="text-[10px] font-mono uppercase text-ink-dim block">Bench Pts</span>
+              <span className="text-lg font-mono font-bold text-ink-muted">
+                {totalBenchPoints.toFixed(1)}
+              </span>
             </div>
             <div className="rounded-xl bg-card-elevated p-3 border border-rule text-center">
               <span className="text-[10px] font-mono uppercase text-ink-dim block">Career FPOE</span>
@@ -162,7 +185,7 @@ export default function PlayerClientContent({
         </div>
       </div>
 
-      {/* AFFL Custody Timeline */}
+      {/* AFFL Custody Stint Breakdown */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <Shield className="h-4 w-4 text-brand-blue" />
@@ -171,7 +194,7 @@ export default function PlayerClientContent({
           </h2>
         </div>
 
-        <div className="rounded-xl border border-rule bg-card overflow-hidden">
+        <div className="rounded-xl border border-rule bg-card overflow-hidden shadow-md">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
@@ -222,6 +245,96 @@ export default function PlayerClientContent({
           </div>
         </div>
       </div>
+
+      {/* Weekly Game Logs */}
+      {gameLogs.length > 0 && (
+        <div className="space-y-4 pt-4 border-t border-rule">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-brand-orange" />
+              <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+                Weekly Game Logs & Start/Sit Splits ({filteredLogs.length} Games)
+              </h2>
+            </div>
+
+            {/* Season Filter Dropdown */}
+            <div className="flex items-center gap-2 text-xs">
+              <span className="font-mono text-ink-dim uppercase text-[10px]">Filter Season:</span>
+              <select
+                value={selectedSeasonFilter}
+                onChange={(e) => setSelectedSeasonFilter(e.target.value)}
+                className="rounded-md bg-card-elevated px-2.5 py-1 text-xs text-ink font-semibold border border-rule focus:outline-none cursor-pointer"
+              >
+                <option value="ALL">All Seasons ({gameLogs.length})</option>
+                {availableSeasons.map((y) => (
+                  <option key={y} value={y.toString()}>
+                    {y} Season
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-rule bg-card overflow-hidden shadow-md">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider text-ink-dim">
+                    <th className="py-2.5 px-4">Season</th>
+                    <th className="py-2.5 px-3">Week</th>
+                    <th className="py-2.5 px-4">AFFL Franchise</th>
+                    <th className="py-2.5 px-4">Opponent</th>
+                    <th className="py-2.5 px-3 text-center">Slot</th>
+                    <th className="py-2.5 px-3 text-center">Status</th>
+                    <th className="py-2.5 px-4 text-right">Points</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-rule/60 font-mono">
+                  {filteredLogs.map((log, idx) => (
+                    <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
+                      <td className="py-2.5 px-4 font-bold text-ink">{log.season}</td>
+                      <td className="py-2.5 px-3 text-ink-dim">Wk {log.week}</td>
+                      <td className="py-2.5 px-4 font-sans font-medium text-ink">
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="h-2 w-2 rounded-full shrink-0"
+                            style={{ backgroundColor: log.franchise_color || "#00a2ff" }}
+                          />
+                          <span>{log.team_name}</span>
+                        </div>
+                      </td>
+                      <td className="py-2.5 px-4 font-sans text-ink-muted">{log.opponent_name}</td>
+                      <td className="py-2.5 px-3 text-center">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-card-elevated border border-rule text-ink-dim">
+                          {log.slot}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 text-center">
+                        {log.started === 1 ? (
+                          <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
+                            <CheckCircle2 className="h-2.5 w-2.5" /> Started
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.2 rounded bg-card-elevated text-ink-dim border border-rule">
+                            <XCircle className="h-2.5 w-2.5 text-ink-dim/60" /> Bench
+                          </span>
+                        )}
+                      </td>
+                      <td
+                        className={`py-2.5 px-4 text-right font-bold text-sm ${
+                          log.started === 1 ? "text-brand-blue" : "text-ink-dim"
+                        }`}
+                      >
+                        {log.points.toFixed(1)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

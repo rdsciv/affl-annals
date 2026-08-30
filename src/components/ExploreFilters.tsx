@@ -11,6 +11,7 @@ interface ExploreFiltersProps {
   viewMode: "table" | "chart";
   onToggleView: (mode: "table" | "chart") => void;
   onExportCsv: () => void;
+  onExportJson?: () => void;
 }
 
 export default function ExploreFilters({
@@ -19,6 +20,7 @@ export default function ExploreFilters({
   viewMode,
   onToggleView,
   onExportCsv,
+  onExportJson,
 }: ExploreFiltersProps) {
   const [copied, setCopied] = useState(false);
 
@@ -147,17 +149,29 @@ export default function ExploreFilters({
           <button
             onClick={onExportCsv}
             className="flex items-center gap-1.5 rounded-md bg-card-elevated px-2.5 py-1 text-xs font-medium text-ink-muted hover:text-ink border border-rule hover:border-rule-bright transition-colors"
-            title="Export full query results to CSV with provenance headers"
+            title="Export full query results to CSV"
           >
             <Download className="h-3.5 w-3.5 text-brand-lime" />
-            <span className="hidden sm:inline">Export CSV</span>
+            <span className="hidden sm:inline">CSV</span>
           </button>
+
+          {/* Export JSON */}
+          {onExportJson && (
+            <button
+              onClick={onExportJson}
+              className="flex items-center gap-1.5 rounded-md bg-card-elevated px-2.5 py-1 text-xs font-medium text-ink-muted hover:text-ink border border-rule hover:border-rule-bright transition-colors"
+              title="Export query results to JSON"
+            >
+              <Download className="h-3.5 w-3.5 text-brand-orange" />
+              <span className="hidden sm:inline">JSON</span>
+            </button>
+          )}
 
           {/* Share URL */}
           <button
             onClick={handleShare}
             className="flex items-center gap-1.5 rounded-md bg-card-elevated px-2.5 py-1 text-xs font-medium text-ink-muted hover:text-ink border border-rule hover:border-rule-bright transition-colors"
-            title="Copy shareable URL"
+            title="Copy shareable query URL"
           >
             <Share2 className="h-3.5 w-3.5 text-brand-blue" />
             <span className="hidden sm:inline">{copied ? "Copied!" : "Share"}</span>

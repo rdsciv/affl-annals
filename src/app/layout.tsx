@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CommandPalette from "@/components/CommandPalette";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="bg-canvas text-ink antialiased flex flex-col min-h-screen">
+        <CommandPalette />
         <Navbar />
         <main className="flex-1 w-full">{children}</main>
         <Footer />

@@ -396,6 +396,153 @@ def build_all_marts():
     }
     print(f"Built mart_affl_trades: {len(trades_list)} verified two-way trades")
 
+    # 7. mart_affl_head_to_head
+    cursor.execute("""
+        SELECT 
+            m.season,
+            m.week,
+            m.phase,
+            t1.owner_id AS team1_owner,
+            t1.name AS team1_name,
+            m.points AS team1_points,
+            t2.owner_id AS team2_owner,
+            t2.name AS team2_name,
+            m.opponent_points AS team2_points,
+            m.result
+        FROM v_matchup m
+        JOIN v_team t1 ON m.season = t1.season AND m.team_id = t1.team_id
+        JOIN v_team t2 ON m.season = t2.season AND m.opponent_id = t2.team_id
+        WHERE m.phase IN ('regular', 'championship') AND m.team_id < m.opponent_id
+        ORDER BY m.season DESC, m.week DESC
+    """)
+    raw_games = cursor.fetchall()
+    
+    h2h_pairs = {}
+    for g in raw_games:
+        season, week, phase, o1, t1_name, p1, o2, t2_name, p2, res = g
+        f1, f1_name, _, c1, l1 = get_franchise_meta(o1)
+        f2, f2_name, _, c2, l2 = get_franchise_meta(o2)
+        
+        pair_key = tuple(sorted([f1, f2]))
+        if pair_key not in h2h_pairs:
+            h2h_pairs[pair_key] = {
+                "franchise1_id": pair_key[0],
+                "franchise2_id": pair_key[1],
+                "total_games": 0,
+                "f1_wins": 0,
+                "f2_wins": 0,
+                "ties": 0,
+                "f1_total_points": 0.0,
+                "f2_total_points": 0.0,
+                "games": []
+            }
+        
+        entry = h2h_pairs[pair_key]
+        entry["total_games"] += 1
+        
+        if f1 == pair_key[0]:
+            f1_pts, f2_pts = p1, p2
+            f1_team_name, f2_team_name = t1_name, t2_name
+        else:
+            f1_pts, f2_pts = p2, p1
+            f1_team_name, f2_team_name = t2_name, t1_name
+            
+        entry["f1_total_points"] = round(entry["f1_total_points"] + f1_pts, 1)
+        entry["f2_total_points"] = round(entry["f2_total_points"] + f2_pts, 1)
+        
+        if f1_pts > f2_pts:
+            entry["f1_wins"] += 1
+            winner = pair_key[0]
+        elif f2_pts > f1_pts:
+            entry["f2_wins"] += 1
+            winner = pair_key[1]
+        else:
+            entry["ties"] += 1
+            winner = "TIE"
+            
+        entry["games"].append({
+            "season": season,
+            "week": week,
+            "phase": phase,
+            "f1_name": f1_team_name,
+            "f1_points": f1_pts,
+            "f2_name": f2_team_name,
+            "f2_points": f2_pts,
+            "winner": winner
+        })
+        
+    h2h_list = list(h2h_pairs.values())
+    h2h_json = MARTS_DIR / "mart_affl_head_to_head.json"
+    with open(h2h_json, "w") as f:
+        json.dump(h2h_list, f, indent=2)
+        
+    manifest["marts"]["mart_affl_head_to_head"] = {
+        "json": "mart_affl_head_to_head.json",
+        "rows": len(h2h_list),
+        "md5": compute_md5(h2h_json)
+    }
+    print(f"Built mart_affl_head_to_head: {len(h2h_list)} franchise rivalry pairs")
+
+    # 8. mart_affl_player_gamelogs
+    cursor.execute("""
+        SELECT 
+            rw.season,
+            rw.week,
+            rw.player_id,
+            p.gsis_id,
+            p.name AS player_name,
+            p.position,
+            rw.slot,
+            rw.points,
+            rw.started,
+            t.name AS team_name,
+            t.owner_id,
+            COALESCE(opp.name, 'BYE') AS opponent_name
+        FROM fact_roster_week rw
+        JOIN dim_player p ON rw.player_id = p.player_id
+        JOIN v_team t ON rw.season = t.season AND rw.team_id = t.team_id
+        LEFT JOIN v_matchup m ON rw.season = m.season AND rw.week = m.week AND rw.team_id = m.team_id
+        LEFT JOIN v_team opp ON m.season = opp.season AND m.opponent_id = opp.team_id
+        ORDER BY rw.season DESC, rw.week ASC
+    """)
+    gamelogs_raw = cursor.fetchall()
+    gamelogs_by_player = {}
+    for r in gamelogs_raw:
+        season, week, pid, gsis, pname, pos, slot, pts, started, tname, oid, opp_name = r
+        fid, fname, _, color, _ = get_franchise_meta(oid)
+        key = gsis if gsis else f"PID_{pid}"
+        if key not in gamelogs_by_player:
+            gamelogs_by_player[key] = {
+                "gsis_id": gsis,
+                "player_id": pid,
+                "player_name": pname,
+                "position": pos,
+                "gamelogs": []
+            }
+        gamelogs_by_player[key]["gamelogs"].append({
+            "season": season,
+            "week": week,
+            "slot": slot,
+            "points": pts,
+            "started": started,
+            "team_name": tname,
+            "franchise_id": fid,
+            "franchise_name": fname,
+            "franchise_color": color,
+            "opponent_name": opp_name
+        })
+        
+    gl_json = MARTS_DIR / "mart_affl_player_gamelogs.json"
+    with open(gl_json, "w") as f:
+        json.dump(gamelogs_by_player, f)
+        
+    manifest["marts"]["mart_affl_player_gamelogs"] = {
+        "json": "mart_affl_player_gamelogs.json",
+        "rows": len(gamelogs_by_player),
+        "md5": compute_md5(gl_json)
+    }
+    print(f"Built mart_affl_player_gamelogs: {len(gamelogs_by_player)} player profiles")
+
     # Save manifest.json
     with open(MARTS_DIR / "manifest.json", "w") as f:
         json.dump(manifest, f, indent=2)
