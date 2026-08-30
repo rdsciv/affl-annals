@@ -27,7 +27,13 @@ export const metadata: Metadata = {
   title: "AFFL Savant — Permanent Statistical Home of the AFFL",
   description: "Explore 2014–2025 AFFL league custody, rosters, matchups, and drafts joined with NFL play-by-play and advanced opportunity modeling.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png", sizes: "any", type: "image/png" },
+      { url: "/favicon.ico" }
+    ],
+    shortcut: "/favicon-32.png",
+    apple: "/apple-icon.png",
   },
 };
 

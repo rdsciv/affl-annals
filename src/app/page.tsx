@@ -15,12 +15,19 @@ import {
   Database, 
   Activity,
   Layers,
-  CheckCircle2
+  CheckCircle2,
+  Zap,
+  ListOrdered,
+  Repeat
 } from "lucide-react";
 import { CANONICAL_FRANCHISES, EXPLORE_PRESETS } from "@/lib/constants";
+import { getAssetUrl } from "@/lib/api";
 import Seal from "@/components/Seal";
 
 export default function HomePage() {
+  const bannerUrl = getAssetUrl("/images/affl-banner.jpg");
+  const logoUrl = getAssetUrl("/images/affl-logo.jpg");
+
   const champions = [
     { year: 2025, franchise: "San Diego Shadowcöcks", owner: "John Newton", record: "11-3", score: "Champion" },
     { year: 2024, franchise: "Tijuana Sanchitos", owner: "Zack Blotz", record: "9-5", score: "Champion" },
@@ -40,45 +47,52 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 space-y-8">
       
-      {/* 2-Column Hero Masthead */}
-      <div className="relative overflow-hidden rounded-2xl border border-rule-bright bg-card p-6 md:p-10 lg:p-12 shadow-2xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* High-Impact Hero Masthead */}
+      <div className="relative overflow-hidden rounded-2xl border border-rule-bright bg-gradient-to-b from-card-elevated via-card to-canvas p-6 sm:p-8 lg:p-10 shadow-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           
-          {/* Left Column: Hero Copy & Actions (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
+          {/* Left Column: Brand, Title, Copy & CTAs (7 cols) */}
+          <div className="lg:col-span-7 space-y-5">
             
-            {/* Header Badge */}
-            <div className="flex items-center gap-3">
-              <Seal size={36} className="text-brand-yellow shrink-0" />
+            {/* High-Resolution Chrome AFFL Logo Banner */}
+            <div className="flex items-center gap-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={bannerUrl}
+                alt="AFFL Official Chrome Electric Banner"
+                className="h-16 sm:h-20 md:h-24 w-auto rounded-xl shadow-2xl object-contain hover:scale-105 transition-transform duration-300"
+                style={{
+                  filter: "drop-shadow(0 0 20px rgba(0, 162, 255, 0.45))"
+                }}
+              />
               <div className="flex flex-col">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-ink-dim font-bold">
-                  Permanent Statistical Record
+                <span className="font-mono text-[10px] sm:text-xs uppercase tracking-wider text-brand-yellow font-bold flex items-center gap-1.5">
+                  <Trophy className="h-3.5 w-3.5" />
+                  <span>Permanent Statistical Archive (2014–2025)</span>
                 </span>
-                <span className="font-mono text-xs font-semibold text-brand-yellow">
-                  Reigning Champion — San Diego Shadowcöcks (2025)
+                <span className="text-xs text-ink-dim font-mono">
+                  Defending Champion: <strong className="text-ink">San Diego Shadowcöcks (11-3)</strong>
                 </span>
               </div>
             </div>
 
-            {/* Title */}
-            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight leading-[0.92] text-ink">
-              The Permanent Statistical Home of the <span className="text-brand-blue">AFFL</span>
+            {/* Main Headline */}
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[0.95] text-ink">
+              The Permanent Statistical Home of the <span className="text-brand-blue drop-shadow-[0_0_15px_rgba(91,135,172,0.5)]">AFFL</span>
             </h1>
 
             {/* Subhead */}
-            <p className="text-xs sm:text-sm md:text-base text-ink-muted leading-relaxed max-w-xl">
-              Uniting 2014–2025 league custody, historical team identities, real franchise marks,
-              auction drafts, and matchups with NFL play-by-play, xFP opportunity modeling, and the defining
-              <strong className="text-ink"> /explore</strong> query engine.
+            <p className="text-xs sm:text-sm text-ink-muted leading-relaxed max-w-xl">
+              Uniting 12 seasons of league custody, historical franchise marks, and auction drafts with NFL play-by-play, xFP opportunity modeling, and the defining <strong className="text-ink font-semibold">/explore</strong> query builder.
             </p>
 
-            {/* CTA Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* Primary Actions Bar */}
+            <div className="flex flex-wrap items-center gap-2.5 pt-1">
               <Link
                 href="/explore"
-                className="flex items-center gap-2 rounded-lg bg-brand-blue px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-brand-blue/20 hover:bg-brand-blue/90 transition-all hover:scale-[1.02]"
+                className="flex items-center gap-2 rounded-lg bg-brand-blue px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-brand-blue/25 hover:bg-brand-blue/90 hover:scale-[1.02] transition-all"
               >
                 <Sparkles className="h-4 w-4" />
                 <span>Launch /explore Savant</span>
@@ -86,75 +100,75 @@ export default function HomePage() {
 
               <Link
                 href="/luck"
-                className="flex items-center gap-2 rounded-lg bg-card-elevated px-4 py-2.5 text-xs sm:text-sm font-semibold text-brand-lime hover:bg-card-hover border border-rule hover:border-brand-lime/40 transition-colors"
+                className="flex items-center gap-2 rounded-lg bg-card-elevated px-3.5 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold text-brand-lime hover:bg-card-hover border border-rule hover:border-brand-lime/50 transition-all"
               >
                 <Activity className="h-4 w-4" />
                 <span>Luck & Skill</span>
               </Link>
 
               <Link
-                href="/records"
-                className="flex items-center gap-2 rounded-lg bg-card-elevated px-4 py-2.5 text-xs sm:text-sm font-semibold text-ink hover:bg-card-hover border border-rule hover:border-rule-bright transition-colors"
+                href="/records/roto"
+                className="flex items-center gap-2 rounded-lg bg-card-elevated px-3.5 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold text-brand-yellow hover:bg-card-hover border border-rule hover:border-brand-yellow/50 transition-all"
               >
-                <Trophy className="h-4 w-4 text-brand-yellow" />
-                <span>Record Book</span>
+                <Award className="h-4 w-4" />
+                <span>10-Cat Roto</span>
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Live Canonical Pulse Widget (5 cols) */}
+          {/* Right Column: Live Canonical Pulse Card (5 cols) */}
           <div className="lg:col-span-5">
-            <div className="glass-card rounded-2xl p-5 border border-rule-bright space-y-4 shadow-xl bg-card-elevated/70">
+            <div className="glass-card rounded-2xl p-5 border border-rule-bright space-y-4 shadow-2xl bg-card-elevated/80 backdrop-blur-md">
               
               {/* Reigning Champion Spotlight */}
               <div className="flex items-center justify-between border-b border-rule pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-brand-yellow/15 border border-brand-yellow/40 flex items-center justify-center text-brand-yellow font-black font-mono">
-                    <Trophy className="h-5 w-5" />
+                  <div className="h-11 w-11 rounded-xl bg-brand-yellow/15 border border-brand-yellow/40 flex items-center justify-center text-brand-yellow font-black font-mono shadow-md">
+                    <Trophy className="h-6 w-6" />
                   </div>
                   <div>
-                    <span className="text-[9px] font-mono uppercase text-brand-yellow font-bold tracking-wider block">
-                      Reigning Champion
+                    <span className="text-[10px] font-mono uppercase text-brand-yellow font-bold tracking-wider block">
+                      2025 Reigning Champion
                     </span>
-                    <h3 className="font-mono text-sm font-bold text-ink">
+                    <h3 className="font-mono text-sm sm:text-base font-bold text-ink">
                       San Diego Shadowcöcks
                     </h3>
                   </div>
                 </div>
-                <span className="font-mono text-xs font-bold text-brand-lime px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30">
+                <span className="font-mono text-xs font-bold text-brand-lime px-2.5 py-1 rounded bg-emerald-500/15 border border-emerald-500/30">
                   11-3 (.786)
                 </span>
               </div>
 
               {/* Live Archive Metrics Grid */}
-              <div className="grid grid-cols-2 gap-3 text-xs font-mono">
+              <div className="grid grid-cols-2 gap-2.5 text-xs font-mono">
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
-                  <span className="text-[10px] uppercase text-ink-dim block">Seasons Archive</span>
-                  <span className="text-base font-bold text-ink flex items-center gap-1.5">
+                  <span className="text-[10px] uppercase text-ink-dim block font-semibold">Competition Eras</span>
+                  <span className="text-sm sm:text-base font-bold text-ink flex items-center gap-1.5">
                     <Calendar className="h-3.5 w-3.5 text-brand-blue" />
-                    <span>12 Eras (2014–25)</span>
+                    <span>12 Seasons (2014–25)</span>
                   </span>
                 </div>
 
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
-                  <span className="text-[10px] uppercase text-ink-dim block">Starter Lineups</span>
-                  <span className="text-base font-bold text-brand-lime flex items-center gap-1.5">
+                  <span className="text-[10px] uppercase text-ink-dim block font-semibold">Starter Lineups</span>
+                  <span className="text-sm sm:text-base font-bold text-brand-lime flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5" />
                     <span>24,762 Started</span>
                   </span>
                 </div>
 
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
-                  <span className="text-[10px] uppercase text-ink-dim block">Verified Trades</span>
-                  <span className="text-base font-bold text-brand-orange flex items-center gap-1.5">
-                    <TrendingUp className="h-3.5 w-3.5" />
+                  <span className="text-[10px] uppercase text-ink-dim block font-semibold">Verified Trades</span>
+                  <span className="text-sm sm:text-base font-bold text-brand-orange flex items-center gap-1.5">
+                    <Repeat className="h-3.5 w-3.5" />
                     <span>221 Swaps</span>
                   </span>
                 </div>
 
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
-                  <span className="text-[10px] uppercase text-ink-dim block">Scoring Standard</span>
-                  <span className="text-base font-bold text-brand-blue flex items-center gap-1.5">
+                  <span className="text-[10px] uppercase text-ink-dim block font-semibold">Scoring Standard</span>
+                  <span className="text-sm sm:text-base font-bold text-brand-blue flex items-center gap-1.5">
                     <Shield className="h-3.5 w-3.5" />
                     <span>0.0 Non-PPR</span>
                   </span>
@@ -163,7 +177,10 @@ export default function HomePage() {
 
               {/* Trust Badge */}
               <div className="text-[11px] text-ink-dim font-mono flex items-center justify-between pt-1 border-t border-rule/50">
-                <span>Verified SQLite + NFLverse Data Marts</span>
+                <span className="flex items-center gap-1">
+                  <Database className="h-3 w-3 text-brand-blue" />
+                  <span>SQLite Warehouse + nflverse</span>
+                </span>
                 <span className="text-brand-lime font-bold">100% Reconciled</span>
               </div>
             </div>
@@ -171,36 +188,103 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Featured Explore Queries Rail */}
-      <div className="space-y-4">
+      {/* 4-Up Analytical Suite Quick Launch */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+        <Link
+          href="/explore"
+          className="glass-card rounded-xl p-4 border border-rule hover:border-brand-blue/60 transition-all hover:bg-card-elevated group shadow-md"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-mono font-bold uppercase text-brand-blue px-2 py-0.5 rounded bg-brand-blue/15 border border-brand-blue/30">
+              Query Builder
+            </span>
+            <Sparkles className="h-4 w-4 text-brand-blue group-hover:rotate-12 transition-transform" />
+          </div>
+          <h3 className="font-mono text-sm font-bold text-ink group-hover:text-brand-blue transition-colors">
+            /explore Savant
+          </h3>
+          <p className="text-[11px] text-ink-dim mt-1">Multi-dimensional player & franchise queries</p>
+        </Link>
+
+        <Link
+          href="/luck"
+          className="glass-card rounded-xl p-4 border border-rule hover:border-brand-lime/60 transition-all hover:bg-card-elevated group shadow-md"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-mono font-bold uppercase text-brand-lime px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30">
+              Empirical
+            </span>
+            <Activity className="h-4 w-4 text-brand-lime group-hover:scale-110 transition-transform" />
+          </div>
+          <h3 className="font-mono text-sm font-bold text-ink group-hover:text-brand-lime transition-colors">
+            Luck & Skill Engine
+          </h3>
+          <p className="text-[11px] text-ink-dim mt-1">Schedule swaps, All-Play matrix & blunders</p>
+        </Link>
+
+        <Link
+          href="/points"
+          className="glass-card rounded-xl p-4 border border-rule hover:border-brand-yellow/60 transition-all hover:bg-card-elevated group shadow-md"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-mono font-bold uppercase text-brand-yellow px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
+              Reconciler
+            </span>
+            <Layers className="h-4 w-4 text-brand-yellow group-hover:scale-110 transition-transform" />
+          </div>
+          <h3 className="font-mono text-sm font-bold text-ink group-hover:text-brand-yellow transition-colors">
+            Points Acquisition
+          </h3>
+          <p className="text-[11px] text-ink-dim mt-1">Draft vs Waiver FAAB vs Free Agency share</p>
+        </Link>
+
+        <Link
+          href="/records/roto"
+          className="glass-card rounded-xl p-4 border border-rule hover:border-brand-orange/60 transition-all hover:bg-card-elevated group shadow-md"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-mono font-bold uppercase text-brand-orange px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30">
+              10-Category
+            </span>
+            <Award className="h-4 w-4 text-brand-orange group-hover:scale-110 transition-transform" />
+          </div>
+          <h3 className="font-mono text-sm font-bold text-ink group-hover:text-brand-orange transition-colors">
+            Roto Skill Radar
+          </h3>
+          <p className="text-[11px] text-ink-dim mt-1">Fantasy Genius Passing, Rushing & Receiving</p>
+        </Link>
+      </div>
+
+      {/* Featured Savant Queries Rail */}
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-brand-blue" />
-            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+            <h2 className="font-mono text-sm sm:text-base font-bold text-ink uppercase tracking-wider">
               Featured Savant Queries
             </h2>
           </div>
-          <Link href="/explore" className="text-xs text-brand-blue hover:underline flex items-center gap-1 font-medium">
+          <Link href="/explore" className="text-xs text-brand-blue hover:underline flex items-center gap-1 font-medium font-mono">
             <span>Open Query Builder</span>
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {EXPLORE_PRESETS.slice(0, 3).map((preset) => (
             <Link
               key={preset.id}
               href={`/explore?scope=${preset.state.scope}&grain=${preset.state.grain}&sort=${preset.state.sortBy}&metrics=${preset.state.metrics.join(",")}`}
-              className="group glass-card rounded-xl p-5 hover:border-brand-blue/60 flex flex-col justify-between transition-all hover:bg-card-elevated shadow-lg"
+              className="group glass-card rounded-xl p-4 hover:border-brand-blue/60 flex flex-col justify-between transition-all hover:bg-card-elevated shadow-lg"
             >
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 <div className="flex items-center justify-between text-[10px] font-mono">
                   <span className="px-2 py-0.5 rounded bg-brand-blue/15 text-brand-blue font-bold border border-brand-blue/30">
                     Scope: {preset.state.scope}
                   </span>
                   <span className="text-ink-dim uppercase font-semibold">{preset.state.grain} grain</span>
                 </div>
-                <h3 className="font-mono text-sm font-bold text-ink group-hover:text-brand-blue transition-colors">
+                <h3 className="font-mono text-xs sm:text-sm font-bold text-ink group-hover:text-brand-blue transition-colors">
                   {preset.title}
                 </h3>
                 <p className="text-xs text-ink-muted leading-relaxed">
@@ -208,7 +292,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-rule flex items-center justify-between text-xs font-mono text-brand-blue font-semibold">
+              <div className="mt-3 pt-2.5 border-t border-rule flex items-center justify-between text-xs font-mono text-brand-blue font-semibold">
                 <span>Run Query</span>
                 <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1.5 transition-transform" />
               </div>
@@ -218,34 +302,34 @@ export default function HomePage() {
       </div>
 
       {/* Championship Timeline & Record Highlights */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Championship Timeline */}
-        <div className="lg:col-span-2 space-y-4">
+        <div className="lg:col-span-2 space-y-3">
           <div className="flex items-center gap-2">
             <Trophy className="h-4 w-4 text-brand-yellow" />
-            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+            <h2 className="font-mono text-sm sm:text-base font-bold text-ink uppercase tracking-wider">
               Championship Timeline (2014–2025)
             </h2>
           </div>
 
           <div className="rounded-xl border border-rule bg-card divide-y divide-rule/60 shadow-xl overflow-hidden">
             {champions.map((c, i) => (
-              <div key={c.year} className="p-4 flex items-center justify-between hover:bg-card-hover/80 transition-colors">
-                <div className="flex items-center gap-4">
+              <div key={c.year} className="p-3.5 flex items-center justify-between hover:bg-card-hover/80 transition-colors text-xs">
+                <div className="flex items-center gap-3.5">
                   {i === 0 ? (
-                    <Seal size={38} className="text-brand-yellow shrink-0" />
+                    <Seal size={36} className="shrink-0" />
                   ) : (
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-card-elevated border border-rule-bright font-mono font-bold text-brand-yellow text-xs shrink-0">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-card-elevated border border-rule-bright font-mono font-bold text-brand-yellow text-xs shrink-0">
                       {c.year}
                     </div>
                   )}
                   <div>
-                    <h4 className="font-mono font-bold text-ink text-sm hover:text-brand-blue cursor-pointer">
+                    <h4 className="font-mono font-bold text-ink hover:text-brand-blue cursor-pointer">
                       {c.franchise}
                     </h4>
-                    <span className="text-xs text-ink-dim">
-                      Record: <strong className="text-ink-muted font-mono">{c.record}</strong> • Owner: <span className="font-mono text-ink-muted">{c.owner}</span>
+                    <span className="text-[11px] text-ink-dim font-mono">
+                      Record: <strong className="text-ink-muted">{c.record}</strong> • Owner: <span className="text-ink-muted">{c.owner}</span>
                     </span>
                   </div>
                 </div>
@@ -262,17 +346,17 @@ export default function HomePage() {
         </div>
 
         {/* Notable Records */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-center gap-2">
             <Flame className="h-4 w-4 text-brand-orange" />
-            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+            <h2 className="font-mono text-sm sm:text-base font-bold text-ink uppercase tracking-wider">
               Notable Records
             </h2>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {notableRecords.map((rec, i) => (
-              <div key={i} className="glass-card rounded-xl p-4 space-y-1.5 shadow-md">
+              <div key={i} className="glass-card rounded-xl p-3.5 space-y-1 shadow-md">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-brand-orange font-semibold">
                     {rec.badge}
@@ -288,11 +372,11 @@ export default function HomePage() {
       </div>
 
       {/* 2026 Planning Field & All Active Franchises */}
-      <div className="space-y-4 pt-4 border-t border-rule">
+      <div className="space-y-3 pt-2 border-t border-rule">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Shield className="h-4 w-4 text-brand-blue" />
-            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+            <h2 className="font-mono text-sm sm:text-base font-bold text-ink uppercase tracking-wider">
               Current 2026 Planning Field (12 Franchises)
             </h2>
           </div>
@@ -301,24 +385,24 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
           {CANONICAL_FRANCHISES.filter((f) => f.is_active === 1).map((f) => (
             <Link
               key={f.franchise_id}
               href={`/franchises/${f.franchise_id}`}
-              className="glass-card group rounded-xl p-3.5 text-center space-y-2 hover:border-brand-blue/50 flex flex-col items-center justify-center shadow-md transition-all hover:bg-card-elevated"
+              className="glass-card group rounded-xl p-3 text-center space-y-1.5 hover:border-brand-blue/50 flex flex-col items-center justify-center shadow-md transition-all hover:bg-card-elevated"
             >
               <div
-                className="h-10 w-10 rounded-full flex items-center justify-center font-mono font-black text-sm shadow-md"
+                className="h-9 w-9 rounded-full flex items-center justify-center font-mono font-black text-xs shadow-md"
                 style={{ backgroundColor: `${f.primary_color}25`, color: f.primary_color, border: `1.5px solid ${f.primary_color}` }}
               >
                 {f.display_name.slice(0, 2).toUpperCase()}
               </div>
               <div className="space-y-0.5">
-                <h4 className="font-mono text-xs font-bold text-ink group-hover:text-brand-blue transition-colors truncate max-w-[130px]">
+                <h4 className="font-mono text-xs font-bold text-ink group-hover:text-brand-blue transition-colors truncate max-w-[120px]">
                   {f.display_name}
                 </h4>
-                <span className="text-[10px] text-ink-dim block font-mono">
+                <span className="text-[9px] text-ink-dim block font-mono">
                   {f.first_season}–Pres.
                 </span>
               </div>

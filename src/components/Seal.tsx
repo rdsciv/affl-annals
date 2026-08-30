@@ -1,47 +1,31 @@
+"use client";
+
+import { getAssetUrl } from "@/lib/api";
+
 type SealProps = {
   size?: number;
   className?: string;
+  variant?: "badge" | "banner";
 };
 
-/**
- * The league crest — a wax-seal monogram used as the site's one bespoke,
- * recurring mark: masthead, championship years, empty states.
- */
-export default function Seal({ size = 40, className = "" }: SealProps) {
+export default function Seal({ size = 48, className = "", variant = "badge" }: SealProps) {
+  const src = getAssetUrl(variant === "banner" ? "/images/affl-banner.jpg" : "/images/affl-logo.jpg");
+
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 40 40"
-      className={className}
-      role="img"
-      aria-label="AFFL Savant seal"
-    >
-      <circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" strokeWidth="1" />
-      <circle cx="20" cy="20" r="15.5" fill="none" stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
-      <text
-        x="20"
-        y="21.5"
-        textAnchor="middle"
-        fill="currentColor"
-        fontSize="15"
-        fontWeight="800"
-        fontFamily="var(--font-display), sans-serif"
-      >
-        A
-      </text>
-      <text
-        x="20"
-        y="29.5"
-        textAnchor="middle"
-        fill="currentColor"
-        fontSize="3.6"
-        letterSpacing="0.5"
-        fontFamily="var(--font-mono), monospace"
-        opacity="0.85"
-      >
-        EST 2014
-      </text>
-    </svg>
+    <div className={`relative inline-flex items-center justify-center shrink-0 ${className}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt="AFFL Official Chrome Logo"
+        width={variant === "banner" ? size * 2.5 : size}
+        height={size}
+        className={`object-contain rounded-lg shadow-md hover:scale-105 transition-transform duration-200`}
+        style={{
+          height: `${size}px`,
+          width: variant === "banner" ? "auto" : `${size}px`,
+          filter: "drop-shadow(0 0 12px rgba(0, 162, 255, 0.35))"
+        }}
+      />
+    </div>
   );
 }

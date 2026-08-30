@@ -57,17 +57,19 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-rule bg-canvas/95 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-2">
         
         {/* Brand Logo */}
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-3 group">
-            <Seal size={32} className="text-brand-yellow group-hover:text-brand-blue transition-colors shrink-0" />
+          <Link href="/" className="flex items-center gap-3.5 group">
+            <Seal size={48} className="shrink-0 transition-transform group-hover:scale-105" />
             <div className="flex flex-col">
-              <span className="font-display text-lg font-black tracking-wider text-ink uppercase leading-tight group-hover:text-brand-blue transition-colors">
-                AFFL Savant
-              </span>
-              <span className="text-[9px] font-mono font-medium text-ink-dim tracking-wider uppercase">
+              <div className="flex items-center gap-2">
+                <span className="font-display text-xl sm:text-2xl font-black tracking-wider text-ink uppercase leading-none group-hover:text-brand-blue transition-colors">
+                  AFFL SAVANT
+                </span>
+              </div>
+              <span className="text-[10px] font-mono font-bold text-ink-dim tracking-wider uppercase mt-0.5">
                 2014–2025 Canonical Archive
               </span>
             </div>
