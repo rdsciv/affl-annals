@@ -1,78 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { Repeat, Shield, Calendar, TrendingUp, Sparkles, Award } from "lucide-react";
+import { Repeat, Shield, Calendar, Search, ArrowRight, UserCheck } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
+import { fetchMartJson } from "@/lib/api";
 
 export default function TradesPage() {
-  // Highlighted canonical blockbuster trades
-  const trades = [
-    {
-      id: "trade_2023_1",
-      season: 2023,
-      week: 8,
-      team1: "DC Mighty Cucks",
-      team2: "Fairview Fat Cats",
-      franchise1_id: "FRAN_DCMC",
-      franchise2_id: "FRAN_FFC",
-      team1_received: ["Christian McCaffrey (RB)", "2024 Round 3 Pick"],
-      team2_received: ["Amon-Ra St. Brown (WR)", "Travis Etienne (RB)"],
-      trade_alpha_team1: "+34.5 PAR",
-      trade_alpha_team2: "+28.2 PAR",
-      realized_value_team1: "186.4 pts",
-      realized_value_team2: "162.1 pts",
-      notes: "DC Mighty Cucks title-winning deadline acquisition.",
-    },
-    {
-      id: "trade_2022_1",
-      season: 2022,
-      week: 6,
-      team1: "Goleta Gringos",
-      team2: "Squaw Valley Skinners",
-      franchise1_id: "FRAN_GGG",
-      franchise2_id: "FRAN_SVS",
-      team1_received: ["Josh Allen (QB)"],
-      team2_received: ["Justin Herbert (QB)", "2023 Round 2 Pick"],
-      trade_alpha_team1: "+18.4 PAR",
-      trade_alpha_team2: "+12.1 PAR",
-      realized_value_team1: "194.2 pts",
-      realized_value_team2: "155.8 pts",
-      notes: "Blockbuster QB swap preceding Goleta championship.",
-    },
-    {
-      id: "trade_2021_1",
-      season: 2021,
-      week: 9,
-      team1: "Fairview Fat Cats",
-      team2: "Patagonia Pipers",
-      franchise1_id: "FRAN_FFC",
-      franchise2_id: "FRAN_PTP",
-      team1_received: ["Cooper Kupp (WR)"],
-      team2_received: ["Stefon Diggs (WR)", "2022 Round 1 Pick"],
-      trade_alpha_team1: "+45.2 PAR",
-      trade_alpha_team2: "+19.0 PAR",
-      realized_value_team1: "212.8 pts",
-      realized_value_team2: "148.4 pts",
-      notes: "Historic Kupp Triple Crown season run for Fairview title.",
-    },
-    {
-      id: "trade_2019_1",
-      season: 2019,
-      week: 7,
-      team1: "Patagonia Pipers",
-      team2: "Westeros Warlords",
-      franchise1_id: "FRAN_PTP",
-      franchise2_id: "FRAN_WWL",
-      team1_received: ["Lamar Jackson (QB)"],
-      team2_received: ["Russell Wilson (QB)", "Aaron Jones (RB)"],
-      trade_alpha_team1: "+52.0 PAR",
-      trade_alpha_team2: "+31.4 PAR",
-      realized_value_team1: "248.6 pts",
-      realized_value_team2: "198.2 pts",
-      notes: "Lamar Jackson unanimous MVP breakout custody run.",
-    },
-  ];
+  const [trades, setTrades] = useState<any[]>([]);
+  const [selectedSeason, setSelectedSeason] = useState<number | "ALL">("ALL");
+  const [selectedFranchise, setSelectedFranchise] = useState<string>("ALL");
+  const [search, setSearch] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function loadTrades() {
+      try {
+        const data = await fetchMartJson("mart_affl_trades.json");
+        setTrades(data || []);
+      } catch (err) {
+        console.error("Error loading trades mart:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadTrades();
+  }, []);
+
+  const filteredTrades = useMemo(() => {
+    return (trades || []).filter((t) => {
+      if (selectedSeason !== "ALL" && t.season !== selectedSeason) return false;
+      if (
+        selectedFranchise !== "ALL" &&
+        t.team1_franchise_id !== selectedFranchise &&
+        t.team2_franchise_id !== selectedFranchise
+      ) {
+        return false;
+      }
+      if (search) {
+        const q = search.toLowerCase();
+        const t1 = (t.team1_name || "").toLowerCase();
+        const t2 = (t.team2_name || "").toLowerCase();
+        const p1 = (t.team1_sent || []).some((p: any) =>
+          (p.player_name || "").toLowerCase().includes(q)
+        );
+        const p2 = (t.team2_sent || []).some((p: any) =>
+          (p.player_name || "").toLowerCase().includes(q)
+        );
+        if (!t1.includes(q) && !t2.includes(q) && !p1 && !p2) return false;
+      }
+      return true;
+    });
+  }, [trades, selectedSeason, selectedFranchise, search]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -81,103 +60,181 @@ export default function TradesPage() {
         <div>
           <h1 className="font-mono text-2xl md:text-3xl font-black text-ink tracking-tight flex items-center gap-3">
             <Repeat className="h-7 w-7 text-brand-blue" />
-            <span>AFFL Trade Ledger & Realized Alpha</span>
+            <span>AFFL Canonical Trade Ledger</span>
           </h1>
           <p className="text-xs md:text-sm text-ink-muted mt-1">
-            Historical blockbuster transactions tracking assets exchanged, post-trade custody production, and subsequent Trade Alpha.
+            Complete historical record of all 392 executed trades across AFFL history (2014–2025).
           </p>
+        </div>
+        <div className="flex items-center gap-2 font-mono text-xs text-ink-dim bg-card-elevated px-3 py-1.5 rounded-lg border border-rule">
+          <span>Total Executed:</span>
+          <strong className="text-brand-blue">{trades.length}</strong>
+        </div>
+      </div>
+
+      {/* Filter Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-card p-4">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Season Selector */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <Calendar className="h-3.5 w-3.5 text-ink-dim" />
+            <select
+              value={selectedSeason}
+              onChange={(e) =>
+                setSelectedSeason(e.target.value === "ALL" ? "ALL" : parseInt(e.target.value))
+              }
+              className="bg-card-elevated text-ink font-semibold rounded px-2.5 py-1 border border-rule focus:outline-none cursor-pointer"
+            >
+              <option value="ALL">All Seasons</option>
+              {Array.from({ length: 12 }, (_, i) => 2025 - i).map((y) => (
+                <option key={y} value={y}>
+                  {y} Season
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Franchise Selector */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <Shield className="h-3.5 w-3.5 text-ink-dim" />
+            <select
+              value={selectedFranchise}
+              onChange={(e) => setSelectedFranchise(e.target.value)}
+              className="bg-card-elevated text-ink font-semibold rounded px-2.5 py-1 border border-rule focus:outline-none cursor-pointer"
+            >
+              <option value="ALL">All Franchises</option>
+              {CANONICAL_FRANCHISES.map((f) => (
+                <option key={f.franchise_id} value={f.franchise_id}>
+                  {f.display_name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Search */}
+        <div className="relative w-full sm:w-64">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-dim" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search player or team..."
+            className="w-full rounded-lg bg-card-elevated pl-8 pr-3 py-1.5 text-xs text-ink placeholder-ink-dim border border-rule focus:border-brand-blue focus:outline-none"
+          />
         </div>
       </div>
 
       {/* Trades Grid */}
-      <div className="space-y-6">
-        {trades.map((trade) => (
-          <div key={trade.id} className="glass-card rounded-2xl p-6 border border-rule space-y-5 shadow-lg">
-            {/* Trade Meta Header */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-rule pb-3">
-              <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-card-elevated font-mono font-bold text-xs text-brand-blue border border-rule">
-                  {trade.season}
-                </span>
-                <span className="font-mono text-xs text-ink-muted">
-                  Week {trade.week} Matchup Period
-                </span>
-              </div>
-
-              <span className="text-xs text-ink-dim font-mono italic">
-                {trade.notes}
-              </span>
-            </div>
-
-            {/* Two Sides of the Trade */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Franchise 1 */}
-              <div className="rounded-xl bg-card-elevated/70 p-4 border border-rule space-y-3">
-                <div className="flex items-center justify-between">
-                  <Link
-                    href={`/franchises/${trade.franchise1_id}`}
-                    className="font-mono font-bold text-ink hover:text-brand-blue transition-colors text-sm"
-                  >
-                    {trade.team1}
-                  </Link>
-                  <span className="text-[10px] font-mono text-brand-lime font-bold">
-                    Alpha: {trade.trade_alpha_team1}
+      {loading ? (
+        <div className="py-24 text-center text-xs font-mono text-ink-dim">
+          Loading canonical trades ledger...
+        </div>
+      ) : filteredTrades.length === 0 ? (
+        <div className="rounded-xl border border-rule bg-card py-16 text-center text-ink-muted">
+          <p className="font-mono text-sm">No trades found matching the current filters.</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {filteredTrades.map((trade) => (
+            <div
+              key={trade.trade_id}
+              className="rounded-xl p-5 border border-rule bg-card hover:border-rule-bright transition-all space-y-4 shadow-md"
+            >
+              {/* Header */}
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="rounded bg-card-elevated font-mono font-bold text-xs text-brand-blue px-2 py-0.5 border border-rule">
+                    {trade.season} · Week {trade.week}
+                  </span>
+                  <span className="font-mono text-[11px] text-ink-dim">
+                    Trade #{trade.trade_id}
                   </span>
                 </div>
-
-                <div className="space-y-1 text-xs">
-                  <span className="text-[10px] font-mono uppercase text-ink-dim block">Acquired Assets</span>
-                  <ul className="space-y-1">
-                    {trade.team1_received.map((item, idx) => (
-                      <li key={idx} className="font-semibold text-ink flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-brand-blue"></span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="pt-2 border-t border-rule/60 flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-ink-dim">Realized Points:</span>
-                  <strong className="text-brand-blue">{trade.realized_value_team1}</strong>
-                </div>
               </div>
 
-              {/* Franchise 2 */}
-              <div className="rounded-xl bg-card-elevated/70 p-4 border border-rule space-y-3">
-                <div className="flex items-center justify-between">
-                  <Link
-                    href={`/franchises/${trade.franchise2_id}`}
-                    className="font-mono font-bold text-ink hover:text-brand-blue transition-colors text-sm"
-                  >
-                    {trade.team2}
-                  </Link>
-                  <span className="text-[10px] font-mono text-brand-lime font-bold">
-                    Alpha: {trade.trade_alpha_team2}
-                  </span>
+              {/* Two Sides of the Trade */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Team 1 Side */}
+                <div className="rounded-lg bg-card-elevated/60 border border-rule/70 p-4 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="h-2.5 w-2.5 rounded-full"
+                        style={{ backgroundColor: trade.team1_franchise_color || "#00a2ff" }}
+                      />
+                      <span className="font-mono text-xs font-bold text-ink">
+                        {trade.team1_name}
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-ink-dim">
+                      Acquires ({trade.team2_sent?.length || 0})
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5 pt-1">
+                    {trade.team2_sent && trade.team2_sent.length > 0 ? (
+                      trade.team2_sent.map((p: any, pIdx: number) => (
+                        <div
+                          key={pIdx}
+                          className="flex items-center justify-between text-xs py-1 px-2 rounded bg-card border border-rule/50"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-[10px] font-bold text-brand-blue px-1.5 py-0.2 rounded bg-brand-blue/10 border border-brand-blue/20">
+                              {p.position}
+                            </span>
+                            <span className="font-medium text-ink">{p.player_name}</span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-[11px] text-ink-dim italic">Draft / Future Assets</div>
+                    )}
+                  </div>
                 </div>
 
-                <div className="space-y-1 text-xs">
-                  <span className="text-[10px] font-mono uppercase text-ink-dim block">Acquired Assets</span>
-                  <ul className="space-y-1">
-                    {trade.team2_received.map((item, idx) => (
-                      <li key={idx} className="font-semibold text-ink flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-brand-orange"></span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {/* Team 2 Side */}
+                <div className="rounded-lg bg-card-elevated/60 border border-rule/70 p-4 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="h-2.5 w-2.5 rounded-full"
+                        style={{ backgroundColor: trade.team2_franchise_color || "#ff6a00" }}
+                      />
+                      <span className="font-mono text-xs font-bold text-ink">
+                        {trade.team2_name}
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-ink-dim">
+                      Acquires ({trade.team1_sent?.length || 0})
+                    </span>
+                  </div>
 
-                <div className="pt-2 border-t border-rule/60 flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-ink-dim">Realized Points:</span>
-                  <strong className="text-brand-orange">{trade.realized_value_team2}</strong>
+                  <div className="space-y-1.5 pt-1">
+                    {trade.team1_sent && trade.team1_sent.length > 0 ? (
+                      trade.team1_sent.map((p: any, pIdx: number) => (
+                        <div
+                          key={pIdx}
+                          className="flex items-center justify-between text-xs py-1 px-2 rounded bg-card border border-rule/50"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-[10px] font-bold text-brand-orange px-1.5 py-0.2 rounded bg-brand-orange/10 border border-brand-orange/20">
+                              {p.position}
+                            </span>
+                            <span className="font-medium text-ink">{p.player_name}</span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-[11px] text-ink-dim italic">Draft / Future Assets</div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

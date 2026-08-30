@@ -27,6 +27,11 @@
       "json": "mart_affl_player_season_custody.json",
       "rows": 4237,
       "md5": "2fda8944be659aad6c44715158e19548"
+    },
+    "mart_affl_trades": {
+      "json": "mart_affl_trades.json",
+      "rows": 392,
+      "md5": "b944e0f3b4dfe640bc6f1446d41464a2"
     }
   }
 }

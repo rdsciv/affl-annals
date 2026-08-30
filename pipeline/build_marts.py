@@ -312,8 +312,86 @@ def build_all_marts():
         "rows": len(df_custody_season),
         "md5": compute_md5(psc_parquet)
     }
-    print(f"Built mart_affl_player_season_custody: {len(df_custody_season)} rows")
-    
+    # 6. mart_affl_trades
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT 
+            t.trade_id,
+            t.season,
+            t.week,
+            t.ts,
+            ti.player_id,
+            p.name AS player_name,
+            p.position,
+            COALESCE(p.headshot_url, '') AS headshot_url,
+            ti.from_team_id,
+            t1.name AS from_team_name,
+            t1.owner_id AS from_owner_id,
+            ti.to_team_id,
+            t2.name AS to_team_name,
+            t2.owner_id AS to_owner_id
+        FROM fact_trade t
+        JOIN fact_trade_item ti ON t.trade_id = ti.trade_id
+        JOIN dim_player p ON ti.player_id = p.player_id
+        JOIN v_team t1 ON t.season = t1.season AND ti.from_team_id = t1.team_id
+        JOIN v_team t2 ON t.season = t2.season AND ti.to_team_id = t2.team_id
+        ORDER BY t.season DESC, t.week DESC, t.trade_id
+    """)
+    trades_raw = cursor.fetchall()
+    trades_map = {}
+    for r in trades_raw:
+        tid, season, week, ts = r[0], r[1], r[2], r[3]
+        pid, pname, pos, headshot = r[4], r[5], r[6], r[7]
+        from_tid, from_tname, from_oid = r[8], r[9], r[10]
+        to_tid, to_tname, to_oid = r[11], r[12], r[13]
+
+        from_fid, from_fname, _, from_color, _ = get_franchise_meta(from_oid)
+        to_fid, to_fname, _, to_color, _ = get_franchise_meta(to_oid)
+
+        if tid not in trades_map:
+            trades_map[tid] = {
+                "trade_id": tid,
+                "season": season,
+                "week": week,
+                "ts": ts,
+                "team1_id": from_tid,
+                "team1_name": from_tname,
+                "team1_franchise_id": from_fid,
+                "team1_franchise_name": from_fname,
+                "team1_franchise_color": from_color,
+                "team2_id": to_tid,
+                "team2_name": to_tname,
+                "team2_franchise_id": to_fid,
+                "team2_franchise_name": to_fname,
+                "team2_franchise_color": to_color,
+                "team1_sent": [],
+                "team2_sent": [],
+            }
+
+        item_obj = {
+            "player_id": pid,
+            "player_name": pname,
+            "position": pos,
+            "headshot_url": headshot,
+        }
+        t_entry = trades_map[tid]
+        if from_tid == t_entry["team1_id"]:
+            t_entry["team1_sent"].append(item_obj)
+        else:
+            t_entry["team2_sent"].append(item_obj)
+
+    trades_list = list(trades_map.values())
+    tr_json = MARTS_DIR / "mart_affl_trades.json"
+    with open(tr_json, "w") as f:
+        json.dump(trades_list, f, indent=2)
+
+    manifest["marts"]["mart_affl_trades"] = {
+        "json": "mart_affl_trades.json",
+        "rows": len(trades_list),
+        "md5": compute_md5(tr_json)
+    }
+    print(f"Built mart_affl_trades: {len(trades_list)} real trades")
+
     # Save manifest.json
     with open(MARTS_DIR / "manifest.json", "w") as f:
         json.dump(manifest, f, indent=2)
