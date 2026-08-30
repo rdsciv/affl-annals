@@ -16,8 +16,8 @@ export function getAssetUrl(path: string): string {
 }
 
 export async function fetchMartJson<T = any>(filename: string): Promise<T> {
-  const url = getAssetUrl(`/data/marts/${filename}`);
-  const res = await fetch(url);
+  const url = getAssetUrl(`/data/marts/${filename}?t=${Date.now()}`);
+  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) {
     throw new Error(`Failed to fetch mart: ${url} (HTTP ${res.status})`);
   }
