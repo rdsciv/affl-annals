@@ -16,13 +16,10 @@ import {
   Activity,
   Layers,
   CheckCircle2,
-  Zap,
-  ListOrdered,
   Repeat
 } from "lucide-react";
 import { CANONICAL_FRANCHISES, EXPLORE_PRESETS } from "@/lib/constants";
 import { getAssetUrl } from "@/lib/api";
-import Seal from "@/components/Seal";
 
 export default function HomePage() {
   const bannerUrl = getAssetUrl("/images/affl-banner.jpg");
@@ -47,52 +44,38 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       
       {/* High-Impact Hero Masthead */}
       <div className="relative overflow-hidden rounded-2xl border border-rule-bright bg-gradient-to-b from-card-elevated via-card to-canvas p-6 sm:p-8 lg:p-10 shadow-2xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
           
-          {/* Left Column: Brand, Title, Copy & CTAs (7 cols) */}
-          <div className="lg:col-span-7 space-y-5">
+          {/* Left Column: Big Official Chrome Electric Logo & Headline */}
+          <div className="flex-1 space-y-4 text-center lg:text-left">
             
-            {/* High-Resolution Chrome AFFL Logo Banner */}
-            <div className="flex items-center gap-4">
+            {/* High-Resolution Electric Chrome Banner Logo */}
+            <div className="inline-flex items-center justify-center lg:justify-start">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={bannerUrl}
-                alt="AFFL Official Chrome Electric Banner"
-                className="h-16 sm:h-20 md:h-24 w-auto rounded-xl shadow-2xl object-contain hover:scale-105 transition-transform duration-300"
-                style={{
-                  filter: "drop-shadow(0 0 20px rgba(0, 162, 255, 0.45))"
-                }}
+                alt="AFFL Official Chrome Electric Logo"
+                className="h-20 sm:h-28 md:h-32 w-auto object-contain drop-shadow-[0_0_25px_rgba(0,162,255,0.55)] hover:scale-105 transition-transform duration-300"
               />
-              <div className="flex flex-col">
-                <span className="font-mono text-[10px] sm:text-xs uppercase tracking-wider text-brand-yellow font-bold flex items-center gap-1.5">
-                  <Trophy className="h-3.5 w-3.5" />
-                  <span>Permanent Statistical Archive (2014–2025)</span>
-                </span>
-                <span className="text-xs text-ink-dim font-mono">
-                  Defending Champion: <strong className="text-ink">San Diego Shadowcöcks (11-3)</strong>
-                </span>
-              </div>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[0.95] text-ink">
-              The Permanent Statistical Home of the <span className="text-brand-blue drop-shadow-[0_0_15px_rgba(91,135,172,0.5)]">AFFL</span>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-ink">
+              The Permanent Statistical Home of the <span className="text-brand-blue drop-shadow-[0_0_15px_rgba(91,135,172,0.6)]">AFFL</span>
             </h1>
 
-            {/* Subhead */}
-            <p className="text-xs sm:text-sm text-ink-muted leading-relaxed max-w-xl">
-              Uniting 12 seasons of league custody, historical franchise marks, and auction drafts with NFL play-by-play, xFP opportunity modeling, and the defining <strong className="text-ink font-semibold">/explore</strong> query builder.
+            <p className="text-xs sm:text-sm text-ink-muted leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              Uniting 12 competition eras (2014–2025) of league custody, franchise marks, auction drafts, and head-to-head records with NFL play-by-play and the defining <strong className="text-ink font-semibold">/explore</strong> Savant query engine.
             </p>
 
-            {/* Primary Actions Bar */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-1">
+            {/* Main CTAs */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
               <Link
                 href="/explore"
-                className="flex items-center gap-2 rounded-lg bg-brand-blue px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-brand-blue/25 hover:bg-brand-blue/90 hover:scale-[1.02] transition-all"
+                className="flex items-center gap-2 rounded-xl bg-brand-blue px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-brand-blue/30 hover:bg-brand-blue/90 hover:scale-[1.02] transition-all"
               >
                 <Sparkles className="h-4 w-4" />
                 <span>Launch /explore Savant</span>
@@ -100,30 +83,30 @@ export default function HomePage() {
 
               <Link
                 href="/luck"
-                className="flex items-center gap-2 rounded-lg bg-card-elevated px-3.5 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold text-brand-lime hover:bg-card-hover border border-rule hover:border-brand-lime/50 transition-all"
+                className="flex items-center gap-2 rounded-xl bg-card-elevated px-4 py-3 text-xs sm:text-sm font-bold text-brand-lime hover:bg-card-hover border border-rule hover:border-brand-lime/50 transition-all shadow-md"
               >
                 <Activity className="h-4 w-4" />
-                <span>Luck & Skill</span>
+                <span>Luck & Skill Engine</span>
               </Link>
 
               <Link
                 href="/records/roto"
-                className="flex items-center gap-2 rounded-lg bg-card-elevated px-3.5 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold text-brand-yellow hover:bg-card-hover border border-rule hover:border-brand-yellow/50 transition-all"
+                className="flex items-center gap-2 rounded-xl bg-card-elevated px-4 py-3 text-xs sm:text-sm font-bold text-brand-yellow hover:bg-card-hover border border-rule hover:border-brand-yellow/50 transition-all shadow-md"
               >
                 <Award className="h-4 w-4" />
-                <span>10-Cat Roto</span>
+                <span>10-Cat Roto Radar</span>
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Live Canonical Pulse Card (5 cols) */}
-          <div className="lg:col-span-5">
-            <div className="glass-card rounded-2xl p-5 border border-rule-bright space-y-4 shadow-2xl bg-card-elevated/80 backdrop-blur-md">
+          {/* Right Column: Live Canonical Archive Pulse Card */}
+          <div className="w-full lg:w-96 shrink-0">
+            <div className="glass-card rounded-2xl p-5 border border-rule-bright space-y-4 shadow-2xl bg-card-elevated/90 backdrop-blur-xl">
               
               {/* Reigning Champion Spotlight */}
               <div className="flex items-center justify-between border-b border-rule pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="h-11 w-11 rounded-xl bg-brand-yellow/15 border border-brand-yellow/40 flex items-center justify-center text-brand-yellow font-black font-mono shadow-md">
+                  <div className="h-12 w-12 rounded-xl bg-brand-yellow/15 border border-brand-yellow/40 flex items-center justify-center text-brand-yellow font-black font-mono shadow-lg">
                     <Trophy className="h-6 w-6" />
                   </div>
                   <div>
@@ -140,11 +123,11 @@ export default function HomePage() {
                 </span>
               </div>
 
-              {/* Live Archive Metrics Grid */}
+              {/* Metrics Grid */}
               <div className="grid grid-cols-2 gap-2.5 text-xs font-mono">
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
                   <span className="text-[10px] uppercase text-ink-dim block font-semibold">Competition Eras</span>
-                  <span className="text-sm sm:text-base font-bold text-ink flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-ink flex items-center gap-1.5">
                     <Calendar className="h-3.5 w-3.5 text-brand-blue" />
                     <span>12 Seasons (2014–25)</span>
                   </span>
@@ -152,7 +135,7 @@ export default function HomePage() {
 
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
                   <span className="text-[10px] uppercase text-ink-dim block font-semibold">Starter Lineups</span>
-                  <span className="text-sm sm:text-base font-bold text-brand-lime flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-brand-lime flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5" />
                     <span>24,762 Started</span>
                   </span>
@@ -160,7 +143,7 @@ export default function HomePage() {
 
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
                   <span className="text-[10px] uppercase text-ink-dim block font-semibold">Verified Trades</span>
-                  <span className="text-sm sm:text-base font-bold text-brand-orange flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-brand-orange flex items-center gap-1.5">
                     <Repeat className="h-3.5 w-3.5" />
                     <span>221 Swaps</span>
                   </span>
@@ -168,7 +151,7 @@ export default function HomePage() {
 
                 <div className="rounded-xl bg-card p-3 border border-rule space-y-1">
                   <span className="text-[10px] uppercase text-ink-dim block font-semibold">Scoring Standard</span>
-                  <span className="text-sm sm:text-base font-bold text-brand-blue flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-brand-blue flex items-center gap-1.5">
                     <Shield className="h-3.5 w-3.5" />
                     <span>0.0 Non-PPR</span>
                   </span>
@@ -188,13 +171,13 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 4-Up Analytical Suite Quick Launch */}
+      {/* 4-Up Analytical Suite Quick Launch Bar */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
         <Link
           href="/explore"
           className="glass-card rounded-xl p-4 border border-rule hover:border-brand-blue/60 transition-all hover:bg-card-elevated group shadow-md"
         >
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-1.5">
             <span className="text-[10px] font-mono font-bold uppercase text-brand-blue px-2 py-0.5 rounded bg-brand-blue/15 border border-brand-blue/30">
               Query Builder
             </span>
@@ -210,9 +193,9 @@ export default function HomePage() {
           href="/luck"
           className="glass-card rounded-xl p-4 border border-rule hover:border-brand-lime/60 transition-all hover:bg-card-elevated group shadow-md"
         >
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-1.5">
             <span className="text-[10px] font-mono font-bold uppercase text-brand-lime px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30">
-              Empirical
+              Empirical Suite
             </span>
             <Activity className="h-4 w-4 text-brand-lime group-hover:scale-110 transition-transform" />
           </div>
@@ -226,7 +209,7 @@ export default function HomePage() {
           href="/points"
           className="glass-card rounded-xl p-4 border border-rule hover:border-brand-yellow/60 transition-all hover:bg-card-elevated group shadow-md"
         >
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-1.5">
             <span className="text-[10px] font-mono font-bold uppercase text-brand-yellow px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
               Reconciler
             </span>
@@ -242,7 +225,7 @@ export default function HomePage() {
           href="/records/roto"
           className="glass-card rounded-xl p-4 border border-rule hover:border-brand-orange/60 transition-all hover:bg-card-elevated group shadow-md"
         >
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-1.5">
             <span className="text-[10px] font-mono font-bold uppercase text-brand-orange px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30">
               10-Category
             </span>
@@ -251,7 +234,7 @@ export default function HomePage() {
           <h3 className="font-mono text-sm font-bold text-ink group-hover:text-brand-orange transition-colors">
             Roto Skill Radar
           </h3>
-          <p className="text-[11px] text-ink-dim mt-1">Fantasy Genius Passing, Rushing & Receiving</p>
+          <p className="text-[11px] text-ink-dim mt-1">Fantasy Genius Passing, Rushing & Receiving radar</p>
         </Link>
       </div>
 
@@ -317,13 +300,9 @@ export default function HomePage() {
             {champions.map((c, i) => (
               <div key={c.year} className="p-3.5 flex items-center justify-between hover:bg-card-hover/80 transition-colors text-xs">
                 <div className="flex items-center gap-3.5">
-                  {i === 0 ? (
-                    <Seal size={36} className="shrink-0" />
-                  ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-card-elevated border border-rule-bright font-mono font-bold text-brand-yellow text-xs shrink-0">
-                      {c.year}
-                    </div>
-                  )}
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-card-elevated border border-rule-bright font-mono font-bold text-brand-yellow text-xs shrink-0">
+                    {c.year}
+                  </div>
                   <div>
                     <h4 className="font-mono font-bold text-ink hover:text-brand-blue cursor-pointer">
                       {c.franchise}

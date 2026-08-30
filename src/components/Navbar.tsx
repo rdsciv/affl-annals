@@ -57,19 +57,17 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-rule bg-canvas/95 backdrop-blur-md">
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-2">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
-        {/* Brand Logo */}
+        {/* Large Prominent Chrome Brand Logo */}
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-3.5 group">
-            <Seal size={48} className="shrink-0 transition-transform group-hover:scale-105" />
+            <Seal size={56} className="shrink-0 transition-transform duration-200 group-hover:scale-105" />
             <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="font-display text-xl sm:text-2xl font-black tracking-wider text-ink uppercase leading-none group-hover:text-brand-blue transition-colors">
-                  AFFL SAVANT
-                </span>
-              </div>
-              <span className="text-[10px] font-mono font-bold text-ink-dim tracking-wider uppercase mt-0.5">
+              <span className="font-display text-2xl sm:text-3xl font-black tracking-wider text-ink uppercase leading-none group-hover:text-brand-blue transition-colors">
+                AFFL SAVANT
+              </span>
+              <span className="text-[10px] font-mono font-bold text-ink-dim tracking-wider uppercase mt-1">
                 2014–2025 Canonical Archive
               </span>
             </div>
@@ -77,18 +75,18 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1.5 text-xs font-medium">
+        <nav className="hidden lg:flex items-center gap-1.5 text-xs font-semibold">
           
           {/* Explore / Savant Engine */}
           <Link
             href="/explore"
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
               pathname.startsWith("/explore")
-                ? "bg-card-elevated text-brand-blue border border-rule-bright font-semibold"
+                ? "bg-card-elevated text-brand-blue border border-rule-bright font-bold"
                 : "text-ink-muted hover:bg-card-hover hover:text-ink"
             }`}
           >
-            <Sparkles className="h-3.5 w-3.5 text-brand-blue" />
+            <Sparkles className="h-4 w-4 text-brand-blue" />
             <span>Explore</span>
           </Link>
 
@@ -99,33 +97,33 @@ export default function Navbar() {
                 setAnalyticsOpen(!analyticsOpen);
                 setHistoryOpen(false);
               }}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+              className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
                 isAnalyticsActive
-                  ? "bg-card-elevated text-brand-blue border border-rule-bright font-semibold"
+                  ? "bg-card-elevated text-brand-blue border border-rule-bright font-bold"
                   : "text-ink-muted hover:bg-card-hover hover:text-ink"
               }`}
             >
-              <Activity className="h-3.5 w-3.5 text-brand-lime" />
+              <Activity className="h-4 w-4 text-brand-lime" />
               <span>Analytics</span>
-              <ChevronDown className={`h-3 w-3 transition-transform ${analyticsOpen ? "rotate-180 text-brand-blue" : "opacity-60"}`} />
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${analyticsOpen ? "rotate-180 text-brand-blue" : "opacity-60"}`} />
             </button>
 
             {analyticsOpen && (
               <div className="absolute left-0 mt-2 w-64 rounded-xl border border-rule-bright bg-card/95 p-2 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 space-y-1">
                 <Link
                   href="/luck"
-                  className="flex items-start gap-2.5 rounded-lg p-2 hover:bg-card-elevated transition-colors group"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
                 >
                   <Sparkles className="h-4 w-4 text-brand-blue mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-semibold text-ink group-hover:text-brand-blue text-xs">Luck & Skill</div>
+                    <div className="font-semibold text-ink group-hover:text-brand-blue text-xs">Luck & Skill Engine</div>
                     <p className="text-[10px] text-ink-dim leading-tight">Schedule luck simulations & All-Play matrix</p>
                   </div>
                 </Link>
 
                 <Link
                   href="/points"
-                  className="flex items-start gap-2.5 rounded-lg p-2 hover:bg-card-elevated transition-colors group"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
                 >
                   <Layers className="h-4 w-4 text-brand-lime mt-0.5 shrink-0" />
                   <div>
@@ -136,7 +134,7 @@ export default function Navbar() {
 
                 <Link
                   href="/records/roto"
-                  className="flex items-start gap-2.5 rounded-lg p-2 hover:bg-card-elevated transition-colors group"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
                 >
                   <Award className="h-4 w-4 text-brand-yellow mt-0.5 shrink-0" />
                   <div>
@@ -148,29 +146,29 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* History & Records Hub Dropdown */}
+          {/* History Hub Dropdown */}
           <div className="relative" ref={historyRef}>
             <button
               onClick={() => {
                 setHistoryOpen(!historyOpen);
                 setAnalyticsOpen(false);
               }}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+              className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
                 isHistoryActive
-                  ? "bg-card-elevated text-brand-blue border border-rule-bright font-semibold"
+                  ? "bg-card-elevated text-brand-blue border border-rule-bright font-bold"
                   : "text-ink-muted hover:bg-card-hover hover:text-ink"
               }`}
             >
-              <Trophy className="h-3.5 w-3.5 text-brand-yellow" />
+              <Trophy className="h-4 w-4 text-brand-yellow" />
               <span>History</span>
-              <ChevronDown className={`h-3 w-3 transition-transform ${historyOpen ? "rotate-180 text-brand-blue" : "opacity-60"}`} />
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${historyOpen ? "rotate-180 text-brand-blue" : "opacity-60"}`} />
             </button>
 
             {historyOpen && (
               <div className="absolute left-0 mt-2 w-64 rounded-xl border border-rule-bright bg-card/95 p-2 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 space-y-1">
                 <Link
                   href="/seasons"
-                  className="flex items-start gap-2.5 rounded-lg p-2 hover:bg-card-elevated transition-colors group"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
                 >
                   <Calendar className="h-4 w-4 text-brand-blue mt-0.5 shrink-0" />
                   <div>
@@ -181,7 +179,7 @@ export default function Navbar() {
 
                 <Link
                   href="/records"
-                  className="flex items-start gap-2.5 rounded-lg p-2 hover:bg-card-elevated transition-colors group"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
                 >
                   <Trophy className="h-4 w-4 text-brand-yellow mt-0.5 shrink-0" />
                   <div>
@@ -192,7 +190,7 @@ export default function Navbar() {
 
                 <Link
                   href="/drafts"
-                  className="flex items-start gap-2.5 rounded-lg p-2 hover:bg-card-elevated transition-colors group"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
                 >
                   <ListOrdered className="h-4 w-4 text-brand-lime mt-0.5 shrink-0" />
                   <div>
@@ -203,7 +201,7 @@ export default function Navbar() {
 
                 <Link
                   href="/trades"
-                  className="flex items-start gap-2.5 rounded-lg p-2 hover:bg-card-elevated transition-colors group"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
                 >
                   <Repeat className="h-4 w-4 text-brand-orange mt-0.5 shrink-0" />
                   <div>
@@ -218,52 +216,52 @@ export default function Navbar() {
           {/* Franchises */}
           <Link
             href="/franchises"
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
               pathname.startsWith("/franchises")
-                ? "bg-card-elevated text-brand-blue border border-rule-bright font-semibold"
+                ? "bg-card-elevated text-brand-blue border border-rule-bright font-bold"
                 : "text-ink-muted hover:bg-card-hover hover:text-ink"
             }`}
           >
-            <Shield className="h-3.5 w-3.5" />
+            <Shield className="h-4 w-4" />
             <span>Franchises</span>
           </Link>
 
           {/* Players */}
           <Link
             href="/players"
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
               pathname.startsWith("/players")
-                ? "bg-card-elevated text-brand-blue border border-rule-bright font-semibold"
+                ? "bg-card-elevated text-brand-blue border border-rule-bright font-bold"
                 : "text-ink-muted hover:bg-card-hover hover:text-ink"
             }`}
           >
-            <Users className="h-3.5 w-3.5" />
+            <Users className="h-4 w-4" />
             <span>Players</span>
           </Link>
 
           {/* Methodology */}
           <Link
             href="/methodology"
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
               pathname.startsWith("/methodology")
-                ? "bg-card-elevated text-brand-blue border border-rule-bright font-semibold"
+                ? "bg-card-elevated text-brand-blue border border-rule-bright font-bold"
                 : "text-ink-muted hover:bg-card-hover hover:text-ink"
             }`}
           >
-            <BookOpen className="h-3.5 w-3.5" />
+            <BookOpen className="h-4 w-4" />
             <span>Methodology</span>
           </Link>
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           {/* Omnibox Trigger */}
           <button
             onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
-            className="flex items-center gap-2 rounded-lg bg-card-elevated px-3 py-1.5 text-xs text-ink-muted border border-rule hover:border-brand-blue hover:text-ink transition-all shadow-sm"
+            className="flex items-center gap-2 rounded-lg bg-card-elevated px-3.5 py-2 text-xs text-ink-muted border border-rule hover:border-brand-blue hover:text-ink transition-all shadow-md"
           >
             <Search className="h-3.5 w-3.5 text-brand-blue" />
-            <span className="hidden sm:inline">Search...</span>
+            <span className="hidden sm:inline">Search archive...</span>
             <kbd className="hidden sm:inline-block font-mono text-[9px] bg-card px-1.5 py-0.5 rounded text-ink-dim border border-rule">
               ⌘K
             </kbd>
@@ -272,9 +270,9 @@ export default function Navbar() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden rounded-lg bg-card-elevated p-2 text-ink-muted hover:text-ink border border-rule"
+            className="lg:hidden rounded-lg bg-card-elevated p-2.5 text-ink-muted hover:text-ink border border-rule"
           >
-            {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
@@ -283,43 +281,43 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-b border-rule bg-card px-4 py-4 space-y-4">
           <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-            <Link href="/explore" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/explore" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-brand-blue" />
               <span>Explore</span>
             </Link>
-            <Link href="/luck" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/luck" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Activity className="h-4 w-4 text-brand-lime" />
               <span>Luck & Skill</span>
             </Link>
-            <Link href="/points" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/points" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Layers className="h-4 w-4 text-brand-lime" />
               <span>Points</span>
             </Link>
-            <Link href="/records/roto" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/records/roto" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Award className="h-4 w-4 text-brand-yellow" />
               <span>Roto Radar</span>
             </Link>
-            <Link href="/seasons" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/seasons" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Calendar className="h-4 w-4 text-brand-blue" />
               <span>Seasons</span>
             </Link>
-            <Link href="/records" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/records" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Trophy className="h-4 w-4 text-brand-yellow" />
               <span>Records</span>
             </Link>
-            <Link href="/drafts" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/drafts" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <ListOrdered className="h-4 w-4 text-brand-lime" />
               <span>Drafts</span>
             </Link>
-            <Link href="/trades" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/trades" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Repeat className="h-4 w-4 text-brand-orange" />
               <span>Trades</span>
             </Link>
-            <Link href="/franchises" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/franchises" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Shield className="h-4 w-4 text-ink-muted" />
               <span>Franchises</span>
             </Link>
-            <Link href="/players" className="p-2.5 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+            <Link href="/players" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Users className="h-4 w-4 text-ink-muted" />
               <span>Players</span>
             </Link>

@@ -23,17 +23,19 @@ const monoFont = IBM_Plex_Mono({
   variable: "--font-mono",
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "/affl-savant";
+
 export const metadata: Metadata = {
   title: "AFFL Savant — Permanent Statistical Home of the AFFL",
   description: "Explore 2014–2025 AFFL league custody, rosters, matchups, and drafts joined with NFL play-by-play and advanced opportunity modeling.",
   icons: {
     icon: [
-      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon.png", sizes: "any", type: "image/png" },
-      { url: "/favicon.ico" }
+      { url: `${basePath}/favicon-32.png`, sizes: "32x32", type: "image/png" },
+      { url: `${basePath}/favicon.png`, sizes: "any", type: "image/png" },
+      { url: `${basePath}/favicon.ico` }
     ],
-    shortcut: "/favicon-32.png",
-    apple: "/apple-icon.png",
+    shortcut: `${basePath}/favicon-32.png`,
+    apple: `${basePath}/apple-icon.png`,
   },
 };
 
@@ -44,6 +46,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${displayFont.variable} ${sansFont.variable} ${monoFont.variable}`}>
+      <head>
+        <link rel="icon" type="image/png" sizes="32x32" href={`${basePath}/favicon-32.png`} />
+        <link rel="icon" type="image/png" sizes="192x192" href={`${basePath}/icon.png`} />
+        <link rel="apple-touch-icon" sizes="180x180" href={`${basePath}/apple-icon.png`} />
+        <link rel="shortcut icon" href={`${basePath}/favicon.ico`} />
+      </head>
       <body className="bg-canvas text-ink antialiased flex flex-col min-h-screen font-sans">
         <CommandPalette />
         <Navbar />
