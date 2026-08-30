@@ -19,18 +19,21 @@ import { CANONICAL_FRANCHISES, EXPLORE_PRESETS } from "@/lib/constants";
 
 export default function HomePage() {
   const champions = [
-    { year: 2025, franchise: "Squaw Valley Skinners", owner: "Squaw Valley Skinners Owner", record: "12-3", score: "134.2 – 118.6" },
-    { year: 2024, franchise: "Patagonia Pipers", owner: "Patagonia Pipers Owner", record: "11-4", score: "128.4 – 112.1" },
-    { year: 2023, franchise: "DC Mighty Cucks", owner: "DC Mighty Cucks Owner", record: "13-2", score: "145.0 – 98.4" },
-    { year: 2022, franchise: "Goleta Gringos", owner: "Goleta Gringos Owner", record: "10-5", score: "119.8 – 115.2" },
-    { year: 2021, franchise: "Fairview Fat Cats", owner: "Fairview Fat Cats Owner", record: "12-3", score: "138.6 – 122.0" },
+    { year: 2025, franchise: "San Diego Shadowcöcks", owner: "John Newton", record: "11-3", score: "Champion" },
+    { year: 2024, franchise: "Tijuana Sanchitos", owner: "Zack Blotz", record: "9-5", score: "Champion" },
+    { year: 2023, franchise: "Westeros Warlords", owner: "Levi Sanchez", record: "10-4", score: "Champion" },
+    { year: 2022, franchise: "Fairview Fat Cats", owner: "Alex Renney", record: "10-4", score: "Champion" },
+    { year: 2021, franchise: "Honolulu Horndogs", owner: "Alex Clausen", record: "8-6", score: "Champion" },
+    { year: 2020, franchise: "Chula Vista Chupacabras", owner: "Jason Kafka", record: "8-5", score: "Champion" },
+    { year: 2019, franchise: "Patagonia Pipers", owner: "Garrett Jones", record: "6-7", score: "Champion" },
+    { year: 2018, franchise: "Squaw Valley Skinners", owner: "Chris Zweifel", record: "8-5", score: "Champion" },
   ];
 
   const notableRecords = [
-    { title: "Highest Single-Game Score", holder: "Squaw Valley Skinners (2023 Wk 9)", value: "188.4 pts", badge: "All-Time High" },
-    { title: "Highest Season Points", holder: "DC Mighty Cucks (2023)", value: "1,942.8 pts", badge: "Era Record" },
-    { title: "Most Valuable Custody Stint", holder: "Christian McCaffrey (Pipers 2019)", value: "+142.6 PAR", badge: "Custody Alpha" },
-    { title: "Longest Winning Streak", holder: "Fairview Fat Cats (2021)", value: "11 Games", badge: "Unbeaten Run" },
+    { title: "Most Championships", holder: "Squaw Valley Skinners", value: "3 Titles", badge: "2015, 2017, 2018" },
+    { title: "Highest Win Pct (Active)", holder: "Fairview Fat Cats", value: "54.05%", badge: "80-68 Record" },
+    { title: "Most Valuable Custody Stint", holder: "Lamar Jackson (Skinners 2019)", value: "415.7 pts", badge: "Custody Alpha" },
+    { title: "Defending 2025 Champion", holder: "San Diego Shadowcöcks", value: "11-3", badge: "Reigning Mark" },
   ];
 
   return (
@@ -43,7 +46,7 @@ export default function HomePage() {
         <div className="relative z-10 max-w-3xl space-y-6">
           <div className="inline-flex items-center gap-2 rounded-full bg-card-elevated px-3 py-1 text-xs font-mono text-brand-lime border border-brand-lime/30">
             <Trophy className="h-3.5 w-3.5 text-brand-yellow" />
-            <span>Reigning Champion: Squaw Valley Skinners (2025)</span>
+            <span>Reigning Champion: San Diego Shadowcöcks (2025)</span>
           </div>
 
           <h1 className="font-mono text-3xl md:text-5xl font-black text-ink tracking-tight leading-tight">

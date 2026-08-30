@@ -5,12 +5,11 @@ import { Trophy, Flame, Zap, Award, Shield, Users, TrendingUp, Sparkles } from "
 
 export default function RecordsPage() {
   const franchiseRecords = [
-    { title: "Most Championships", holder: "Squaw Valley Skinners", value: "3 Titles (2015, 2020, 2025)", rank: "1" },
-    { title: "Most Championships (Tied)", holder: "Fairview Fat Cats", value: "2 Titles (2016, 2021)", rank: "2" },
-    { title: "Most Championships (Tied)", holder: "Patagonia Pipers", value: "2 Titles (2019, 2024)", rank: "2" },
-    { title: "Highest All-Time Regular Season Wins", holder: "Fairview Fat Cats", value: "108 Wins", rank: "1" },
-    { title: "Highest All-Time Total Points", holder: "Squaw Valley Skinners", value: "18,421.4 pts", rank: "1" },
-    { title: "Highest Career Win Percentage", holder: "DC Mighty Cucks", value: "62.4%", rank: "1" },
+    { title: "Most Championships", holder: "Squaw Valley Skinners", value: "3 Titles (2015, 2017, 2018)", rank: "1" },
+    { title: "Highest All-Time Regular Season Wins", holder: "Westeros Warlords", value: "111 Wins", rank: "1" },
+    { title: "Highest Career Win Pct (Active 10+ Yr)", holder: "Fairview Fat Cats", value: "54.05% (80-68)", rank: "1" },
+    { title: "Highest Career Win Pct (Short Tenure)", holder: "Patagonia Pipers", value: "57.14% (16-12)", rank: "1" },
+    { title: "Reigning Champion", holder: "San Diego Shadowcöcks", value: "2025 Champion (11-3)", rank: "1" },
   ];
 
   const seasonRecords = [

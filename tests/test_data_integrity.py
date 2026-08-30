@@ -25,10 +25,10 @@ def test_identity_merges(conn):
     cursor = conn.cursor()
     # Check that Jason Kafka, Kevin Sliger, and Tanner Dunn map to single canonical franchises
     cursor.execute("SELECT DISTINCT franchise_id FROM dim_affl_team_season WHERE member_id = '{051BF68A-84EA-4930-9BF6-8A84EAF930EA}'")
-    # All team seasons for Jason Kafka should map to FRAN_DCMC
+    # All team seasons for Jason Kafka should map to FRAN_CVC
     rows = cursor.fetchall()
     if rows:
-        assert len(rows) == 1 and rows[0][0] == "FRAN_DCMC"
+        assert len(rows) == 1 and rows[0][0] == "FRAN_CVC"
 
 def test_pre_2018_slots_are_null(conn):
     cursor = conn.cursor()

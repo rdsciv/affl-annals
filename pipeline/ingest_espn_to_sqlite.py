@@ -109,15 +109,13 @@ def ingest_seasons(conn):
             abbrev = t.get("abbrev") or f"T{tid}"
             logo = t.get("logo") or ""
             
-            # Determine franchise
-            fid = member_to_franchise.get(primary_owner) or resolve_franchise_id(team_name) or resolve_franchise_id(abbrev)
+            # Determine franchise using member identity as primary anchor
+            fid = resolve_franchise_id(team_name, member_id=primary_owner)
             if fid == "FRAN_UNKNOWN":
-                # Check member name
                 m_name = member_names.get(primary_owner, "")
-                fid = resolve_franchise_id(m_name)
+                fid = resolve_franchise_id(m_name, member_id=primary_owner)
             
             if fid == "FRAN_UNKNOWN":
-                # Fallback to team slot mapping if known
                 fid = f"FRAN_TEAM_{tid}"
             
             rec = t.get("record", {}).get("overall", {})
@@ -126,7 +124,9 @@ def ingest_seasons(conn):
             ties = rec.get("ties", 0)
             pf = rec.get("pointsFor", 0.0)
             pa = rec.get("pointsAgainst", 0.0)
-            rank = t.get("playoffSeed") or t.get("rankCalculated") or None
+            reg_rank = t.get("playoffSeed") or t.get("rankCalculated") or None
+            final_rank = t.get("rankCalculatedFinal") or reg_rank
+            is_champion = 1 if final_rank == 1 else 0
             
             cursor.execute("""
                 INSERT OR REPLACE INTO dim_affl_team_season (
@@ -139,7 +139,7 @@ def ingest_seasons(conn):
                 year, tid, primary_owner, fid,
                 team_name, abbrev, logo,
                 wins, losses, ties, pf, pa,
-                rank, rank, 1 if rank == 1 else 0
+                reg_rank, final_rank, is_champion
             ))
             
         # Draft Picks
