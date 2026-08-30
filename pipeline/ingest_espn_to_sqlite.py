@@ -256,7 +256,14 @@ def ingest_weekly_matchups_and_rosters(conn):
                         slot_evidence = "Observed"
                         started = 1 if lineup_slot_id not in (20, 21) else 0
                     
-                    pts = entry.get("appliedStatTotal", 0.0)
+                    # Look for actual applied points from statSourceId == 0
+                    pts = 0.0
+                    for st in player.get("stats", []):
+                        if st.get("statSourceId") == 0:
+                            pts = float(st.get("appliedTotal") or 0.0)
+                            break
+                    if pts == 0.0 and entry.get("appliedStatTotal"):
+                        pts = float(entry.get("appliedStatTotal") or 0.0)
                     rw_id = f"{year}_{week}_{tid}_{pid}"
                     
                     cursor.execute("""

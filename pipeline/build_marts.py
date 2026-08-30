@@ -239,6 +239,24 @@ def build_all_marts():
         else:
             df_merged_pw[c] = df_merged_pw[c].fillna("").astype(str)
 
+    # Reconcile standard non-PPR fantasy points
+    def resolve_points(row):
+        pts = float(row.get("affl_points") or 0.0)
+        if pts == 0.0 and row.get("position") != "D/ST":
+            calc_pts = calc_non_ppr_points(
+                pass_yds=float(row.get("pass_yds", 0)),
+                pass_td=float(row.get("pass_td", 0)),
+                pass_int=float(row.get("pass_int", 0)),
+                rush_yds=float(row.get("rush_yds", 0)),
+                rush_td=float(row.get("rush_td", 0)),
+                rec_yds=float(row.get("rec_yds", 0)),
+                rec_td=float(row.get("rec_td", 0)),
+            )
+            return round(calc_pts, 1)
+        return round(pts, 1)
+
+    df_merged_pw["affl_points"] = df_merged_pw.apply(resolve_points, axis=1)
+
     df_merged_pw["wopr"] = df_merged_pw.apply(
         lambda r: calc_wopr(r.get("target_share", 0), r.get("air_yards_share", 0)),
         axis=1
