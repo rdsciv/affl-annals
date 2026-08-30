@@ -11,8 +11,19 @@ import {
   ArrowLeft, 
   TrendingUp,
   Award,
-  Layers
+  Layers,
+  BarChart2
 } from "lucide-react";
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ReferenceLine,
+} from "recharts";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
 
@@ -62,6 +73,44 @@ export default function FranchiseClientContent({
   const titlesCount = seasons.filter((s) => s.is_champion === 1 || s.final_rank === 1).length;
   const winPct = (totalWins + totalLosses) > 0 ? (totalWins / (totalWins + totalLosses) * 100).toFixed(1) : "0.0";
 
+  // Chronological season progression data for Recharts
+  const progressionData = [...seasons].reverse().map((s) => ({
+    season: s.season.toString(),
+    historical_name: s.historical_name,
+    points_for: Number(s.points_for || 0),
+    points_against: Number(s.points_against || 0),
+    record: `${s.wins}-${s.losses}`,
+    is_champion: s.is_champion === 1 || s.final_rank === 1,
+  }));
+
+  const CustomChartTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const d = payload[0].payload;
+      return (
+        <div className="rounded-lg border border-rule-bright bg-card-elevated p-3 shadow-xl text-xs font-mono space-y-1.5">
+          <div className="font-bold text-ink flex items-center justify-between gap-2">
+            <span>{d.season} Season</span>
+            {d.is_champion && (
+              <span className="text-amber-400 font-bold flex items-center gap-0.5 text-[10px]">
+                <Trophy className="h-3 w-3" /> Champion
+              </span>
+            )}
+          </div>
+          <div className="text-[11px] text-ink-muted">{d.historical_name} ({d.record})</div>
+          <div className="flex items-center justify-between text-brand-blue">
+            <span>Points For:</span>
+            <strong>{d.points_for.toFixed(1)}</strong>
+          </div>
+          <div className="flex items-center justify-between text-rose-400">
+            <span>Points Against:</span>
+            <strong>{d.points_against.toFixed(1)}</strong>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Back Link */}
@@ -98,32 +147,37 @@ export default function FranchiseClientContent({
                 {titlesCount > 0 && (
                   <div className="flex items-center gap-1 rounded bg-brand-yellow/15 px-2.5 py-0.5 text-xs font-mono font-bold text-brand-yellow border border-brand-yellow/30">
                     <Trophy className="h-3.5 w-3.5" />
-                    <span>{titlesCount} {titlesCount === 1 ? "Title" : "Titles"}</span>
+                    <span>{titlesCount}x Champion</span>
                   </div>
                 )}
               </div>
-
-              <p className="text-xs md:text-sm text-ink-muted">
-                Owner: <strong className="text-ink font-semibold">{franchise.owner_display_name}</strong> • Active Era: {franchise.first_season}–{franchise.is_active ? "Pres." : franchise.last_season}
+              <p className="text-xs font-mono text-ink-dim">
+                Permanent Identity: {franchise.franchise_id} • Primary Owner: {franchise.owner_display_name}
               </p>
-
               <div className="flex items-center gap-2 pt-1">
-                <Link
-                  href={`/explore?franchise=${franchise.franchise_id}&start=2014&end=2025`}
-                  className="inline-flex items-center gap-1.5 rounded-md bg-card-elevated px-3 py-1 text-xs font-mono text-brand-blue border border-rule hover:border-brand-blue transition-colors"
-                >
-                  <Sparkles className="h-3 w-3" />
-                  <span>Query Custody in /explore</span>
-                </Link>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-card-elevated text-ink-muted border border-rule">
+                  {seasons.length} Seasons ({franchise.first_season}–{franchise.last_season})
+                </span>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-brand-blue/10 text-brand-blue border border-brand-blue/20">
+                  {franchise.is_active ? "Active Club" : "Alumni Franchise"}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Franchise Summary Numbers */}
-          <div className="grid grid-cols-3 gap-3">
+          {/* Cumulative Record Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="rounded-xl bg-card-elevated p-3 border border-rule text-center">
-              <span className="text-[10px] font-mono uppercase text-ink-dim block">All-Time Rec</span>
-              <span className="text-lg font-mono font-bold text-ink">{totalWins}-{totalLosses}</span>
+              <span className="text-[10px] font-mono uppercase text-ink-dim block">Championships</span>
+              <span className="text-lg font-mono font-bold text-brand-yellow flex items-center justify-center gap-1">
+                <Trophy className="h-4 w-4" /> {titlesCount}
+              </span>
+            </div>
+            <div className="rounded-xl bg-card-elevated p-3 border border-rule text-center">
+              <span className="text-[10px] font-mono uppercase text-ink-dim block">Career Record</span>
+              <span className="text-lg font-mono font-bold text-ink">
+                {totalWins}-{totalLosses}{totalTies > 0 ? `-${totalTies}` : ""}
+              </span>
             </div>
             <div className="rounded-xl bg-card-elevated p-3 border border-rule text-center">
               <span className="text-[10px] font-mono uppercase text-ink-dim block">Win Pct</span>
@@ -132,12 +186,79 @@ export default function FranchiseClientContent({
             <div className="rounded-xl bg-card-elevated p-3 border border-rule text-center">
               <span className="text-[10px] font-mono uppercase text-ink-dim block">Total Points</span>
               <span className="text-lg font-mono font-bold text-brand-blue">
-                {totalPf.toLocaleString(undefined, { maximumFractionDigits: 1 })}
+                {totalPf.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Season-by-Season Production Progression Recharts Chart */}
+      {progressionData.length > 0 && (
+        <div className="rounded-xl border border-rule bg-card p-5 space-y-4 shadow-xl">
+          <div className="flex items-center justify-between border-b border-rule pb-3">
+            <div>
+              <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-brand-blue" />
+                <span>Historical Production & Point Differential Trajectory</span>
+              </h2>
+              <p className="text-xs text-ink-dim mt-0.5">
+                Season-by-season standard non-PPR scoring vs points allowed across all AFFL eras.
+              </p>
+            </div>
+          </div>
+
+          <div className="h-64 w-full pt-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={progressionData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="colorPf" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={franchise.primary_color || "#00a2ff"} stopOpacity={0.4} />
+                    <stop offset="95%" stopColor={franchise.primary_color || "#00a2ff"} stopOpacity={0.0} />
+                  </linearGradient>
+                  <linearGradient id="colorPa" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.2} />
+                    <stop offset="95%" stopColor="#f43f5e" stopOpacity={0.0} />
+                  </linearGradient>
+                </defs>
+                <XAxis
+                  dataKey="season"
+                  tick={{ fill: "#64748b", fontSize: 11, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#334155" }}
+                  tickLine={{ stroke: "#334155" }}
+                />
+                <YAxis
+                  tick={{ fill: "#64748b", fontSize: 10, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#334155" }}
+                  tickLine={{ stroke: "#334155" }}
+                />
+                <Tooltip content={<CustomChartTooltip />} />
+                <Legend
+                  wrapperStyle={{ fontSize: 11, fontFamily: "monospace", paddingTop: 8 }}
+                  formatter={(val) => (val === "points_for" ? "Points For" : "Points Against")}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="points_for"
+                  stroke={franchise.primary_color || "#00a2ff"}
+                  strokeWidth={2.5}
+                  fillOpacity={1}
+                  fill="url(#colorPf)"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="points_against"
+                  stroke="#f43f5e"
+                  strokeWidth={1.5}
+                  strokeDasharray="3 3"
+                  fillOpacity={1}
+                  fill="url(#colorPa)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
 
       {/* Historical Team-Seasons Table */}
       <div className="space-y-4">
@@ -150,7 +271,7 @@ export default function FranchiseClientContent({
           </div>
         </div>
 
-        <div className="rounded-xl border border-rule bg-card overflow-hidden">
+        <div className="rounded-xl border border-rule bg-card overflow-hidden shadow-md">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>

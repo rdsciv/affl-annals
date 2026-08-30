@@ -13,8 +13,19 @@ import {
   Activity,
   Layers,
   CheckCircle2,
-  XCircle
+  XCircle,
+  BarChart2,
+  Zap
 } from "lucide-react";
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ReferenceLine,
+} from "recharts";
 
 import { fetchMartJson } from "@/lib/api";
 
@@ -92,12 +103,42 @@ export default function PlayerClientContent({
   const totalXfp = seasonsData.reduce((acc, r) => acc + Number(r.xfp || 0), 0);
   const totalFpoe = seasonsData.reduce((acc, r) => acc + Number(r.fpoe || 0), 0);
   const totalPar = seasonsData.reduce((acc, r) => acc + Number(r.custody_par || 0), 0);
+  const totalEpa = seasonsData.reduce((acc, r) => acc + Number(r.epa || 0), 0);
+  const avgWopr = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.wopr || 0), 0) / seasonsData.length) : 0;
+  const avgTgtShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.target_share || 0), 0) / seasonsData.length) : 0;
+  const avgAyShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.air_yards_share || 0), 0) / seasonsData.length) : 0;
 
   const availableSeasons = Array.from(new Set(gameLogs.map((g) => g.season))).sort((a: any, b: any) => b - a);
 
   const filteredLogs = selectedSeasonFilter === "ALL"
     ? gameLogs
     : gameLogs.filter((g) => g.season.toString() === selectedSeasonFilter);
+
+  // Chart data sorted chronologically for area chart
+  const chronologicalLogs = [...filteredLogs].reverse().map((g) => ({
+    name: `${g.season} Wk${g.week}`,
+    points: Number(g.points || 0),
+    started: g.started,
+    opponent: g.opponent_name,
+    team: g.team_name,
+  }));
+
+  const CustomChartTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const d = payload[0].payload;
+      return (
+        <div className="rounded-lg border border-rule-bright bg-card-elevated p-2.5 shadow-xl text-xs font-mono space-y-1">
+          <div className="font-bold text-ink">{d.name}</div>
+          <div className="text-[11px] text-ink-muted">vs {d.opponent}</div>
+          <div className="text-brand-blue font-bold">{d.points.toFixed(1)} Pts</div>
+          <div className="text-[10px] text-ink-dim">
+            {d.started ? "Started in Lineup" : "Benched"}
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -185,6 +226,122 @@ export default function PlayerClientContent({
         </div>
       </div>
 
+      {/* Advanced NFLverse Opportunity Matrix */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+            <span>Career EPA</span>
+            <Zap className="h-3.5 w-3.5 text-brand-yellow" />
+          </div>
+          <div className="font-mono text-xl font-bold text-ink">
+            {totalEpa > 0 ? `+${totalEpa.toFixed(1)}` : totalEpa.toFixed(1)}
+          </div>
+          <p className="text-[10px] text-ink-dim">Total Expected Points Added</p>
+        </div>
+
+        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+            <span>Avg WOPR</span>
+            <BarChart2 className="h-3.5 w-3.5 text-brand-blue" />
+          </div>
+          <div className="font-mono text-xl font-bold text-brand-blue">
+            {avgWopr.toFixed(3)}
+          </div>
+          <p className="text-[10px] text-ink-dim">Weighted Opportunity Rating</p>
+        </div>
+
+        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+            <span>Avg Target Share</span>
+            <Activity className="h-3.5 w-3.5 text-brand-lime" />
+          </div>
+          <div className="font-mono text-xl font-bold text-brand-lime">
+            {(avgTgtShare * 100).toFixed(1)}%
+          </div>
+          <p className="text-[10px] text-ink-dim">Team Target Percentage</p>
+        </div>
+
+        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+            <span>Avg Air Yards %</span>
+            <TrendingUp className="h-3.5 w-3.5 text-brand-orange" />
+          </div>
+          <div className="font-mono text-xl font-bold text-brand-orange">
+            {(avgAyShare * 100).toFixed(1)}%
+          </div>
+          <p className="text-[10px] text-ink-dim">Team Air Yards Share</p>
+        </div>
+      </div>
+
+      {/* Interactive Weekly Scoring Trajectory Area Chart */}
+      {chronologicalLogs.length > 0 && (
+        <div className="rounded-xl border border-rule bg-card p-5 space-y-4 shadow-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-rule pb-3">
+            <div>
+              <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-brand-blue" />
+                <span>Weekly Scoring Trajectory ({chronologicalLogs.length} Matchups)</span>
+              </h2>
+              <p className="text-xs text-ink-dim mt-0.5">
+                Week-by-week standard non-PPR scoring timeline and starting threshold.
+              </p>
+            </div>
+
+            {/* Season Filter Dropdown */}
+            <div className="flex items-center gap-2 text-xs">
+              <span className="font-mono text-ink-dim uppercase text-[10px]">Filter Season:</span>
+              <select
+                value={selectedSeasonFilter}
+                onChange={(e) => setSelectedSeasonFilter(e.target.value)}
+                className="rounded-md bg-card-elevated px-2.5 py-1 text-xs text-ink font-semibold border border-rule focus:outline-none cursor-pointer"
+              >
+                <option value="ALL">All Career ({gameLogs.length})</option>
+                {availableSeasons.map((y) => (
+                  <option key={y} value={y.toString()}>
+                    {y} Season
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="h-64 w-full pt-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chronologicalLogs} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="colorPoints" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#00a2ff" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#00a2ff" stopOpacity={0.0} />
+                  </linearGradient>
+                </defs>
+                <XAxis
+                  dataKey="name"
+                  tick={{ fill: "#64748b", fontSize: 10, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#334155" }}
+                  tickLine={{ stroke: "#334155" }}
+                  interval="preserveStartEnd"
+                />
+                <YAxis
+                  tick={{ fill: "#64748b", fontSize: 10, fontFamily: "monospace" }}
+                  axisLine={{ stroke: "#334155" }}
+                  tickLine={{ stroke: "#334155" }}
+                />
+                <ReferenceLine y={10} stroke="#475569" strokeDasharray="3 3" label={{ value: "10 Pts", fill: "#64748b", fontSize: 9 }} />
+                <Tooltip content={<CustomChartTooltip />} />
+                <Area
+                  type="monotone"
+                  dataKey="points"
+                  stroke="#00a2ff"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#colorPoints)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
+
       {/* AFFL Custody Stint Breakdown */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
@@ -246,33 +403,14 @@ export default function PlayerClientContent({
         </div>
       </div>
 
-      {/* Weekly Game Logs */}
+      {/* Weekly Game Logs Table */}
       {gameLogs.length > 0 && (
         <div className="space-y-4 pt-4 border-t border-rule">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-brand-orange" />
-              <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
-                Weekly Game Logs & Start/Sit Splits ({filteredLogs.length} Games)
-              </h2>
-            </div>
-
-            {/* Season Filter Dropdown */}
-            <div className="flex items-center gap-2 text-xs">
-              <span className="font-mono text-ink-dim uppercase text-[10px]">Filter Season:</span>
-              <select
-                value={selectedSeasonFilter}
-                onChange={(e) => setSelectedSeasonFilter(e.target.value)}
-                className="rounded-md bg-card-elevated px-2.5 py-1 text-xs text-ink font-semibold border border-rule focus:outline-none cursor-pointer"
-              >
-                <option value="ALL">All Seasons ({gameLogs.length})</option>
-                {availableSeasons.map((y) => (
-                  <option key={y} value={y.toString()}>
-                    {y} Season
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-brand-orange" />
+            <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+              Weekly Game Logs & Lineup Status ({filteredLogs.length} Games)
+            </h2>
           </div>
 
           <div className="rounded-xl border border-rule bg-card overflow-hidden shadow-md">

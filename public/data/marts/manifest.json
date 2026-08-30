@@ -20,13 +20,13 @@
     "mart_affl_player_week": {
       "parquet": "mart_affl_player_week.parquet",
       "rows": 24762,
-      "md5": "675a2a889686524e26e75d34ace778df"
+      "md5": "dd9c9db397d13990d5cba3815ae60662"
     },
     "mart_affl_player_season_custody": {
       "parquet": "mart_affl_player_season_custody.parquet",
       "json": "mart_affl_player_season_custody.json",
       "rows": 4237,
-      "md5": "2fda8944be659aad6c44715158e19548"
+      "md5": "efd611470d0babde80c98f07f33ee448"
     },
     "mart_affl_trades": {
       "json": "mart_affl_trades.json",

@@ -233,13 +233,15 @@ def build_all_marts():
     num_cols = ["carries", "rushing_yards", "rushing_tds", "rushing_fumbles_lost",
                 "receptions", "targets", "receiving_yards", "receiving_tds", "receiving_fumbles_lost",
                 "completions", "attempts", "passing_yards", "passing_tds", "interceptions",
-                "passing_air_yards", "passing_yards_after_catch", "fantasy_points_ppr", "target_share", "air_yards_share", "wopr"]
+                "passing_air_yards", "passing_yards_after_catch", "fantasy_points_ppr", "target_share", "air_yards_share", "wopr",
+                "passing_epa", "rushing_epa", "receiving_epa"]
     for c in num_cols:
         if c in df_rw.columns:
             df_rw[c] = df_rw[c].fillna(0.0)
         else:
             df_rw[c] = 0.0
             
+    df_rw["total_epa"] = (df_rw["passing_epa"] + df_rw["rushing_epa"] + df_rw["receiving_epa"]).round(2)
     df_rw["wopr"] = df_rw.apply(
         lambda r: calc_wopr(r.get("target_share", 0), r.get("air_yards_share", 0)),
         axis=1
@@ -287,6 +289,12 @@ def build_all_marts():
         xfp=("xfp", "sum"),
         fpoe=("fpoe", "sum"),
         custody_par=("custody_par", "sum"),
+        epa=("total_epa", "sum"),
+        wopr=("wopr", "mean"),
+        target_share=("target_share", "mean"),
+        air_yards_share=("air_yards_share", "mean"),
+        air_yards=("passing_air_yards", "sum"),
+        yac=("passing_yards_after_catch", "sum"),
         carries=("carries", "sum"),
         rush_yds=("rushing_yards", "sum"),
         rush_tds=("rushing_tds", "sum"),

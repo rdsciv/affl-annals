@@ -1,9 +1,20 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ExploreQueryState, MetricDefinition } from "@/lib/types";
+import {
+  ResponsiveContainer,
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  ZAxis,
+  Tooltip,
+  ReferenceLine,
+  Cell,
+} from "recharts";
+import { ExploreQueryState } from "@/lib/types";
 import { METRIC_DEFINITIONS } from "@/lib/constants";
-import { Search, Pin, Crosshair } from "lucide-react";
+import { Search, Pin, Crosshair, Sparkles, TrendingUp, Info } from "lucide-react";
 
 interface ExploreChartProps {
   data: any[];
@@ -16,249 +27,281 @@ export default function ExploreChart({
   state,
   onSelectRow,
 }: ExploreChartProps) {
-  const [xMetric, setXMetric] = useState<string>(
-    state.metrics.length > 1 ? state.metrics[1] : (state.metrics[0] || "xfp")
-  );
-  const [yMetric, setYMetric] = useState<string>(state.metrics[0] || "affl_points");
+  const [xMetric, setXMetric] = useState<string>("xfp");
+  const [yMetric, setYMetric] = useState<string>("affl_points");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [pinnedItem, setPinnedItem] = useState<any | null>(null);
-  const [hoveredItem, setHoveredItem] = useState<any | null>(null);
 
-  const xDef = METRIC_DEFINITIONS[xMetric];
-  const yDef = METRIC_DEFINITIONS[yMetric];
+  const xDef = METRIC_DEFINITIONS[xMetric] || { name: xMetric, format: (v: number) => v.toFixed(1) };
+  const yDef = METRIC_DEFINITIONS[yMetric] || { name: yMetric, format: (v: number) => v.toFixed(1) };
 
   // Calculate coordinates and medians
-  const { points, xMedian, yMedian, xMin, xMax, yMin, yMax } = useMemo(() => {
-    if (!data.length) return { points: [], xMedian: 0, yMedian: 0, xMin: 0, xMax: 10, yMin: 0, yMax: 10 };
+  const { chartData, xMedian, yMedian, xDomain, yDomain } = useMemo(() => {
+    if (!data.length) return { chartData: [], xMedian: 0, yMedian: 0, xDomain: [0, 10], yDomain: [0, 10] };
 
     const valid = data.filter(
       (d) => typeof d[xMetric] === "number" && typeof d[yMetric] === "number"
     );
 
-    const xVals = valid.map((d) => d[xMetric]).sort((a, b) => a - b);
-    const yVals = valid.map((d) => d[yMetric]).sort((a, b) => a - b);
+    const xVals = valid.map((d) => Number(d[xMetric] || 0)).sort((a, b) => a - b);
+    const yVals = valid.map((d) => Number(d[yMetric] || 0)).sort((a, b) => a - b);
 
     const xMed = xVals.length ? xVals[Math.floor(xVals.length / 2)] : 0;
     const yMed = yVals.length ? yVals[Math.floor(yVals.length / 2)] : 0;
 
-    const x_min = xVals.length ? Math.min(xVals[0], 0) : 0;
-    const x_max = xVals.length ? Math.max(xVals[xVals.length - 1], 10) * 1.05 : 10;
+    const xMin = xVals.length ? Math.min(xVals[0], 0) : 0;
+    const xMax = xVals.length ? Math.max(xVals[xVals.length - 1], 10) * 1.08 : 10;
 
-    const y_min = yVals.length ? Math.min(yVals[0], 0) : 0;
-    const y_max = yVals.length ? Math.max(yVals[yVals.length - 1], 10) * 1.05 : 10;
+    const yMin = yVals.length ? Math.min(yVals[0], 0) : 0;
+    const yMax = yVals.length ? Math.max(yVals[yVals.length - 1], 10) * 1.08 : 10;
+
+    const formatted = valid.map((d) => ({
+      ...d,
+      x: Number(d[xMetric] || 0),
+      y: Number(d[yMetric] || 0),
+      label: d.player_name || d.franchise_name || "Item",
+      color: d.franchise_color || "#00a2ff",
+    }));
 
     return {
-      points: valid,
+      chartData: formatted,
       xMedian: xMed,
       yMedian: yMed,
-      xMin: x_min,
-      xMax: x_max,
-      yMin: y_min,
-      yMax: y_max,
+      xDomain: [Math.floor(xMin), Math.ceil(xMax)],
+      yDomain: [Math.floor(yMin), Math.ceil(yMax)],
     };
   }, [data, xMetric, yMetric]);
 
-  const filteredPoints = useMemo(() => {
-    if (!searchQuery.trim()) return points;
+  const filteredData = useMemo(() => {
+    if (!searchQuery.trim()) return chartData;
     const q = searchQuery.toLowerCase();
-    return points.filter(
+    return chartData.filter(
       (p) =>
         (p.player_name && p.player_name.toLowerCase().includes(q)) ||
         (p.franchise_name && p.franchise_name.toLowerCase().includes(q))
     );
-  }, [points, searchQuery]);
+  }, [chartData, searchQuery]);
 
-  // Scaler helper
-  const scaleX = (val: number) => {
-    const range = xMax - xMin || 1;
-    return ((val - xMin) / range) * 88 + 6; // percentage padding
+  // Quadrant explanations
+  const getQuadrantInfo = () => {
+    return {
+      q1: "High Opportunity & High Efficiency (League Winners)",
+      q2: "Lower Opportunity & High Efficiency (Touchdown Regression Candidates)",
+      q3: "Low Opportunity & Low Efficiency",
+      q4: "High Opportunity & Low Efficiency (Positive Regression Candidates)",
+    };
   };
 
-  const scaleY = (val: number) => {
-    const range = yMax - yMin || 1;
-    return 94 - ((val - yMin) / range) * 88; // invert Y for SVG/CSS coords
-  };
+  const quad = getQuadrantInfo();
 
-  // Initials generator
-  const getInitials = (name: string) => {
-    if (!name) return "•";
-    const parts = name.split(" ");
-    if (parts.length >= 2) {
-      return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+  // Metric Options
+  const metricOptions = [
+    { id: "xfp", label: "Expected Fantasy Points (xFP)", cat: "Opportunity" },
+    { id: "wopr", label: "Weighted Opportunity Rating (WOPR)", cat: "Opportunity" },
+    { id: "target_share", label: "Target Share %", cat: "Opportunity" },
+    { id: "air_yards_share", label: "Air Yards Share %", cat: "Opportunity" },
+    { id: "targets", label: "Targets", cat: "Opportunity" },
+    { id: "carries", label: "Carries", cat: "Opportunity" },
+    { id: "affl_points", label: "AFFL Fantasy Points", cat: "Production" },
+    { id: "fpoe", label: "Fantasy Points Over Expected (FPOE)", cat: "Efficiency" },
+    { id: "custody_par", label: "Custody Points Above Replacement (PAR)", cat: "Production" },
+    { id: "epa", label: "Total EPA (Expected Points Added)", cat: "Efficiency" },
+    { id: "rush_yds", label: "Rushing Yards", cat: "Volume" },
+    { id: "rec_yds", label: "Receiving Yards", cat: "Volume" },
+    { id: "pass_yds", label: "Passing Yards", cat: "Volume" },
+  ];
+
+  // Custom Recharts Tooltip
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const p = payload[0].payload;
+      return (
+        <div className="rounded-xl border border-rule-bright bg-card-elevated p-3.5 shadow-2xl space-y-2 text-xs font-mono max-w-xs">
+          <div className="flex items-center gap-2.5 border-b border-rule pb-2">
+            {p.headshot_url && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={p.headshot_url}
+                alt={p.label}
+                className="h-7 w-7 rounded-full object-cover border border-rule"
+              />
+            )}
+            <div>
+              <div className="font-bold text-ink font-sans text-xs">{p.label}</div>
+              <div className="text-[10px] text-ink-dim font-sans">
+                {p.position ? `${p.position} · ` : ""}
+                {p.franchise_name || ""}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-1 text-[11px]">
+            <div className="flex items-center justify-between">
+              <span className="text-brand-orange">{xDef.name}:</span>
+              <strong className="text-ink">{xDef.format ? xDef.format(p.x) : p.x}</strong>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-brand-blue">{yDef.name}:</span>
+              <strong className="text-ink">{yDef.format ? yDef.format(p.y) : p.y}</strong>
+            </div>
+            {p.season && (
+              <div className="flex items-center justify-between text-ink-dim pt-1 border-t border-rule/50">
+                <span>Season:</span>
+                <span>{p.season}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      );
     }
-    return name.slice(0, 2).toUpperCase();
+    return null;
   };
 
   return (
-    <div className="space-y-4 rounded-xl border border-rule bg-card p-5 shadow-lg shadow-black/40">
-      {/* Chart Control Bar */}
+    <div className="space-y-4 rounded-xl border border-rule bg-card p-5 shadow-xl shadow-black/40">
+      {/* Chart Control Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rule pb-4">
-        <div className="flex flex-wrap items-center gap-3 text-xs">
-          {/* Y Axis Selector */}
+        <div className="flex flex-wrap items-center gap-4 text-xs">
+          {/* X Axis Selector */}
           <div className="flex items-center gap-1.5">
-            <span className="font-mono font-semibold text-brand-orange uppercase text-[10px]">Y-Axis:</span>
+            <span className="font-mono font-bold text-brand-orange uppercase text-[10px]">
+              X-Axis:
+            </span>
             <select
-              value={yMetric}
-              onChange={(e) => setYMetric(e.target.value)}
-              className="rounded-md bg-card-elevated px-2 py-1 text-ink font-medium border border-rule text-xs focus:outline-none"
+              value={xMetric}
+              onChange={(e) => setXMetric(e.target.value)}
+              className="rounded bg-card-elevated px-2.5 py-1 text-ink font-semibold border border-rule focus:outline-none cursor-pointer"
             >
-              {state.metrics.map((m) => (
-                <option key={m} value={m}>
-                  {METRIC_DEFINITIONS[m]?.name || m}
+              {metricOptions.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* X Axis Selector */}
+          {/* Y Axis Selector */}
           <div className="flex items-center gap-1.5">
-            <span className="font-mono font-semibold text-brand-blue uppercase text-[10px]">X-Axis:</span>
+            <span className="font-mono font-bold text-brand-blue uppercase text-[10px]">
+              Y-Axis:
+            </span>
             <select
-              value={xMetric}
-              onChange={(e) => setXMetric(e.target.value)}
-              className="rounded-md bg-card-elevated px-2 py-1 text-ink font-medium border border-rule text-xs focus:outline-none"
+              value={yMetric}
+              onChange={(e) => setYMetric(e.target.value)}
+              className="rounded bg-card-elevated px-2.5 py-1 text-ink font-semibold border border-rule focus:outline-none cursor-pointer"
             >
-              {state.metrics.map((m) => (
-                <option key={m} value={m}>
-                  {METRIC_DEFINITIONS[m]?.name || m}
+              {metricOptions.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label}
                 </option>
               ))}
             </select>
           </div>
         </div>
 
-        {/* Search / Filter in Chart */}
-        <div className="relative">
-          <Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-ink-dim" />
+        {/* Filter / Search within Plot */}
+        <div className="relative w-full sm:w-56">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-dim" />
           <input
             type="text"
-            placeholder="Search point / player / franchise..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="rounded-md bg-card-elevated pl-8 pr-3 py-1 text-xs text-ink placeholder-ink-dim border border-rule focus:border-brand-blue focus:outline-none w-56"
+            placeholder="Highlight entity..."
+            className="w-full rounded-lg bg-card-elevated pl-8 pr-3 py-1 text-xs text-ink placeholder-ink-dim border border-rule focus:outline-none focus:border-brand-blue"
           />
         </div>
       </div>
 
-      {/* Scatterplot Canvas */}
-      <div className="relative h-[480px] w-full rounded-lg bg-canvas-subtle border border-rule/60 overflow-hidden select-none">
-        {/* Median Reference Lines */}
-        {points.length > 0 && (
-          <>
-            {/* Vertical X-Median Line */}
-            <div
-              className="absolute top-0 bottom-0 border-r border-dashed border-rule-bright pointer-events-none"
-              style={{ left: `${scaleX(xMedian)}%` }}
+      {/* Main Interactive Recharts Scatter Canvas */}
+      <div className="h-[440px] w-full pt-2">
+        <ResponsiveContainer width="100%" height="100%">
+          <ScatterChart
+            margin={{ top: 20, right: 30, bottom: 20, left: 10 }}
+          >
+            <XAxis
+              type="number"
+              dataKey="x"
+              name={xDef.name}
+              domain={xDomain}
+              tick={{ fill: "#64748b", fontSize: 11, fontFamily: "monospace" }}
+              axisLine={{ stroke: "#334155" }}
+              tickLine={{ stroke: "#334155" }}
+              unit=""
+            />
+            <YAxis
+              type="number"
+              dataKey="y"
+              name={yDef.name}
+              domain={yDomain}
+              tick={{ fill: "#64748b", fontSize: 11, fontFamily: "monospace" }}
+              axisLine={{ stroke: "#334155" }}
+              tickLine={{ stroke: "#334155" }}
+              unit=""
+            />
+            <ZAxis type="number" range={[50, 140]} />
+
+            {/* Quadrant Median Reference Lines */}
+            <ReferenceLine
+              x={xMedian}
+              stroke="#475569"
+              strokeDasharray="4 4"
+              label={{
+                value: `Median: ${xMedian.toFixed(1)}`,
+                fill: "#64748b",
+                fontSize: 10,
+                position: "insideTopRight",
+              }}
+            />
+            <ReferenceLine
+              y={yMedian}
+              stroke="#475569"
+              strokeDasharray="4 4"
+              label={{
+                value: `Median: ${yMedian.toFixed(1)}`,
+                fill: "#64748b",
+                fontSize: 10,
+                position: "insideTopLeft",
+              }}
+            />
+
+            <Tooltip content={<CustomTooltip />} />
+
+            <Scatter
+              data={filteredData}
+              onClick={(node) => onSelectRow(node)}
+              className="cursor-pointer"
             >
-              <span className="absolute top-2 left-1.5 font-mono text-[9px] text-ink-dim bg-canvas/80 px-1 rounded">
-                Med: {xDef ? xDef.format(xMedian) : xMedian.toFixed(1)}
-              </span>
-            </div>
-
-            {/* Horizontal Y-Median Line */}
-            <div
-              className="absolute left-0 right-0 border-b border-dashed border-rule-bright pointer-events-none"
-              style={{ top: `${scaleY(yMedian)}%` }}
-            >
-              <span className="absolute right-2 bottom-1.5 font-mono text-[9px] text-ink-dim bg-canvas/80 px-1 rounded">
-                Med: {yDef ? yDef.format(yMedian) : yMedian.toFixed(1)}
-              </span>
-            </div>
-          </>
-        )}
-
-        {/* Data Points */}
-        {filteredPoints.map((item, idx) => {
-          const xVal = item[xMetric];
-          const yVal = item[yMetric];
-          const leftPct = scaleX(xVal);
-          const topPct = scaleY(yVal);
-
-          const isPinned = pinnedItem && pinnedItem === item;
-          const isHovered = hoveredItem && hoveredItem === item;
-          const franchiseColor = item.franchise_color || item.primary_color || "#00a2ff";
-          const initials = getInitials(item.player_name || item.franchise_name || "Pt");
-
-          return (
-            <div
-              key={idx}
-              onClick={() => setPinnedItem(isPinned ? null : item)}
-              onMouseEnter={() => setHoveredItem(item)}
-              onMouseLeave={() => setHoveredItem(null)}
-              className={`absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-150 ${
-                isPinned || isHovered ? "z-30 scale-125" : "z-10 hover:scale-110"
-              }`}
-              style={{ left: `${leftPct}%`, top: `${topPct}%` }}
-            >
-              <div
-                className={`flex h-6 w-6 items-center justify-center rounded-full text-[9px] font-mono font-bold bg-canvas border-2 shadow-sm ${
-                  isPinned ? "ring-2 ring-brand-lime" : ""
-                }`}
-                style={{ borderColor: franchiseColor, color: franchiseColor }}
-              >
-                {initials}
-              </div>
-            </div>
-          );
-        })}
-
-        {/* Tooltip & Pinned Inspector */}
-        {(hoveredItem || pinnedItem) && (
-          (() => {
-            const item = pinnedItem || hoveredItem;
-            const xVal = item[xMetric];
-            const yVal = item[yMetric];
-            const leftPct = Math.min(80, Math.max(15, scaleX(xVal)));
-            const topPct = scaleY(yVal) < 40 ? scaleY(yVal) + 8 : scaleY(yVal) - 22;
-
-            return (
-              <div
-                className="absolute z-40 pointer-events-auto rounded-lg border border-rule-bright bg-card p-3 shadow-xl text-xs space-y-1.5 w-64 backdrop-blur-md"
-                style={{ left: `${leftPct}%`, top: `${topPct}%` }}
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="font-semibold text-ink font-sans">
-                      {item.player_name || item.franchise_name}
-                    </div>
-                    {item.position && (
-                      <div className="text-[10px] text-ink-dim font-mono">
-                        {item.position} • {item.franchise_name}
-                      </div>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => onSelectRow(item)}
-                    className="rounded p-1 text-ink-dim hover:text-brand-blue"
-                    title="Drilldown"
-                  >
-                    <Crosshair className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-
-                <div className="border-t border-rule pt-1.5 grid grid-cols-2 gap-2 text-[11px] font-mono">
-                  <div>
-                    <span className="text-ink-dim block text-[9px] uppercase">{yDef?.name || yMetric}</span>
-                    <span className="font-bold text-brand-orange">{yDef ? yDef.format(yVal) : yVal}</span>
-                  </div>
-                  <div>
-                    <span className="text-ink-dim block text-[9px] uppercase">{xDef?.name || xMetric}</span>
-                    <span className="font-bold text-brand-blue">{xDef ? xDef.format(xVal) : xVal}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })()
-        )}
+              {filteredData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={entry.color || "#00a2ff"}
+                  opacity={0.85}
+                  stroke="#ffffff20"
+                  strokeWidth={1}
+                />
+              ))}
+            </Scatter>
+          </ScatterChart>
+        </ResponsiveContainer>
       </div>
 
-      {/* Axis Titles */}
-      <div className="flex items-center justify-between text-xs font-mono text-ink-dim pt-1">
-        <div>
-          <span>Y: <strong className="text-brand-orange">{yDef?.name || yMetric}</strong></span>
+      {/* Quadrant Guide Footnotes */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-3 border-t border-rule text-[11px] font-mono text-ink-dim">
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+          <span>Top Right: {quad.q1}</span>
         </div>
-        <div>
-          <span>X: <strong className="text-brand-blue">{xDef?.name || xMetric}</strong></span>
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-sky-500"></span>
+          <span>Top Left: {quad.q2}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-amber-500"></span>
+          <span>Bottom Right: {quad.q4}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-rose-500"></span>
+          <span>Bottom Left: {quad.q3}</span>
         </div>
       </div>
     </div>
