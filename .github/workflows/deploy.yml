@@ -34,7 +34,7 @@ jobs:
 
       - name: Build and Export Static Site
         env:
-          NEXT_PUBLIC_BASE_PATH: /affl-savant
+          NEXT_PUBLIC_BASE_PATH: /affl-annals
           GITHUB_ACTIONS: "true"
         run: npm run build
 

@@ -9,11 +9,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-3">
             <div className="flex items-center gap-2.5 text-ink">
-              <Seal size={32} />
-              <span className="font-display text-base font-bold tracking-wide uppercase">AFFL Savant</span>
+              <Seal size={36} />
+              <span className="font-display text-lg font-bold tracking-wider uppercase">AFFL Annals</span>
             </div>
             <p className="text-[11px] leading-relaxed text-ink-muted">
-              The permanent statistical home of the AFFL. Uniting 2014–2025 league custody,
+              The permanent statistical archive of the AFFL. Uniting 2014–2025 league custody,
               matchups, and rosters with NFL play-by-play and opportunity modeling.
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-rule flex flex-col md:flex-row items-center justify-between gap-4 text-[10px]">
-          <p>© 2014–2026 AFFL Savant. Approved league blueprint. All franchise marks and identities canonical.</p>
+          <p>© 2014–2026 AFFL Annals. Approved league blueprint. All franchise marks and identities canonical.</p>
           <p>Powered by nflverse, ESPN historical endpoints, and DuckDB analytics.</p>
         </div>
       </div>

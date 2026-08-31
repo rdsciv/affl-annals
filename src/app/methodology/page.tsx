@@ -11,7 +11,7 @@ export default function MethodologyPage() {
       <div className="border-b border-rule pb-6 space-y-2">
         <h1 className="font-mono text-2xl md:text-3xl font-black text-ink tracking-tight flex items-center gap-3">
           <BookOpen className="h-7 w-7 text-brand-blue" />
-          <span>AFFL Savant Methodology & Provenance</span>
+          <span>AFFL Annals Methodology & Provenance</span>
         </h1>
         <p className="text-xs md:text-sm text-ink-muted">
           Official documentation detailing data sources, identity resolution contracts, non-PPR scoring weights,

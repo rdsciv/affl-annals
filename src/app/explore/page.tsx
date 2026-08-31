@@ -233,7 +233,7 @@ function ExploreContent() {
     if (!filteredRows.length) return;
 
     const headers = [
-      "# AFFL Savant Query Export",
+      "# AFFL Annals Query Export",
       `# Date: ${new Date().toISOString()}`,
       `# Custody Scope: While ${queryState.scope}`,
       `# Result Grain: ${queryState.grain}`,
@@ -256,7 +256,7 @@ function ExploreContent() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `affl_savant_explore_${queryState.grain}_${queryState.scope}.csv`);
+    link.setAttribute("download", `affl_annals_explore_${queryState.grain}_${queryState.scope}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

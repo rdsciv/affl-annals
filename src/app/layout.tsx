@@ -23,11 +23,11 @@ const monoFont = IBM_Plex_Mono({
   variable: "--font-mono",
 });
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "/affl-savant";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "/affl-annals";
 
 export const metadata: Metadata = {
-  title: "AFFL Savant — Permanent Statistical Home of the AFFL",
-  description: "Explore 2014–2025 AFFL league custody, rosters, matchups, and drafts joined with NFL play-by-play and advanced opportunity modeling.",
+  title: "AFFL Annals — The Permanent Statistical Archive of the AFFL (2014–2025)",
+  description: "The definitive chronicle of the AFFL. 12 competition eras of franchise custody, auction drafts, head-to-head lore, and empirical NFL analytics.",
   icons: {
     icon: [
       { url: `${basePath}/favicon-32.png`, sizes: "32x32", type: "image/png" },

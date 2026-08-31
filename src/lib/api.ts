@@ -6,7 +6,9 @@ export function getAssetUrl(path: string): string {
   
   // Runtime client fallback for GitHub Pages
   if (!base && typeof window !== "undefined") {
-    if (window.location.pathname.startsWith("/affl-savant")) {
+    if (window.location.pathname.startsWith("/affl-annals")) {
+      base = "/affl-annals";
+    } else if (window.location.pathname.startsWith("/affl-savant")) {
       base = "/affl-savant";
     }
   }

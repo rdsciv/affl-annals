@@ -94,11 +94,11 @@ export default function CommandPalette() {
     { id: "p-luck", title: "Luck & Skill Analytics", subtitle: "Schedule luck simulations, All-Play ledger, lineup efficiency", category: "Page", url: "/luck" },
     { id: "p-points", title: "Where Points Came From", subtitle: "Points by acquisition: Draft, Waiver FAAB, Free Agency", category: "Page", url: "/points" },
     { id: "p-roto", title: "10-Category Roto Skill Radar", subtitle: "Fantasy Genius Passing, Rushing, Receiving categories", category: "Record", url: "/records/roto" },
-    { id: "p-records", title: "Canonical Record Book", subtitle: "Championships, Win Pct, All-Time Leaders", category: "Record", url: "/records" },
-    { id: "p-drafts", title: "Draft & Auction Value", subtitle: "2014–2025 Auction spend, Draft PAR, steals & busts", category: "Page", url: "/drafts" },
-    { id: "p-trades", title: "Trade Ledger", subtitle: "221 verified bilateral player swaps", category: "Page", url: "/trades" },
-    { id: "p-seasons", title: "All Seasons Archive", subtitle: "12 competition eras (2014–2025)", category: "Page", url: "/seasons" },
-    { id: "p-franchises", title: "All Franchises & Head-to-Head", subtitle: "12 active clubs and rivalry records", category: "Page", url: "/franchises" },
+    { id: "p-records", title: "All-Time Record Book", subtitle: "Championships, Win Pct, All-Time Leaders", category: "Record", url: "/records" },
+    { id: "p-drafts", title: "Auction & Draft Economics", subtitle: "2014–2025 Auction spend, Draft PAR, steals & busts", category: "Page", url: "/drafts" },
+    { id: "p-trades", title: "Trades Register", subtitle: "221 verified bilateral player swaps", category: "Page", url: "/trades" },
+    { id: "p-seasons", title: "Seasons Chronicle", subtitle: "12 competition eras (2014–2025)", category: "Page", url: "/seasons" },
+    { id: "p-franchises", title: "Franchises of Record & Head-to-Head", subtitle: "12 active clubs and rivalry records", category: "Page", url: "/franchises" },
     { id: "p-methodology", title: "Methodology & Scoring System", subtitle: "Non-PPR rules, FHMM recovery, evidence tiers", category: "Page", url: "/methodology" },
     
     // Franchises

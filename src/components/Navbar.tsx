@@ -18,18 +18,20 @@ import {
   Layers,
   Activity,
   Menu,
-  X
+  X,
+  Flame,
+  Bookmark
 } from "lucide-react";
 import Seal from "@/components/Seal";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [analyticsOpen, setAnalyticsOpen] = useState(false);
-  const [historyOpen, setHistoryOpen] = useState(false);
+  const [annalsOpen, setAnnalsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const analyticsRef = useRef<HTMLDivElement>(null);
-  const historyRef = useRef<HTMLDivElement>(null);
+  const annalsRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -37,8 +39,8 @@ export default function Navbar() {
       if (analyticsRef.current && !analyticsRef.current.contains(event.target as Node)) {
         setAnalyticsOpen(false);
       }
-      if (historyRef.current && !historyRef.current.contains(event.target as Node)) {
-        setHistoryOpen(false);
+      if (annalsRef.current && !annalsRef.current.contains(event.target as Node)) {
+        setAnnalsOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -48,24 +50,24 @@ export default function Navbar() {
   // Close dropdowns on route change
   useEffect(() => {
     setAnalyticsOpen(false);
-    setHistoryOpen(false);
+    setAnnalsOpen(false);
     setMobileMenuOpen(false);
   }, [pathname]);
 
   const isAnalyticsActive = pathname.startsWith("/luck") || pathname.startsWith("/points") || pathname.startsWith("/records/roto");
-  const isHistoryActive = pathname.startsWith("/seasons") || (pathname.startsWith("/records") && !pathname.startsWith("/records/roto")) || pathname.startsWith("/drafts") || pathname.startsWith("/trades");
+  const isAnnalsActive = pathname.startsWith("/seasons") || (pathname.startsWith("/records") && !pathname.startsWith("/records/roto")) || pathname.startsWith("/drafts") || pathname.startsWith("/trades");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-rule bg-canvas/95 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
-        {/* Large Prominent Chrome Brand Logo */}
+        {/* Brand Logo & Title */}
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-3.5 group">
-            <Seal size={56} className="shrink-0 transition-transform duration-200 group-hover:scale-105" />
+            <Seal size={48} className="shrink-0 transition-transform duration-200 group-hover:scale-105" />
             <div className="flex flex-col">
               <span className="font-display text-2xl sm:text-3xl font-black tracking-wider text-ink uppercase leading-none group-hover:text-brand-blue transition-colors">
-                AFFL SAVANT
+                AFFL ANNALS
               </span>
               <span className="text-[10px] font-mono font-bold text-ink-dim tracking-wider uppercase mt-1">
                 2014–2025 Canonical Archive
@@ -77,7 +79,7 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1.5 text-xs font-semibold">
           
-          {/* Explore / Savant Engine */}
+          {/* Explore / Query Engine */}
           <Link
             href="/explore"
             className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
@@ -95,7 +97,7 @@ export default function Navbar() {
             <button
               onClick={() => {
                 setAnalyticsOpen(!analyticsOpen);
-                setHistoryOpen(false);
+                setAnnalsOpen(false);
               }}
               className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
                 isAnalyticsActive
@@ -146,25 +148,25 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* History Hub Dropdown */}
-          <div className="relative" ref={historyRef}>
+          {/* Annals Hub Dropdown */}
+          <div className="relative" ref={annalsRef}>
             <button
               onClick={() => {
-                setHistoryOpen(!historyOpen);
+                setAnnalsOpen(!annalsOpen);
                 setAnalyticsOpen(false);
               }}
               className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-all ${
-                isHistoryActive
+                isAnnalsActive
                   ? "bg-card-elevated text-brand-blue border border-rule-bright font-bold"
                   : "text-ink-muted hover:bg-card-hover hover:text-ink"
               }`}
             >
-              <Trophy className="h-4 w-4 text-brand-yellow" />
-              <span>History</span>
-              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${historyOpen ? "rotate-180 text-brand-blue" : "opacity-60"}`} />
+              <Bookmark className="h-4 w-4 text-brand-yellow" />
+              <span>Annals</span>
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${annalsOpen ? "rotate-180 text-brand-blue" : "opacity-60"}`} />
             </button>
 
-            {historyOpen && (
+            {annalsOpen && (
               <div className="absolute left-0 mt-2 w-64 rounded-xl border border-rule-bright bg-card/95 p-2 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 space-y-1">
                 <Link
                   href="/seasons"
@@ -172,7 +174,7 @@ export default function Navbar() {
                 >
                   <Calendar className="h-4 w-4 text-brand-blue mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-semibold text-ink group-hover:text-brand-blue text-xs">Seasons Archive</div>
+                    <div className="font-semibold text-ink group-hover:text-brand-blue text-xs">Seasons Chronicle</div>
                     <p className="text-[10px] text-ink-dim leading-tight">12 competition eras (2014–2025)</p>
                   </div>
                 </Link>
@@ -183,7 +185,7 @@ export default function Navbar() {
                 >
                   <Trophy className="h-4 w-4 text-brand-yellow mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-semibold text-ink group-hover:text-brand-yellow text-xs">Record Book</div>
+                    <div className="font-semibold text-ink group-hover:text-brand-yellow text-xs">All-Time Record Book</div>
                     <p className="text-[10px] text-ink-dim leading-tight">Titles, scoring outbursts & milestones</p>
                   </div>
                 </Link>
@@ -194,7 +196,7 @@ export default function Navbar() {
                 >
                   <ListOrdered className="h-4 w-4 text-brand-lime mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-semibold text-ink group-hover:text-brand-lime text-xs">Draft & Auction Value</div>
+                    <div className="font-semibold text-ink group-hover:text-brand-lime text-xs">Auction & Draft Economics</div>
                     <p className="text-[10px] text-ink-dim leading-tight">$200 spend allocation, steals & busts</p>
                   </div>
                 </Link>
@@ -205,7 +207,7 @@ export default function Navbar() {
                 >
                   <Repeat className="h-4 w-4 text-brand-orange mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-semibold text-ink group-hover:text-brand-orange text-xs">Trades Ledger</div>
+                    <div className="font-semibold text-ink group-hover:text-brand-orange text-xs">Trades Register</div>
                     <p className="text-[10px] text-ink-dim leading-tight">221 verified bilateral player swaps</p>
                   </div>
                 </Link>
@@ -261,7 +263,7 @@ export default function Navbar() {
             className="flex items-center gap-2 rounded-lg bg-card-elevated px-3.5 py-2 text-xs text-ink-muted border border-rule hover:border-brand-blue hover:text-ink transition-all shadow-md"
           >
             <Search className="h-3.5 w-3.5 text-brand-blue" />
-            <span className="hidden sm:inline">Search archive...</span>
+            <span className="hidden sm:inline">Search annals...</span>
             <kbd className="hidden sm:inline-block font-mono text-[9px] bg-card px-1.5 py-0.5 rounded text-ink-dim border border-rule">
               ⌘K
             </kbd>

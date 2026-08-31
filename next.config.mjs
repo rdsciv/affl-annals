@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/affl-savant';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/affl-annals';
 
 const nextConfig = {
   output: 'export',
