@@ -895,9 +895,12 @@ def build_all_marts():
             t.owner_id,
             SUM(nw.pass_yards) as pass_yds,
             SUM(nw.pass_tds) as pass_tds,
+            SUM(nw.completions) as completions,
+            SUM(nw.attempts) as attempts,
             SUM(nw.completions) * 1.0 / NULLIF(SUM(nw.attempts), 0) as cmp_pct,
             SUM(nw.rush_yards) as rush_yds,
             SUM(nw.rush_tds) as rush_tds,
+            SUM(nw.carries) as carries,
             SUM(nw.rush_yards) * 1.0 / NULLIF(SUM(nw.carries), 0) as ypc,
             SUM(nw.rec_yards) as rec_yds,
             SUM(nw.rec_tds) as rec_tds,
@@ -926,22 +929,33 @@ def build_all_marts():
         grp = grp.sort_values("roto_score", ascending=False)
         roto_seasons[str(season)] = grp.to_dict(orient="records")
 
-    # All-time roto career aggregates
+    # All-time roto career aggregates: Total stats ever accumulated by each franchise
     all_time_roto = df_roto_raw.groupby(["franchise_id", "franchise_name", "owner_display_name", "primary_color"], as_index=False).agg(
         seasons=("season", "count"),
-        avg_pass_yds=("pass_yds", "mean"),
-        avg_pass_tds=("pass_tds", "mean"),
-        avg_rush_yds=("rush_yds", "mean"),
-        avg_rush_tds=("rush_tds", "mean"),
-        avg_rec_yds=("rec_yds", "mean"),
-        avg_rec_tds=("rec_tds", "mean"),
-        avg_ypc=("ypc", "mean"),
-        avg_ypr=("ypr", "mean")
+        pass_yds=("pass_yds", "sum"),
+        pass_tds=("pass_tds", "sum"),
+        rush_yds=("rush_yds", "sum"),
+        rush_tds=("rush_tds", "sum"),
+        rec_yds=("rec_yds", "sum"),
+        rec_tds=("rec_tds", "sum"),
+        receptions=("receptions", "sum"),
+        carries=("carries", "sum"),
+        completions=("completions", "sum"),
+        attempts=("attempts", "sum"),
     )
-    for cat in ["avg_pass_yds", "avg_pass_tds", "avg_rush_yds", "avg_rush_tds", "avg_rec_yds", "avg_rec_tds", "avg_ypc", "avg_ypr"]:
-        all_time_roto[f"{cat}_pts"] = all_time_roto[cat].rank(ascending=True, method="average")
-    all_time_roto["career_roto_score"] = all_time_roto[[f"{cat}_pts" for cat in ["avg_pass_yds", "avg_pass_tds", "avg_rush_yds", "avg_rush_tds", "avg_rec_yds", "avg_rec_tds", "avg_ypc", "avg_ypr"]]].sum(axis=1)
-    all_time_roto = all_time_roto.sort_values("career_roto_score", ascending=False)
+    all_time_roto["ypc"] = (all_time_roto["rush_yds"] / all_time_roto["carries"].replace(0, pd.NA)).astype(float).round(2)
+    all_time_roto["ypr"] = (all_time_roto["rec_yds"] / all_time_roto["receptions"].replace(0, pd.NA)).astype(float).round(2)
+    all_time_roto["cmp_pct"] = (all_time_roto["completions"] / all_time_roto["attempts"].replace(0, pd.NA) * 100).astype(float).round(1)
+    
+    categories = ["pass_yds", "pass_tds", "cmp_pct", "rush_yds", "rush_tds", "ypc", "rec_yds", "rec_tds", "receptions", "ypr"]
+    for cat in categories:
+        all_time_roto[f"{cat}_rank"] = all_time_roto[cat].rank(ascending=False, method="min").astype(int)
+        all_time_roto[f"{cat}_pts"] = all_time_roto[cat].rank(ascending=True, method="average").round(1)
+    
+    all_time_roto["roto_score"] = all_time_roto[[f"{cat}_pts" for cat in categories]].sum(axis=1).round(1)
+    all_time_roto["career_roto_score"] = all_time_roto["roto_score"]
+    all_time_roto["overall_roto_rank"] = all_time_roto["roto_score"].rank(ascending=False, method="min").astype(int)
+    all_time_roto = all_time_roto.sort_values("roto_score", ascending=False)
     
     roto_data = {
         "season_roto": roto_seasons,

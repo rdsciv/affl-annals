@@ -9,21 +9,22 @@ import {
   Shield, 
   Calendar, 
   BarChart2, 
-  Activity,
-  Layers,
-  ArrowRight,
-  ArrowUp,
-  ArrowDown,
-  ArrowUpDown
+  Activity, 
+  Layers, 
+  ArrowRight, 
+  ArrowUp, 
+  ArrowDown, 
+  ArrowUpDown,
+  Bookmark
 } from "lucide-react";
 import { fetchMartJson } from "@/lib/api";
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip } from "recharts";
 
 export default function RotoStandingsPage() {
   const [rotoData, setRotoData] = useState<any>(null);
-  const [selectedSeason, setSelectedSeason] = useState<string>("2025");
+  const [selectedSeason, setSelectedSeason] = useState<string>("ALL-TIME");
   const [selectedFranchise, setSelectedFranchise] = useState<string>("ALL");
-  const [viewMode, setViewMode] = useState<"points" | "values">("points");
+  const [viewMode, setViewMode] = useState<"values" | "points">("values");
   const [loading, setLoading] = useState<boolean>(true);
   const [sortState, setSortState] = useState<{ key: string; dir: "asc" | "desc" }>({
     key: "roto_score",
@@ -44,7 +45,7 @@ export default function RotoStandingsPage() {
     loadData();
   }, []);
 
-  const seasonList = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "ALL-TIME"];
+  const seasonList = ["ALL-TIME", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018"];
 
   const currentSeasonData = useMemo(() => {
     if (!rotoData) return [];
@@ -56,21 +57,15 @@ export default function RotoStandingsPage() {
     }
 
     return [...raw].sort((a, b) => {
-      const isAllTime = selectedSeason === "ALL-TIME";
-      let k = sortState.key;
-      if (k === "roto_score" && isAllTime) k = "career_roto_score";
-      if (isAllTime && k.startsWith("pass_")) k = "avg_" + k;
-      if (isAllTime && k.startsWith("rush_")) k = "avg_" + k;
-      if (isAllTime && k.startsWith("rec_")) k = "avg_" + k;
-      if (isAllTime && k === "ypc") k = "avg_ypc";
-      if (isAllTime && k === "ypr") k = "avg_ypr";
-
-      let valA = a[k] !== undefined ? a[k] : a[sortState.key];
-      let valB = b[k] !== undefined ? b[k] : b[sortState.key];
+      let valA = a[sortState.key];
+      let valB = b[sortState.key];
 
       if (typeof valA === "string") {
         valA = valA.toLowerCase();
         valB = (valB || "").toLowerCase();
+      } else {
+        valA = Number(valA || 0);
+        valB = Number(valB || 0);
       }
       if (valA < valB) return sortState.dir === "asc" ? -1 : 1;
       if (valA > valB) return sortState.dir === "asc" ? 1 : -1;
@@ -120,18 +115,17 @@ export default function RotoStandingsPage() {
     
     if (!target) return [];
 
-    const isAllTime = selectedSeason === "ALL-TIME";
     return [
-      { category: "Pass Yds", value: target[isAllTime ? "avg_pass_yds_pts" : "pass_yds_pts"] || 6, fullMark: 12 },
-      { category: "Pass TDs", value: target[isAllTime ? "avg_pass_tds_pts" : "pass_tds_pts"] || 6, fullMark: 12 },
-      { category: "Rush Yds", value: target[isAllTime ? "avg_rush_yds_pts" : "rush_yds_pts"] || 6, fullMark: 12 },
-      { category: "Rush TDs", value: target[isAllTime ? "avg_rush_tds_pts" : "rush_tds_pts"] || 6, fullMark: 12 },
-      { category: "Yards/Carry", value: target[isAllTime ? "avg_ypc_pts" : "ypc_pts"] || 6, fullMark: 12 },
-      { category: "Rec Yds", value: target[isAllTime ? "avg_rec_yds_pts" : "rec_yds_pts"] || 6, fullMark: 12 },
-      { category: "Rec TDs", value: target[isAllTime ? "avg_rec_tds_pts" : "rec_tds_pts"] || 6, fullMark: 12 },
-      { category: "Yards/Rec", value: target[isAllTime ? "avg_ypr_pts" : "ypr_pts"] || 6, fullMark: 12 }
+      { category: "Pass Yds", value: target.pass_yds_pts || 6, fullMark: 16 },
+      { category: "Pass TDs", value: target.pass_tds_pts || 6, fullMark: 16 },
+      { category: "Rush Yds", value: target.rush_yds_pts || 6, fullMark: 16 },
+      { category: "Rush TDs", value: target.rush_tds_pts || 6, fullMark: 16 },
+      { category: "Yards/Carry", value: target.ypc_pts || 6, fullMark: 16 },
+      { category: "Rec Yds", value: target.rec_yds_pts || 6, fullMark: 16 },
+      { category: "Rec TDs", value: target.rec_tds_pts || 6, fullMark: 16 },
+      { category: "Yards/Rec", value: target.ypr_pts || 6, fullMark: 16 }
     ];
-  }, [currentSeasonData, selectedFranchise, selectedSeason]);
+  }, [currentSeasonData, selectedFranchise]);
 
   if (loading) {
     return (
@@ -141,37 +135,31 @@ export default function RotoStandingsPage() {
     );
   }
 
+  const isAllTime = selectedSeason === "ALL-TIME";
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Top Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-rule pb-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-blue uppercase tracking-wider mb-1">
-            <span>AFFL SAVANT</span>
+            <span>AFFL ANNALS</span>
             <span>•</span>
-            <span>ROTO STANDINGS & SKILL RADAR</span>
+            <span>10-CATEGORY ROTO STANDINGS</span>
           </div>
           <h1 className="font-mono text-2xl md:text-3xl font-black text-ink tracking-tight flex items-center gap-3">
             <Award className="h-7 w-7 text-brand-yellow" />
-            <span>10-Category Roto Skill Radar</span>
+            <span>{isAllTime ? "All-Time Cumulative Roto Standings" : `${selectedSeason} Roto Standings & Skill Radar`}</span>
           </h1>
           <p className="text-xs md:text-sm text-ink-muted mt-1 max-w-3xl">
-            Reconstructed from the Fantasy Genius 10-Category model. Evaluates starting lineup production across Passing, Rushing, and Receiving dimensions independent of matchup schedule variance.
+            {isAllTime 
+              ? "All-Time cumulative starting lineup production ever accumulated by each franchise across all competition eras (2014–2025). Independent of head-to-head matchup variance."
+              : "Reconstructed from the Fantasy Genius 10-Category model. Evaluates starting lineup production across Passing, Rushing, and Receiving dimensions."}
           </p>
         </div>
 
         {/* Value vs Points Toggle */}
         <div className="flex items-center rounded-lg bg-card-elevated p-1 border border-rule self-start md:self-auto">
-          <button
-            onClick={() => setViewMode("points")}
-            className={`px-3 py-1.5 rounded text-xs font-mono font-semibold transition-all ${
-              viewMode === "points"
-                ? "bg-brand-blue text-white shadow-sm"
-                : "text-ink-muted hover:text-ink"
-            }`}
-          >
-            Roto Points (1–12)
-          </button>
           <button
             onClick={() => setViewMode("values")}
             className={`px-3 py-1.5 rounded text-xs font-mono font-semibold transition-all ${
@@ -182,13 +170,23 @@ export default function RotoStandingsPage() {
           >
             Raw Stat Values
           </button>
+          <button
+            onClick={() => setViewMode("points")}
+            className={`px-3 py-1.5 rounded text-xs font-mono font-semibold transition-all ${
+              viewMode === "points"
+                ? "bg-brand-blue text-white shadow-sm"
+                : "text-ink-muted hover:text-ink"
+            }`}
+          >
+            Roto Points ({isAllTime ? "1–16" : "1–12"})
+          </button>
         </div>
       </div>
 
       {/* Season Selector Filter */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-card p-3 rounded-xl border border-rule">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs font-mono text-ink-dim uppercase mr-1">Season:</span>
+          <span className="text-xs font-mono text-ink-dim uppercase mr-1">Scope:</span>
           {seasonList.map((yr) => (
             <button
               key={yr}
@@ -198,7 +196,7 @@ export default function RotoStandingsPage() {
               }}
               className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-colors ${
                 selectedSeason === yr
-                  ? "bg-brand-blue text-white"
+                  ? "bg-brand-blue text-white shadow-sm"
                   : "text-ink-muted hover:text-ink hover:bg-card-elevated"
               }`}
             >
@@ -226,15 +224,16 @@ export default function RotoStandingsPage() {
 
       {/* Main Grid: Radar Chart + Standings Table */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
         {/* Radar Chart Card */}
-        <div className="glass-card rounded-xl p-5 border border-rule space-y-4 shadow-xl flex flex-col items-center justify-center">
+        <div className="glass-card rounded-xl p-5 border border-rule space-y-4 shadow-xl flex flex-col items-center justify-between">
           <div className="w-full flex items-center justify-between border-b border-rule pb-2">
             <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-ink flex items-center gap-1.5">
               <Activity className="h-4 w-4 text-brand-blue" />
               <span>Skill Radar Profile</span>
             </h3>
             <span className="text-[10px] font-mono text-brand-lime font-bold">
-              Scale: 1–12 Pts
+              {isAllTime ? "All-Time Scale: 1–16" : "Season Scale: 1–12"}
             </span>
           </div>
 
@@ -248,7 +247,7 @@ export default function RotoStandingsPage() {
                 />
                 <PolarRadiusAxis 
                   angle={30} 
-                  domain={[0, 12]} 
+                  domain={[0, isAllTime ? 16 : 12]} 
                   tick={{ fill: "var(--muted-foreground)", fontSize: 8 }} 
                 />
                 <Radar 
@@ -256,7 +255,7 @@ export default function RotoStandingsPage() {
                   dataKey="value" 
                   stroke="#00a2ff" 
                   fill="#00a2ff" 
-                  fillOpacity={0.4} 
+                  fillOpacity={0.45} 
                 />
                 <Tooltip 
                   contentStyle={{ 
@@ -272,7 +271,9 @@ export default function RotoStandingsPage() {
           </div>
 
           <p className="text-[10px] text-ink-dim font-mono text-center">
-            Ten-axis starter capability profile compared to league maximums across regular season weeks.
+            {isAllTime 
+              ? "All-time franchise capability profile across all started player-weeks in league history."
+              : "Ten-axis starter capability profile compared to league maximums across regular season weeks."}
           </p>
         </div>
 
@@ -284,6 +285,7 @@ export default function RotoStandingsPage() {
                 <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase text-ink-dim">
                   {renderSortHeader("Rank", "overall_roto_rank", "center")}
                   {renderSortHeader("Franchise", "franchise_name", "left")}
+                  {isAllTime && renderSortHeader("Eras", "seasons", "center")}
                   {renderSortHeader("Pass Yds", "pass_yds", "right")}
                   {renderSortHeader("Pass TD", "pass_tds", "right")}
                   {renderSortHeader("Rush Yds", "rush_yds", "right")}
@@ -296,10 +298,9 @@ export default function RotoStandingsPage() {
               </thead>
               <tbody className="divide-y divide-rule/60 stat-mono text-ink-muted">
                 {currentSeasonData.map((row: any, idx: number) => {
-                  const isAllTime = selectedSeason === "ALL-TIME";
                   const isHighlighted = selectedFranchise === row.franchise_id;
-                  const rank = isAllTime ? idx + 1 : row.overall_roto_rank;
-                  const totalScore = isAllTime ? row.career_roto_score : row.roto_score;
+                  const rank = row.overall_roto_rank || idx + 1;
+                  const totalScore = row.roto_score || row.career_roto_score;
 
                   return (
                     <tr 
@@ -317,49 +318,54 @@ export default function RotoStandingsPage() {
                           className="hover:underline flex items-center gap-2"
                         >
                           <div 
-                            className="h-2 w-2 rounded-full shrink-0" 
+                            className="h-2.5 w-2.5 rounded-full shrink-0 shadow-sm" 
                             style={{ backgroundColor: row.primary_color }} 
                           />
                           <span className="truncate max-w-[130px]">{row.franchise_name}</span>
                         </Link>
                       </td>
-                      <td className="py-2.5 px-3 text-right font-mono">
+                      {isAllTime && (
+                        <td className="py-2.5 px-3 text-center font-mono text-ink-dim">
+                          {row.seasons}
+                        </td>
+                      )}
+                      <td className="py-2.5 px-3 text-right font-mono text-ink">
                         {viewMode === "points" 
-                          ? (isAllTime ? row.avg_pass_yds_pts?.toFixed(1) : row.pass_yds_pts) 
-                          : Math.round(isAllTime ? row.avg_pass_yds : row.pass_yds)}
+                          ? Number(row.pass_yds_pts || 0).toFixed(1)
+                          : Math.round(row.pass_yds || 0).toLocaleString()}
                       </td>
                       <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
-                          ? (isAllTime ? row.avg_pass_tds_pts?.toFixed(1) : row.pass_tds_pts) 
-                          : Math.round(isAllTime ? row.avg_pass_tds : row.pass_tds)}
+                          ? Number(row.pass_tds_pts || 0).toFixed(1)
+                          : Math.round(row.pass_tds || 0).toLocaleString()}
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-mono text-ink">
+                        {viewMode === "points" 
+                          ? Number(row.rush_yds_pts || 0).toFixed(1)
+                          : Math.round(row.rush_yds || 0).toLocaleString()}
                       </td>
                       <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
-                          ? (isAllTime ? row.avg_rush_yds_pts?.toFixed(1) : row.rush_yds_pts) 
-                          : Math.round(isAllTime ? row.avg_rush_yds : row.rush_yds)}
+                          ? Number(row.rush_tds_pts || 0).toFixed(1)
+                          : Math.round(row.rush_tds || 0).toLocaleString()}
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-mono text-brand-lime">
+                        {viewMode === "points" 
+                          ? Number(row.ypc_pts || 0).toFixed(1)
+                          : Number(row.ypc || 0).toFixed(2)}
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-mono text-ink">
+                        {viewMode === "points" 
+                          ? Number(row.rec_yds_pts || 0).toFixed(1)
+                          : Math.round(row.rec_yds || 0).toLocaleString()}
                       </td>
                       <td className="py-2.5 px-3 text-right font-mono">
                         {viewMode === "points" 
-                          ? (isAllTime ? row.avg_rush_tds_pts?.toFixed(1) : row.rush_tds_pts) 
-                          : Math.round(isAllTime ? row.avg_rush_tds : row.rush_tds)}
-                      </td>
-                      <td className="py-2.5 px-3 text-right font-mono">
-                        {viewMode === "points" 
-                          ? (isAllTime ? row.avg_ypc_pts?.toFixed(1) : row.ypc_pts) 
-                          : (isAllTime ? row.avg_ypc?.toFixed(2) : row.ypc?.toFixed(2))}
-                      </td>
-                      <td className="py-2.5 px-3 text-right font-mono">
-                        {viewMode === "points" 
-                          ? (isAllTime ? row.avg_rec_yds_pts?.toFixed(1) : row.rec_yds_pts) 
-                          : Math.round(isAllTime ? row.avg_rec_yds : row.rec_yds)}
-                      </td>
-                      <td className="py-2.5 px-3 text-right font-mono">
-                        {viewMode === "points" 
-                          ? (isAllTime ? row.avg_rec_tds_pts?.toFixed(1) : row.rec_tds_pts) 
-                          : Math.round(isAllTime ? row.avg_rec_tds : row.rec_tds)}
+                          ? Number(row.rec_tds_pts || 0).toFixed(1)
+                          : Math.round(row.rec_tds || 0).toLocaleString()}
                       </td>
                       <td className="py-2.5 px-3 text-center font-mono font-bold text-brand-yellow">
-                        {Number(totalScore).toFixed(1)}
+                        {Number(totalScore || 0).toFixed(1)}
                       </td>
                     </tr>
                   );
