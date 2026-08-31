@@ -1510,11 +1510,11 @@
     "regular_season_rank":5,
     "final_rank":6,
     "is_champion":0,
-    "franchise_id":"FRAN_COG",
-    "franchise_name":"Central Oregon Gabagooners",
+    "franchise_id":"FRAN_WSW",
+    "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
     "current_logo_path":"\/assets\/logos\/gabagooners.svg",
-    "primary_color":"#ec4899",
+    "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
   {
@@ -1648,11 +1648,11 @@
     "regular_season_rank":11,
     "final_rank":12,
     "is_champion":0,
-    "franchise_id":"FRAN_PTP",
-    "franchise_name":"Patagonia Pipers",
+    "franchise_id":"FRAN_MCMD",
+    "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
     "current_logo_path":"\/assets\/logos\/pipers.svg",
-    "primary_color":"#06b6d4",
+    "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
   {
@@ -1671,11 +1671,11 @@
     "regular_season_rank":5,
     "final_rank":1,
     "is_champion":1,
-    "franchise_id":"FRAN_PTP",
-    "franchise_name":"Patagonia Pipers",
+    "franchise_id":"FRAN_MCMD",
+    "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
     "current_logo_path":"\/assets\/logos\/pipers.svg",
-    "primary_color":"#06b6d4",
+    "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
   {
@@ -1786,11 +1786,11 @@
     "regular_season_rank":4,
     "final_rank":6,
     "is_champion":0,
-    "franchise_id":"FRAN_COG",
-    "franchise_name":"Central Oregon Gabagooners",
+    "franchise_id":"FRAN_WSW",
+    "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
     "current_logo_path":"\/assets\/logos\/gabagooners.svg",
-    "primary_color":"#ec4899",
+    "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
   {
@@ -1993,11 +1993,11 @@
     "regular_season_rank":6,
     "final_rank":3,
     "is_champion":0,
-    "franchise_id":"FRAN_COG",
-    "franchise_name":"Central Oregon Gabagooners",
+    "franchise_id":"FRAN_WSW",
+    "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
     "current_logo_path":"\/assets\/logos\/gabagooners.svg",
-    "primary_color":"#ec4899",
+    "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
   {
@@ -2039,11 +2039,11 @@
     "regular_season_rank":3,
     "final_rank":5,
     "is_champion":0,
-    "franchise_id":"FRAN_PTP",
-    "franchise_name":"Patagonia Pipers",
+    "franchise_id":"FRAN_MCMD",
+    "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
     "current_logo_path":"\/assets\/logos\/pipers.svg",
-    "primary_color":"#06b6d4",
+    "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
   {
@@ -2154,11 +2154,11 @@
     "regular_season_rank":10,
     "final_rank":10,
     "is_champion":0,
-    "franchise_id":"FRAN_WWL",
-    "franchise_name":"Westeros Warlords",
+    "franchise_id":"FRAN_CCB",
+    "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
     "current_logo_path":"\/assets\/logos\/warlords.svg",
-    "primary_color":"#d97706",
+    "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
   {
@@ -2269,11 +2269,11 @@
     "regular_season_rank":5,
     "final_rank":3,
     "is_champion":0,
-    "franchise_id":"FRAN_COG",
-    "franchise_name":"Central Oregon Gabagooners",
+    "franchise_id":"FRAN_WSW",
+    "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
     "current_logo_path":"\/assets\/logos\/gabagooners.svg",
-    "primary_color":"#ec4899",
+    "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
   {
@@ -2292,11 +2292,11 @@
     "regular_season_rank":2,
     "final_rank":4,
     "is_champion":0,
-    "franchise_id":"FRAN_PTP",
-    "franchise_name":"Patagonia Pipers",
+    "franchise_id":"FRAN_MCMD",
+    "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
     "current_logo_path":"\/assets\/logos\/pipers.svg",
-    "primary_color":"#06b6d4",
+    "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
   {
@@ -2476,11 +2476,11 @@
     "regular_season_rank":12,
     "final_rank":12,
     "is_champion":0,
-    "franchise_id":"FRAN_WWL",
-    "franchise_name":"Westeros Warlords",
+    "franchise_id":"FRAN_CCB",
+    "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
     "current_logo_path":"\/assets\/logos\/warlords.svg",
-    "primary_color":"#d97706",
+    "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
   {
@@ -2591,11 +2591,11 @@
     "regular_season_rank":5,
     "final_rank":5,
     "is_champion":0,
-    "franchise_id":"FRAN_WWL",
-    "franchise_name":"Westeros Warlords",
+    "franchise_id":"FRAN_CCB",
+    "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
     "current_logo_path":"\/assets\/logos\/warlords.svg",
-    "primary_color":"#d97706",
+    "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
   {
@@ -2683,11 +2683,11 @@
     "regular_season_rank":10,
     "final_rank":9,
     "is_champion":0,
-    "franchise_id":"FRAN_PTP",
-    "franchise_name":"Patagonia Pipers",
+    "franchise_id":"FRAN_MCMD",
+    "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
     "current_logo_path":"\/assets\/logos\/pipers.svg",
-    "primary_color":"#06b6d4",
+    "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
   {
@@ -2775,11 +2775,11 @@
     "regular_season_rank":4,
     "final_rank":3,
     "is_champion":0,
-    "franchise_id":"FRAN_PTP",
-    "franchise_name":"Patagonia Pipers",
+    "franchise_id":"FRAN_MCMD",
+    "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
     "current_logo_path":"\/assets\/logos\/pipers.svg",
-    "primary_color":"#06b6d4",
+    "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
   {
@@ -2890,11 +2890,11 @@
     "regular_season_rank":5,
     "final_rank":8,
     "is_champion":0,
-    "franchise_id":"FRAN_WWL",
-    "franchise_name":"Westeros Warlords",
+    "franchise_id":"FRAN_CCB",
+    "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
     "current_logo_path":"\/assets\/logos\/warlords.svg",
-    "primary_color":"#d97706",
+    "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
   {
@@ -3005,11 +3005,11 @@
     "regular_season_rank":1,
     "final_rank":3,
     "is_champion":0,
-    "franchise_id":"FRAN_PTP",
-    "franchise_name":"Patagonia Pipers",
+    "franchise_id":"FRAN_MCMD",
+    "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
     "current_logo_path":"\/assets\/logos\/pipers.svg",
-    "primary_color":"#06b6d4",
+    "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
   {
@@ -3028,11 +3028,11 @@
     "regular_season_rank":3,
     "final_rank":4,
     "is_champion":0,
-    "franchise_id":"FRAN_DCMC",
-    "franchise_name":"DC Mighty Cucks",
+    "franchise_id":"FRAN_PWP",
+    "franchise_name":"Pawtucket Patriots",
     "owner_display_name":"Scott Ace",
     "current_logo_path":"\/assets\/logos\/cucks.svg",
-    "primary_color":"#e02424",
+    "primary_color":"#3b82f6",
     "secondary_color":"#1c2536"
   },
   {
@@ -3120,11 +3120,11 @@
     "regular_season_rank":9,
     "final_rank":8,
     "is_champion":0,
-    "franchise_id":"FRAN_TJS",
-    "franchise_name":"Tijuana Sanchitos",
+    "franchise_id":"FRAN_LOB",
+    "franchise_name":"L.O.B. Thunder",
     "owner_display_name":"David Allardyce",
     "current_logo_path":"\/assets\/logos\/sanchitos.svg",
-    "primary_color":"#10b981",
+    "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
   {

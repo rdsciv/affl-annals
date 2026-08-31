@@ -27,25 +27,30 @@ RAW_NFL_DIR = DATA_DIR / "raw_nfl"
 DB_PATH = DATA_DIR / "affl.db"
 
 OWNER_FRANCHISE_MAP = {
+    # Active 2026 Field (12 Franchises)
     "m11": ("FRAN_SVS", "Squaw Valley Skinners", "Chris Zweifel", "#ff6a00", "/assets/logos/skinners.svg"),
-    "m06": ("FRAN_FFC", "Fairview Fat Cats", "Alex Renney", "#ffc400", "/assets/logos/fatcats.svg"),
-    "m08": ("FRAN_GGG", "Goleta Gringos", "Kevin Sliger", "#00a2ff", "/assets/logos/gringos.svg"),
-    "m05": ("FRAN_SDS", "San Diego Shadowcöcks", "John Newton", "#7928ca", "/assets/logos/shadowcocks.svg"),
     "m02": ("FRAN_DCMC", "DC Mighty Cucks", "Austin Williams", "#e02424", "/assets/logos/cucks.svg"),
+    "m08": ("FRAN_GGG", "Goleta Gringos", "Kevin Sliger", "#00a2ff", "/assets/logos/gringos.svg"),
     "m18": ("FRAN_GTF", "Grand Teeton Feelers", "Ryan Childress", "#c8ff00", "/assets/logos/feelers.svg"),
     "m15": ("FRAN_WWL", "Westeros Warlords", "Levi Sanchez", "#d97706", "/assets/logos/warlords.svg"),
     "m17": ("FRAN_TJS", "Tijuana Sanchitos", "Zack Blotz", "#10b981", "/assets/logos/sanchitos.svg"),
-    "m21": ("FRAN_PTP", "Patagonia Pipers", "Patrick O'Neill", "#06b6d4", "/assets/logos/pipers.svg"),
-    "m12": ("FRAN_PTP", "Patagonia Pipers", "Garrett Jones", "#06b6d4", "/assets/logos/pipers.svg"),
     "m13": ("FRAN_HLH", "Honolulu Horndogs", "Alex Clausen", "#8b5cf6", "/assets/logos/horndogs.svg"),
-    "m10": ("FRAN_COG", "Central Oregon Gabagooners", "Tanner Dunn", "#ec4899", "/assets/logos/gabagooners.svg"),
+    "m06": ("FRAN_FFC", "Fairview Fat Cats", "Alex Renney", "#ffc400", "/assets/logos/fatcats.svg"),
     "m07": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/assets/logos/chupacabras.svg"),
     "m01": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/assets/logos/chupacabras.svg"),
+    "m05": ("FRAN_SDS", "San Diego Shadowcöcks", "John Newton", "#7928ca", "/assets/logos/shadowcocks.svg"),
+    "m21": ("FRAN_PTP", "Patagonia Pipers", "Patrick O'Neill", "#06b6d4", "/assets/logos/pipers.svg"),
+    "m22": ("FRAN_COG", "Central Oregon Gabagooners", "Andy Pietromonaco", "#ec4899", "/assets/logos/gabagooners.svg"),
+    
+    # Historical / Alumni Franchises
+    "m12": ("FRAN_MCMD", "Muck City Mad Dawgs", "Garrett Jones", "#0284c7", "/assets/logos/pipers.svg"),
     "m19": ("FRAN_PND", "Pasco Pounders", "Tyler Sanchez", "#64748b", "/assets/logos/pounders.svg"),
     "m14": ("FRAN_PLW", "Poulsbo Pollywogs", "Steven Breitmayer", "#22c55e", "/assets/logos/pollywogs.svg"),
-    "m04": ("FRAN_WWL", "Westeros Warlords", "Jake Hibbard", "#d97706", "/assets/logos/warlords.svg"),
-    "m09": ("FRAN_DCMC", "DC Mighty Cucks", "Scott Ace", "#e02424", "/assets/logos/cucks.svg"),
-    "m16": ("FRAN_TJS", "Tijuana Sanchitos", "David Allardyce", "#10b981", "/assets/logos/sanchitos.svg"),
+    "m04": ("FRAN_CCB", "Charleston Chewbacca", "Jake Hibbard", "#9333ea", "/assets/logos/warlords.svg"),
+    "m10": ("FRAN_WSW", "Winston-Salem Wake Snakes", "Tanner Dunn", "#f97316", "/assets/logos/gabagooners.svg"),
+    "m20": ("FRAN_WSW", "Winston-Salem Wake Snakes", "Tanner Dunn", "#f97316", "/assets/logos/gabagooners.svg"),
+    "m09": ("FRAN_PWP", "Pawtucket Patriots", "Scott Ace", "#3b82f6", "/assets/logos/cucks.svg"),
+    "m16": ("FRAN_LOB", "L.O.B. Thunder", "David Allardyce", "#14b8a6", "/assets/logos/sanchitos.svg"),
 }
 
 def get_franchise_meta(owner_id: str):

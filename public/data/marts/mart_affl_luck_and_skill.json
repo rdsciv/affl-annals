@@ -32,10 +32,10 @@
       "titles": 1
     },
     {
-      "franchise_id": "FRAN_DCMC",
-      "franchise_name": "DC Mighty Cucks",
+      "franchise_id": "FRAN_PWP",
+      "franchise_name": "Pawtucket Patriots",
       "owner_display_name": "Scott Ace",
-      "primary_color": "#e02424",
+      "primary_color": "#3b82f6",
       "logo_path": "/assets/logos/cucks.svg",
       "seasons_count": 1,
       "actual_wins": 9,
@@ -132,10 +132,10 @@
       "titles": 0
     },
     {
-      "franchise_id": "FRAN_PTP",
-      "franchise_name": "Patagonia Pipers",
+      "franchise_id": "FRAN_MCMD",
+      "franchise_name": "Muck City Mad Dawgs",
       "owner_display_name": "Garrett Jones",
-      "primary_color": "#06b6d4",
+      "primary_color": "#0284c7",
       "logo_path": "/assets/logos/pipers.svg",
       "seasons_count": 7,
       "actual_wins": 48,
@@ -207,10 +207,10 @@
       "titles": 1
     },
     {
-      "franchise_id": "FRAN_WWL",
-      "franchise_name": "Westeros Warlords",
+      "franchise_id": "FRAN_CCB",
+      "franchise_name": "Charleston Chewbacca",
       "owner_display_name": "Jake Hibbard",
-      "primary_color": "#d97706",
+      "primary_color": "#9333ea",
       "logo_path": "/assets/logos/warlords.svg",
       "seasons_count": 4,
       "actual_wins": 20,
@@ -229,7 +229,7 @@
       "pythag_pct": 0.449,
       "pythag_wins": 23.3,
       "pythag_luck": -3.3,
-      "titles": 1
+      "titles": 0
     },
     {
       "franchise_id": "FRAN_HLH",
@@ -257,10 +257,10 @@
       "titles": 1
     },
     {
-      "franchise_id": "FRAN_COG",
-      "franchise_name": "Central Oregon Gabagooners",
+      "franchise_id": "FRAN_WSW",
+      "franchise_name": "Winston-Salem Wake Snakes",
       "owner_display_name": "Tanner Dunn",
-      "primary_color": "#ec4899",
+      "primary_color": "#f97316",
       "logo_path": "/assets/logos/gabagooners.svg",
       "seasons_count": 4,
       "actual_wins": 28,
@@ -307,10 +307,10 @@
       "titles": 1
     },
     {
-      "franchise_id": "FRAN_TJS",
-      "franchise_name": "Tijuana Sanchitos",
+      "franchise_id": "FRAN_LOB",
+      "franchise_name": "L.O.B. Thunder",
       "owner_display_name": "David Allardyce",
-      "primary_color": "#10b981",
+      "primary_color": "#14b8a6",
       "logo_path": "/assets/logos/sanchitos.svg",
       "seasons_count": 1,
       "actual_wins": 4,
@@ -329,7 +329,7 @@
       "pythag_pct": 0.457,
       "pythag_wins": 5.9,
       "pythag_luck": -1.9,
-      "titles": 1
+      "titles": 0
     },
     {
       "franchise_id": "FRAN_PTP",
@@ -354,7 +354,7 @@
       "pythag_pct": 0.534,
       "pythag_wins": 15.0,
       "pythag_luck": 1.0,
-      "titles": 1
+      "titles": 0
     },
     {
       "franchise_id": "FRAN_SVS",
@@ -488,7 +488,7 @@
       "logo_path": "/assets/logos/sanchitos.svg",
       "points": 128.0,
       "opponent_points": 142.0,
-      "opp_franchise_name": "Patagonia Pipers",
+      "opp_franchise_name": "Muck City Mad Dawgs",
       "result": "L",
       "weekly_rank": 2,
       "total_teams_week": 12,
@@ -564,7 +564,7 @@
       "logo_path": "/assets/logos/gringos.svg",
       "points": 123.0,
       "opponent_points": 125.0,
-      "opp_franchise_name": "Patagonia Pipers",
+      "opp_franchise_name": "Muck City Mad Dawgs",
       "result": "L",
       "weekly_rank": 2,
       "total_teams_week": 10,
@@ -576,14 +576,14 @@
       "season": 2014,
       "week": 10,
       "team_id": 5,
-      "franchise_id": "FRAN_PTP",
-      "franchise_name": "Patagonia Pipers",
+      "franchise_id": "FRAN_MCMD",
+      "franchise_name": "Muck City Mad Dawgs",
       "owner_display_name": "Garrett Jones",
-      "primary_color": "#06b6d4",
+      "primary_color": "#0284c7",
       "logo_path": "/assets/logos/pipers.svg",
       "points": 120.0,
       "opponent_points": 152.0,
-      "opp_franchise_name": "Tijuana Sanchitos",
+      "opp_franchise_name": "L.O.B. Thunder",
       "result": "L",
       "weekly_rank": 2,
       "total_teams_week": 10,
@@ -654,10 +654,10 @@
       "season": 2014,
       "week": 11,
       "team_id": 2,
-      "franchise_id": "FRAN_DCMC",
-      "franchise_name": "DC Mighty Cucks",
+      "franchise_id": "FRAN_PWP",
+      "franchise_name": "Pawtucket Patriots",
       "owner_display_name": "Scott Ace",
-      "primary_color": "#e02424",
+      "primary_color": "#3b82f6",
       "logo_path": "/assets/logos/cucks.svg",
       "points": 51.0,
       "opponent_points": 47.0,
@@ -787,10 +787,10 @@
       "season": 2015,
       "week": 6,
       "team_id": 4,
-      "franchise_id": "FRAN_WWL",
-      "franchise_name": "Westeros Warlords",
+      "franchise_id": "FRAN_CCB",
+      "franchise_name": "Charleston Chewbacca",
       "owner_display_name": "Jake Hibbard",
-      "primary_color": "#d97706",
+      "primary_color": "#9333ea",
       "logo_path": "/assets/logos/warlords.svg",
       "points": 64.0,
       "opponent_points": 60.0,
@@ -813,7 +813,7 @@
       "logo_path": "/assets/logos/sanchitos.svg",
       "points": 65.0,
       "opponent_points": 55.0,
-      "opp_franchise_name": "Patagonia Pipers",
+      "opp_franchise_name": "Muck City Mad Dawgs",
       "result": "W",
       "weekly_rank": 9,
       "total_teams_week": 10,
@@ -832,7 +832,7 @@
       "logo_path": "/assets/logos/cucks.svg",
       "points": 66.0,
       "opponent_points": 56.0,
-      "opp_franchise_name": "Patagonia Pipers",
+      "opp_franchise_name": "Muck City Mad Dawgs",
       "result": "W",
       "weekly_rank": 8,
       "total_teams_week": 10,
@@ -864,8 +864,8 @@
         "ties": 0
       },
       "FRAN_DCMC": {
-        "wins": 81,
-        "losses": 92,
+        "wins": 75,
+        "losses": 85,
         "ties": 1
       },
       "FRAN_GTF": {
@@ -874,19 +874,19 @@
         "ties": 2
       },
       "FRAN_WWL": {
-        "wins": 103,
-        "losses": 104,
-        "ties": 6
+        "wins": 71,
+        "losses": 86,
+        "ties": 4
       },
       "FRAN_TJS": {
-        "wins": 85,
-        "losses": 86,
-        "ties": 3
+        "wins": 80,
+        "losses": 79,
+        "ties": 2
       },
       "FRAN_PTP": {
-        "wins": 51,
-        "losses": 66,
-        "ties": 2
+        "wins": 12,
+        "losses": 16,
+        "ties": 0
       },
       "FRAN_HLH": {
         "wins": 71,
@@ -894,8 +894,8 @@
         "ties": 0
       },
       "FRAN_COG": {
-        "wins": 25,
-        "losses": 27,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -936,8 +936,8 @@
         "ties": 0
       },
       "FRAN_WWL": {
-        "wins": 111,
-        "losses": 87,
+        "wins": 80,
+        "losses": 66,
         "ties": 2
       },
       "FRAN_TJS": {
@@ -946,8 +946,8 @@
         "ties": 0
       },
       "FRAN_PTP": {
-        "wins": 58,
-        "losses": 48,
+        "wins": 16,
+        "losses": 12,
         "ties": 0
       },
       "FRAN_HLH": {
@@ -956,8 +956,8 @@
         "ties": 1
       },
       "FRAN_COG": {
-        "wins": 22,
-        "losses": 30,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -988,8 +988,8 @@
         "ties": 0
       },
       "FRAN_DCMC": {
-        "wins": 95,
-        "losses": 78,
+        "wins": 88,
+        "losses": 72,
         "ties": 1
       },
       "FRAN_GTF": {
@@ -998,19 +998,19 @@
         "ties": 0
       },
       "FRAN_WWL": {
-        "wins": 103,
-        "losses": 108,
-        "ties": 2
+        "wins": 80,
+        "losses": 80,
+        "ties": 1
       },
       "FRAN_TJS": {
-        "wins": 88,
-        "losses": 84,
+        "wins": 81,
+        "losses": 78,
         "ties": 2
       },
       "FRAN_PTP": {
-        "wins": 59,
-        "losses": 59,
-        "ties": 1
+        "wins": 18,
+        "losses": 10,
+        "ties": 0
       },
       "FRAN_HLH": {
         "wins": 68,
@@ -1018,8 +1018,8 @@
         "ties": 1
       },
       "FRAN_COG": {
-        "wins": 23,
-        "losses": 29,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1070,8 +1070,8 @@
         "ties": 0
       },
       "FRAN_PTP": {
-        "wins": 30,
-        "losses": 24,
+        "wins": 17,
+        "losses": 11,
         "ties": 0
       },
       "FRAN_HLH": {
@@ -1080,8 +1080,8 @@
         "ties": 1
       },
       "FRAN_COG": {
-        "wins": 11,
-        "losses": 15,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1092,9 +1092,9 @@
     },
     "FRAN_DCMC": {
       "FRAN_SVS": {
-        "wins": 80,
+        "wins": 82,
         "losses": 78,
-        "ties": 3
+        "ties": 1
       },
       "FRAN_FFC": {
         "wins": 72,
@@ -1103,8 +1103,8 @@
       },
       "FRAN_GGG": {
         "wins": 79,
-        "losses": 81,
-        "ties": 1
+        "losses": 80,
+        "ties": 2
       },
       "FRAN_SDS": {
         "wins": 53,
@@ -1112,38 +1112,38 @@
         "ties": 1
       },
       "FRAN_DCMC": {
-        "wins": 93,
-        "losses": 79,
-        "ties": 2
+        "wins": 86,
+        "losses": 75,
+        "ties": 0
       },
       "FRAN_GTF": {
-        "wins": 85,
-        "losses": 76,
+        "wins": 83,
+        "losses": 78,
         "ties": 0
       },
       "FRAN_WWL": {
-        "wins": 107,
-        "losses": 105,
-        "ties": 1
+        "wins": 82,
+        "losses": 79,
+        "ties": 0
       },
       "FRAN_TJS": {
-        "wins": 89,
-        "losses": 82,
-        "ties": 3
+        "wins": 87,
+        "losses": 74,
+        "ties": 0
       },
       "FRAN_PTP": {
-        "wins": 56,
-        "losses": 62,
-        "ties": 1
+        "wins": 13,
+        "losses": 15,
+        "ties": 0
       },
       "FRAN_HLH": {
         "wins": 75,
-        "losses": 72,
-        "ties": 1
+        "losses": 73,
+        "ties": 0
       },
       "FRAN_COG": {
-        "wins": 30,
-        "losses": 22,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1174,9 +1174,9 @@
         "ties": 0
       },
       "FRAN_DCMC": {
-        "wins": 102,
-        "losses": 71,
-        "ties": 1
+        "wins": 94,
+        "losses": 67,
+        "ties": 0
       },
       "FRAN_GTF": {
         "wins": 84,
@@ -1184,19 +1184,19 @@
         "ties": 2
       },
       "FRAN_WWL": {
-        "wins": 117,
-        "losses": 93,
-        "ties": 3
+        "wins": 91,
+        "losses": 69,
+        "ties": 1
       },
       "FRAN_TJS": {
-        "wins": 96,
-        "losses": 75,
+        "wins": 88,
+        "losses": 70,
         "ties": 3
       },
       "FRAN_PTP": {
-        "wins": 65,
-        "losses": 53,
-        "ties": 1
+        "wins": 14,
+        "losses": 14,
+        "ties": 0
       },
       "FRAN_HLH": {
         "wins": 81,
@@ -1204,8 +1204,8 @@
         "ties": 2
       },
       "FRAN_COG": {
-        "wins": 32,
-        "losses": 20,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1216,19 +1216,19 @@
     },
     "FRAN_WWL": {
       "FRAN_SVS": {
-        "wins": 87,
-        "losses": 71,
-        "ties": 3
+        "wins": 92,
+        "losses": 69,
+        "ties": 0
       },
       "FRAN_FFC": {
-        "wins": 69,
-        "losses": 76,
-        "ties": 3
+        "wins": 77,
+        "losses": 69,
+        "ties": 2
       },
       "FRAN_GGG": {
-        "wins": 84,
-        "losses": 74,
-        "ties": 3
+        "wins": 93,
+        "losses": 67,
+        "ties": 1
       },
       "FRAN_SDS": {
         "wins": 50,
@@ -1236,39 +1236,39 @@
         "ties": 0
       },
       "FRAN_DCMC": {
-        "wins": 80,
-        "losses": 88,
-        "ties": 6
+        "wins": 79,
+        "losses": 81,
+        "ties": 1
       },
       "FRAN_GTF": {
-        "wins": 81,
-        "losses": 76,
-        "ties": 4
+        "wins": 87,
+        "losses": 73,
+        "ties": 1
       },
       "FRAN_WWL": {
-        "wins": 107,
-        "losses": 98,
-        "ties": 8
+        "wins": 90,
+        "losses": 70,
+        "ties": 1
       },
       "FRAN_TJS": {
-        "wins": 83,
-        "losses": 85,
-        "ties": 6
+        "wins": 84,
+        "losses": 76,
+        "ties": 1
       },
       "FRAN_PTP": {
-        "wins": 53,
-        "losses": 62,
-        "ties": 4
+        "wins": 12,
+        "losses": 16,
+        "ties": 0
       },
       "FRAN_HLH": {
-        "wins": 69,
-        "losses": 77,
+        "wins": 75,
+        "losses": 71,
         "ties": 2
       },
       "FRAN_COG": {
-        "wins": 27,
-        "losses": 23,
-        "ties": 2
+        "wins": 0,
+        "losses": 0,
+        "ties": 0
       },
       "FRAN_PLW": {
         "wins": 29,
@@ -1278,8 +1278,8 @@
     },
     "FRAN_TJS": {
       "FRAN_SVS": {
-        "wins": 74,
-        "losses": 84,
+        "wins": 73,
+        "losses": 85,
         "ties": 3
       },
       "FRAN_FFC": {
@@ -1288,9 +1288,9 @@
         "ties": 1
       },
       "FRAN_GGG": {
-        "wins": 81,
-        "losses": 78,
-        "ties": 2
+        "wins": 80,
+        "losses": 80,
+        "ties": 1
       },
       "FRAN_SDS": {
         "wins": 52,
@@ -1298,38 +1298,38 @@
         "ties": 0
       },
       "FRAN_DCMC": {
-        "wins": 73,
-        "losses": 98,
-        "ties": 3
+        "wins": 66,
+        "losses": 95,
+        "ties": 0
       },
       "FRAN_GTF": {
         "wins": 74,
-        "losses": 84,
-        "ties": 3
-      },
-      "FRAN_WWL": {
-        "wins": 101,
-        "losses": 108,
-        "ties": 4
-      },
-      "FRAN_TJS": {
-        "wins": 73,
-        "losses": 96,
-        "ties": 5
-      },
-      "FRAN_PTP": {
-        "wins": 57,
-        "losses": 61,
+        "losses": 86,
         "ties": 1
       },
+      "FRAN_WWL": {
+        "wins": 81,
+        "losses": 79,
+        "ties": 1
+      },
+      "FRAN_TJS": {
+        "wins": 70,
+        "losses": 90,
+        "ties": 1
+      },
+      "FRAN_PTP": {
+        "wins": 17,
+        "losses": 11,
+        "ties": 0
+      },
       "FRAN_HLH": {
-        "wins": 65,
-        "losses": 80,
-        "ties": 3
+        "wins": 64,
+        "losses": 83,
+        "ties": 1
       },
       "FRAN_COG": {
-        "wins": 21,
-        "losses": 31,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1340,58 +1340,58 @@
     },
     "FRAN_PTP": {
       "FRAN_SVS": {
-        "wins": 64,
-        "losses": 55,
+        "wins": 15,
+        "losses": 13,
         "ties": 0
       },
       "FRAN_FFC": {
-        "wins": 52,
-        "losses": 53,
-        "ties": 1
+        "wins": 19,
+        "losses": 9,
+        "ties": 0
       },
       "FRAN_GGG": {
-        "wins": 66,
-        "losses": 52,
-        "ties": 1
+        "wins": 20,
+        "losses": 8,
+        "ties": 0
       },
       "FRAN_SDS": {
-        "wins": 29,
-        "losses": 25,
+        "wins": 18,
+        "losses": 10,
         "ties": 0
       },
       "FRAN_DCMC": {
-        "wins": 72,
-        "losses": 60,
+        "wins": 19,
+        "losses": 9,
         "ties": 0
       },
       "FRAN_GTF": {
-        "wins": 69,
-        "losses": 49,
-        "ties": 1
+        "wins": 19,
+        "losses": 9,
+        "ties": 0
       },
       "FRAN_WWL": {
-        "wins": 94,
-        "losses": 76,
-        "ties": 1
+        "wins": 18,
+        "losses": 10,
+        "ties": 0
       },
       "FRAN_TJS": {
-        "wins": 68,
-        "losses": 64,
+        "wins": 17,
+        "losses": 11,
         "ties": 0
       },
       "FRAN_PTP": {
-        "wins": 64,
-        "losses": 55,
+        "wins": 16,
+        "losses": 12,
         "ties": 0
       },
       "FRAN_HLH": {
-        "wins": 56,
-        "losses": 49,
+        "wins": 18,
+        "losses": 9,
         "ties": 1
       },
       "FRAN_COG": {
-        "wins": 24,
-        "losses": 28,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1422,8 +1422,8 @@
         "ties": 1
       },
       "FRAN_DCMC": {
-        "wins": 81,
-        "losses": 79,
+        "wins": 72,
+        "losses": 75,
         "ties": 1
       },
       "FRAN_GTF": {
@@ -1432,19 +1432,19 @@
         "ties": 4
       },
       "FRAN_WWL": {
-        "wins": 91,
-        "losses": 93,
-        "ties": 3
+        "wins": 79,
+        "losses": 69,
+        "ties": 0
       },
       "FRAN_TJS": {
-        "wins": 76,
-        "losses": 84,
+        "wins": 70,
+        "losses": 77,
         "ties": 1
       },
       "FRAN_PTP": {
-        "wins": 49,
-        "losses": 55,
-        "ties": 2
+        "wins": 15,
+        "losses": 13,
+        "ties": 0
       },
       "FRAN_HLH": {
         "wins": 70,
@@ -1452,8 +1452,8 @@
         "ties": 3
       },
       "FRAN_COG": {
-        "wins": 24,
-        "losses": 28,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1464,58 +1464,58 @@
     },
     "FRAN_COG": {
       "FRAN_SVS": {
-        "wins": 29,
-        "losses": 23,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_FFC": {
-        "wins": 37,
-        "losses": 15,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_GGG": {
-        "wins": 33,
-        "losses": 19,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_SDS": {
-        "wins": 18,
-        "losses": 8,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_DCMC": {
-        "wins": 29,
-        "losses": 23,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_GTF": {
-        "wins": 25,
-        "losses": 26,
-        "ties": 1
+        "wins": 0,
+        "losses": 0,
+        "ties": 0
       },
       "FRAN_WWL": {
-        "wins": 40,
-        "losses": 38,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_TJS": {
-        "wins": 32,
-        "losses": 19,
-        "ties": 1
+        "wins": 0,
+        "losses": 0,
+        "ties": 0
       },
       "FRAN_PTP": {
-        "wins": 29,
-        "losses": 22,
-        "ties": 1
+        "wins": 0,
+        "losses": 0,
+        "ties": 0
       },
       "FRAN_HLH": {
-        "wins": 27,
-        "losses": 25,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_COG": {
-        "wins": 28,
-        "losses": 24,
+        "wins": 0,
+        "losses": 0,
         "ties": 0
       },
       "FRAN_PLW": {
@@ -1698,24 +1698,6 @@
         "opp_ppg": 91.9
       },
       {
-        "franchise_id": "FRAN_TJS",
-        "franchise_name": "Tijuana Sanchitos",
-        "owner_display_name": "Zack Blotz",
-        "primary_color": "#10b981",
-        "actual_wins": 70,
-        "actual_losses": 90,
-        "actual_ties": 1,
-        "total_pf": 14421.6,
-        "total_pa": 14947.5,
-        "ap_wins": 770,
-        "ap_losses": 911,
-        "games": 161,
-        "expected_wins": 73.7,
-        "luck_delta": -3.7,
-        "win_pct": 43.8,
-        "opp_ppg": 92.8
-      },
-      {
         "franchise_id": "FRAN_HLH",
         "franchise_name": "Honolulu Horndogs",
         "owner_display_name": "Alex Clausen",
@@ -1732,6 +1714,24 @@
         "luck_delta": -0.9,
         "win_pct": 48.3,
         "opp_ppg": 94.0
+      },
+      {
+        "franchise_id": "FRAN_TJS",
+        "franchise_name": "Tijuana Sanchitos",
+        "owner_display_name": "Zack Blotz",
+        "primary_color": "#10b981",
+        "actual_wins": 70,
+        "actual_losses": 90,
+        "actual_ties": 1,
+        "total_pf": 14421.6,
+        "total_pa": 14947.5,
+        "ap_wins": 770,
+        "ap_losses": 911,
+        "games": 161,
+        "expected_wins": 73.7,
+        "luck_delta": -3.7,
+        "win_pct": 43.8,
+        "opp_ppg": 92.8
       },
       {
         "franchise_id": "FRAN_SDS",
@@ -1752,6 +1752,24 @@
         "opp_ppg": 91.4
       },
       {
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
+        "owner_display_name": "Garrett Jones",
+        "primary_color": "#0284c7",
+        "actual_wins": 48,
+        "actual_losses": 43,
+        "actual_ties": 0,
+        "total_pf": 8244.0,
+        "total_pa": 8382.8,
+        "ap_wins": 459,
+        "ap_losses": 460,
+        "games": 91,
+        "expected_wins": 45.5,
+        "luck_delta": 2.5,
+        "win_pct": 52.7,
+        "opp_ppg": 92.1
+      },
+      {
         "franchise_id": "FRAN_CVC",
         "franchise_name": "Chula Vista Chupacabras",
         "owner_display_name": "Jason Kafka",
@@ -1768,24 +1786,6 @@
         "luck_delta": -1.9,
         "win_pct": 44.9,
         "opp_ppg": 95.0
-      },
-      {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
-        "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
-        "actual_wins": 48,
-        "actual_losses": 43,
-        "actual_ties": 0,
-        "total_pf": 8244.0,
-        "total_pa": 8382.8,
-        "ap_wins": 459,
-        "ap_losses": 460,
-        "games": 91,
-        "expected_wins": 45.5,
-        "luck_delta": 2.5,
-        "win_pct": 52.7,
-        "opp_ppg": 92.1
       },
       {
         "franchise_id": "FRAN_PND",
@@ -1824,10 +1824,10 @@
         "opp_ppg": 96.0
       },
       {
-        "franchise_id": "FRAN_COG",
-        "franchise_name": "Central Oregon Gabagooners",
+        "franchise_id": "FRAN_WSW",
+        "franchise_name": "Winston-Salem Wake Snakes",
         "owner_display_name": "Tanner Dunn",
-        "primary_color": "#ec4899",
+        "primary_color": "#f97316",
         "actual_wins": 28,
         "actual_losses": 24,
         "actual_ties": 0,
@@ -1842,10 +1842,10 @@
         "opp_ppg": 91.2
       },
       {
-        "franchise_id": "FRAN_WWL",
-        "franchise_name": "Westeros Warlords",
+        "franchise_id": "FRAN_CCB",
+        "franchise_name": "Charleston Chewbacca",
         "owner_display_name": "Jake Hibbard",
-        "primary_color": "#d97706",
+        "primary_color": "#9333ea",
         "actual_wins": 20,
         "actual_losses": 32,
         "actual_ties": 0,
@@ -1878,10 +1878,10 @@
         "opp_ppg": 94.7
       },
       {
-        "franchise_id": "FRAN_DCMC",
-        "franchise_name": "DC Mighty Cucks",
+        "franchise_id": "FRAN_PWP",
+        "franchise_name": "Pawtucket Patriots",
         "owner_display_name": "Scott Ace",
-        "primary_color": "#e02424",
+        "primary_color": "#3b82f6",
         "actual_wins": 9,
         "actual_losses": 4,
         "actual_ties": 0,
@@ -1896,10 +1896,10 @@
         "opp_ppg": 82.7
       },
       {
-        "franchise_id": "FRAN_TJS",
-        "franchise_name": "Tijuana Sanchitos",
+        "franchise_id": "FRAN_LOB",
+        "franchise_name": "L.O.B. Thunder",
         "owner_display_name": "David Allardyce",
-        "primary_color": "#10b981",
+        "primary_color": "#14b8a6",
         "actual_wins": 4,
         "actual_losses": 9,
         "actual_ties": 0,
@@ -3078,10 +3078,10 @@
         "opp_ppg": 87.2
       },
       {
-        "franchise_id": "FRAN_COG",
-        "franchise_name": "Central Oregon Gabagooners",
+        "franchise_id": "FRAN_WSW",
+        "franchise_name": "Winston-Salem Wake Snakes",
         "owner_display_name": "Tanner Dunn",
-        "primary_color": "#ec4899",
+        "primary_color": "#f97316",
         "actual_wins": 7,
         "actual_losses": 6,
         "actual_ties": 0,
@@ -3186,10 +3186,10 @@
         "opp_ppg": 96.5
       },
       {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
         "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
+        "primary_color": "#0284c7",
         "actual_wins": 4,
         "actual_losses": 9,
         "actual_ties": 0,
@@ -3278,10 +3278,10 @@
         "opp_ppg": 83.9
       },
       {
-        "franchise_id": "FRAN_COG",
-        "franchise_name": "Central Oregon Gabagooners",
+        "franchise_id": "FRAN_WSW",
+        "franchise_name": "Winston-Salem Wake Snakes",
         "owner_display_name": "Tanner Dunn",
-        "primary_color": "#ec4899",
+        "primary_color": "#f97316",
         "actual_wins": 7,
         "actual_losses": 6,
         "actual_ties": 0,
@@ -3332,10 +3332,10 @@
         "opp_ppg": 91.8
       },
       {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
         "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
+        "primary_color": "#0284c7",
         "actual_wins": 6,
         "actual_losses": 7,
         "actual_ties": 0,
@@ -3478,10 +3478,10 @@
         "opp_ppg": 95.7
       },
       {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
         "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
+        "primary_color": "#0284c7",
         "actual_wins": 8,
         "actual_losses": 5,
         "actual_ties": 0,
@@ -3512,24 +3512,6 @@
         "luck_delta": 0.8,
         "win_pct": 61.5,
         "opp_ppg": 90.2
-      },
-      {
-        "franchise_id": "FRAN_COG",
-        "franchise_name": "Central Oregon Gabagooners",
-        "owner_display_name": "Tanner Dunn",
-        "primary_color": "#ec4899",
-        "actual_wins": 7,
-        "actual_losses": 6,
-        "actual_ties": 0,
-        "total_pf": 1248.0,
-        "total_pa": 1167.0,
-        "ap_wins": 78,
-        "ap_losses": 62,
-        "games": 13,
-        "expected_wins": 7.2,
-        "luck_delta": -0.2,
-        "win_pct": 53.8,
-        "opp_ppg": 89.8
       },
       {
         "franchise_id": "FRAN_DCMC",
@@ -3586,6 +3568,24 @@
         "opp_ppg": 91.5
       },
       {
+        "franchise_id": "FRAN_WSW",
+        "franchise_name": "Winston-Salem Wake Snakes",
+        "owner_display_name": "Tanner Dunn",
+        "primary_color": "#f97316",
+        "actual_wins": 7,
+        "actual_losses": 6,
+        "actual_ties": 0,
+        "total_pf": 1248.0,
+        "total_pa": 1167.0,
+        "ap_wins": 78,
+        "ap_losses": 62,
+        "games": 13,
+        "expected_wins": 7.2,
+        "luck_delta": -0.2,
+        "win_pct": 53.8,
+        "opp_ppg": 89.8
+      },
+      {
         "franchise_id": "FRAN_GTF",
         "franchise_name": "Grand Teeton Feelers",
         "owner_display_name": "Ryan Childress",
@@ -3604,10 +3604,10 @@
         "opp_ppg": 94.8
       },
       {
-        "franchise_id": "FRAN_WWL",
-        "franchise_name": "Westeros Warlords",
+        "franchise_id": "FRAN_CCB",
+        "franchise_name": "Charleston Chewbacca",
         "owner_display_name": "Jake Hibbard",
-        "primary_color": "#d97706",
+        "primary_color": "#9333ea",
         "actual_wins": 3,
         "actual_losses": 10,
         "actual_ties": 0,
@@ -3678,10 +3678,10 @@
         "opp_ppg": 82.2
       },
       {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
         "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
+        "primary_color": "#0284c7",
         "actual_wins": 8,
         "actual_losses": 5,
         "actual_ties": 0,
@@ -3714,24 +3714,6 @@
         "opp_ppg": 76.5
       },
       {
-        "franchise_id": "FRAN_COG",
-        "franchise_name": "Central Oregon Gabagooners",
-        "owner_display_name": "Tanner Dunn",
-        "primary_color": "#ec4899",
-        "actual_wins": 7,
-        "actual_losses": 6,
-        "actual_ties": 0,
-        "total_pf": 1102.0,
-        "total_pa": 1109.0,
-        "ap_wins": 67,
-        "ap_losses": 76,
-        "games": 13,
-        "expected_wins": 6.1,
-        "luck_delta": 0.9,
-        "win_pct": 53.8,
-        "opp_ppg": 85.3
-      },
-      {
         "franchise_id": "FRAN_TJS",
         "franchise_name": "Tijuana Sanchitos",
         "owner_display_name": "Zack Blotz",
@@ -3748,6 +3730,24 @@
         "luck_delta": 2.4,
         "win_pct": 53.8,
         "opp_ppg": 77.5
+      },
+      {
+        "franchise_id": "FRAN_WSW",
+        "franchise_name": "Winston-Salem Wake Snakes",
+        "owner_display_name": "Tanner Dunn",
+        "primary_color": "#f97316",
+        "actual_wins": 7,
+        "actual_losses": 6,
+        "actual_ties": 0,
+        "total_pf": 1102.0,
+        "total_pa": 1109.0,
+        "ap_wins": 67,
+        "ap_losses": 76,
+        "games": 13,
+        "expected_wins": 6.1,
+        "luck_delta": 0.9,
+        "win_pct": 53.8,
+        "opp_ppg": 85.3
       },
       {
         "franchise_id": "FRAN_WWL",
@@ -3858,10 +3858,10 @@
         "opp_ppg": 85.8
       },
       {
-        "franchise_id": "FRAN_WWL",
-        "franchise_name": "Westeros Warlords",
+        "franchise_id": "FRAN_CCB",
+        "franchise_name": "Charleston Chewbacca",
         "owner_display_name": "Jake Hibbard",
-        "primary_color": "#d97706",
+        "primary_color": "#9333ea",
         "actual_wins": 4,
         "actual_losses": 9,
         "actual_ties": 0,
@@ -3950,6 +3950,24 @@
         "opp_ppg": 89.0
       },
       {
+        "franchise_id": "FRAN_CCB",
+        "franchise_name": "Charleston Chewbacca",
+        "owner_display_name": "Jake Hibbard",
+        "primary_color": "#9333ea",
+        "actual_wins": 6,
+        "actual_losses": 7,
+        "actual_ties": 0,
+        "total_pf": 1233.0,
+        "total_pa": 1155.0,
+        "ap_wins": 64,
+        "ap_losses": 52,
+        "games": 13,
+        "expected_wins": 7.2,
+        "luck_delta": -1.2,
+        "win_pct": 46.2,
+        "opp_ppg": 88.8
+      },
+      {
         "franchise_id": "FRAN_DCMC",
         "franchise_name": "DC Mighty Cucks",
         "owner_display_name": "Austin Williams",
@@ -3966,24 +3984,6 @@
         "luck_delta": 1.3,
         "win_pct": 46.2,
         "opp_ppg": 90.0
-      },
-      {
-        "franchise_id": "FRAN_WWL",
-        "franchise_name": "Westeros Warlords",
-        "owner_display_name": "Jake Hibbard",
-        "primary_color": "#d97706",
-        "actual_wins": 6,
-        "actual_losses": 7,
-        "actual_ties": 0,
-        "total_pf": 1233.0,
-        "total_pa": 1155.0,
-        "ap_wins": 64,
-        "ap_losses": 52,
-        "games": 13,
-        "expected_wins": 7.2,
-        "luck_delta": -1.2,
-        "win_pct": 46.2,
-        "opp_ppg": 88.8
       },
       {
         "franchise_id": "FRAN_WWL",
@@ -4022,10 +4022,10 @@
         "opp_ppg": 96.3
       },
       {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
         "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
+        "primary_color": "#0284c7",
         "actual_wins": 4,
         "actual_losses": 9,
         "actual_ties": 0,
@@ -4096,10 +4096,28 @@
         "opp_ppg": 88.6
       },
       {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
+        "franchise_id": "FRAN_CCB",
+        "franchise_name": "Charleston Chewbacca",
+        "owner_display_name": "Jake Hibbard",
+        "primary_color": "#9333ea",
+        "actual_wins": 7,
+        "actual_losses": 6,
+        "actual_ties": 0,
+        "total_pf": 1037.0,
+        "total_pa": 1093.0,
+        "ap_wins": 39,
+        "ap_losses": 77,
+        "games": 13,
+        "expected_wins": 4.4,
+        "luck_delta": 2.6,
+        "win_pct": 53.8,
+        "opp_ppg": 84.1
+      },
+      {
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
         "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
+        "primary_color": "#0284c7",
         "actual_wins": 7,
         "actual_losses": 6,
         "actual_ties": 0,
@@ -4130,24 +4148,6 @@
         "luck_delta": -0.9,
         "win_pct": 53.8,
         "opp_ppg": 94.7
-      },
-      {
-        "franchise_id": "FRAN_WWL",
-        "franchise_name": "Westeros Warlords",
-        "owner_display_name": "Jake Hibbard",
-        "primary_color": "#d97706",
-        "actual_wins": 7,
-        "actual_losses": 6,
-        "actual_ties": 0,
-        "total_pf": 1037.0,
-        "total_pa": 1093.0,
-        "ap_wins": 39,
-        "ap_losses": 77,
-        "games": 13,
-        "expected_wins": 4.4,
-        "luck_delta": 2.6,
-        "win_pct": 53.8,
-        "opp_ppg": 84.1
       },
       {
         "franchise_id": "FRAN_DCMC",
@@ -4242,10 +4242,10 @@
     ],
     "2014": [
       {
-        "franchise_id": "FRAN_PTP",
-        "franchise_name": "Patagonia Pipers",
+        "franchise_id": "FRAN_MCMD",
+        "franchise_name": "Muck City Mad Dawgs",
         "owner_display_name": "Garrett Jones",
-        "primary_color": "#06b6d4",
+        "primary_color": "#0284c7",
         "actual_wins": 11,
         "actual_losses": 2,
         "actual_ties": 0,
@@ -4260,10 +4260,10 @@
         "opp_ppg": 99.0
       },
       {
-        "franchise_id": "FRAN_DCMC",
-        "franchise_name": "DC Mighty Cucks",
+        "franchise_id": "FRAN_PWP",
+        "franchise_name": "Pawtucket Patriots",
         "owner_display_name": "Scott Ace",
-        "primary_color": "#e02424",
+        "primary_color": "#3b82f6",
         "actual_wins": 9,
         "actual_losses": 4,
         "actual_ties": 0,
@@ -4386,10 +4386,10 @@
         "opp_ppg": 87.5
       },
       {
-        "franchise_id": "FRAN_TJS",
-        "franchise_name": "Tijuana Sanchitos",
+        "franchise_id": "FRAN_LOB",
+        "franchise_name": "L.O.B. Thunder",
         "owner_display_name": "David Allardyce",
-        "primary_color": "#10b981",
+        "primary_color": "#14b8a6",
         "actual_wins": 4,
         "actual_losses": 9,
         "actual_ties": 0,
@@ -4425,6 +4425,16 @@
   },
   "lineup_efficiency": [
     {
+      "franchise_id": "FRAN_COG",
+      "franchise_name": "Squaw Valley Skinners",
+      "owner_display_name": "Chris Zweifel",
+      "primary_color": "#ff6a00",
+      "actual_points": 0.0,
+      "optimal_points": 0.0,
+      "efficiency_pct": 100.0,
+      "bench_points_left": 0.0
+    },
+    {
       "franchise_id": "FRAN_HLH",
       "franchise_name": "Honolulu Horndogs",
       "owner_display_name": "Alex Clausen",
@@ -4447,12 +4457,32 @@
     {
       "franchise_id": "FRAN_DCMC",
       "franchise_name": "DC Mighty Cucks",
-      "owner_display_name": "Scott Ace",
+      "owner_display_name": "Austin Williams",
       "primary_color": "#e02424",
       "actual_points": 12844.5,
       "optimal_points": 14476.9,
       "efficiency_pct": 88.7,
       "bench_points_left": 4295.8
+    },
+    {
+      "franchise_id": "FRAN_PTP",
+      "franchise_name": "Patagonia Pipers",
+      "owner_display_name": "Patrick O'Neill",
+      "primary_color": "#06b6d4",
+      "actual_points": 3395.8,
+      "optimal_points": 3830.5,
+      "efficiency_pct": 88.7,
+      "bench_points_left": 1144.0
+    },
+    {
+      "franchise_id": "FRAN_WWL",
+      "franchise_name": "Westeros Warlords",
+      "owner_display_name": "Levi Sanchez",
+      "primary_color": "#d97706",
+      "actual_points": 12385.2,
+      "optimal_points": 13981.6,
+      "efficiency_pct": 88.6,
+      "bench_points_left": 4201.0
     },
     {
       "franchise_id": "FRAN_GGG",
@@ -4465,26 +4495,6 @@
       "bench_points_left": 4122.7
     },
     {
-      "franchise_id": "FRAN_PTP",
-      "franchise_name": "Patagonia Pipers",
-      "owner_display_name": "Garrett Jones",
-      "primary_color": "#06b6d4",
-      "actual_points": 7820.9,
-      "optimal_points": 8836.8,
-      "efficiency_pct": 88.5,
-      "bench_points_left": 2673.3
-    },
-    {
-      "franchise_id": "FRAN_COG",
-      "franchise_name": "Central Oregon Gabagooners",
-      "owner_display_name": "Tanner Dunn",
-      "primary_color": "#ec4899",
-      "actual_points": 4801.6,
-      "optimal_points": 5428.1,
-      "efficiency_pct": 88.5,
-      "bench_points_left": 1648.7
-    },
-    {
       "franchise_id": "FRAN_PLW",
       "franchise_name": "Poulsbo Pollywogs",
       "owner_display_name": "Steven Breitmayer",
@@ -4493,16 +4503,6 @@
       "optimal_points": 8672.9,
       "efficiency_pct": 88.5,
       "bench_points_left": 2633.5
-    },
-    {
-      "franchise_id": "FRAN_WWL",
-      "franchise_name": "Westeros Warlords",
-      "owner_display_name": "Levi Sanchez",
-      "primary_color": "#d97706",
-      "actual_points": 13512.2,
-      "optimal_points": 15281.9,
-      "efficiency_pct": 88.4,
-      "bench_points_left": 4657.0
     },
     {
       "franchise_id": "FRAN_FFC",
@@ -4537,7 +4537,7 @@
     {
       "franchise_id": "FRAN_TJS",
       "franchise_name": "Tijuana Sanchitos",
-      "owner_display_name": "David Allardyce",
+      "owner_display_name": "Zack Blotz",
       "primary_color": "#10b981",
       "actual_points": 12111.3,
       "optimal_points": 13845.7,

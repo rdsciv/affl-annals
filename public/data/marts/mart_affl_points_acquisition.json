@@ -2,18 +2,18 @@
   "season_acquisitions": [
     {
       "season": 2018,
-      "franchise_id": "FRAN_COG",
-      "franchise_name": "Central Oregon Gabagooners",
-      "owner_name": "Tanner Dunn",
-      "primary_color": "#ec4899",
-      "total_starter_points": 1529.0,
-      "draft_points": 1340.0,
-      "waiver_points": 111.0,
-      "free_agent_points": 78.0,
-      "draft_pct": 87.6,
-      "waiver_pct": 7.3,
-      "fa_pct": 5.1,
-      "non_draft_pct": 12.4
+      "franchise_id": "FRAN_CCB",
+      "franchise_name": "Charleston Chewbacca",
+      "owner_name": "Jake Hibbard",
+      "primary_color": "#9333ea",
+      "total_starter_points": 1127.0,
+      "draft_points": 708.0,
+      "waiver_points": 319.0,
+      "free_agent_points": 100.0,
+      "draft_pct": 62.8,
+      "waiver_pct": 28.3,
+      "fa_pct": 8.9,
+      "non_draft_pct": 37.2
     },
     {
       "season": 2018,
@@ -107,10 +107,10 @@
     },
     {
       "season": 2018,
-      "franchise_id": "FRAN_PTP",
-      "franchise_name": "Patagonia Pipers",
+      "franchise_id": "FRAN_MCMD",
+      "franchise_name": "Muck City Mad Dawgs",
       "owner_name": "Garrett Jones",
-      "primary_color": "#06b6d4",
+      "primary_color": "#0284c7",
       "total_starter_points": 1607.0,
       "draft_points": 1470.0,
       "waiver_points": 79.0,
@@ -152,33 +152,33 @@
     },
     {
       "season": 2018,
+      "franchise_id": "FRAN_WSW",
+      "franchise_name": "Winston-Salem Wake Snakes",
+      "owner_name": "Tanner Dunn",
+      "primary_color": "#f97316",
+      "total_starter_points": 1529.0,
+      "draft_points": 1340.0,
+      "waiver_points": 111.0,
+      "free_agent_points": 78.0,
+      "draft_pct": 87.6,
+      "waiver_pct": 7.3,
+      "fa_pct": 5.1,
+      "non_draft_pct": 12.4
+    },
+    {
+      "season": 2018,
       "franchise_id": "FRAN_WWL",
       "franchise_name": "Westeros Warlords",
       "owner_name": "Levi Sanchez",
       "primary_color": "#d97706",
-      "total_starter_points": 2650.0,
-      "draft_points": 2026.0,
-      "waiver_points": 489.0,
-      "free_agent_points": 135.0,
-      "draft_pct": 76.5,
-      "waiver_pct": 18.5,
-      "fa_pct": 5.1,
-      "non_draft_pct": 23.5
-    },
-    {
-      "season": 2019,
-      "franchise_id": "FRAN_COG",
-      "franchise_name": "Central Oregon Gabagooners",
-      "owner_name": "Tanner Dunn",
-      "primary_color": "#ec4899",
-      "total_starter_points": 1633.5,
-      "draft_points": 1342.2,
-      "waiver_points": 216.2,
-      "free_agent_points": 75.1,
-      "draft_pct": 82.2,
-      "waiver_pct": 13.2,
-      "fa_pct": 4.6,
-      "non_draft_pct": 17.8
+      "total_starter_points": 1523.0,
+      "draft_points": 1318.0,
+      "waiver_points": 170.0,
+      "free_agent_points": 35.0,
+      "draft_pct": 86.5,
+      "waiver_pct": 11.2,
+      "fa_pct": 2.3,
+      "non_draft_pct": 13.5
     },
     {
       "season": 2019,
@@ -272,10 +272,10 @@
     },
     {
       "season": 2019,
-      "franchise_id": "FRAN_PTP",
-      "franchise_name": "Patagonia Pipers",
+      "franchise_id": "FRAN_MCMD",
+      "franchise_name": "Muck City Mad Dawgs",
       "owner_name": "Garrett Jones",
-      "primary_color": "#06b6d4",
+      "primary_color": "#0284c7",
       "total_starter_points": 1640.0,
       "draft_points": 1379.6,
       "waiver_points": 58.5,
@@ -332,6 +332,21 @@
     },
     {
       "season": 2019,
+      "franchise_id": "FRAN_WSW",
+      "franchise_name": "Winston-Salem Wake Snakes",
+      "owner_name": "Tanner Dunn",
+      "primary_color": "#f97316",
+      "total_starter_points": 1633.5,
+      "draft_points": 1342.2,
+      "waiver_points": 216.2,
+      "free_agent_points": 75.1,
+      "draft_pct": 82.2,
+      "waiver_pct": 13.2,
+      "fa_pct": 4.6,
+      "non_draft_pct": 17.8
+    },
+    {
+      "season": 2019,
       "franchise_id": "FRAN_WWL",
       "franchise_name": "Westeros Warlords",
       "owner_name": "Levi Sanchez",
@@ -344,21 +359,6 @@
       "waiver_pct": 12.9,
       "fa_pct": 18.0,
       "non_draft_pct": 31.0
-    },
-    {
-      "season": 2020,
-      "franchise_id": "FRAN_COG",
-      "franchise_name": "Central Oregon Gabagooners",
-      "owner_name": "Tanner Dunn",
-      "primary_color": "#ec4899",
-      "total_starter_points": 1639.1,
-      "draft_points": 1320.8,
-      "waiver_points": 165.4,
-      "free_agent_points": 152.9,
-      "draft_pct": 80.6,
-      "waiver_pct": 10.1,
-      "fa_pct": 9.3,
-      "non_draft_pct": 19.4
     },
     {
       "season": 2020,
@@ -452,10 +452,10 @@
     },
     {
       "season": 2020,
-      "franchise_id": "FRAN_PTP",
-      "franchise_name": "Patagonia Pipers",
+      "franchise_id": "FRAN_MCMD",
+      "franchise_name": "Muck City Mad Dawgs",
       "owner_name": "Garrett Jones",
-      "primary_color": "#06b6d4",
+      "primary_color": "#0284c7",
       "total_starter_points": 1178.1,
       "draft_points": 679.3,
       "waiver_points": 237.9,
@@ -509,6 +509,21 @@
       "waiver_pct": 10.2,
       "fa_pct": 33.7,
       "non_draft_pct": 43.8
+    },
+    {
+      "season": 2020,
+      "franchise_id": "FRAN_WSW",
+      "franchise_name": "Winston-Salem Wake Snakes",
+      "owner_name": "Tanner Dunn",
+      "primary_color": "#f97316",
+      "total_starter_points": 1639.1,
+      "draft_points": 1320.8,
+      "waiver_points": 165.4,
+      "free_agent_points": 152.9,
+      "draft_pct": 80.6,
+      "waiver_pct": 10.1,
+      "fa_pct": 9.3,
+      "non_draft_pct": 19.4
     },
     {
       "season": 2020,
@@ -1428,6 +1443,20 @@
   ],
   "all_time_acquisitions": [
     {
+      "franchise_id": "FRAN_CCB",
+      "franchise_name": "Charleston Chewbacca",
+      "owner_name": "Jake Hibbard",
+      "primary_color": "#9333ea",
+      "total_starter_points": 1127.0,
+      "draft_points": 708.0,
+      "waiver_points": 319.0,
+      "free_agent_points": 100.0,
+      "draft_pct": 62.8,
+      "waiver_pct": 28.3,
+      "fa_pct": 8.9,
+      "non_draft_pct": 37.2
+    },
+    {
       "franchise_id": "FRAN_DCMC",
       "franchise_name": "DC Mighty Cucks",
       "owner_name": "Austin Williams",
@@ -1540,20 +1569,6 @@
       "non_draft_pct": 24.4
     },
     {
-      "franchise_id": "FRAN_WWL",
-      "franchise_name": "Westeros Warlords",
-      "owner_name": "Levi Sanchez",
-      "primary_color": "#d97706",
-      "total_starter_points": 13512.2,
-      "draft_points": 10454.9,
-      "waiver_points": 1518.1,
-      "free_agent_points": 1539.2,
-      "draft_pct": 77.4,
-      "waiver_pct": 11.2,
-      "fa_pct": 11.4,
-      "non_draft_pct": 22.6
-    },
-    {
       "franchise_id": "FRAN_PLW",
       "franchise_name": "Poulsbo Pollywogs",
       "owner_name": "Steven Breitmayer",
@@ -1582,6 +1597,34 @@
       "non_draft_pct": 21.3
     },
     {
+      "franchise_id": "FRAN_WWL",
+      "franchise_name": "Westeros Warlords",
+      "owner_name": "Levi Sanchez",
+      "primary_color": "#d97706",
+      "total_starter_points": 12385.2,
+      "draft_points": 9746.9,
+      "waiver_points": 1199.1,
+      "free_agent_points": 1439.2,
+      "draft_pct": 78.7,
+      "waiver_pct": 9.7,
+      "fa_pct": 11.6,
+      "non_draft_pct": 21.3
+    },
+    {
+      "franchise_id": "FRAN_MCMD",
+      "franchise_name": "Muck City Mad Dawgs",
+      "owner_name": "Garrett Jones",
+      "primary_color": "#0284c7",
+      "total_starter_points": 4425.1,
+      "draft_points": 3528.9,
+      "waiver_points": 375.4,
+      "free_agent_points": 520.8,
+      "draft_pct": 79.7,
+      "waiver_pct": 8.5,
+      "fa_pct": 11.8,
+      "non_draft_pct": 20.3
+    },
+    {
       "franchise_id": "FRAN_SDS",
       "franchise_name": "San Diego Shadowc\u00f6cks",
       "owner_name": "John Newton",
@@ -1596,24 +1639,10 @@
       "non_draft_pct": 20.0
     },
     {
-      "franchise_id": "FRAN_PTP",
-      "franchise_name": "Patagonia Pipers",
-      "owner_name": "Garrett Jones",
-      "primary_color": "#06b6d4",
-      "total_starter_points": 7820.9,
-      "draft_points": 6454.5,
-      "waiver_points": 803.4,
-      "free_agent_points": 563.0,
-      "draft_pct": 82.5,
-      "waiver_pct": 10.3,
-      "fa_pct": 7.2,
-      "non_draft_pct": 17.5
-    },
-    {
-      "franchise_id": "FRAN_COG",
-      "franchise_name": "Central Oregon Gabagooners",
+      "franchise_id": "FRAN_WSW",
+      "franchise_name": "Winston-Salem Wake Snakes",
       "owner_name": "Tanner Dunn",
-      "primary_color": "#ec4899",
+      "primary_color": "#f97316",
       "total_starter_points": 4801.6,
       "draft_points": 4003.0,
       "waiver_points": 492.6,
@@ -1622,6 +1651,20 @@
       "waiver_pct": 10.3,
       "fa_pct": 6.4,
       "non_draft_pct": 16.6
+    },
+    {
+      "franchise_id": "FRAN_PTP",
+      "franchise_name": "Patagonia Pipers",
+      "owner_name": "Patrick O'Neill",
+      "primary_color": "#06b6d4",
+      "total_starter_points": 3395.8,
+      "draft_points": 2925.6,
+      "waiver_points": 428.0,
+      "free_agent_points": 42.2,
+      "draft_pct": 86.2,
+      "waiver_pct": 12.6,
+      "fa_pct": 1.2,
+      "non_draft_pct": 13.8
     }
   ]
 }

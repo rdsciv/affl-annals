@@ -9,59 +9,59 @@
       "parquet": "mart_affl_franchise_season.parquet",
       "json": "mart_affl_franchise_season.json",
       "rows": 138,
-      "md5": "a9235ad31e5322cf1d7bfa3b628838fb"
+      "md5": "c60ee8be116b73f9f9b82b41e5d098b1"
     },
     "mart_affl_draft_value": {
       "parquet": "mart_affl_draft_value.parquet",
       "json": "mart_affl_draft_value.json",
       "rows": 2124,
-      "md5": "723cd8102a76c8706c055f1f636bcffa"
+      "md5": "5a0ee1c22b924e5702cf2c609daa1463"
     },
     "mart_affl_player_week": {
       "parquet": "mart_affl_player_week.parquet",
       "rows": 24762,
-      "md5": "dd9c9db397d13990d5cba3815ae60662"
+      "md5": "61a16fd4ac2370a871353c5596b72b8b"
     },
     "mart_affl_player_season_custody": {
       "parquet": "mart_affl_player_season_custody.parquet",
       "json": "mart_affl_player_season_custody.json",
-      "rows": 4237,
-      "md5": "efd611470d0babde80c98f07f33ee448"
+      "rows": 4238,
+      "md5": "30070355a4be40e16e33f7cc7ce40699"
     },
     "mart_affl_trades": {
       "json": "mart_affl_trades.json",
       "rows": 221,
-      "md5": "07850a5a7237747db812f870a4749ad4"
+      "md5": "c3fb962a8394535e8c728cae2c459159"
     },
     "mart_affl_head_to_head": {
       "json": "mart_affl_head_to_head.json",
-      "rows": 92,
-      "md5": "bb1dc376c756a83e07e510711e36124d"
+      "rows": 126,
+      "md5": "e2b1aa82c1f04fc4d90ec9e9ed420428"
     },
     "mart_affl_player_gamelogs": {
       "json": "mart_affl_player_gamelogs.json",
       "rows": 778,
-      "md5": "056d71285523ec1c91fdc8a99c758e7f"
+      "md5": "70636decbdeec328a6b2e82b6e93c28a"
     },
     "mart_affl_luck_and_skill": {
       "json": "mart_affl_luck_and_skill.json",
       "rows": 18,
-      "md5": "613943db5b282e79f1192b6e571d1cfc"
+      "md5": "a64400d2246aabf287226fb14f423fb1"
     },
     "mart_affl_auction_allocation": {
       "json": "mart_affl_auction_allocation.json",
-      "rows": 115,
-      "md5": "074b767053d743686aa000a352b60001"
+      "rows": 118,
+      "md5": "c8b47455c5abb18de7be96caaedbcacc"
     },
     "mart_affl_roto_skill_radar": {
       "json": "mart_affl_roto_skill_radar.json",
       "rows": 16,
-      "md5": "e16fe657e65104c342e181ca2f343adb"
+      "md5": "345b056d17ac7d1cb81d1d5554d82ce7"
     },
     "mart_affl_points_acquisition": {
       "json": "mart_affl_points_acquisition.json",
-      "rows": 14,
-      "md5": "0660bf3c95d7850a79e5405f3f4e7b2b"
+      "rows": 16,
+      "md5": "46de3df12f238cde9c0d13d95bede7e3"
     }
   }
 }

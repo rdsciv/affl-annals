@@ -428,12 +428,12 @@
   {
     "franchise1_id": "FRAN_PTP",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 16,
-    "f1_wins": 9,
-    "f2_wins": 7,
+    "total_games": 3,
+    "f1_wins": 2,
+    "f2_wins": 1,
     "ties": 0,
-    "f1_total_points": 1497.9,
-    "f2_total_points": 1395.6,
+    "f1_total_points": 331.1,
+    "f2_total_points": 276.2,
     "games": [
       {
         "season": 2025,
@@ -463,136 +463,6 @@
         "f1_points": 106.2,
         "f2_name": "Westeros Warlords",
         "f2_points": 78.8,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2020,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 64.4,
-        "f2_name": "Westeros Warlords",
-        "f2_points": 97.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2019,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 119.4,
-        "f2_name": "Westeros Warlords",
-        "f2_points": 107.4,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2018,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 92.0,
-        "f2_name": "Westeros Warlords",
-        "f2_points": 96.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2018,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 94.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 64.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 58.0,
-        "f2_name": "Warlords of Westeros",
-        "f2_points": 109.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2017,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 94.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 53.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2016,
-        "week": 10,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 81.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 79.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2016,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 59.0,
-        "f2_name": "Warlords of Westeros",
-        "f2_points": 77.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2016,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 94.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 108.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2015,
-        "week": 10,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 92.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 54.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2015,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 89.0,
-        "f2_name": "Warlords of Westeros",
-        "f2_points": 63.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2015,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 90.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 95.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2014,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 140.0,
-        "f2_name": "Warlords of Westeros",
-        "f2_points": 117.0,
         "winner": "FRAN_PTP"
       }
     ]
@@ -894,12 +764,12 @@
   {
     "franchise1_id": "FRAN_DCMC",
     "franchise2_id": "FRAN_TJS",
-    "total_games": 21,
-    "f1_wins": 14,
-    "f2_wins": 7,
+    "total_games": 16,
+    "f1_wins": 10,
+    "f2_wins": 6,
     "ties": 0,
-    "f1_total_points": 2018.9,
-    "f2_total_points": 1926.4,
+    "f1_total_points": 1553.9,
+    "f2_total_points": 1482.4,
     "games": [
       {
         "season": 2025,
@@ -1053,36 +923,6 @@
       },
       {
         "season": 2014,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Kansas City Missourians",
-        "f1_points": 92.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 66.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 89.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 87.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 109.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 86.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
         "week": 6,
         "phase": "regular",
         "f1_name": "Kansas City Missourians",
@@ -1090,38 +930,18 @@
         "f2_name": "Tijuana Sanchitos",
         "f2_points": 103.0,
         "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2014,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 89.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 120.0,
-        "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2014,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Kansas City Missourians",
-        "f1_points": 86.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 85.0,
-        "winner": "FRAN_DCMC"
       }
     ]
   },
   {
     "franchise1_id": "FRAN_GGG",
     "franchise2_id": "FRAN_PTP",
-    "total_games": 13,
-    "f1_wins": 6,
-    "f2_wins": 7,
+    "total_games": 5,
+    "f1_wins": 3,
+    "f2_wins": 2,
     "ties": 0,
-    "f1_total_points": 1253.2,
-    "f2_total_points": 1283.9,
+    "f1_total_points": 499.0,
+    "f2_total_points": 521.6,
     "games": [
       {
         "season": 2025,
@@ -1172,86 +992,6 @@
         "f2_name": "Patagonia Pipers",
         "f2_points": 88.4,
         "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2020,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 87.7,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 93.8,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2019,
-        "week": 16,
-        "phase": "championship",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 120.3,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 136.6,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2019,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 88.2,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 77.9,
-        "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2018,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 59.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 91.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 99.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 79.0,
-        "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2016,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 98.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 67.0,
-        "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2015,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 79.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 92.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2014,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 123.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 125.0,
-        "winner": "FRAN_PTP"
       }
     ]
   },
@@ -1768,12 +1508,12 @@
   {
     "franchise1_id": "FRAN_GGG",
     "franchise2_id": "FRAN_TJS",
-    "total_games": 19,
+    "total_games": 18,
     "f1_wins": 9,
-    "f2_wins": 10,
+    "f2_wins": 9,
     "ties": 0,
-    "f1_total_points": 1764.7,
-    "f2_total_points": 1660.8,
+    "f1_total_points": 1686.7,
+    "f2_total_points": 1573.8,
     "games": [
       {
         "season": 2025,
@@ -1944,16 +1684,6 @@
         "f2_name": "Tijuana Sanchitos",
         "f2_points": 92.0,
         "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2014,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 78.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 87.0,
-        "winner": "FRAN_TJS"
       },
       {
         "season": 2014,
@@ -2538,12 +2268,12 @@
   {
     "franchise1_id": "FRAN_GTF",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 23,
-    "f1_wins": 12,
-    "f2_wins": 11,
+    "total_games": 19,
+    "f1_wins": 10,
+    "f2_wins": 9,
     "ties": 0,
-    "f1_total_points": 2308.3,
-    "f2_total_points": 2240.4,
+    "f1_total_points": 1906.3,
+    "f2_total_points": 1889.4,
     "games": [
       {
         "season": 2025,
@@ -2657,32 +2387,12 @@
       },
       {
         "season": 2018,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 130.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 83.0,
-        "winner": "FRAN_GTF"
-      },
-      {
-        "season": 2018,
         "week": 4,
         "phase": "regular",
         "f1_name": "Tittsburgh Feelers",
         "f1_points": 77.0,
         "f2_name": "Westeros Warlords",
         "f2_points": 138.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2017,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 105.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 106.0,
         "winner": "FRAN_WWL"
       },
       {
@@ -2707,16 +2417,6 @@
       },
       {
         "season": 2016,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 107.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 98.0,
-        "winner": "FRAN_GTF"
-      },
-      {
-        "season": 2016,
         "week": 5,
         "phase": "regular",
         "f1_name": "Tittsburgh Feelers",
@@ -2733,16 +2433,6 @@
         "f1_points": 105.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 144.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2015,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 60.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 64.0,
         "winner": "FRAN_WWL"
       },
       {
@@ -2780,12 +2470,12 @@
   {
     "franchise1_id": "FRAN_DCMC",
     "franchise2_id": "FRAN_GGG",
-    "total_games": 17,
-    "f1_wins": 3,
+    "total_games": 16,
+    "f1_wins": 2,
     "f2_wins": 14,
     "ties": 0,
-    "f1_total_points": 1415.9,
-    "f2_total_points": 1688.1,
+    "f1_total_points": 1322.9,
+    "f2_total_points": 1620.1,
     "games": [
       {
         "season": 2025,
@@ -2946,28 +2636,18 @@
         "f2_name": "Goleta Gringos",
         "f2_points": 111.0,
         "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2014,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 93.0,
-        "f2_name": "Goleta Gringos",
-        "f2_points": 68.0,
-        "winner": "FRAN_DCMC"
       }
     ]
   },
   {
     "franchise1_id": "FRAN_FFC",
     "franchise2_id": "FRAN_PTP",
-    "total_games": 14,
-    "f1_wins": 10,
-    "f2_wins": 4,
+    "total_games": 3,
+    "f1_wins": 2,
+    "f2_wins": 1,
     "ties": 0,
-    "f1_total_points": 1414.7,
-    "f2_total_points": 1172.2,
+    "f1_total_points": 319.4,
+    "f2_total_points": 250.1,
     "games": [
       {
         "season": 2025,
@@ -2997,116 +2677,6 @@
         "f1_points": 106.2,
         "f2_name": "Patagonia Pipers",
         "f2_points": 76.1,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2020,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 113.2,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 86.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2019,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 75.1,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 71.6,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2019,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 83.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 104.5,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2018,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 127.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 99.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2018,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 107.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 83.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2017,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 65.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 82.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 90.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 67.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2016,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 131.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 40.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2016,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 104.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 85.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2015,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 69.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 98.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2015,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 131.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 106.0,
         "winner": "FRAN_FFC"
       }
     ]
@@ -3226,12 +2796,12 @@
   {
     "franchise1_id": "FRAN_GTF",
     "franchise2_id": "FRAN_TJS",
-    "total_games": 18,
-    "f1_wins": 13,
+    "total_games": 17,
+    "f1_wins": 12,
     "f2_wins": 4,
     "ties": 1,
-    "f1_total_points": 1781.6,
-    "f2_total_points": 1552.0,
+    "f1_total_points": 1675.6,
+    "f2_total_points": 1470.0,
     "games": [
       {
         "season": 2025,
@@ -3395,16 +2965,6 @@
       },
       {
         "season": 2014,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 106.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 82.0,
-        "winner": "FRAN_GTF"
-      },
-      {
-        "season": 2014,
         "week": 3,
         "phase": "regular",
         "f1_name": "Tittsburgh Feelers",
@@ -3418,12 +2978,12 @@
   {
     "franchise1_id": "FRAN_DCMC",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 21,
-    "f1_wins": 14,
-    "f2_wins": 7,
+    "total_games": 12,
+    "f1_wins": 7,
+    "f2_wins": 5,
     "ties": 0,
-    "f1_total_points": 1988.2,
-    "f2_total_points": 1856.9,
+    "f1_total_points": 1213.2,
+    "f2_total_points": 1131.9,
     "games": [
       {
         "season": 2025,
@@ -3497,16 +3057,6 @@
       },
       {
         "season": 2018,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 72.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 80.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2018,
         "week": 8,
         "phase": "regular",
         "f1_name": "DC Mighty Cucks",
@@ -3516,52 +3066,12 @@
         "winner": "FRAN_DCMC"
       },
       {
-        "season": 2018,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 79.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 78.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2017,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 123.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 111.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
         "season": 2017,
         "week": 8,
         "phase": "regular",
         "f1_name": "DC Mighty Cucks",
         "f1_points": 77.0,
         "f2_name": "Warlords of Westeros",
-        "f2_points": 100.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2017,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 97.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 73.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2016,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Cincinnati Sinners",
-        "f1_points": 65.0,
-        "f2_name": "Charleston Chewbacca",
         "f2_points": 100.0,
         "winner": "FRAN_WWL"
       },
@@ -3576,26 +3086,6 @@
         "winner": "FRAN_DCMC"
       },
       {
-        "season": 2016,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Cincinnati Sinners",
-        "f1_points": 103.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 87.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2015,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "The Dalles Cowboys",
-        "f1_points": 92.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 68.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
         "season": 2015,
         "week": 7,
         "phase": "regular",
@@ -3603,26 +3093,6 @@
         "f1_points": 129.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 108.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2015,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "The Dalles Cowboys",
-        "f1_points": 93.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 81.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 51.0,
-        "f2_name": "Warlords of Westeros",
-        "f2_points": 47.0,
         "winner": "FRAN_DCMC"
       },
       {
@@ -3640,12 +3110,12 @@
   {
     "franchise1_id": "FRAN_PTP",
     "franchise2_id": "FRAN_SDS",
-    "total_games": 4,
+    "total_games": 2,
     "f1_wins": 1,
-    "f2_wins": 3,
+    "f2_wins": 1,
     "ties": 0,
-    "f1_total_points": 384.8,
-    "f2_total_points": 425.5,
+    "f1_total_points": 219.8,
+    "f2_total_points": 182.4,
     "games": [
       {
         "season": 2025,
@@ -3666,26 +3136,6 @@
         "f2_name": "San Diego Shadowc\u00f6cks",
         "f2_points": 56.2,
         "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2020,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 59.0,
-        "f2_name": "San Diego Shadowcocks",
-        "f2_points": 116.9,
-        "winner": "FRAN_SDS"
-      },
-      {
-        "season": 2019,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 106.0,
-        "f2_name": "San Diego Shadowcocks",
-        "f2_points": 126.2,
-        "winner": "FRAN_SDS"
       }
     ]
   },
@@ -3958,12 +3408,12 @@
   {
     "franchise1_id": "FRAN_HLH",
     "franchise2_id": "FRAN_PTP",
-    "total_games": 8,
+    "total_games": 2,
     "f1_wins": 2,
-    "f2_wins": 6,
+    "f2_wins": 0,
     "ties": 0,
-    "f1_total_points": 754.2,
-    "f2_total_points": 805.6,
+    "f1_total_points": 231.0,
+    "f2_total_points": 177.4,
     "games": [
       {
         "season": 2025,
@@ -3984,66 +3434,6 @@
         "f2_name": "Patagonia Pipers",
         "f2_points": 66.5,
         "winner": "FRAN_HLH"
-      },
-      {
-        "season": 2020,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 75.7,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 80.1,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2019,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 95.5,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 120.1,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2018,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 80.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 101.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 78.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 102.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2015,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 91.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 94.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2014,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 103.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 131.0,
-        "winner": "FRAN_PTP"
       }
     ]
   },
@@ -4418,12 +3808,12 @@
   {
     "franchise1_id": "FRAN_GTF",
     "franchise2_id": "FRAN_PTP",
-    "total_games": 9,
-    "f1_wins": 4,
-    "f2_wins": 5,
+    "total_games": 2,
+    "f1_wins": 1,
+    "f2_wins": 1,
     "ties": 0,
-    "f1_total_points": 881.3,
-    "f2_total_points": 821.8,
+    "f1_total_points": 216.3,
+    "f2_total_points": 191.6,
     "games": [
       {
         "season": 2025,
@@ -4444,88 +3834,18 @@
         "f2_name": "Patagonia Pipers",
         "f2_points": 107.8,
         "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2020,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 95.3,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 70.6,
-        "winner": "FRAN_GTF"
-      },
-      {
-        "season": 2019,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 77.7,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 91.6,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2018,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 71.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 100.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 92.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 95.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2016,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 111.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 75.0,
-        "winner": "FRAN_GTF"
-      },
-      {
-        "season": 2015,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 111.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 75.0,
-        "winner": "FRAN_GTF"
-      },
-      {
-        "season": 2014,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Tittsburgh Feelers",
-        "f1_points": 107.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 123.0,
-        "winner": "FRAN_PTP"
       }
     ]
   },
   {
     "franchise1_id": "FRAN_DCMC",
     "franchise2_id": "FRAN_HLH",
-    "total_games": 12,
+    "total_games": 11,
     "f1_wins": 6,
-    "f2_wins": 6,
+    "f2_wins": 5,
     "ties": 0,
-    "f1_total_points": 1104.3,
-    "f2_total_points": 1036.7,
+    "f1_total_points": 1031.3,
+    "f2_total_points": 937.7,
     "games": [
       {
         "season": 2025,
@@ -4626,16 +3946,6 @@
         "f2_name": "Honolulu Horndogs",
         "f2_points": 55.0,
         "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 73.0,
-        "f2_name": "Honolulu Horndogs",
-        "f2_points": 99.0,
-        "winner": "FRAN_HLH"
       },
       {
         "season": 2014,
@@ -4786,12 +4096,12 @@
   {
     "franchise1_id": "FRAN_FFC",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 19,
-    "f1_wins": 11,
-    "f2_wins": 7,
+    "total_games": 13,
+    "f1_wins": 6,
+    "f2_wins": 6,
     "ties": 1,
-    "f1_total_points": 1718.3,
-    "f2_total_points": 1600.7,
+    "f1_total_points": 1160.3,
+    "f2_total_points": 1159.7,
     "games": [
       {
         "season": 2025,
@@ -4894,16 +4204,6 @@
         "winner": "FRAN_WWL"
       },
       {
-        "season": 2018,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 102.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 64.0,
-        "winner": "FRAN_FFC"
-      },
-      {
         "season": 2017,
         "week": 11,
         "phase": "regular",
@@ -4911,16 +4211,6 @@
         "f1_points": 100.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 71.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2017,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 66.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 63.0,
         "winner": "FRAN_FFC"
       },
       {
@@ -4934,26 +4224,6 @@
         "winner": "FRAN_WWL"
       },
       {
-        "season": 2016,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 95.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 61.0,
-        "winner": "FRAN_FFC"
-      },
-      {
-        "season": 2016,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 113.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 95.0,
-        "winner": "FRAN_FFC"
-      },
-      {
         "season": 2015,
         "week": 11,
         "phase": "regular",
@@ -4962,38 +4232,18 @@
         "f2_name": "Warlords of Westeros",
         "f2_points": 84.0,
         "winner": "TIE"
-      },
-      {
-        "season": 2015,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 73.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 76.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2015,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Fairview Fat Cats",
-        "f1_points": 109.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 82.0,
-        "winner": "FRAN_FFC"
       }
     ]
   },
   {
     "franchise1_id": "FRAN_SVS",
     "franchise2_id": "FRAN_TJS",
-    "total_games": 14,
-    "f1_wins": 10,
+    "total_games": 12,
+    "f1_wins": 8,
     "f2_wins": 4,
     "ties": 0,
-    "f1_total_points": 1350.9,
-    "f2_total_points": 1194.4,
+    "f1_total_points": 1151.9,
+    "f2_total_points": 1025.4,
     "games": [
       {
         "season": 2025,
@@ -5107,16 +4357,6 @@
       },
       {
         "season": 2014,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Atlantic City Aquasharks",
-        "f1_points": 95.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 72.0,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2014,
         "week": 7,
         "phase": "regular",
         "f1_name": "Atlantic City Aquasharks",
@@ -5124,16 +4364,6 @@
         "f2_name": "Tijuana Sanchitos",
         "f2_points": 93.0,
         "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2014,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Atlantic City Aquasharks",
-        "f1_points": 104.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 97.0,
-        "winner": "FRAN_SVS"
       }
     ]
   },
@@ -5244,12 +4474,12 @@
   {
     "franchise1_id": "FRAN_TJS",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 20,
-    "f1_wins": 9,
-    "f2_wins": 11,
+    "total_games": 15,
+    "f1_wins": 7,
+    "f2_wins": 8,
     "ties": 0,
-    "f1_total_points": 1771.8,
-    "f2_total_points": 1892.7,
+    "f1_total_points": 1383.8,
+    "f2_total_points": 1457.7,
     "games": [
       {
         "season": 2025,
@@ -5323,16 +4553,6 @@
       },
       {
         "season": 2018,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Tijuana Sanchitos",
-        "f1_points": 103.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 69.0,
-        "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2018,
         "week": 3,
         "phase": "regular",
         "f1_name": "Tijuana Sanchitos",
@@ -5343,32 +4563,12 @@
       },
       {
         "season": 2017,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Tijuana Sanchitos",
-        "f1_points": 85.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 63.0,
-        "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2017,
         "week": 3,
         "phase": "regular",
         "f1_name": "Tijuana Sanchitos",
         "f1_points": 57.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 106.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2016,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Tijuana Sanchitos",
-        "f1_points": 66.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 92.0,
         "winner": "FRAN_WWL"
       },
       {
@@ -5390,16 +4590,6 @@
         "f2_name": "Warlords of Westeros",
         "f2_points": 71.0,
         "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2015,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Tijuana Sanchitos",
-        "f1_points": 88.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 106.0,
-        "winner": "FRAN_WWL"
       },
       {
         "season": 2015,
@@ -5433,16 +4623,6 @@
       },
       {
         "season": 2014,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "L.O.B. Thunder",
-        "f1_points": 46.0,
-        "f2_name": "Warlords of Westeros",
-        "f2_points": 105.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2014,
         "week": 1,
         "phase": "regular",
         "f1_name": "Tijuana Sanchitos",
@@ -5456,12 +4636,12 @@
   {
     "franchise1_id": "FRAN_DCMC",
     "franchise2_id": "FRAN_GTF",
-    "total_games": 14,
-    "f1_wins": 7,
+    "total_games": 13,
+    "f1_wins": 6,
     "f2_wins": 7,
     "ties": 0,
-    "f1_total_points": 1259.1,
-    "f2_total_points": 1306.9,
+    "f1_total_points": 1190.1,
+    "f2_total_points": 1239.9,
     "games": [
       {
         "season": 2025,
@@ -5592,16 +4772,6 @@
         "f2_name": "Tittsburgh Feelers",
         "f2_points": 123.0,
         "winner": "FRAN_GTF"
-      },
-      {
-        "season": 2014,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 69.0,
-        "f2_name": "Tittsburgh Feelers",
-        "f2_points": 67.0,
-        "winner": "FRAN_DCMC"
       }
     ]
   },
@@ -6078,12 +5248,12 @@
   {
     "franchise1_id": "FRAN_GGG",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 21,
-    "f1_wins": 5,
-    "f2_wins": 16,
+    "total_games": 17,
+    "f1_wins": 4,
+    "f2_wins": 13,
     "ties": 0,
-    "f1_total_points": 1868.8,
-    "f2_total_points": 2054.6,
+    "f1_total_points": 1496.8,
+    "f2_total_points": 1685.6,
     "games": [
       {
         "season": 2025,
@@ -6177,32 +5347,12 @@
       },
       {
         "season": 2018,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 76.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 97.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2018,
         "week": 5,
         "phase": "regular",
         "f1_name": "Goleta Gringos",
         "f1_points": 60.0,
         "f2_name": "Westeros Warlords",
         "f2_points": 96.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2017,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 78.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 81.0,
         "winner": "FRAN_WWL"
       },
       {
@@ -6227,16 +5377,6 @@
       },
       {
         "season": 2016,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 138.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 100.0,
-        "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2016,
         "week": 2,
         "phase": "regular",
         "f1_name": "Goleta Gringos",
@@ -6254,16 +5394,6 @@
         "f2_name": "Warlords of Westeros",
         "f2_points": 64.0,
         "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2015,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Goleta Gringos",
-        "f1_points": 80.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 91.0,
-        "winner": "FRAN_WWL"
       },
       {
         "season": 2015,
@@ -6412,12 +5542,12 @@
   {
     "franchise1_id": "FRAN_PTP",
     "franchise2_id": "FRAN_SVS",
-    "total_games": 14,
-    "f1_wins": 9,
-    "f2_wins": 5,
+    "total_games": 2,
+    "f1_wins": 1,
+    "f2_wins": 1,
     "ties": 0,
-    "f1_total_points": 1307.9,
-    "f2_total_points": 1261.9,
+    "f1_total_points": 204.1,
+    "f2_total_points": 165.9,
     "games": [
       {
         "season": 2025,
@@ -6438,126 +5568,6 @@
         "f2_name": "Squaw Valley Skinners",
         "f2_points": 79.4,
         "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2020,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 97.4,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 104.2,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2019,
-        "week": 7,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 95.4,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 68.8,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2018,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 106.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 88.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2018,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 117.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 80.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 59.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 104.0,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2017,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 98.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 97.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2016,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 94.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 88.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2016,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 64.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 136.0,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2015,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 84.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 82.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2015,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 62.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 71.0,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2014,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 116.0,
-        "f2_name": "Atlantic City Aquasharks",
-        "f2_points": 89.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2014,
-        "week": 5,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 111.0,
-        "f2_name": "Atlantic City Aquasharks",
-        "f2_points": 88.0,
-        "winner": "FRAN_PTP"
       }
     ]
   },
@@ -6626,12 +5636,12 @@
   {
     "franchise1_id": "FRAN_HLH",
     "franchise2_id": "FRAN_TJS",
-    "total_games": 16,
-    "f1_wins": 8,
+    "total_games": 15,
+    "f1_wins": 7,
     "f2_wins": 8,
     "ties": 0,
-    "f1_total_points": 1365.7,
-    "f2_total_points": 1425.5,
+    "f1_total_points": 1250.7,
+    "f2_total_points": 1331.5,
     "games": [
       {
         "season": 2025,
@@ -6771,16 +5781,6 @@
         "f1_points": 98.0,
         "f2_name": "Tijuana Sanchitos",
         "f2_points": 66.0,
-        "winner": "FRAN_HLH"
-      },
-      {
-        "season": 2014,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 115.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 94.0,
         "winner": "FRAN_HLH"
       },
       {
@@ -6950,12 +5950,12 @@
   {
     "franchise1_id": "FRAN_DCMC",
     "franchise2_id": "FRAN_SVS",
-    "total_games": 18,
-    "f1_wins": 11,
+    "total_games": 16,
+    "f1_wins": 9,
     "f2_wins": 7,
     "ties": 0,
-    "f1_total_points": 1617.1,
-    "f2_total_points": 1569.1,
+    "f1_total_points": 1458.1,
+    "f2_total_points": 1457.1,
     "games": [
       {
         "season": 2025,
@@ -7099,32 +6099,12 @@
       },
       {
         "season": 2014,
-        "week": 13,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 80.0,
-        "f2_name": "Atlantic City Aquasharks",
-        "f2_points": 60.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
         "week": 12,
         "phase": "regular",
         "f1_name": "Kansas City Missourians",
         "f1_points": 115.0,
         "f2_name": "Atlantic City Aquasharks",
         "f2_points": 83.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 79.0,
-        "f2_name": "Atlantic City Aquasharks",
-        "f2_points": 52.0,
         "winner": "FRAN_DCMC"
       },
       {
@@ -7142,12 +6122,12 @@
   {
     "franchise1_id": "FRAN_PTP",
     "franchise2_id": "FRAN_TJS",
-    "total_games": 14,
-    "f1_wins": 7,
-    "f2_wins": 7,
+    "total_games": 4,
+    "f1_wins": 2,
+    "f2_wins": 2,
     "ties": 0,
-    "f1_total_points": 1364.7,
-    "f2_total_points": 1330.6,
+    "f1_total_points": 387.2,
+    "f2_total_points": 387.8,
     "games": [
       {
         "season": 2025,
@@ -7188,118 +6168,18 @@
         "f2_name": "Tijuana Sanchitos",
         "f2_points": 100.9,
         "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2020,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 91.8,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 68.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2019,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 117.2,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 78.7,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2019,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 90.5,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 106.1,
-        "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2018,
-        "week": 10,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 142.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 128.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 10,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 103.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 69.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2016,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 55.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 65.0,
-        "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2015,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 67.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 105.0,
-        "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2014,
-        "week": 10,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 120.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 152.0,
-        "winner": "FRAN_TJS"
-      },
-      {
-        "season": 2014,
-        "week": 4,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 113.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 80.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2014,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Muck City Mad Dawgs",
-        "f1_points": 78.0,
-        "f2_name": "L.O.B. Thunder",
-        "f2_points": 91.0,
-        "winner": "FRAN_TJS"
       }
     ]
   },
   {
     "franchise1_id": "FRAN_HLH",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 22,
-    "f1_wins": 12,
-    "f2_wins": 10,
+    "total_games": 19,
+    "f1_wins": 10,
+    "f2_wins": 9,
     "ties": 0,
-    "f1_total_points": 1991.3,
-    "f2_total_points": 2027.4,
+    "f1_total_points": 1712.3,
+    "f2_total_points": 1796.4,
     "games": [
       {
         "season": 2025,
@@ -7423,16 +6303,6 @@
       },
       {
         "season": 2018,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 90.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 46.0,
-        "winner": "FRAN_HLH"
-      },
-      {
-        "season": 2018,
         "week": 2,
         "phase": "regular",
         "f1_name": "Honolulu Horndogs",
@@ -7449,16 +6319,6 @@
         "f1_points": 71.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 117.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2017,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 77.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 111.0,
         "winner": "FRAN_WWL"
       },
       {
@@ -7480,16 +6340,6 @@
         "f2_name": "Warlords of Westeros",
         "f2_points": 125.0,
         "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2015,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Honolulu Horndogs",
-        "f1_points": 112.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 74.0,
-        "winner": "FRAN_HLH"
       },
       {
         "season": 2015,
@@ -7984,12 +6834,12 @@
   {
     "franchise1_id": "FRAN_DCMC",
     "franchise2_id": "FRAN_PTP",
-    "total_games": 17,
-    "f1_wins": 6,
-    "f2_wins": 11,
+    "total_games": 3,
+    "f1_wins": 1,
+    "f2_wins": 2,
     "ties": 0,
-    "f1_total_points": 1392.3,
-    "f2_total_points": 1549.4,
+    "f1_total_points": 280.2,
+    "f2_total_points": 301.1,
     "games": [
       {
         "season": 2025,
@@ -8019,146 +6869,6 @@
         "f1_points": 81.4,
         "f2_name": "Patagonia Pipers",
         "f2_points": 93.6,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2020,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 65.1,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 68.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2020,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 103.7,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 55.6,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2019,
-        "week": 15,
-        "phase": "championship",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 97.8,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 119.3,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2019,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 100.5,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 92.4,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2018,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 55.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 109.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2017,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "DC Mighty Cucks",
-        "f1_points": 86.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 79.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2016,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Cincinnati Sinners",
-        "f1_points": 72.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 103.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2016,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Cincinnati Sinners",
-        "f1_points": 77.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 65.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2015,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "The Dalles Cowboys",
-        "f1_points": 52.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 76.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2015,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "The Dalles Cowboys",
-        "f1_points": 66.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 56.0,
-        "winner": "FRAN_DCMC"
-      },
-      {
-        "season": 2014,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 105.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 138.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2014,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Kansas City Missourians",
-        "f1_points": 82.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 109.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2014,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 58.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 83.0,
-        "winner": "FRAN_PTP"
-      },
-      {
-        "season": 2014,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Kansas City Missourians",
-        "f1_points": 92.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 95.0,
         "winner": "FRAN_PTP"
       }
     ]
@@ -8512,12 +7222,12 @@
   {
     "franchise1_id": "FRAN_SVS",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 23,
-    "f1_wins": 10,
-    "f2_wins": 13,
+    "total_games": 17,
+    "f1_wins": 6,
+    "f2_wins": 11,
     "ties": 0,
-    "f1_total_points": 1857.9,
-    "f2_total_points": 1944.1,
+    "f1_total_points": 1403.9,
+    "f2_total_points": 1493.1,
     "games": [
       {
         "season": 2025,
@@ -8650,16 +7360,6 @@
         "winner": "FRAN_WWL"
       },
       {
-        "season": 2018,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "Squaw Valley Skinners",
-        "f1_points": 103.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 70.0,
-        "winner": "FRAN_SVS"
-      },
-      {
         "season": 2017,
         "week": 7,
         "phase": "regular",
@@ -8667,26 +7367,6 @@
         "f1_points": 88.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 84.0,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2017,
-        "week": 3,
-        "phase": "regular",
-        "f1_name": "Squaw Valley Skinners",
-        "f1_points": 69.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 59.0,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2016,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Squaw Valley Skinners",
-        "f1_points": 85.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 79.0,
         "winner": "FRAN_SVS"
       },
       {
@@ -8700,26 +7380,6 @@
         "winner": "FRAN_WWL"
       },
       {
-        "season": 2016,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Squaw Valley Skinners",
-        "f1_points": 59.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 113.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2015,
-        "week": 11,
-        "phase": "regular",
-        "f1_name": "Squaw Valley Skinners",
-        "f1_points": 59.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 70.0,
-        "winner": "FRAN_WWL"
-      },
-      {
         "season": 2015,
         "week": 8,
         "phase": "regular",
@@ -8727,16 +7387,6 @@
         "f1_points": 79.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 74.0,
-        "winner": "FRAN_SVS"
-      },
-      {
-        "season": 2015,
-        "week": 2,
-        "phase": "regular",
-        "f1_name": "Squaw Valley Skinners",
-        "f1_points": 79.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 60.0,
         "winner": "FRAN_SVS"
       },
       {
@@ -9480,12 +8130,12 @@
   {
     "franchise1_id": "FRAN_CVC",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 16,
-    "f1_wins": 8,
-    "f2_wins": 8,
+    "total_games": 13,
+    "f1_wins": 7,
+    "f2_wins": 6,
     "ties": 0,
-    "f1_total_points": 1464.0,
-    "f2_total_points": 1501.0,
+    "f1_total_points": 1199.0,
+    "f2_total_points": 1193.0,
     "games": [
       {
         "season": 2023,
@@ -9569,16 +8219,6 @@
       },
       {
         "season": 2018,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Chula Vista Chupacabras",
-        "f1_points": 101.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 109.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2018,
         "week": 1,
         "phase": "regular",
         "f1_name": "Chula Vista Chupacabras",
@@ -9599,16 +8239,6 @@
       },
       {
         "season": 2017,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Chula Vista Chupacabras",
-        "f1_points": 92.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 88.0,
-        "winner": "FRAN_CVC"
-      },
-      {
-        "season": 2017,
         "week": 1,
         "phase": "regular",
         "f1_name": "Chula Vista Chupacabras",
@@ -9625,16 +8255,6 @@
         "f1_points": 63.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 80.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2016,
-        "week": 8,
-        "phase": "regular",
-        "f1_name": "Green Bay Glory Holes",
-        "f1_points": 72.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 111.0,
         "winner": "FRAN_WWL"
       },
       {
@@ -9914,296 +8534,500 @@
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_CVC",
+    "franchise1_id": "FRAN_CVC",
+    "franchise2_id": "FRAN_WSW",
     "total_games": 5,
-    "f1_wins": 2,
-    "f2_wins": 3,
+    "f1_wins": 3,
+    "f2_wins": 2,
     "ties": 0,
-    "f1_total_points": 500.5,
-    "f2_total_points": 413.4,
+    "f1_total_points": 413.4,
+    "f2_total_points": 500.5,
     "games": [
       {
         "season": 2020,
         "week": 14,
         "phase": "championship",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 81.9,
-        "f2_name": "Chula Vista Chupacabras",
-        "f2_points": 96.1,
+        "f1_name": "Chula Vista Chupacabras",
+        "f1_points": 96.1,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 81.9,
         "winner": "FRAN_CVC"
       },
       {
         "season": 2020,
         "week": 8,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 158.9,
-        "f2_name": "Chula Vista Chupacabras",
-        "f2_points": 60.6,
-        "winner": "FRAN_COG"
+        "f1_name": "Chula Vista Chupacabras",
+        "f1_points": 60.6,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 158.9,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2019,
         "week": 8,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 103.7,
-        "f2_name": "Chula Vista Chupacabras",
-        "f2_points": 111.7,
+        "f1_name": "Chula Vista Chupacabras",
+        "f1_points": 111.7,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 103.7,
         "winner": "FRAN_CVC"
       },
       {
         "season": 2018,
         "week": 8,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 91.0,
-        "f2_name": "Chula Vista Chupacabras",
-        "f2_points": 69.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Chula Vista Chupacabras",
+        "f1_points": 69.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 91.0,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2017,
         "week": 8,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 65.0,
-        "f2_name": "Chula Vista Chupacabras",
-        "f2_points": 76.0,
+        "f1_name": "Chula Vista Chupacabras",
+        "f1_points": 76.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 65.0,
         "winner": "FRAN_CVC"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_PTP",
+    "franchise1_id": "FRAN_MCMD",
+    "franchise2_id": "FRAN_WSW",
     "total_games": 7,
-    "f1_wins": 5,
-    "f2_wins": 2,
+    "f1_wins": 2,
+    "f2_wins": 5,
     "ties": 0,
-    "f1_total_points": 688.1,
-    "f2_total_points": 640.5,
+    "f1_total_points": 640.5,
+    "f2_total_points": 688.1,
     "games": [
       {
         "season": 2020,
         "week": 13,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 87.6,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 84.5,
-        "winner": "FRAN_COG"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 84.5,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 87.6,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2020,
         "week": 4,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 126.9,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 65.3,
-        "winner": "FRAN_COG"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 65.3,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 126.9,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2019,
         "week": 14,
         "phase": "championship",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 57.9,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 103.1,
-        "winner": "FRAN_PTP"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 103.1,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 57.9,
+        "winner": "FRAN_MCMD"
       },
       {
         "season": 2019,
         "week": 4,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 129.7,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 83.6,
-        "winner": "FRAN_COG"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 83.6,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 129.7,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2018,
         "week": 14,
         "phase": "championship",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 97.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 96.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 96.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 97.0,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2018,
         "week": 5,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 113.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 94.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 94.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 113.0,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2017,
         "week": 5,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 76.0,
-        "f2_name": "Muck City Mad Dawgs",
-        "f2_points": 114.0,
-        "winner": "FRAN_PTP"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 114.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 76.0,
+        "winner": "FRAN_MCMD"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_FFC",
-    "total_games": 6,
+    "franchise1_id": "FRAN_DCMC",
+    "franchise2_id": "FRAN_MCMD",
+    "total_games": 12,
     "f1_wins": 5,
-    "f2_wins": 1,
+    "f2_wins": 7,
     "ties": 0,
-    "f1_total_points": 704.0,
-    "f2_total_points": 552.6,
+    "f1_total_points": 949.1,
+    "f2_total_points": 1027.3,
     "games": [
       {
         "season": 2020,
         "week": 12,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 155.0,
-        "f2_name": "Fairview Fat Cats",
-        "f2_points": 100.7,
-        "winner": "FRAN_COG"
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 65.1,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 68.0,
+        "winner": "FRAN_MCMD"
       },
       {
         "season": 2020,
         "week": 3,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 125.2,
-        "f2_name": "Fairview Fat Cats",
-        "f2_points": 89.2,
-        "winner": "FRAN_COG"
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 103.7,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 55.6,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2019,
+        "week": 15,
+        "phase": "championship",
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 97.8,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 119.3,
+        "winner": "FRAN_MCMD"
       },
       {
         "season": 2019,
         "week": 3,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 138.8,
-        "f2_name": "Fairview Fat Cats",
-        "f2_points": 89.7,
-        "winner": "FRAN_COG"
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 100.5,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 92.4,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2018,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 55.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 109.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 86.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 79.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2016,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Cincinnati Sinners",
+        "f1_points": 72.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 103.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2016,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Cincinnati Sinners",
+        "f1_points": 77.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 65.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2015,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "The Dalles Cowboys",
+        "f1_points": 52.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 76.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2015,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "The Dalles Cowboys",
+        "f1_points": 66.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 56.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2014,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Kansas City Missourians",
+        "f1_points": 82.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 109.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2014,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Kansas City Missourians",
+        "f1_points": 92.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 95.0,
+        "winner": "FRAN_MCMD"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_FFC",
+    "franchise2_id": "FRAN_WSW",
+    "total_games": 6,
+    "f1_wins": 1,
+    "f2_wins": 5,
+    "ties": 0,
+    "f1_total_points": 552.6,
+    "f2_total_points": 704.0,
+    "games": [
+      {
+        "season": 2020,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 100.7,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 155.0,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2020,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 89.2,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 125.2,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2019,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 89.7,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 138.8,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2018,
         "week": 15,
         "phase": "championship",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 78.0,
-        "f2_name": "Fairview Fat Cats",
-        "f2_points": 104.0,
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 104.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 78.0,
         "winner": "FRAN_FFC"
       },
       {
         "season": 2018,
         "week": 3,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 105.0,
-        "f2_name": "Fairview Fat Cats",
-        "f2_points": 74.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 74.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 105.0,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2017,
         "week": 3,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 102.0,
-        "f2_name": "Fairview Fat Cats",
-        "f2_points": 95.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 95.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 102.0,
+        "winner": "FRAN_WSW"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_SVS",
+    "franchise1_id": "FRAN_HLH",
+    "franchise2_id": "FRAN_MCMD",
     "total_games": 6,
-    "f1_wins": 3,
-    "f2_wins": 3,
+    "f1_wins": 0,
+    "f2_wins": 6,
     "ties": 0,
-    "f1_total_points": 563.2,
-    "f2_total_points": 529.5,
+    "f1_total_points": 523.2,
+    "f2_total_points": 628.2,
     "games": [
       {
         "season": 2020,
         "week": 11,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 117.6,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 71.5,
-        "winner": "FRAN_COG"
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 75.7,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 80.1,
+        "winner": "FRAN_MCMD"
       },
       {
         "season": 2019,
         "week": 11,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 91.6,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 99.0,
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 95.5,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 120.1,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2018,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 80.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 101.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 78.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 102.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2015,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 91.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 94.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2014,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 103.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 131.0,
+        "winner": "FRAN_MCMD"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_SVS",
+    "franchise2_id": "FRAN_WSW",
+    "total_games": 6,
+    "f1_wins": 3,
+    "f2_wins": 3,
+    "ties": 0,
+    "f1_total_points": 529.5,
+    "f2_total_points": 563.2,
+    "games": [
+      {
+        "season": 2020,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Squaw Valley Skinners",
+        "f1_points": 71.5,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 117.6,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2019,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Squaw Valley Skinners",
+        "f1_points": 99.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 91.6,
         "winner": "FRAN_SVS"
       },
       {
         "season": 2018,
         "week": 13,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 83.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 105.0,
+        "f1_name": "Squaw Valley Skinners",
+        "f1_points": 105.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 83.0,
         "winner": "FRAN_SVS"
       },
       {
         "season": 2018,
         "week": 2,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 64.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 121.0,
+        "f1_name": "Squaw Valley Skinners",
+        "f1_points": 121.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 64.0,
         "winner": "FRAN_SVS"
       },
       {
         "season": 2017,
         "week": 13,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 89.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 85.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Squaw Valley Skinners",
+        "f1_points": 85.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 89.0,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2017,
         "week": 2,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 118.0,
-        "f2_name": "Squaw Valley Skinners",
-        "f2_points": 48.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Squaw Valley Skinners",
+        "f1_points": 48.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 118.0,
+        "winner": "FRAN_WSW"
       }
     ]
   },
   {
     "franchise1_id": "FRAN_CVC",
-    "franchise2_id": "FRAN_PTP",
+    "franchise2_id": "FRAN_MCMD",
     "total_games": 5,
     "f1_wins": 3,
     "f2_wins": 2,
@@ -10249,7 +9073,7 @@
         "f1_points": 108.0,
         "f2_name": "Muck City Mad Dawgs",
         "f2_points": 109.0,
-        "winner": "FRAN_PTP"
+        "winner": "FRAN_MCMD"
       },
       {
         "season": 2016,
@@ -10259,123 +9083,287 @@
         "f1_points": 57.0,
         "f2_name": "Muck City Mad Dawgs",
         "f2_points": 74.0,
-        "winner": "FRAN_PTP"
+        "winner": "FRAN_MCMD"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_GGG",
+    "franchise1_id": "FRAN_GGG",
+    "franchise2_id": "FRAN_WSW",
     "total_games": 4,
     "f1_wins": 2,
     "f2_wins": 2,
     "ties": 0,
-    "f1_total_points": 391.1,
-    "f2_total_points": 395.6,
+    "f1_total_points": 395.6,
+    "f2_total_points": 391.1,
     "games": [
       {
         "season": 2020,
         "week": 10,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 86.3,
-        "f2_name": "Goleta Gringos",
-        "f2_points": 96.0,
-        "winner": "FRAN_GGG"
-      },
-      {
-        "season": 2019,
-        "week": 10,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 113.8,
-        "f2_name": "Goleta Gringos",
-        "f2_points": 103.6,
-        "winner": "FRAN_COG"
-      },
-      {
-        "season": 2018,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 126.0,
-        "f2_name": "Goleta Gringos",
-        "f2_points": 109.0,
-        "winner": "FRAN_COG"
-      },
-      {
-        "season": 2017,
-        "week": 6,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 65.0,
-        "f2_name": "Goleta Gringos",
-        "f2_points": 87.0,
-        "winner": "FRAN_GGG"
-      }
-    ]
-  },
-  {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_HLH",
-    "total_games": 4,
-    "f1_wins": 2,
-    "f2_wins": 2,
-    "ties": 0,
-    "f1_total_points": 400.2,
-    "f2_total_points": 356.1,
-    "games": [
-      {
-        "season": 2020,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 148.2,
-        "f2_name": "Honolulu Horndogs",
-        "f2_points": 91.3,
-        "winner": "FRAN_COG"
-      },
-      {
-        "season": 2019,
-        "week": 9,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
+        "f1_name": "Goleta Gringos",
         "f1_points": 96.0,
-        "f2_name": "Honolulu Horndogs",
-        "f2_points": 108.8,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 86.3,
+        "winner": "FRAN_GGG"
+      },
+      {
+        "season": 2019,
+        "week": 10,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 103.6,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 113.8,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2018,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 109.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 126.0,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2017,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 87.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 65.0,
+        "winner": "FRAN_GGG"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_HLH",
+    "franchise2_id": "FRAN_WSW",
+    "total_games": 4,
+    "f1_wins": 2,
+    "f2_wins": 2,
+    "ties": 0,
+    "f1_total_points": 356.1,
+    "f2_total_points": 400.2,
+    "games": [
+      {
+        "season": 2020,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 91.3,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 148.2,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2019,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 108.8,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 96.0,
         "winner": "FRAN_HLH"
       },
       {
         "season": 2018,
         "week": 10,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 79.0,
-        "f2_name": "Honolulu Horndogs",
-        "f2_points": 85.0,
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 85.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 79.0,
         "winner": "FRAN_HLH"
       },
       {
         "season": 2017,
         "week": 10,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 77.0,
-        "f2_name": "Honolulu Horndogs",
-        "f2_points": 71.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 71.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 77.0,
+        "winner": "FRAN_WSW"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
+    "franchise1_id": "FRAN_MCMD",
     "franchise2_id": "FRAN_WWL",
-    "total_games": 8,
+    "total_games": 7,
     "f1_wins": 3,
-    "f2_wins": 5,
+    "f2_wins": 4,
     "ties": 0,
-    "f1_total_points": 703.8,
-    "f2_total_points": 727.4,
+    "f1_total_points": 621.8,
+    "f2_total_points": 666.4,
+    "games": [
+      {
+        "season": 2020,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 64.4,
+        "f2_name": "Westeros Warlords",
+        "f2_points": 97.0,
+        "winner": "FRAN_WWL"
+      },
+      {
+        "season": 2019,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 119.4,
+        "f2_name": "Westeros Warlords",
+        "f2_points": 107.4,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2018,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 92.0,
+        "f2_name": "Westeros Warlords",
+        "f2_points": 96.0,
+        "winner": "FRAN_WWL"
+      },
+      {
+        "season": 2017,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 58.0,
+        "f2_name": "Warlords of Westeros",
+        "f2_points": 109.0,
+        "winner": "FRAN_WWL"
+      },
+      {
+        "season": 2016,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 59.0,
+        "f2_name": "Warlords of Westeros",
+        "f2_points": 77.0,
+        "winner": "FRAN_WWL"
+      },
+      {
+        "season": 2015,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 89.0,
+        "f2_name": "Warlords of Westeros",
+        "f2_points": 63.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2014,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 140.0,
+        "f2_name": "Warlords of Westeros",
+        "f2_points": 117.0,
+        "winner": "FRAN_MCMD"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_GTF",
+    "franchise2_id": "FRAN_MCMD",
+    "total_games": 7,
+    "f1_wins": 3,
+    "f2_wins": 4,
+    "ties": 0,
+    "f1_total_points": 665.0,
+    "f2_total_points": 630.2,
+    "games": [
+      {
+        "season": 2020,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 95.3,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 70.6,
+        "winner": "FRAN_GTF"
+      },
+      {
+        "season": 2019,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 77.7,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 91.6,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2018,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 71.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 100.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 92.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 95.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2016,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 111.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 75.0,
+        "winner": "FRAN_GTF"
+      },
+      {
+        "season": 2015,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 111.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 75.0,
+        "winner": "FRAN_GTF"
+      },
+      {
+        "season": 2014,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 107.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 123.0,
+        "winner": "FRAN_MCMD"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_WSW",
+    "franchise2_id": "FRAN_WWL",
+    "total_games": 4,
+    "f1_wins": 0,
+    "f2_wins": 4,
+    "ties": 0,
+    "f1_total_points": 334.8,
+    "f2_total_points": 428.4,
     "games": [
       {
         "season": 2020,
@@ -10399,42 +9387,12 @@
       },
       {
         "season": 2018,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 88.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 59.0,
-        "winner": "FRAN_COG"
-      },
-      {
-        "season": 2018,
         "week": 9,
         "phase": "regular",
         "f1_name": "Winston-Salem Wake Snakes",
         "f1_points": 99.0,
         "f2_name": "Westeros Warlords",
         "f2_points": 106.0,
-        "winner": "FRAN_WWL"
-      },
-      {
-        "season": 2018,
-        "week": 1,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 113.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 57.0,
-        "winner": "FRAN_COG"
-      },
-      {
-        "season": 2017,
-        "week": 12,
-        "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 88.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 131.0,
         "winner": "FRAN_WWL"
       },
       {
@@ -10446,229 +9404,875 @@
         "f2_name": "Warlords of Westeros",
         "f2_points": 89.0,
         "winner": "FRAN_WWL"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_MCMD",
+    "franchise2_id": "FRAN_SVS",
+    "total_games": 12,
+    "f1_wins": 8,
+    "f2_wins": 4,
+    "ties": 0,
+    "f1_total_points": 1103.8,
+    "f2_total_points": 1096.0,
+    "games": [
+      {
+        "season": 2020,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 97.4,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 104.2,
+        "winner": "FRAN_SVS"
+      },
+      {
+        "season": 2019,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 95.4,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 68.8,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2018,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 106.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 88.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2018,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 117.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 80.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 59.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 104.0,
+        "winner": "FRAN_SVS"
       },
       {
         "season": 2017,
         "week": 1,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 80.0,
-        "f2_name": "Charleston Chewbacca",
-        "f2_points": 52.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 98.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 97.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2016,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 94.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 88.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2016,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 64.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 136.0,
+        "winner": "FRAN_SVS"
+      },
+      {
+        "season": 2015,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 84.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 82.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2015,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 62.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 71.0,
+        "winner": "FRAN_SVS"
+      },
+      {
+        "season": 2014,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 116.0,
+        "f2_name": "Atlantic City Aquasharks",
+        "f2_points": 89.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2014,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 111.0,
+        "f2_name": "Atlantic City Aquasharks",
+        "f2_points": 88.0,
+        "winner": "FRAN_MCMD"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_GTF",
+    "franchise1_id": "FRAN_GTF",
+    "franchise2_id": "FRAN_WSW",
     "total_games": 4,
-    "f1_wins": 0,
-    "f2_wins": 4,
+    "f1_wins": 4,
+    "f2_wins": 0,
     "ties": 0,
-    "f1_total_points": 357.4,
-    "f2_total_points": 423.4,
+    "f1_total_points": 423.4,
+    "f2_total_points": 357.4,
     "games": [
       {
         "season": 2020,
         "week": 6,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 65.7,
-        "f2_name": "Tittsburgh Feelers",
-        "f2_points": 109.9,
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 109.9,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 65.7,
         "winner": "FRAN_GTF"
       },
       {
         "season": 2019,
         "week": 6,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 81.7,
-        "f2_name": "Tittsburgh Feelers",
-        "f2_points": 98.5,
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 98.5,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 81.7,
         "winner": "FRAN_GTF"
       },
       {
         "season": 2018,
         "week": 11,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 113.0,
-        "f2_name": "Tittsburgh Feelers",
-        "f2_points": 116.0,
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 116.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 113.0,
         "winner": "FRAN_GTF"
       },
       {
         "season": 2017,
         "week": 11,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 97.0,
-        "f2_name": "Tittsburgh Feelers",
-        "f2_points": 99.0,
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 99.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 97.0,
         "winner": "FRAN_GTF"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_DCMC",
+    "franchise1_id": "FRAN_GGG",
+    "franchise2_id": "FRAN_MCMD",
+    "total_games": 8,
+    "f1_wins": 3,
+    "f2_wins": 5,
+    "ties": 0,
+    "f1_total_points": 754.2,
+    "f2_total_points": 762.3,
+    "games": [
+      {
+        "season": 2020,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 87.7,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 93.8,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2019,
+        "week": 16,
+        "phase": "championship",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 120.3,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 136.6,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2019,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 88.2,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 77.9,
+        "winner": "FRAN_GGG"
+      },
+      {
+        "season": 2018,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 59.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 91.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 99.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 79.0,
+        "winner": "FRAN_GGG"
+      },
+      {
+        "season": 2016,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 98.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 67.0,
+        "winner": "FRAN_GGG"
+      },
+      {
+        "season": 2015,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 79.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 92.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2014,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 123.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 125.0,
+        "winner": "FRAN_MCMD"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_DCMC",
+    "franchise2_id": "FRAN_WSW",
     "total_games": 4,
     "f1_wins": 2,
     "f2_wins": 2,
     "ties": 0,
-    "f1_total_points": 368.9,
-    "f2_total_points": 372.1,
+    "f1_total_points": 372.1,
+    "f2_total_points": 368.9,
     "games": [
       {
         "season": 2020,
         "week": 5,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 92.6,
-        "f2_name": "DC Mighty Cucks",
-        "f2_points": 103.4,
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 103.4,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 92.6,
         "winner": "FRAN_DCMC"
       },
       {
         "season": 2019,
         "week": 5,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 106.3,
-        "f2_name": "DC Mighty Cucks",
-        "f2_points": 95.7,
-        "winner": "FRAN_COG"
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 95.7,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 106.3,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2018,
         "week": 4,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 66.0,
-        "f2_name": "DC Mighty Cucks",
-        "f2_points": 83.0,
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 83.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 66.0,
         "winner": "FRAN_DCMC"
       },
       {
         "season": 2017,
         "week": 4,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 104.0,
-        "f2_name": "DC Mighty Cucks",
-        "f2_points": 90.0,
-        "winner": "FRAN_COG"
+        "f1_name": "DC Mighty Cucks",
+        "f1_points": 90.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 104.0,
+        "winner": "FRAN_WSW"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_TJS",
-    "total_games": 5,
-    "f1_wins": 3,
+    "franchise1_id": "FRAN_MCMD",
+    "franchise2_id": "FRAN_SDS",
+    "total_games": 2,
+    "f1_wins": 0,
     "f2_wins": 2,
     "ties": 0,
-    "f1_total_points": 473.4,
-    "f2_total_points": 457.4,
+    "f1_total_points": 165.0,
+    "f2_total_points": 243.1,
+    "games": [
+      {
+        "season": 2020,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 59.0,
+        "f2_name": "San Diego Shadowcocks",
+        "f2_points": 116.9,
+        "winner": "FRAN_SDS"
+      },
+      {
+        "season": 2019,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 106.0,
+        "f2_name": "San Diego Shadowcocks",
+        "f2_points": 126.2,
+        "winner": "FRAN_SDS"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_TJS",
+    "franchise2_id": "FRAN_WSW",
+    "total_games": 5,
+    "f1_wins": 2,
+    "f2_wins": 3,
+    "ties": 0,
+    "f1_total_points": 457.4,
+    "f2_total_points": 473.4,
     "games": [
       {
         "season": 2020,
         "week": 2,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 92.6,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 101.5,
+        "f1_name": "Tijuana Sanchitos",
+        "f1_points": 101.5,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 92.6,
         "winner": "FRAN_TJS"
       },
       {
         "season": 2019,
         "week": 13,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 90.6,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 98.5,
+        "f1_name": "Tijuana Sanchitos",
+        "f1_points": 98.5,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 90.6,
         "winner": "FRAN_TJS"
       },
       {
         "season": 2019,
         "week": 2,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 109.2,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 96.4,
-        "winner": "FRAN_COG"
+        "f1_name": "Tijuana Sanchitos",
+        "f1_points": 96.4,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 109.2,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2018,
         "week": 7,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 108.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 89.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Tijuana Sanchitos",
+        "f1_points": 89.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 108.0,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2017,
         "week": 7,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 73.0,
-        "f2_name": "Tijuana Sanchitos",
-        "f2_points": 72.0,
-        "winner": "FRAN_COG"
+        "f1_name": "Tijuana Sanchitos",
+        "f1_points": 72.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 73.0,
+        "winner": "FRAN_WSW"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_COG",
-    "franchise2_id": "FRAN_SDS",
-    "total_games": 3,
-    "f1_wins": 2,
-    "f2_wins": 1,
+    "franchise1_id": "FRAN_FFC",
+    "franchise2_id": "FRAN_MCMD",
+    "total_games": 11,
+    "f1_wins": 8,
+    "f2_wins": 3,
     "ties": 0,
-    "f1_total_points": 332.2,
-    "f2_total_points": 275.8,
+    "f1_total_points": 1095.3,
+    "f2_total_points": 922.1,
+    "games": [
+      {
+        "season": 2020,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 113.2,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 86.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2019,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 75.1,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 71.6,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2019,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 83.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 104.5,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2018,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 127.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 99.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2018,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 107.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 83.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2017,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 65.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 82.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 90.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 67.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2016,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 131.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 40.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2016,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 104.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 85.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2015,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 69.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 98.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2015,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "Fairview Fat Cats",
+        "f1_points": 131.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 106.0,
+        "winner": "FRAN_FFC"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_MCMD",
+    "franchise2_id": "FRAN_TJS",
+    "total_games": 8,
+    "f1_wins": 5,
+    "f2_wins": 3,
+    "ties": 0,
+    "f1_total_points": 779.5,
+    "f2_total_points": 699.8,
     "games": [
       {
         "season": 2020,
         "week": 1,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 87.4,
-        "f2_name": "San Diego Shadowcocks",
-        "f2_points": 112.7,
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 91.8,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 68.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2019,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 117.2,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 78.7,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2019,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 90.5,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 106.1,
+        "winner": "FRAN_TJS"
+      },
+      {
+        "season": 2018,
+        "week": 10,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 142.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 128.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 10,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 103.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 69.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2016,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 55.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 65.0,
+        "winner": "FRAN_TJS"
+      },
+      {
+        "season": 2015,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 67.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 105.0,
+        "winner": "FRAN_TJS"
+      },
+      {
+        "season": 2014,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 113.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 80.0,
+        "winner": "FRAN_MCMD"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_SDS",
+    "franchise2_id": "FRAN_WSW",
+    "total_games": 3,
+    "f1_wins": 1,
+    "f2_wins": 2,
+    "ties": 0,
+    "f1_total_points": 275.8,
+    "f2_total_points": 332.2,
+    "games": [
+      {
+        "season": 2020,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "San Diego Shadowcocks",
+        "f1_points": 112.7,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 87.4,
         "winner": "FRAN_SDS"
       },
       {
         "season": 2019,
         "week": 12,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 108.9,
-        "f2_name": "San Diego Shadowcocks",
-        "f2_points": 63.4,
-        "winner": "FRAN_COG"
+        "f1_name": "San Diego Shadowcocks",
+        "f1_points": 63.4,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 108.9,
+        "winner": "FRAN_WSW"
       },
       {
         "season": 2019,
         "week": 1,
         "phase": "regular",
-        "f1_name": "Winston-Salem Wake Snakes",
-        "f1_points": 135.9,
-        "f2_name": "San Diego Shadowcocks",
-        "f2_points": 99.7,
-        "winner": "FRAN_COG"
+        "f1_name": "San Diego Shadowcocks",
+        "f1_points": 99.7,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 135.9,
+        "winner": "FRAN_WSW"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_WWL",
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_DCMC",
+    "total_games": 8,
+    "f1_wins": 2,
+    "f2_wins": 6,
+    "ties": 0,
+    "f1_total_points": 678.0,
+    "f2_total_points": 724.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 80.0,
+        "f2_name": "DC Mighty Cucks",
+        "f2_points": 72.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2018,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 78.0,
+        "f2_name": "DC Mighty Cucks",
+        "f2_points": 79.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2017,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 111.0,
+        "f2_name": "DC Mighty Cucks",
+        "f2_points": 123.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2017,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 73.0,
+        "f2_name": "DC Mighty Cucks",
+        "f2_points": 97.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2016,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 100.0,
+        "f2_name": "Cincinnati Sinners",
+        "f2_points": 65.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2016,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 87.0,
+        "f2_name": "Cincinnati Sinners",
+        "f2_points": 103.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2015,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 68.0,
+        "f2_name": "The Dalles Cowboys",
+        "f2_points": 92.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2015,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 81.0,
+        "f2_name": "The Dalles Cowboys",
+        "f2_points": 93.0,
+        "winner": "FRAN_DCMC"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_WSW",
+    "total_games": 4,
+    "f1_wins": 1,
+    "f2_wins": 3,
+    "ties": 0,
+    "f1_total_points": 299.0,
+    "f2_total_points": 369.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 59.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 88.0,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2018,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 57.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 113.0,
+        "winner": "FRAN_WSW"
+      },
+      {
+        "season": 2017,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 131.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 88.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2017,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 52.0,
+        "f2_name": "Winston-Salem Wake Snakes",
+        "f2_points": 80.0,
+        "winner": "FRAN_WSW"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_HLH",
+    "total_games": 3,
+    "f1_wins": 1,
+    "f2_wins": 2,
+    "ties": 0,
+    "f1_total_points": 231.0,
+    "f2_total_points": 279.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 46.0,
+        "f2_name": "Honolulu Horndogs",
+        "f2_points": 90.0,
+        "winner": "FRAN_HLH"
+      },
+      {
+        "season": 2017,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 111.0,
+        "f2_name": "Honolulu Horndogs",
+        "f2_points": 77.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2015,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 74.0,
+        "f2_name": "Honolulu Horndogs",
+        "f2_points": 112.0,
+        "winner": "FRAN_HLH"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
     "franchise2_id": "FRAN_WWL",
     "total_games": 4,
     "f1_wins": 2,
@@ -10705,7 +10309,7 @@
         "f1_points": 110.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 77.0,
-        "winner": "FRAN_WWL"
+        "winner": "FRAN_CCB"
       },
       {
         "season": 2015,
@@ -10715,12 +10319,490 @@
         "f1_points": 116.0,
         "f2_name": "Warlords of Westeros",
         "f2_points": 66.0,
-        "winner": "FRAN_WWL"
+        "winner": "FRAN_CCB"
       }
     ]
   },
   {
-    "franchise1_id": "FRAN_TJS",
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_CVC",
+    "total_games": 3,
+    "f1_wins": 2,
+    "f2_wins": 1,
+    "ties": 0,
+    "f1_total_points": 308.0,
+    "f2_total_points": 265.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 109.0,
+        "f2_name": "Chula Vista Chupacabras",
+        "f2_points": 101.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2017,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 88.0,
+        "f2_name": "Chula Vista Chupacabras",
+        "f2_points": 92.0,
+        "winner": "FRAN_CVC"
+      },
+      {
+        "season": 2016,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 111.0,
+        "f2_name": "Green Bay Glory Holes",
+        "f2_points": 72.0,
+        "winner": "FRAN_CCB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_TJS",
+    "total_games": 4,
+    "f1_wins": 2,
+    "f2_wins": 2,
+    "ties": 0,
+    "f1_total_points": 330.0,
+    "f2_total_points": 342.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 69.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 103.0,
+        "winner": "FRAN_TJS"
+      },
+      {
+        "season": 2017,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 63.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 85.0,
+        "winner": "FRAN_TJS"
+      },
+      {
+        "season": 2016,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 92.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 66.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2015,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 106.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 88.0,
+        "winner": "FRAN_CCB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_GGG",
+    "total_games": 4,
+    "f1_wins": 3,
+    "f2_wins": 1,
+    "ties": 0,
+    "f1_total_points": 369.0,
+    "f2_total_points": 372.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 97.0,
+        "f2_name": "Goleta Gringos",
+        "f2_points": 76.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2017,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 81.0,
+        "f2_name": "Goleta Gringos",
+        "f2_points": 78.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2016,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 100.0,
+        "f2_name": "Goleta Gringos",
+        "f2_points": 138.0,
+        "winner": "FRAN_GGG"
+      },
+      {
+        "season": 2015,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 91.0,
+        "f2_name": "Goleta Gringos",
+        "f2_points": 80.0,
+        "winner": "FRAN_CCB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_GTF",
+    "total_games": 4,
+    "f1_wins": 2,
+    "f2_wins": 2,
+    "ties": 0,
+    "f1_total_points": 351.0,
+    "f2_total_points": 402.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 83.0,
+        "f2_name": "Tittsburgh Feelers",
+        "f2_points": 130.0,
+        "winner": "FRAN_GTF"
+      },
+      {
+        "season": 2017,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 106.0,
+        "f2_name": "Tittsburgh Feelers",
+        "f2_points": 105.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2016,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 98.0,
+        "f2_name": "Tittsburgh Feelers",
+        "f2_points": 107.0,
+        "winner": "FRAN_GTF"
+      },
+      {
+        "season": 2015,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 64.0,
+        "f2_name": "Tittsburgh Feelers",
+        "f2_points": 60.0,
+        "winner": "FRAN_CCB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_FFC",
+    "total_games": 6,
+    "f1_wins": 1,
+    "f2_wins": 5,
+    "ties": 0,
+    "f1_total_points": 441.0,
+    "f2_total_points": 558.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 64.0,
+        "f2_name": "Fairview Fat Cats",
+        "f2_points": 102.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2017,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 63.0,
+        "f2_name": "Fairview Fat Cats",
+        "f2_points": 66.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2016,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 61.0,
+        "f2_name": "Fairview Fat Cats",
+        "f2_points": 95.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2016,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 95.0,
+        "f2_name": "Fairview Fat Cats",
+        "f2_points": 113.0,
+        "winner": "FRAN_FFC"
+      },
+      {
+        "season": 2015,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 76.0,
+        "f2_name": "Fairview Fat Cats",
+        "f2_points": 73.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2015,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 82.0,
+        "f2_name": "Fairview Fat Cats",
+        "f2_points": 109.0,
+        "winner": "FRAN_FFC"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_MCMD",
+    "total_games": 6,
+    "f1_wins": 2,
+    "f2_wins": 4,
+    "ties": 0,
+    "f1_total_points": 453.0,
+    "f2_total_points": 545.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 64.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 94.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2017,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 53.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 94.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2016,
+        "week": 10,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 79.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 81.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2016,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 108.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 94.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2015,
+        "week": 10,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 54.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 92.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2015,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 95.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 90.0,
+        "winner": "FRAN_CCB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_CCB",
+    "franchise2_id": "FRAN_SVS",
+    "total_games": 6,
+    "f1_wins": 2,
+    "f2_wins": 4,
+    "ties": 0,
+    "f1_total_points": 451.0,
+    "f2_total_points": 454.0,
+    "games": [
+      {
+        "season": 2018,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 70.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 103.0,
+        "winner": "FRAN_SVS"
+      },
+      {
+        "season": 2017,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 59.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 69.0,
+        "winner": "FRAN_SVS"
+      },
+      {
+        "season": 2016,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 79.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 85.0,
+        "winner": "FRAN_SVS"
+      },
+      {
+        "season": 2016,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 113.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 59.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2015,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 70.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 59.0,
+        "winner": "FRAN_CCB"
+      },
+      {
+        "season": 2015,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Charleston Chewbacca",
+        "f1_points": 60.0,
+        "f2_name": "Squaw Valley Skinners",
+        "f2_points": 79.0,
+        "winner": "FRAN_SVS"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_DCMC",
+    "franchise2_id": "FRAN_LOB",
+    "total_games": 2,
+    "f1_wins": 2,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 178.0,
+    "f2_total_points": 151.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Kansas City Missourians",
+        "f1_points": 92.0,
+        "f2_name": "L.O.B. Thunder",
+        "f2_points": 66.0,
+        "winner": "FRAN_DCMC"
+      },
+      {
+        "season": 2014,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Kansas City Missourians",
+        "f1_points": 86.0,
+        "f2_name": "L.O.B. Thunder",
+        "f2_points": 85.0,
+        "winner": "FRAN_DCMC"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_PWP",
+    "franchise2_id": "FRAN_SVS",
+    "total_games": 2,
+    "f1_wins": 2,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 159.0,
+    "f2_total_points": 112.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 13,
+        "phase": "regular",
+        "f1_name": "Pawtucket Patriots",
+        "f1_points": 80.0,
+        "f2_name": "Atlantic City Aquasharks",
+        "f2_points": 60.0,
+        "winner": "FRAN_PWP"
+      },
+      {
+        "season": 2014,
+        "week": 4,
+        "phase": "regular",
+        "f1_name": "Pawtucket Patriots",
+        "f1_points": 79.0,
+        "f2_name": "Atlantic City Aquasharks",
+        "f2_points": 52.0,
+        "winner": "FRAN_PWP"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_LOB",
     "franchise2_id": "FRAN_TJS",
     "total_games": 1,
     "f1_wins": 0,
@@ -10742,34 +10824,360 @@
     ]
   },
   {
-    "franchise1_id": "FRAN_DCMC",
-    "franchise2_id": "FRAN_DCMC",
+    "franchise1_id": "FRAN_MCMD",
+    "franchise2_id": "FRAN_PWP",
     "total_games": 2,
     "f1_wins": 2,
     "f2_wins": 0,
     "ties": 0,
-    "f1_total_points": 199.0,
-    "f2_total_points": 168.0,
+    "f1_total_points": 221.0,
+    "f2_total_points": 163.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 12,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 138.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 105.0,
+        "winner": "FRAN_MCMD"
+      },
+      {
+        "season": 2014,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "Muck City Mad Dawgs",
+        "f1_points": 83.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 58.0,
+        "winner": "FRAN_MCMD"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_PWP",
+    "franchise2_id": "FRAN_WWL",
+    "total_games": 1,
+    "f1_wins": 1,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 51.0,
+    "f2_total_points": 47.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "Pawtucket Patriots",
+        "f1_points": 51.0,
+        "f2_name": "Warlords of Westeros",
+        "f2_points": 47.0,
+        "winner": "FRAN_PWP"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_LOB",
+    "franchise2_id": "FRAN_SVS",
+    "total_games": 2,
+    "f1_wins": 0,
+    "f2_wins": 2,
+    "ties": 0,
+    "f1_total_points": 169.0,
+    "f2_total_points": 199.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 11,
+        "phase": "regular",
+        "f1_name": "L.O.B. Thunder",
+        "f1_points": 72.0,
+        "f2_name": "Atlantic City Aquasharks",
+        "f2_points": 95.0,
+        "winner": "FRAN_SVS"
+      },
+      {
+        "season": 2014,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "L.O.B. Thunder",
+        "f1_points": 97.0,
+        "f2_name": "Atlantic City Aquasharks",
+        "f2_points": 104.0,
+        "winner": "FRAN_SVS"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_LOB",
+    "franchise2_id": "FRAN_MCMD",
+    "total_games": 2,
+    "f1_wins": 2,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 243.0,
+    "f2_total_points": 198.0,
     "games": [
       {
         "season": 2014,
         "week": 10,
         "phase": "regular",
-        "f1_name": "Pawtucket Patriots",
-        "f1_points": 114.0,
-        "f2_name": "Kansas City Missourians",
-        "f2_points": 104.0,
-        "winner": "FRAN_DCMC"
+        "f1_name": "L.O.B. Thunder",
+        "f1_points": 152.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 120.0,
+        "winner": "FRAN_LOB"
       },
       {
         "season": 2014,
         "week": 1,
         "phase": "regular",
+        "f1_name": "L.O.B. Thunder",
+        "f1_points": 91.0,
+        "f2_name": "Muck City Mad Dawgs",
+        "f2_points": 78.0,
+        "winner": "FRAN_LOB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_DCMC",
+    "franchise2_id": "FRAN_PWP",
+    "total_games": 2,
+    "f1_wins": 0,
+    "f2_wins": 2,
+    "ties": 0,
+    "f1_total_points": 168.0,
+    "f2_total_points": 199.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 10,
+        "phase": "regular",
+        "f1_name": "Kansas City Missourians",
+        "f1_points": 104.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 114.0,
+        "winner": "FRAN_PWP"
+      },
+      {
+        "season": 2014,
+        "week": 1,
+        "phase": "regular",
+        "f1_name": "Kansas City Missourians",
+        "f1_points": 64.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 85.0,
+        "winner": "FRAN_PWP"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_LOB",
+    "franchise2_id": "FRAN_PWP",
+    "total_games": 2,
+    "f1_wins": 1,
+    "f2_wins": 1,
+    "ties": 0,
+    "f1_total_points": 207.0,
+    "f2_total_points": 178.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 9,
+        "phase": "regular",
+        "f1_name": "L.O.B. Thunder",
+        "f1_points": 87.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 89.0,
+        "winner": "FRAN_PWP"
+      },
+      {
+        "season": 2014,
+        "week": 5,
+        "phase": "regular",
+        "f1_name": "L.O.B. Thunder",
+        "f1_points": 120.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 89.0,
+        "winner": "FRAN_LOB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_HLH",
+    "franchise2_id": "FRAN_LOB",
+    "total_games": 1,
+    "f1_wins": 1,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 115.0,
+    "f2_total_points": 94.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 8,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 115.0,
+        "f2_name": "L.O.B. Thunder",
+        "f2_points": 94.0,
+        "winner": "FRAN_HLH"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_PWP",
+    "franchise2_id": "FRAN_TJS",
+    "total_games": 1,
+    "f1_wins": 1,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 109.0,
+    "f2_total_points": 86.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 8,
+        "phase": "regular",
         "f1_name": "Pawtucket Patriots",
-        "f1_points": 85.0,
-        "f2_name": "Kansas City Missourians",
-        "f2_points": 64.0,
-        "winner": "FRAN_DCMC"
+        "f1_points": 109.0,
+        "f2_name": "Tijuana Sanchitos",
+        "f2_points": 86.0,
+        "winner": "FRAN_PWP"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_GGG",
+    "franchise2_id": "FRAN_LOB",
+    "total_games": 1,
+    "f1_wins": 0,
+    "f2_wins": 1,
+    "ties": 0,
+    "f1_total_points": 78.0,
+    "f2_total_points": 87.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 78.0,
+        "f2_name": "L.O.B. Thunder",
+        "f2_points": 87.0,
+        "winner": "FRAN_LOB"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_HLH",
+    "franchise2_id": "FRAN_PWP",
+    "total_games": 1,
+    "f1_wins": 1,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 99.0,
+    "f2_total_points": 73.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 7,
+        "phase": "regular",
+        "f1_name": "Honolulu Horndogs",
+        "f1_points": 99.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 73.0,
+        "winner": "FRAN_HLH"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_GTF",
+    "franchise2_id": "FRAN_LOB",
+    "total_games": 1,
+    "f1_wins": 1,
+    "f2_wins": 0,
+    "ties": 0,
+    "f1_total_points": 106.0,
+    "f2_total_points": 82.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 106.0,
+        "f2_name": "L.O.B. Thunder",
+        "f2_points": 82.0,
+        "winner": "FRAN_GTF"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_GGG",
+    "franchise2_id": "FRAN_PWP",
+    "total_games": 1,
+    "f1_wins": 0,
+    "f2_wins": 1,
+    "ties": 0,
+    "f1_total_points": 68.0,
+    "f2_total_points": 93.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 6,
+        "phase": "regular",
+        "f1_name": "Goleta Gringos",
+        "f1_points": 68.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 93.0,
+        "winner": "FRAN_PWP"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_LOB",
+    "franchise2_id": "FRAN_WWL",
+    "total_games": 1,
+    "f1_wins": 0,
+    "f2_wins": 1,
+    "ties": 0,
+    "f1_total_points": 46.0,
+    "f2_total_points": 105.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 3,
+        "phase": "regular",
+        "f1_name": "L.O.B. Thunder",
+        "f1_points": 46.0,
+        "f2_name": "Warlords of Westeros",
+        "f2_points": 105.0,
+        "winner": "FRAN_WWL"
+      }
+    ]
+  },
+  {
+    "franchise1_id": "FRAN_GTF",
+    "franchise2_id": "FRAN_PWP",
+    "total_games": 1,
+    "f1_wins": 0,
+    "f2_wins": 1,
+    "ties": 0,
+    "f1_total_points": 67.0,
+    "f2_total_points": 69.0,
+    "games": [
+      {
+        "season": 2014,
+        "week": 2,
+        "phase": "regular",
+        "f1_name": "Tittsburgh Feelers",
+        "f1_points": 67.0,
+        "f2_name": "Pawtucket Patriots",
+        "f2_points": 69.0,
+        "winner": "FRAN_PWP"
       }
     ]
   }
