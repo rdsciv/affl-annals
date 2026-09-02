@@ -54,7 +54,7 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  const isAnalyticsActive = pathname.startsWith("/luck") || pathname.startsWith("/points") || pathname.startsWith("/records/roto");
+  const isAnalyticsActive = pathname.startsWith("/stats") || pathname.startsWith("/luck") || pathname.startsWith("/points") || pathname.startsWith("/records/roto");
   const isAnnalsActive = pathname.startsWith("/seasons") || (pathname.startsWith("/records") && !pathname.startsWith("/records/roto")) || pathname.startsWith("/drafts") || pathname.startsWith("/trades");
 
   return (
@@ -112,6 +112,17 @@ export default function Navbar() {
 
             {analyticsOpen && (
               <div className="absolute left-0 mt-2 w-64 rounded-xl border border-rule-bright bg-card/95 p-2 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 space-y-1">
+                <Link
+                  href="/stats"
+                  className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
+                >
+                  <Flame className="h-4 w-4 text-brand-orange mt-0.5 shrink-0" />
+                  <div>
+                    <div className="font-semibold text-ink group-hover:text-brand-orange text-xs">Franchise Stat Tracker</div>
+                    <p className="text-[10px] text-ink-dim leading-tight">Annual passing, rushing & receiving advanced metrics</p>
+                  </div>
+                </Link>
+
                 <Link
                   href="/luck"
                   className="flex items-start gap-2.5 rounded-lg p-2.5 hover:bg-card-elevated transition-colors group"
@@ -283,6 +294,10 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-b border-rule bg-card px-4 py-4 space-y-4">
           <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+            <Link href="/stats" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
+              <Flame className="h-4 w-4 text-brand-orange" />
+              <span>Stat Tracker</span>
+            </Link>
             <Link href="/explore" className="p-3 rounded-lg bg-card-elevated border border-rule text-ink flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-brand-blue" />
               <span>Explore</span>

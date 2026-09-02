@@ -316,6 +316,13 @@ export default function FranchiseClientContent({
                 }`}>
                   {franchise.is_active ? "Active 2026 Field" : "Historical Alumni"}
                 </span>
+                <Link
+                  href="/stats"
+                  className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-brand-orange/10 text-brand-orange border border-brand-orange/20 hover:bg-brand-orange/20 transition-colors flex items-center gap-1"
+                >
+                  <Flame className="h-3 w-3" />
+                  <span>Annual Stat Tracker →</span>
+                </Link>
               </div>
             </div>
           </div>

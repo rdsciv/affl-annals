@@ -62,6 +62,11 @@
       "json": "mart_affl_points_acquisition.json",
       "rows": 16,
       "md5": "46de3df12f238cde9c0d13d95bede7e3"
+    },
+    "mart_affl_franchise_stats": {
+      "json": "mart_affl_franchise_stats.json",
+      "rows": 16,
+      "md5": "1fd9d004235181dce23b024687bc713f"
     }
   }
 }

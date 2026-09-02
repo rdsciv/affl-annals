@@ -1059,6 +1059,400 @@ def build_all_marts():
     }
     print(f"Built mart_affl_points_acquisition: {len(all_time_acq)} franchises")
 
+    # ==========================================
+    # 10. MART: mart_affl_franchise_stats (Annual Passing, Rushing, Receiving & SumerSports/nflverse Analytics)
+    # ==========================================
+    print("Building mart_affl_franchise_stats with nflverse & SumerSports analytics...")
+    q_roster = """
+        SELECT 
+            rw.season,
+            rw.week,
+            m.owner_id,
+            rw.player_id,
+            p.gsis_id,
+            p.name as player_name,
+            p.position,
+            rw.started,
+            rw.points as fantasy_points
+        FROM fact_roster_week rw
+        JOIN dim_player p ON rw.player_id = p.player_id
+        JOIN dim_team t ON rw.season = t.season AND rw.team_id = t.team_id
+        JOIN dim_member m ON t.member_id = m.member_id
+        WHERE rw.season >= 2018 AND p.gsis_id IS NOT NULL AND p.gsis_id != ''
+    """
+    df_roster = pd.read_sql_query(q_roster, conn)
+
+    pbp_list = []
+    for yr in range(2018, 2026):
+        p = RAW_NFL_DIR / "pbp" / f"play_by_play_{yr}.parquet"
+        if p.exists():
+            df = pd.read_parquet(p, columns=[
+                'season', 'week', 'pass_attempt', 'complete_pass', 'passing_yards', 'pass_touchdown',
+                'interception', 'air_yards', 'epa', 'cpoe', 'success', 'passer_player_id',
+                'rush_attempt', 'rushing_yards', 'rush_touchdown', 'rusher_player_id',
+                'receiver_player_id', 'receiving_yards', 'yards_after_catch', 'first_down'
+            ])
+            pbp_list.append(df)
+    
+    if pbp_list:
+        df_all_pbp = pd.concat(pbp_list, ignore_index=True)
+
+        # Weekly passing stats
+        pass_plays = df_all_pbp[df_all_pbp['pass_attempt'] == 1].dropna(subset=['passer_player_id'])
+        p_pass = pass_plays.groupby(['season', 'week', 'passer_player_id']).agg(
+            completions=('complete_pass', 'sum'),
+            attempts=('pass_attempt', 'sum'),
+            passing_yards=('passing_yards', 'sum'),
+            passing_tds=('pass_touchdown', 'sum'),
+            interceptions=('interception', 'sum'),
+            passing_air_yards=('air_yards', 'sum'),
+            passing_epa=('epa', 'sum'),
+            cpoe_sum=('cpoe', 'sum'),
+            cpoe_count=('cpoe', 'count'),
+            pass_success_count=('success', 'sum'),
+            pass_first_downs=('first_down', 'sum')
+        ).reset_index().rename(columns={'passer_player_id': 'gsis_id'})
+
+        # Weekly rushing stats
+        rush_plays = df_all_pbp[df_all_pbp['rush_attempt'] == 1].dropna(subset=['rusher_player_id'])
+        p_rush = rush_plays.groupby(['season', 'week', 'rusher_player_id']).agg(
+            carries=('rush_attempt', 'sum'),
+            rushing_yards=('rushing_yards', 'sum'),
+            rushing_tds=('rush_touchdown', 'sum'),
+            rushing_epa=('epa', 'sum'),
+            rush_success_count=('success', 'sum'),
+            rush_stuff_count=('rushing_yards', lambda x: (x <= 0).sum()),
+            rush_explosive_count=('rushing_yards', lambda x: (x >= 10).sum()),
+            rush_first_downs=('first_down', 'sum')
+        ).reset_index().rename(columns={'rusher_player_id': 'gsis_id'})
+
+        # Weekly receiving stats
+        rec_plays = df_all_pbp[(df_all_pbp['pass_attempt'] == 1) & (df_all_pbp['receiver_player_id'].notna())]
+        p_rec = rec_plays.groupby(['season', 'week', 'receiver_player_id']).agg(
+            targets=('pass_attempt', 'sum'),
+            receptions=('complete_pass', 'sum'),
+            receiving_yards=('receiving_yards', 'sum'),
+            receiving_tds=('pass_touchdown', 'sum'),
+            receiving_air_yards=('air_yards', 'sum'),
+            receiving_yac=('yards_after_catch', 'sum'),
+            receiving_epa=('epa', 'sum'),
+            rec_success_count=('success', 'sum'),
+            rec_first_downs=('first_down', 'sum')
+        ).reset_index().rename(columns={'receiver_player_id': 'gsis_id'})
+
+        def safe_div(n, d, default=0.0):
+            return float(n / d) if d and d != 0 and not pd.isna(d) and not pd.isna(n) else default
+
+        def process_scope(df_scoped):
+            m_pass = df_scoped.merge(p_pass, on=['season', 'week', 'gsis_id'], how='inner')
+            m_rush = df_scoped.merge(p_rush, on=['season', 'week', 'gsis_id'], how='inner')
+            m_rec = df_scoped.merge(p_rec, on=['season', 'week', 'gsis_id'], how='inner')
+
+            df_gp = df_scoped.groupby(['season', 'owner_id']).agg(
+                games=('week', 'nunique'),
+                fantasy_points=('fantasy_points', 'sum')
+            ).reset_index()
+
+            by_season = {}
+            all_seasons = sorted(df_scoped['season'].unique())
+
+            for s in all_seasons:
+                season_rows = []
+                s_pass = m_pass[m_pass['season'] == s]
+                s_rush = m_rush[m_rush['season'] == s]
+                s_rec = m_rec[m_rec['season'] == s]
+                s_gp = df_gp[df_gp['season'] == s].set_index('owner_id')
+
+                all_owners = set(s_pass['owner_id']).union(s_rush['owner_id']).union(s_rec['owner_id'])
+                for oid in all_owners:
+                    meta = get_franchise_meta(oid)
+                    op = s_pass[s_pass['owner_id'] == oid]
+                    cmp = float(op['completions'].sum())
+                    att = float(op['attempts'].sum())
+                    p_yds = float(op['passing_yards'].sum())
+                    p_tds = float(op['passing_tds'].sum())
+                    p_int = float(op['interceptions'].sum())
+                    p_air = float(op['passing_air_yards'].sum())
+                    p_epa = float(op['passing_epa'].sum())
+                    cpoe_sum = float(op['cpoe_sum'].sum())
+                    cpoe_cnt = float(op['cpoe_count'].sum())
+                    p_succ = float(op['pass_success_count'].sum())
+                    p_fd = float(op['pass_first_downs'].sum())
+
+                    oru = s_rush[s_rush['owner_id'] == oid]
+                    car = float(oru['carries'].sum())
+                    r_yds = float(oru['rushing_yards'].sum())
+                    r_tds = float(oru['rushing_tds'].sum())
+                    r_epa = float(oru['rushing_epa'].sum())
+                    r_succ = float(oru['rush_success_count'].sum())
+                    r_stuff = float(oru['rush_stuff_count'].sum())
+                    r_exp = float(oru['rush_explosive_count'].sum())
+                    r_fd = float(oru['rush_first_downs'].sum())
+
+                    ore = s_rec[s_rec['owner_id'] == oid]
+                    tgt = float(ore['targets'].sum())
+                    rec = float(ore['receptions'].sum())
+                    re_yds = float(ore['receiving_yards'].sum())
+                    re_tds = float(ore['receiving_tds'].sum())
+                    re_air = float(ore['receiving_air_yards'].sum())
+                    re_yac = float(ore['receiving_yac'].sum())
+                    re_epa = float(ore['receiving_epa'].sum())
+                    re_succ = float(ore['rec_success_count'].sum())
+                    re_fd = float(ore['rec_first_downs'].sum())
+
+                    gp_info = s_gp.loc[oid] if oid in s_gp.index else None
+                    games = int(gp_info['games']) if gp_info is not None else 1
+                    fp = float(gp_info['fantasy_points']) if gp_info is not None else 0.0
+
+                    top_passers = []
+                    if not op.empty:
+                        tp = op.groupby('player_name').agg(
+                            yards=('passing_yards', 'sum'),
+                            tds=('passing_tds', 'sum'),
+                            epa=('passing_epa', 'sum')
+                        ).reset_index().sort_values('yards', ascending=False).head(3)
+                        top_passers = [
+                            {'name': r['player_name'], 'yards': round(r['yards'], 1), 'tds': int(r['tds']), 'epa': round(r['epa'], 2)}
+                            for _, r in tp.iterrows()
+                        ]
+
+                    top_rushers = []
+                    if not oru.empty:
+                        tru = oru.groupby('player_name').agg(
+                            yards=('rushing_yards', 'sum'),
+                            tds=('rushing_tds', 'sum'),
+                            epa=('rushing_epa', 'sum')
+                        ).reset_index().sort_values('yards', ascending=False).head(3)
+                        top_rushers = [
+                            {'name': r['player_name'], 'yards': round(r['yards'], 1), 'tds': int(r['tds']), 'epa': round(r['epa'], 2)}
+                            for _, r in tru.iterrows()
+                        ]
+
+                    top_receivers = []
+                    if not ore.empty:
+                        tre = ore.groupby('player_name').agg(
+                            yards=('receiving_yards', 'sum'),
+                            tds=('receiving_tds', 'sum'),
+                            epa=('receiving_epa', 'sum')
+                        ).reset_index().sort_values('yards', ascending=False).head(3)
+                        top_receivers = [
+                            {'name': r['player_name'], 'yards': round(r['yards'], 1), 'tds': int(r['tds']), 'epa': round(r['epa'], 2)}
+                            for _, r in tre.iterrows()
+                        ]
+
+                    scrim_touches = car + rec
+                    scrim_yds = r_yds + re_yds
+                    tot_tds = p_tds + r_tds + re_tds
+                    tot_epa = p_epa + r_epa + re_epa
+
+                    season_rows.append({
+                        'season': int(s),
+                        'franchise_id': meta[0],
+                        'franchise_name': meta[1],
+                        'owner_display_name': meta[2],
+                        'primary_color': meta[3],
+                        'logo_path': meta[4],
+                        'games': games,
+                        'fantasy_points': round(fp, 1),
+                        # Passing
+                        'completions': int(cmp),
+                        'attempts': int(att),
+                        'cmp_pct': round(safe_div(cmp * 100, att), 1),
+                        'passing_yards': round(p_yds, 1),
+                        'ypa': round(safe_div(p_yds, att), 2),
+                        'passing_tds': int(p_tds),
+                        'interceptions': int(p_int),
+                        'passing_air_yards': round(p_air, 1),
+                        'adot': round(safe_div(p_air, att), 2),
+                        'pacr': round(safe_div(p_yds, p_air), 2),
+                        'passing_epa': round(p_epa, 2),
+                        'pass_epa_per_att': round(safe_div(p_epa, att), 3),
+                        'cpoe': round(safe_div(cpoe_sum, cpoe_cnt), 2),
+                        'passing_success_rate': round(safe_div(p_succ * 100, att), 1),
+                        'passing_first_downs': int(p_fd),
+                        # Rushing
+                        'carries': int(car),
+                        'rushing_yards': round(r_yds, 1),
+                        'ypc': round(safe_div(r_yds, car), 2),
+                        'rushing_tds': int(r_tds),
+                        'rushing_epa': round(r_epa, 2),
+                        'rush_epa_per_car': round(safe_div(r_epa, car), 3),
+                        'rushing_success_rate': round(safe_div(r_succ * 100, car), 1),
+                        'rush_stuff_rate': round(safe_div(r_stuff * 100, car), 1),
+                        'rush_explosive_rate': round(safe_div(r_exp * 100, car), 1),
+                        'rushing_first_downs': int(r_fd),
+                        # Receiving
+                        'targets': int(tgt),
+                        'receptions': int(rec),
+                        'catch_pct': round(safe_div(rec * 100, tgt), 1),
+                        'receiving_yards': round(re_yds, 1),
+                        'ypr': round(safe_div(re_yds, rec), 2),
+                        'ypt': round(safe_div(re_yds, tgt), 2),
+                        'receiving_tds': int(re_tds),
+                        'receiving_air_yards': round(re_air, 1),
+                        'receiving_yac': round(re_yac, 1),
+                        'yac_pct': round(safe_div(re_yac * 100, re_yds), 1),
+                        'receiving_epa': round(re_epa, 2),
+                        'rec_epa_per_tgt': round(safe_div(re_epa, tgt), 3),
+                        'receiving_success_rate': round(safe_div(re_succ * 100, tgt), 1),
+                        'racr': round(safe_div(re_yds, re_air), 2),
+                        'receiving_first_downs': int(re_fd),
+                        # Overall
+                        'scrimmage_touches': int(scrim_touches),
+                        'scrimmage_yards': round(scrim_yds, 1),
+                        'total_tds': int(tot_tds),
+                        'total_epa': round(tot_epa, 2),
+                        'epa_per_game': round(safe_div(tot_epa, games), 2),
+                        'scrimmage_yds_per_game': round(safe_div(scrim_yds, games), 1),
+                        # Contributors
+                        'top_passers': top_passers,
+                        'top_rushers': top_rushers,
+                        'top_receivers': top_receivers,
+                    })
+
+                df_s_rows = pd.DataFrame(season_rows)
+                rank_cols = [
+                    ('total_epa', 'total_epa_rank', False),
+                    ('scrimmage_yards', 'scrimmage_yards_rank', False),
+                    ('passing_yards', 'pass_yds_rank', False),
+                    ('passing_epa', 'pass_epa_rank', False),
+                    ('rushing_yards', 'rush_yds_rank', False),
+                    ('rushing_epa', 'rush_epa_rank', False),
+                    ('receiving_yards', 'rec_yds_rank', False),
+                    ('receiving_epa', 'rec_epa_rank', False),
+                ]
+                for col, rcol, asc in rank_cols:
+                    df_s_rows[rcol] = df_s_rows[col].rank(ascending=asc, method='min').astype(int)
+
+                by_season[str(s)] = df_s_rows.sort_values('total_epa', ascending=False).to_dict(orient='records')
+
+            all_time_rows = []
+            for fid, grp in pd.concat([pd.DataFrame(rows) for rows in by_season.values()]).groupby('franchise_id'):
+                meta = next((v for v in OWNER_FRANCHISE_MAP.values() if v[0] == fid), ('FRAN_UNKNOWN', fid, 'Unknown', '#5b87ac', '/logos/squaw-valley-skinners.jpg'))
+                seasons_count = len(grp)
+                tot_games = int(grp['games'].sum())
+                cmp = int(grp['completions'].sum())
+                att = int(grp['attempts'].sum())
+                p_yds = float(grp['passing_yards'].sum())
+                p_tds = int(grp['passing_tds'].sum())
+                p_int = int(grp['interceptions'].sum())
+                p_air = float(grp['passing_air_yards'].sum())
+                p_epa = float(grp['passing_epa'].sum())
+                p_fd = int(grp['passing_first_downs'].sum())
+
+                car = int(grp['carries'].sum())
+                r_yds = float(grp['rushing_yards'].sum())
+                r_tds = int(grp['rushing_tds'].sum())
+                r_epa = float(grp['rushing_epa'].sum())
+                r_fd = int(grp['rushing_first_downs'].sum())
+
+                tgt = int(grp['targets'].sum())
+                rec = int(grp['receptions'].sum())
+                re_yds = float(grp['receiving_yards'].sum())
+                re_tds = int(grp['receiving_tds'].sum())
+                re_air = float(grp['receiving_air_yards'].sum())
+                re_yac = float(grp['receiving_yac'].sum())
+                re_epa = float(grp['receiving_epa'].sum())
+                re_fd = int(grp['receiving_first_downs'].sum())
+
+                fp = float(grp['fantasy_points'].sum())
+                scrim_touches = car + rec
+                scrim_yds = r_yds + re_yds
+                tot_tds = p_tds + r_tds + re_tds
+                tot_epa = p_epa + r_epa + re_epa
+
+                cpoe_w = safe_div((grp['cpoe'] * grp['attempts']).sum(), att)
+                pass_succ_w = safe_div((grp['passing_success_rate'] * grp['attempts']).sum(), att)
+                rush_succ_w = safe_div((grp['rushing_success_rate'] * grp['carries']).sum(), car)
+                rush_stuff_w = safe_div((grp['rush_stuff_rate'] * grp['carries']).sum(), car)
+                rush_exp_w = safe_div((grp['rush_explosive_rate'] * grp['carries']).sum(), car)
+                rec_succ_w = safe_div((grp['receiving_success_rate'] * grp['targets']).sum(), tgt)
+
+                all_time_rows.append({
+                    'franchise_id': fid,
+                    'franchise_name': meta[1],
+                    'owner_display_name': meta[2],
+                    'primary_color': meta[3],
+                    'logo_path': meta[4],
+                    'seasons': seasons_count,
+                    'games': tot_games,
+                    'fantasy_points': round(fp, 1),
+                    'completions': cmp,
+                    'attempts': att,
+                    'cmp_pct': round(safe_div(cmp * 100, att), 1),
+                    'passing_yards': round(p_yds, 1),
+                    'ypa': round(safe_div(p_yds, att), 2),
+                    'passing_tds': p_tds,
+                    'interceptions': p_int,
+                    'passing_air_yards': round(p_air, 1),
+                    'adot': round(safe_div(p_air, att), 2),
+                    'pacr': round(safe_div(p_yds, p_air), 2),
+                    'passing_epa': round(p_epa, 2),
+                    'pass_epa_per_att': round(safe_div(p_epa, att), 3),
+                    'cpoe': round(cpoe_w, 2),
+                    'passing_success_rate': round(pass_succ_w, 1),
+                    'passing_first_downs': p_fd,
+                    'carries': car,
+                    'rushing_yards': round(r_yds, 1),
+                    'ypc': round(safe_div(r_yds, car), 2),
+                    'rushing_tds': r_tds,
+                    'rushing_epa': round(r_epa, 2),
+                    'rush_epa_per_car': round(safe_div(r_epa, car), 3),
+                    'rushing_success_rate': round(rush_succ_w, 1),
+                    'rush_stuff_rate': round(rush_stuff_w, 1),
+                    'rush_explosive_rate': round(rush_exp_w, 1),
+                    'rushing_first_downs': r_fd,
+                    'targets': tgt,
+                    'receptions': rec,
+                    'catch_pct': round(safe_div(rec * 100, tgt), 1),
+                    'receiving_yards': round(re_yds, 1),
+                    'ypr': round(safe_div(re_yds, rec), 2),
+                    'ypt': round(safe_div(re_yds, tgt), 2),
+                    'receiving_tds': re_tds,
+                    'receiving_air_yards': round(re_air, 1),
+                    'receiving_yac': round(re_yac, 1),
+                    'yac_pct': round(safe_div(re_yac * 100, re_yds), 1),
+                    'receiving_epa': round(re_epa, 2),
+                    'rec_epa_per_tgt': round(safe_div(re_epa, tgt), 3),
+                    'receiving_success_rate': round(rec_succ_w, 1),
+                    'racr': round(safe_div(re_yds, re_air), 2),
+                    'receiving_first_downs': re_fd,
+                    'scrimmage_touches': scrim_touches,
+                    'scrimmage_yards': round(scrim_yds, 1),
+                    'total_tds': tot_tds,
+                    'total_epa': round(tot_epa, 2),
+                    'epa_per_game': round(safe_div(tot_epa, tot_games), 2),
+                    'scrimmage_yds_per_game': round(safe_div(scrim_yds, tot_games), 1),
+                })
+
+            df_at = pd.DataFrame(all_time_rows)
+            for col, rcol, asc in rank_cols:
+                df_at[rcol] = df_at[col].rank(ascending=asc, method='min').astype(int)
+            all_time_sorted = df_at.sort_values('total_epa', ascending=False).to_dict(orient='records')
+
+            return by_season, all_time_sorted
+
+        starters_by_season, starters_all_time = process_scope(df_roster[df_roster['started'] == 1])
+        full_by_season, full_all_time = process_scope(df_roster)
+
+        stats_mart = {
+            'seasons': sorted(list(starters_by_season.keys()), reverse=True),
+            'starters_by_season': starters_by_season,
+            'starters_all_time': starters_all_time,
+            'full_roster_by_season': full_by_season,
+            'full_roster_all_time': full_all_time,
+        }
+        stats_json = MARTS_DIR / "mart_affl_franchise_stats.json"
+        with open(stats_json, "w") as f:
+            json.dump(stats_mart, f, indent=2)
+
+        manifest["marts"]["mart_affl_franchise_stats"] = {
+            "json": "mart_affl_franchise_stats.json",
+            "rows": len(starters_all_time),
+            "md5": compute_md5(stats_json)
+        }
+        print(f"Built mart_affl_franchise_stats: {len(starters_all_time)} franchises across {len(stats_mart['seasons'])} seasons")
+
     # Save manifest.json
     with open(MARTS_DIR / "manifest.json", "w") as f:
         json.dump(manifest, f, indent=2)
