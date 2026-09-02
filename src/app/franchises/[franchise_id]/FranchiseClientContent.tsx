@@ -12,7 +12,12 @@ import {
   TrendingUp,
   Award,
   Layers,
-  BarChart2
+  BarChart2,
+  Swords,
+  ChevronRight,
+  Flame,
+  CheckCircle2,
+  Loader2
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -22,7 +27,6 @@ import {
   YAxis,
   Tooltip,
   Legend,
-  ReferenceLine,
 } from "recharts";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
@@ -47,12 +51,112 @@ export default function FranchiseClientContent({
   };
 
   const [seasons, setSeasons] = useState<any[]>([]);
+  const [h2hRecords, setH2hRecords] = useState<any[]>([]);
+  const [topCustodians, setTopCustodians] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [seasonSort, setSeasonSort] = useState<{ key: string; dir: "asc" | "desc" }>({
     key: "season",
     dir: "desc"
   });
+
+  // Load Franchise Data from Marts
+  useEffect(() => {
+    async function loadFranchiseData() {
+      try {
+        setLoading(true);
+        // 1. Fetch seasons
+        const allSeasons = await fetchMartJson("mart_affl_franchise_season.json");
+        const matchingSeasons = (allSeasons || []).filter((s: any) => s.franchise_id === fid);
+        setSeasons(matchingSeasons);
+
+        // 2. Fetch H2H Rivalries
+        try {
+          const allH2h = await fetchMartJson("mart_affl_head_to_head.json");
+          const myH2h = (allH2h || [])
+            .filter((h: any) => h.franchise1_id === fid || h.franchise2_id === fid)
+            .map((h: any) => {
+              const isF1 = h.franchise1_id === fid;
+              const oppId = isF1 ? h.franchise2_id : h.franchise1_id;
+              const oppFranchise = CANONICAL_FRANCHISES.find((f) => f.franchise_id === oppId);
+              const wins = isF1 ? h.f1_wins : h.f2_wins;
+              const losses = isF1 ? h.f2_wins : h.f1_wins;
+              const pf = isF1 ? h.f1_total_points : h.f2_total_points;
+              const pa = isF1 ? h.f2_total_points : h.f1_total_points;
+              const winPct = h.total_games > 0 ? (wins / h.total_games * 100).toFixed(1) : "0.0";
+
+              return {
+                oppId,
+                oppName: oppFranchise?.display_name || oppId.replace("FRAN_", "").replace("_", " "),
+                oppColor: oppFranchise?.primary_color || "#94a3b8",
+                totalGames: h.total_games,
+                wins,
+                losses,
+                ties: h.ties || 0,
+                winPct,
+                pf: pf || 0,
+                pa: pa || 0,
+              };
+            })
+            .sort((a: any, b: any) => b.totalGames - a.totalGames);
+          setH2hRecords(myH2h);
+        } catch (err) {
+          console.error("Error loading H2H records:", err);
+        }
+
+        // 3. Fetch Top Player Custodians
+        try {
+          const allCustody = await fetchMartJson("mart_affl_player_season_custody.json");
+          const myCustody = (allCustody || []).filter((c: any) => c.franchise_id === fid);
+          
+          // Group by player
+          const playerMap = new Map<string, any>();
+          for (const c of myCustody) {
+            const key = c.gsis_id || c.player_name;
+            if (!playerMap.has(key)) {
+              playerMap.set(key, {
+                gsis_id: c.gsis_id,
+                player_name: c.player_name,
+                position: c.position,
+                headshot_url: c.headshot_url,
+                total_points: 0,
+                weeks_started: 0,
+                seasons: new Set(),
+                custody_par: 0,
+              });
+            }
+            const p = playerMap.get(key);
+            p.total_points += Number(c.affl_points || 0);
+            p.weeks_started += Number(c.weeks_started || 0);
+            p.custody_par += Number(c.custody_par || 0);
+            p.seasons.add(c.season);
+          }
+
+          const sortedPlayers = Array.from(playerMap.values())
+            .map((p) => {
+              const sArr = Array.from(p.seasons) as number[];
+              return {
+                ...p,
+                season_count: p.seasons.size,
+                season_span: sArr.length > 0 ? `${Math.min(...sArr)}-${Math.max(...sArr)}` : "—"
+              };
+            })
+            .sort((a, b) => b.total_points - a.total_points)
+            .slice(0, 10);
+
+          setTopCustodians(sortedPlayers);
+        } catch (err) {
+          console.error("Error loading custody records:", err);
+        }
+
+      } catch (err) {
+        console.error("Error loading franchise season data:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadFranchiseData();
+  }, [fid]);
 
   const sortedSeasons = useMemo(() => {
     return [...seasons].sort((a, b) => {
@@ -65,6 +169,9 @@ export default function FranchiseClientContent({
       if (typeof valA === "string") {
         valA = valA.toLowerCase();
         valB = (valB || "").toLowerCase();
+      } else {
+        valA = Number(valA || 0);
+        valB = Number(valB || 0);
       }
       if (valA < valB) return seasonSort.dir === "asc" ? -1 : 1;
       if (valA > valB) return seasonSort.dir === "asc" ? 1 : -1;
@@ -113,8 +220,11 @@ export default function FranchiseClientContent({
   const titlesCount = seasons.filter((s) => s.is_champion === 1 || s.final_rank === 1).length;
   const winPct = (totalWins + totalLosses) > 0 ? (totalWins / (totalWins + totalLosses) * 100).toFixed(1) : "0.0";
 
+  // Distinct Historical Names
+  const historicalNamesList = Array.from(new Set(seasons.map((s) => s.historical_name).filter(Boolean)));
+
   // Chronological season progression data for Recharts
-  const progressionData = [...seasons].reverse().map((s) => ({
+  const progressionData = [...seasons].sort((a, b) => a.season - b.season).map((s) => ({
     season: s.season.toString(),
     historical_name: s.historical_name,
     points_for: Number(s.points_for || 0),
@@ -127,11 +237,11 @@ export default function FranchiseClientContent({
     if (active && payload && payload.length) {
       const d = payload[0].payload;
       return (
-        <div className="rounded-lg border border-rule-bright bg-card-elevated p-3 shadow-xl text-xs font-mono space-y-1.5">
+        <div className="rounded-lg border border-rule-bright bg-card p-3 shadow-xl text-xs font-mono space-y-1.5">
           <div className="font-bold text-ink flex items-center justify-between gap-2">
             <span>{d.season} Season</span>
             {d.is_champion && (
-              <span className="text-amber-400 font-bold flex items-center gap-0.5 text-[10px]">
+              <span className="text-brand-yellow font-bold flex items-center gap-0.5 text-[10px]">
                 <Trophy className="h-3 w-3" /> Champion
               </span>
             )}
@@ -150,6 +260,15 @@ export default function FranchiseClientContent({
     }
     return null;
   };
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-24 text-center space-y-3">
+        <Loader2 className="h-8 w-8 animate-spin text-brand-blue mx-auto" />
+        <p className="text-xs font-mono text-ink-dim">Loading {franchise.display_name} canonical ledger...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -192,14 +311,18 @@ export default function FranchiseClientContent({
                 )}
               </div>
               <p className="text-xs font-mono text-ink-dim">
-                Permanent Identity: {franchise.franchise_id} • Primary Owner: {franchise.owner_display_name}
+                Identity: <strong className="text-ink-muted">{franchise.franchise_id}</strong> • Owner: <strong className="text-ink">{franchise.owner_display_name}</strong>
               </p>
-              <div className="flex items-center gap-2 pt-1">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-card-elevated text-ink-muted border border-rule">
-                  {seasons.length} Seasons ({franchise.first_season}–{franchise.last_season})
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-card-elevated text-ink-muted border border-rule">
+                  {seasons.length > 0 ? `${seasons.length} Completed Eras (${Math.min(...seasons.map((s: any) => Number(s.season)))}–${Math.max(...seasons.map((s: any) => Number(s.season)))})` : "2026 Expansion · 0 Completed Eras"}
                 </span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-brand-blue/10 text-brand-blue border border-brand-blue/20">
-                  {franchise.is_active ? "Active Club" : "Alumni Franchise"}
+                <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded border ${
+                  franchise.is_active 
+                    ? "bg-brand-blue/10 text-brand-blue border-brand-blue/20" 
+                    : "bg-ink-dim/10 text-ink-dim border-rule"
+                }`}>
+                  {franchise.is_active ? "Active 2026 Field" : "Historical Alumni"}
                 </span>
               </div>
             </div>
@@ -231,6 +354,23 @@ export default function FranchiseClientContent({
             </div>
           </div>
         </div>
+
+        {/* Alias Evolution Banner */}
+        {historicalNamesList.length > 1 && (
+          <div className="mt-6 pt-4 border-t border-rule flex items-center gap-2 text-xs font-mono">
+            <span className="text-ink-dim uppercase text-[10px] shrink-0 font-bold">Lineage Evolution:</span>
+            <div className="flex flex-wrap items-center gap-1.5 text-ink-muted">
+              {historicalNamesList.map((name, i) => (
+                <span key={name} className="flex items-center gap-1.5">
+                  <span className="px-2 py-0.5 rounded bg-card-elevated border border-rule text-ink font-semibold">
+                    {name}
+                  </span>
+                  {i < historicalNamesList.length - 1 && <span className="text-brand-blue">→</span>}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Season-by-Season Production Progression Recharts Chart */}
@@ -240,7 +380,7 @@ export default function FranchiseClientContent({
             <div>
               <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-brand-blue" />
-                <span>Historical Production & Point Differential Trajectory</span>
+                <span>Historical Production & Point Trajectory</span>
               </h2>
               <p className="text-xs text-ink-dim mt-0.5">
                 Season-by-season standard non-PPR scoring vs points allowed across all AFFL eras.
@@ -306,7 +446,7 @@ export default function FranchiseClientContent({
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-brand-blue" />
             <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
-              Historical Season Ledger (Historical Names & Results)
+              Historical Season Ledger ({seasons.length} Eras)
             </h2>
           </div>
         </div>
@@ -368,6 +508,90 @@ export default function FranchiseClientContent({
             </table>
           </div>
         </div>
+      </div>
+
+      {/* Grid: Top Franchise Custodians + H2H Rivalries */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        {/* Top All-Time Custodians */}
+        {topCustodians.length > 0 && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-brand-lime" />
+              <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+                Top Franchise Custodians
+              </h2>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card divide-y divide-rule/60 shadow-xl overflow-hidden">
+              {topCustodians.map((p, idx) => (
+                <div key={p.gsis_id || idx} className="p-3 flex items-center justify-between hover:bg-card-hover transition-colors text-xs font-mono">
+                  <div className="flex items-center gap-3">
+                    <span className="text-ink-dim font-bold w-4 text-center">#{idx + 1}</span>
+                    <div>
+                      <Link 
+                        href={`/players/${p.gsis_id || encodeURIComponent(p.player_name)}`}
+                        className="font-bold text-ink hover:text-brand-blue"
+                      >
+                        {p.player_name}
+                      </Link>
+                      <span className="text-[10px] text-ink-dim block">
+                        {p.position} • {p.season_span} ({p.weeks_started} starts)
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="font-bold text-brand-blue block">
+                      {Math.round(p.total_points).toLocaleString()} pts
+                    </span>
+                    <span className="text-[10px] text-brand-lime">
+                      +{Math.round(p.custody_par)} PAR
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Head-to-Head Rivalries */}
+        {h2hRecords.length > 0 && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Swords className="h-4 w-4 text-brand-orange" />
+              <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
+                Head-to-Head Rivalry Records
+              </h2>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card divide-y divide-rule/60 shadow-xl overflow-hidden max-h-[460px] overflow-y-auto">
+              {h2hRecords.map((r) => (
+                <div key={r.oppId} className="p-3 flex items-center justify-between hover:bg-card-hover transition-colors text-xs font-mono">
+                  <div className="flex items-center gap-2.5">
+                    <div className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: r.oppColor }} />
+                    <div>
+                      <Link href={`/franchises/${r.oppId}`} className="font-bold text-ink hover:text-brand-blue">
+                        {r.oppName}
+                      </Link>
+                      <span className="text-[10px] text-ink-dim block">
+                        {r.totalGames} Matchups
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="font-bold text-ink">
+                      {r.wins}-{r.losses}{r.ties > 0 ? `-${r.ties}` : ""} ({r.winPct}%)
+                    </span>
+                    <span className="text-[10px] text-ink-dim block">
+                      {Math.round(r.pf)} PF vs {Math.round(r.pa)} PA
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
