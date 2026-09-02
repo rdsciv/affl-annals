@@ -9,7 +9,7 @@
       "parquet": "mart_affl_franchise_season.parquet",
       "json": "mart_affl_franchise_season.json",
       "rows": 138,
-      "md5": "c60ee8be116b73f9f9b82b41e5d098b1"
+      "md5": "819593f47dbada3d18257b2a14407036"
     },
     "mart_affl_draft_value": {
       "parquet": "mart_affl_draft_value.parquet",
@@ -46,7 +46,7 @@
     "mart_affl_luck_and_skill": {
       "json": "mart_affl_luck_and_skill.json",
       "rows": 18,
-      "md5": "a64400d2246aabf287226fb14f423fb1"
+      "md5": "35cba19d705c8d119b584a2e73eb81ee"
     },
     "mart_affl_auction_allocation": {
       "json": "mart_affl_auction_allocation.json",
@@ -56,7 +56,7 @@
     "mart_affl_roto_skill_radar": {
       "json": "mart_affl_roto_skill_radar.json",
       "rows": 16,
-      "md5": "345b056d17ac7d1cb81d1d5554d82ce7"
+      "md5": "97b8e314076c9bef0b0a1b4731d88fe8"
     },
     "mart_affl_points_acquisition": {
       "json": "mart_affl_points_acquisition.json",

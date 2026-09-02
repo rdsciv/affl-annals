@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { fetchMartJson } from "@/lib/api";
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip } from "recharts";
+import FranchiseLogo from "@/components/FranchiseLogo";
 
 export default function RotoStandingsPage() {
   const [rotoData, setRotoData] = useState<any>(null);
@@ -315,13 +316,10 @@ export default function RotoStandingsPage() {
                       <td className="py-2.5 px-3 font-sans font-semibold text-ink">
                         <Link 
                           href={`/franchises/${row.franchise_id}`} 
-                          className="hover:underline flex items-center gap-2"
+                          className="hover:underline flex items-center gap-2.5"
                         >
-                          <div 
-                            className="h-2.5 w-2.5 rounded-full shrink-0 shadow-sm" 
-                            style={{ backgroundColor: row.primary_color }} 
-                          />
-                          <span className="truncate max-w-[130px]">{row.franchise_name}</span>
+                          <FranchiseLogo franchiseId={row.franchise_id} size="sm" />
+                          <span className="truncate max-w-[150px]">{row.franchise_name}</span>
                         </Link>
                       </td>
                       {isAllTime && (

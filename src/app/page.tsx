@@ -23,19 +23,24 @@ import {
 import { CANONICAL_FRANCHISES, EXPLORE_PRESETS } from "@/lib/constants";
 import { getAssetUrl } from "@/lib/api";
 import Seal from "@/components/Seal";
+import FranchiseLogo from "@/components/FranchiseLogo";
 
 export default function HomePage() {
   const bannerUrl = getAssetUrl("/images/affl-banner.jpg");
 
   const champions = [
-    { year: 2025, franchise: "San Diego Shadowcöcks", owner: "John Newton", record: "11-3", score: "Champion" },
-    { year: 2024, franchise: "Tijuana Sanchitos", owner: "Zack Blotz", record: "9-5", score: "Champion" },
-    { year: 2023, franchise: "Westeros Warlords", owner: "Levi Sanchez", record: "10-4", score: "Champion" },
-    { year: 2022, franchise: "Fairview Fat Cats", owner: "Alex Renney", record: "10-4", score: "Champion" },
-    { year: 2021, franchise: "Honolulu Horndogs", owner: "Alex Clausen", record: "8-6", score: "Champion" },
-    { year: 2020, franchise: "Chula Vista Chupacabras", owner: "Jason Kafka", record: "8-5", score: "Champion" },
-    { year: 2019, franchise: "Patagonia Pipers", owner: "Garrett Jones", record: "6-7", score: "Champion" },
-    { year: 2018, franchise: "Squaw Valley Skinners", owner: "Chris Zweifel", record: "8-5", score: "Champion" },
+    { year: 2025, franchise_id: "FRAN_SDS", franchise: "San Diego Shadowcöcks", owner: "John Newton", record: "11-3", score: "Champion" },
+    { year: 2024, franchise_id: "FRAN_TJS", franchise: "Tijuana Sanchitos", owner: "Zack Blotz", record: "9-5", score: "Champion" },
+    { year: 2023, franchise_id: "FRAN_WWL", franchise: "Westeros Warlords", owner: "Levi Sanchez", record: "10-4", score: "Champion" },
+    { year: 2022, franchise_id: "FRAN_FFC", franchise: "Fairview Fat Cats", owner: "Alex Renney", record: "10-4", score: "Champion" },
+    { year: 2021, franchise_id: "FRAN_HLH", franchise: "Honolulu Horndogs", owner: "Alex Clausen", record: "8-6", score: "Champion" },
+    { year: 2020, franchise_id: "FRAN_CVC", franchise: "Chula Vista Chupacabras", owner: "Jason Kafka", record: "8-5", score: "Champion" },
+    { year: 2019, franchise_id: "FRAN_MCMD", franchise: "Muck City Mad Dawgs", owner: "Garrett Jones", record: "6-7", score: "Champion" },
+    { year: 2018, franchise_id: "FRAN_SVS", franchise: "Squaw Valley Skinners", owner: "Chris Zweifel", record: "8-5", score: "Champion" },
+    { year: 2017, franchise_id: "FRAN_SVS", franchise: "Squaw Valley Skinners", owner: "Chris Zweifel", record: "9-4", score: "Champion" },
+    { year: 2016, franchise_id: "FRAN_DCMC", franchise: "DC Mighty Cucks", owner: "Austin Williams", record: "10-3", score: "Champion" },
+    { year: 2015, franchise_id: "FRAN_SVS", franchise: "Squaw Valley Skinners", owner: "Chris Zweifel", record: "10-3", score: "Champion" },
+    { year: 2014, franchise_id: "FRAN_DCMC", franchise: "DC Mighty Cucks", owner: "Austin Williams", record: "11-2", score: "Champion" },
   ];
 
   const notableRecords = [
@@ -351,6 +356,7 @@ export default function HomePage() {
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-card-elevated border border-rule-bright font-mono font-bold text-brand-yellow text-xs shrink-0">
                     {c.year}
                   </div>
+                  <FranchiseLogo franchiseId={c.franchise_id} size="md" />
                   <div>
                     <h4 className="font-mono font-bold text-ink hover:text-brand-blue cursor-pointer">
                       {c.franchise}

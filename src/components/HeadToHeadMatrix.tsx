@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
 import { Swords, X, Trophy, ChevronRight, Calendar, Award } from "lucide-react";
+import FranchiseLogo from "@/components/FranchiseLogo";
 
 interface H2HPair {
   franchise1_id: string;
@@ -146,15 +147,12 @@ export default function HeadToHeadMatrix() {
                 {franchises.map((f) => (
                   <th
                     key={f.franchise_id}
-                    className="p-2 font-mono font-bold text-ink text-[11px] border-b border-rule whitespace-nowrap min-w-[70px]"
+                    className="p-2 font-mono font-bold text-ink text-[11px] border-b border-rule whitespace-nowrap min-w-[75px]"
                     title={f.display_name}
                   >
-                    <div className="flex items-center justify-center gap-1.5">
-                      <div
-                        className="h-2 w-2 rounded-full"
-                        style={{ backgroundColor: f.primary_color }}
-                      />
-                      <span>{f.franchise_id.replace("FRAN_", "")}</span>
+                    <div className="flex flex-col items-center justify-center gap-1">
+                      <FranchiseLogo franchiseId={f.franchise_id} size="sm" />
+                      <span className="text-[10px]">{f.franchise_id.replace("FRAN_", "")}</span>
                     </div>
                   </th>
                 ))}
@@ -163,12 +161,9 @@ export default function HeadToHeadMatrix() {
             <tbody>
               {franchises.map((fRow) => (
                 <tr key={fRow.franchise_id} className="hover:bg-card-elevated/40 transition-colors">
-                  <td className="p-2.5 text-left font-mono font-bold text-ink border-r border-b border-rule bg-card sticky left-0 z-10 whitespace-nowrap">
+                  <td className="p-2 text-left font-mono font-bold text-ink border-r border-b border-rule bg-card sticky left-0 z-10 whitespace-nowrap">
                     <div className="flex items-center gap-2">
-                      <div
-                        className="h-2.5 w-2.5 rounded-full shrink-0"
-                        style={{ backgroundColor: fRow.primary_color }}
-                      />
+                      <FranchiseLogo franchiseId={fRow.franchise_id} size="sm" />
                       <span className="text-xs">{fRow.display_name}</span>
                     </div>
                   </td>
@@ -237,11 +232,8 @@ export default function HeadToHeadMatrix() {
 
                 <div className="flex items-center justify-between gap-3">
                   {/* F1 */}
-                  <div className="flex items-center gap-2 min-w-0">
-                    <div
-                      className="h-3 w-3 rounded-full shrink-0"
-                      style={{ backgroundColor: f1?.primary_color || "#5b87ac" }}
-                    />
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <FranchiseLogo franchiseId={f1?.franchise_id || pair.franchise1_id} size="md" />
                     <div className="min-w-0">
                       <div className="font-bold text-xs text-ink truncate">{f1?.display_name || pair.franchise1_id}</div>
                       <div className="font-mono text-[11px] text-brand-lime font-bold">{pair.f1_wins} Wins</div>
@@ -251,15 +243,12 @@ export default function HeadToHeadMatrix() {
                   <span className="font-mono text-xs text-ink-dim">vs</span>
 
                   {/* F2 */}
-                  <div className="flex items-center gap-2 min-w-0 text-right">
+                  <div className="flex items-center gap-2.5 min-w-0 text-right">
                     <div className="min-w-0">
                       <div className="font-bold text-xs text-ink truncate">{f2?.display_name || pair.franchise2_id}</div>
                       <div className="font-mono text-[11px] text-brand-orange font-bold">{pair.f2_wins} Wins</div>
                     </div>
-                    <div
-                      className="h-3 w-3 rounded-full shrink-0"
-                      style={{ backgroundColor: f2?.primary_color || "#c05a34" }}
-                    />
+                    <FranchiseLogo franchiseId={f2?.franchise_id || pair.franchise2_id} size="md" />
                   </div>
                 </div>
 

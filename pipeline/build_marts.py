@@ -28,33 +28,33 @@ DB_PATH = DATA_DIR / "affl.db"
 
 OWNER_FRANCHISE_MAP = {
     # Active 2026 Field (12 Franchises)
-    "m11": ("FRAN_SVS", "Squaw Valley Skinners", "Chris Zweifel", "#ff6a00", "/assets/logos/skinners.svg"),
-    "m02": ("FRAN_DCMC", "DC Mighty Cucks", "Austin Williams", "#e02424", "/assets/logos/cucks.svg"),
-    "m08": ("FRAN_GGG", "Goleta Gringos", "Kevin Sliger", "#00a2ff", "/assets/logos/gringos.svg"),
-    "m18": ("FRAN_GTF", "Grand Teeton Feelers", "Ryan Childress", "#c8ff00", "/assets/logos/feelers.svg"),
-    "m15": ("FRAN_WWL", "Westeros Warlords", "Levi Sanchez", "#d97706", "/assets/logos/warlords.svg"),
-    "m17": ("FRAN_TJS", "Tijuana Sanchitos", "Zack Blotz", "#10b981", "/assets/logos/sanchitos.svg"),
-    "m13": ("FRAN_HLH", "Honolulu Horndogs", "Alex Clausen", "#8b5cf6", "/assets/logos/horndogs.svg"),
-    "m06": ("FRAN_FFC", "Fairview Fat Cats", "Alex Renney", "#ffc400", "/assets/logos/fatcats.svg"),
-    "m07": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/assets/logos/chupacabras.svg"),
-    "m01": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/assets/logos/chupacabras.svg"),
-    "m05": ("FRAN_SDS", "San Diego Shadowcöcks", "John Newton", "#7928ca", "/assets/logos/shadowcocks.svg"),
-    "m21": ("FRAN_PTP", "Patagonia Pipers", "Patrick O'Neill", "#06b6d4", "/assets/logos/pipers.svg"),
-    "m22": ("FRAN_COG", "Central Oregon Gabagooners", "Andy Pietromonaco", "#ec4899", "/assets/logos/gabagooners.svg"),
+    "m11": ("FRAN_SVS", "Squaw Valley Skinners", "Chris Zweifel", "#ff6a00", "/logos/squaw-valley-skinners.jpg"),
+    "m02": ("FRAN_DCMC", "DC Mighty Cucks", "Austin Williams", "#e02424", "/logos/dc-mighty-cucks.png"),
+    "m08": ("FRAN_GGG", "Goleta Gringos", "Kevin Sliger", "#00a2ff", "/logos/goleta-gringos.jpg"),
+    "m18": ("FRAN_GTF", "Grand Teeton Feelers", "Ryan Childress", "#c8ff00", "/logos/grand-teeton-feelers.jpg"),
+    "m15": ("FRAN_WWL", "Westeros Warlords", "Levi Sanchez", "#d97706", "/logos/westeros-warlords.png"),
+    "m17": ("FRAN_TJS", "Tijuana Sanchitos", "Zack Blotz", "#10b981", "/logos/tijuana-sanchitos.svg"),
+    "m13": ("FRAN_HLH", "Honolulu Horndogs", "Alex Clausen", "#8b5cf6", "/logos/honolulu-horndogs.png"),
+    "m06": ("FRAN_FFC", "Fairview Fat Cats", "Alex Renney", "#ffc400", "/logos/fairview-fat-cats.png"),
+    "m07": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/logos/chula-vista-chupacabras.jpg"),
+    "m01": ("FRAN_CVC", "Chula Vista Chupacabras", "Jason Kafka", "#14b8a6", "/logos/chula-vista-chupacabras.jpg"),
+    "m05": ("FRAN_SDS", "San Diego Shadowcöcks", "John Newton", "#7928ca", "/logos/san-diego-shadowcocks.jpg"),
+    "m21": ("FRAN_PTP", "Patagonia Pipers", "Patrick O'Neill", "#06b6d4", "/logos/patagonia-pipers.png"),
+    "m22": ("FRAN_COG", "Central Oregon Gabagooners", "Andy Pietromonaco", "#ec4899", "/logos/central-oregon-gabagooners.jpg"),
     
     # Historical / Alumni Franchises
-    "m12": ("FRAN_MCMD", "Muck City Mad Dawgs", "Garrett Jones", "#0284c7", "/assets/logos/pipers.svg"),
-    "m19": ("FRAN_PND", "Pasco Pounders", "Tyler Sanchez", "#64748b", "/assets/logos/pounders.svg"),
-    "m14": ("FRAN_PLW", "Poulsbo Pollywogs", "Steven Breitmayer", "#22c55e", "/assets/logos/pollywogs.svg"),
-    "m04": ("FRAN_CCB", "Charleston Chewbacca", "Jake Hibbard", "#9333ea", "/assets/logos/warlords.svg"),
-    "m10": ("FRAN_WSW", "Winston-Salem Wake Snakes", "Tanner Dunn", "#f97316", "/assets/logos/gabagooners.svg"),
-    "m20": ("FRAN_WSW", "Winston-Salem Wake Snakes", "Tanner Dunn", "#f97316", "/assets/logos/gabagooners.svg"),
-    "m09": ("FRAN_PWP", "Pawtucket Patriots", "Scott Ace", "#3b82f6", "/assets/logos/cucks.svg"),
-    "m16": ("FRAN_LOB", "L.O.B. Thunder", "David Allardyce", "#14b8a6", "/assets/logos/sanchitos.svg"),
+    "m12": ("FRAN_MCMD", "Muck City Mad Dawgs", "Garrett Jones", "#0284c7", "/logos/muck-city-mad-dawgs.jpg"),
+    "m19": ("FRAN_PND", "Pasco Pounders", "Tyler Sanchez", "#64748b", "/logos/pasco-pounders.png"),
+    "m14": ("FRAN_PLW", "Poulsbo Pollywogs", "Steven Breitmayer", "#22c55e", "/logos/poulsbo-pollywogs.jpg"),
+    "m04": ("FRAN_CCB", "Charleston Chewbacca", "Jake Hibbard", "#9333ea", "/logos/warlords.svg"),
+    "m10": ("FRAN_WSW", "Winston-Salem Wake Snakes", "Tanner Dunn", "#f97316", "/logos/winston-salem-wake-snakes.jpg"),
+    "m20": ("FRAN_WSW", "Winston-Salem Wake Snakes", "Tanner Dunn", "#f97316", "/logos/winston-salem-wake-snakes.jpg"),
+    "m09": ("FRAN_PWP", "Pawtucket Patriots", "Scott Ace", "#3b82f6", "/logos/pawtucket-patriots.gif"),
+    "m16": ("FRAN_LOB", "L.O.B. Thunder", "David Allardyce", "#14b8a6", "/logos/lob-thunder.jpg"),
 }
 
 def get_franchise_meta(owner_id: str):
-    return OWNER_FRANCHISE_MAP.get(owner_id, ("FRAN_UNKNOWN", "Unknown Franchise", "Unknown Owner", "#00a2ff", "/assets/logos/skinners.svg"))
+    return OWNER_FRANCHISE_MAP.get(owner_id, ("FRAN_UNKNOWN", "Unknown Franchise", "Unknown Owner", "#00a2ff", "/logos/squaw-valley-skinners.jpg"))
 
 def compute_md5(file_path: Path) -> str:
     hash_md5 = hashlib.md5()

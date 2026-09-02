@@ -18,7 +18,7 @@
     "franchise_id":"FRAN_SDS",
     "franchise_name":"San Diego Shadowc\u00f6cks",
     "owner_display_name":"John Newton",
-    "current_logo_path":"\/assets\/logos\/shadowcocks.svg",
+    "current_logo_path":"\/logos\/san-diego-shadowcocks.jpg",
     "primary_color":"#7928ca",
     "secondary_color":"#1c2536"
   },
@@ -41,7 +41,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -64,7 +64,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -87,7 +87,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -110,7 +110,7 @@
     "franchise_id":"FRAN_PTP",
     "franchise_name":"Patagonia Pipers",
     "owner_display_name":"Patrick O'Neill",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/patagonia-pipers.png",
     "primary_color":"#06b6d4",
     "secondary_color":"#1c2536"
   },
@@ -133,7 +133,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -156,7 +156,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -179,7 +179,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -202,7 +202,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -225,7 +225,7 @@
     "franchise_id":"FRAN_PLW",
     "franchise_name":"Poulsbo Pollywogs",
     "owner_display_name":"Steven Breitmayer",
-    "current_logo_path":"\/assets\/logos\/pollywogs.svg",
+    "current_logo_path":"\/logos\/poulsbo-pollywogs.jpg",
     "primary_color":"#22c55e",
     "secondary_color":"#1c2536"
   },
@@ -248,7 +248,7 @@
     "franchise_id":"FRAN_PND",
     "franchise_name":"Pasco Pounders",
     "owner_display_name":"Tyler Sanchez",
-    "current_logo_path":"\/assets\/logos\/pounders.svg",
+    "current_logo_path":"\/logos\/pasco-pounders.png",
     "primary_color":"#64748b",
     "secondary_color":"#1c2536"
   },
@@ -271,7 +271,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -294,7 +294,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -317,7 +317,7 @@
     "franchise_id":"FRAN_SDS",
     "franchise_name":"San Diego Shadowc\u00f6cks",
     "owner_display_name":"John Newton",
-    "current_logo_path":"\/assets\/logos\/shadowcocks.svg",
+    "current_logo_path":"\/logos\/san-diego-shadowcocks.jpg",
     "primary_color":"#7928ca",
     "secondary_color":"#1c2536"
   },
@@ -340,7 +340,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -363,7 +363,7 @@
     "franchise_id":"FRAN_PTP",
     "franchise_name":"Patagonia Pipers",
     "owner_display_name":"Patrick O'Neill",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/patagonia-pipers.png",
     "primary_color":"#06b6d4",
     "secondary_color":"#1c2536"
   },
@@ -386,7 +386,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -409,7 +409,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -432,7 +432,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -455,7 +455,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -478,7 +478,7 @@
     "franchise_id":"FRAN_PND",
     "franchise_name":"Pasco Pounders",
     "owner_display_name":"Tyler Sanchez",
-    "current_logo_path":"\/assets\/logos\/pounders.svg",
+    "current_logo_path":"\/logos\/pasco-pounders.png",
     "primary_color":"#64748b",
     "secondary_color":"#1c2536"
   },
@@ -501,7 +501,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -524,7 +524,7 @@
     "franchise_id":"FRAN_PLW",
     "franchise_name":"Poulsbo Pollywogs",
     "owner_display_name":"Steven Breitmayer",
-    "current_logo_path":"\/assets\/logos\/pollywogs.svg",
+    "current_logo_path":"\/logos\/poulsbo-pollywogs.jpg",
     "primary_color":"#22c55e",
     "secondary_color":"#1c2536"
   },
@@ -547,7 +547,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -570,7 +570,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -593,7 +593,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -616,7 +616,7 @@
     "franchise_id":"FRAN_PLW",
     "franchise_name":"Poulsbo Pollywogs",
     "owner_display_name":"Steven Breitmayer",
-    "current_logo_path":"\/assets\/logos\/pollywogs.svg",
+    "current_logo_path":"\/logos\/poulsbo-pollywogs.jpg",
     "primary_color":"#22c55e",
     "secondary_color":"#1c2536"
   },
@@ -639,7 +639,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -662,7 +662,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -685,7 +685,7 @@
     "franchise_id":"FRAN_SDS",
     "franchise_name":"San Diego Shadowc\u00f6cks",
     "owner_display_name":"John Newton",
-    "current_logo_path":"\/assets\/logos\/shadowcocks.svg",
+    "current_logo_path":"\/logos\/san-diego-shadowcocks.jpg",
     "primary_color":"#7928ca",
     "secondary_color":"#1c2536"
   },
@@ -708,7 +708,7 @@
     "franchise_id":"FRAN_PND",
     "franchise_name":"Pasco Pounders",
     "owner_display_name":"Tyler Sanchez",
-    "current_logo_path":"\/assets\/logos\/pounders.svg",
+    "current_logo_path":"\/logos\/pasco-pounders.png",
     "primary_color":"#64748b",
     "secondary_color":"#1c2536"
   },
@@ -731,7 +731,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -754,7 +754,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -777,7 +777,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -800,7 +800,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -823,7 +823,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -846,7 +846,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -869,7 +869,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -892,7 +892,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -915,7 +915,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -938,7 +938,7 @@
     "franchise_id":"FRAN_PND",
     "franchise_name":"Pasco Pounders",
     "owner_display_name":"Tyler Sanchez",
-    "current_logo_path":"\/assets\/logos\/pounders.svg",
+    "current_logo_path":"\/logos\/pasco-pounders.png",
     "primary_color":"#64748b",
     "secondary_color":"#1c2536"
   },
@@ -961,7 +961,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -984,7 +984,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -1007,7 +1007,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -1030,7 +1030,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -1053,7 +1053,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -1076,7 +1076,7 @@
     "franchise_id":"FRAN_SDS",
     "franchise_name":"San Diego Shadowc\u00f6cks",
     "owner_display_name":"John Newton",
-    "current_logo_path":"\/assets\/logos\/shadowcocks.svg",
+    "current_logo_path":"\/logos\/san-diego-shadowcocks.jpg",
     "primary_color":"#7928ca",
     "secondary_color":"#1c2536"
   },
@@ -1099,7 +1099,7 @@
     "franchise_id":"FRAN_PLW",
     "franchise_name":"Poulsbo Pollywogs",
     "owner_display_name":"Steven Breitmayer",
-    "current_logo_path":"\/assets\/logos\/pollywogs.svg",
+    "current_logo_path":"\/logos\/poulsbo-pollywogs.jpg",
     "primary_color":"#22c55e",
     "secondary_color":"#1c2536"
   },
@@ -1122,7 +1122,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -1145,7 +1145,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -1168,7 +1168,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -1191,7 +1191,7 @@
     "franchise_id":"FRAN_PLW",
     "franchise_name":"Poulsbo Pollywogs",
     "owner_display_name":"Steven Breitmayer",
-    "current_logo_path":"\/assets\/logos\/pollywogs.svg",
+    "current_logo_path":"\/logos\/poulsbo-pollywogs.jpg",
     "primary_color":"#22c55e",
     "secondary_color":"#1c2536"
   },
@@ -1214,7 +1214,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -1237,7 +1237,7 @@
     "franchise_id":"FRAN_PND",
     "franchise_name":"Pasco Pounders",
     "owner_display_name":"Tyler Sanchez",
-    "current_logo_path":"\/assets\/logos\/pounders.svg",
+    "current_logo_path":"\/logos\/pasco-pounders.png",
     "primary_color":"#64748b",
     "secondary_color":"#1c2536"
   },
@@ -1260,7 +1260,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -1283,7 +1283,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -1306,7 +1306,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -1329,7 +1329,7 @@
     "franchise_id":"FRAN_SDS",
     "franchise_name":"San Diego Shadowc\u00f6cks",
     "owner_display_name":"John Newton",
-    "current_logo_path":"\/assets\/logos\/shadowcocks.svg",
+    "current_logo_path":"\/logos\/san-diego-shadowcocks.jpg",
     "primary_color":"#7928ca",
     "secondary_color":"#1c2536"
   },
@@ -1352,7 +1352,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -1375,7 +1375,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -1398,7 +1398,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -1421,7 +1421,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -1444,7 +1444,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -1467,7 +1467,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -1490,7 +1490,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -1513,7 +1513,7 @@
     "franchise_id":"FRAN_WSW",
     "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
-    "current_logo_path":"\/assets\/logos\/gabagooners.svg",
+    "current_logo_path":"\/logos\/winston-salem-wake-snakes.jpg",
     "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
@@ -1536,7 +1536,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -1559,7 +1559,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -1582,7 +1582,7 @@
     "franchise_id":"FRAN_SDS",
     "franchise_name":"San Diego Shadowc\u00f6cks",
     "owner_display_name":"John Newton",
-    "current_logo_path":"\/assets\/logos\/shadowcocks.svg",
+    "current_logo_path":"\/logos\/san-diego-shadowcocks.jpg",
     "primary_color":"#7928ca",
     "secondary_color":"#1c2536"
   },
@@ -1605,7 +1605,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -1628,7 +1628,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -1651,7 +1651,7 @@
     "franchise_id":"FRAN_MCMD",
     "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/muck-city-mad-dawgs.jpg",
     "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
@@ -1674,7 +1674,7 @@
     "franchise_id":"FRAN_MCMD",
     "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/muck-city-mad-dawgs.jpg",
     "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
@@ -1697,7 +1697,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -1720,7 +1720,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -1743,7 +1743,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -1766,7 +1766,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -1789,7 +1789,7 @@
     "franchise_id":"FRAN_WSW",
     "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
-    "current_logo_path":"\/assets\/logos\/gabagooners.svg",
+    "current_logo_path":"\/logos\/winston-salem-wake-snakes.jpg",
     "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
@@ -1812,7 +1812,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -1835,7 +1835,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -1858,7 +1858,7 @@
     "franchise_id":"FRAN_SDS",
     "franchise_name":"San Diego Shadowc\u00f6cks",
     "owner_display_name":"John Newton",
-    "current_logo_path":"\/assets\/logos\/shadowcocks.svg",
+    "current_logo_path":"\/logos\/san-diego-shadowcocks.jpg",
     "primary_color":"#7928ca",
     "secondary_color":"#1c2536"
   },
@@ -1881,7 +1881,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -1904,7 +1904,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -1927,7 +1927,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -1950,7 +1950,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -1973,7 +1973,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -1996,7 +1996,7 @@
     "franchise_id":"FRAN_WSW",
     "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
-    "current_logo_path":"\/assets\/logos\/gabagooners.svg",
+    "current_logo_path":"\/logos\/winston-salem-wake-snakes.jpg",
     "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
@@ -2019,7 +2019,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -2042,7 +2042,7 @@
     "franchise_id":"FRAN_MCMD",
     "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/muck-city-mad-dawgs.jpg",
     "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
@@ -2065,7 +2065,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -2088,7 +2088,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -2111,7 +2111,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -2134,7 +2134,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -2157,7 +2157,7 @@
     "franchise_id":"FRAN_CCB",
     "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/warlords.svg",
     "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
@@ -2180,7 +2180,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -2203,7 +2203,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -2226,7 +2226,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -2249,7 +2249,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -2272,7 +2272,7 @@
     "franchise_id":"FRAN_WSW",
     "franchise_name":"Winston-Salem Wake Snakes",
     "owner_display_name":"Tanner Dunn",
-    "current_logo_path":"\/assets\/logos\/gabagooners.svg",
+    "current_logo_path":"\/logos\/winston-salem-wake-snakes.jpg",
     "primary_color":"#f97316",
     "secondary_color":"#1c2536"
   },
@@ -2295,7 +2295,7 @@
     "franchise_id":"FRAN_MCMD",
     "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/muck-city-mad-dawgs.jpg",
     "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
@@ -2318,7 +2318,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -2341,7 +2341,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -2364,7 +2364,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -2387,7 +2387,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -2410,7 +2410,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -2433,7 +2433,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -2456,7 +2456,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -2479,7 +2479,7 @@
     "franchise_id":"FRAN_CCB",
     "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/warlords.svg",
     "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
@@ -2502,7 +2502,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -2525,7 +2525,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -2548,7 +2548,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -2571,7 +2571,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -2594,7 +2594,7 @@
     "franchise_id":"FRAN_CCB",
     "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/warlords.svg",
     "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
@@ -2617,7 +2617,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -2640,7 +2640,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -2663,7 +2663,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -2686,7 +2686,7 @@
     "franchise_id":"FRAN_MCMD",
     "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/muck-city-mad-dawgs.jpg",
     "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
@@ -2709,7 +2709,7 @@
     "franchise_id":"FRAN_CVC",
     "franchise_name":"Chula Vista Chupacabras",
     "owner_display_name":"Jason Kafka",
-    "current_logo_path":"\/assets\/logos\/chupacabras.svg",
+    "current_logo_path":"\/logos\/chula-vista-chupacabras.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -2732,7 +2732,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   },
@@ -2755,7 +2755,7 @@
     "franchise_id":"FRAN_FFC",
     "franchise_name":"Fairview Fat Cats",
     "owner_display_name":"Alex Renney",
-    "current_logo_path":"\/assets\/logos\/fatcats.svg",
+    "current_logo_path":"\/logos\/fairview-fat-cats.png",
     "primary_color":"#ffc400",
     "secondary_color":"#1c2536"
   },
@@ -2778,7 +2778,7 @@
     "franchise_id":"FRAN_MCMD",
     "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/muck-city-mad-dawgs.jpg",
     "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
@@ -2801,7 +2801,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -2824,7 +2824,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -2847,7 +2847,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -2870,7 +2870,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -2893,7 +2893,7 @@
     "franchise_id":"FRAN_CCB",
     "franchise_name":"Charleston Chewbacca",
     "owner_display_name":"Jake Hibbard",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/warlords.svg",
     "primary_color":"#9333ea",
     "secondary_color":"#1c2536"
   },
@@ -2916,7 +2916,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -2939,7 +2939,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -2962,7 +2962,7 @@
     "franchise_id":"FRAN_GTF",
     "franchise_name":"Grand Teeton Feelers",
     "owner_display_name":"Ryan Childress",
-    "current_logo_path":"\/assets\/logos\/feelers.svg",
+    "current_logo_path":"\/logos\/grand-teeton-feelers.jpg",
     "primary_color":"#c8ff00",
     "secondary_color":"#1c2536"
   },
@@ -2985,7 +2985,7 @@
     "franchise_id":"FRAN_HLH",
     "franchise_name":"Honolulu Horndogs",
     "owner_display_name":"Alex Clausen",
-    "current_logo_path":"\/assets\/logos\/horndogs.svg",
+    "current_logo_path":"\/logos\/honolulu-horndogs.png",
     "primary_color":"#8b5cf6",
     "secondary_color":"#1c2536"
   },
@@ -3008,7 +3008,7 @@
     "franchise_id":"FRAN_MCMD",
     "franchise_name":"Muck City Mad Dawgs",
     "owner_display_name":"Garrett Jones",
-    "current_logo_path":"\/assets\/logos\/pipers.svg",
+    "current_logo_path":"\/logos\/muck-city-mad-dawgs.jpg",
     "primary_color":"#0284c7",
     "secondary_color":"#1c2536"
   },
@@ -3031,7 +3031,7 @@
     "franchise_id":"FRAN_PWP",
     "franchise_name":"Pawtucket Patriots",
     "owner_display_name":"Scott Ace",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/pawtucket-patriots.gif",
     "primary_color":"#3b82f6",
     "secondary_color":"#1c2536"
   },
@@ -3054,7 +3054,7 @@
     "franchise_id":"FRAN_GGG",
     "franchise_name":"Goleta Gringos",
     "owner_display_name":"Kevin Sliger",
-    "current_logo_path":"\/assets\/logos\/gringos.svg",
+    "current_logo_path":"\/logos\/goleta-gringos.jpg",
     "primary_color":"#00a2ff",
     "secondary_color":"#1c2536"
   },
@@ -3077,7 +3077,7 @@
     "franchise_id":"FRAN_TJS",
     "franchise_name":"Tijuana Sanchitos",
     "owner_display_name":"Zack Blotz",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/tijuana-sanchitos.svg",
     "primary_color":"#10b981",
     "secondary_color":"#1c2536"
   },
@@ -3100,7 +3100,7 @@
     "franchise_id":"FRAN_DCMC",
     "franchise_name":"DC Mighty Cucks",
     "owner_display_name":"Austin Williams",
-    "current_logo_path":"\/assets\/logos\/cucks.svg",
+    "current_logo_path":"\/logos\/dc-mighty-cucks.png",
     "primary_color":"#e02424",
     "secondary_color":"#1c2536"
   },
@@ -3123,7 +3123,7 @@
     "franchise_id":"FRAN_LOB",
     "franchise_name":"L.O.B. Thunder",
     "owner_display_name":"David Allardyce",
-    "current_logo_path":"\/assets\/logos\/sanchitos.svg",
+    "current_logo_path":"\/logos\/lob-thunder.jpg",
     "primary_color":"#14b8a6",
     "secondary_color":"#1c2536"
   },
@@ -3146,7 +3146,7 @@
     "franchise_id":"FRAN_WWL",
     "franchise_name":"Westeros Warlords",
     "owner_display_name":"Levi Sanchez",
-    "current_logo_path":"\/assets\/logos\/warlords.svg",
+    "current_logo_path":"\/logos\/westeros-warlords.png",
     "primary_color":"#d97706",
     "secondary_color":"#1c2536"
   },
@@ -3169,7 +3169,7 @@
     "franchise_id":"FRAN_SVS",
     "franchise_name":"Squaw Valley Skinners",
     "owner_display_name":"Chris Zweifel",
-    "current_logo_path":"\/assets\/logos\/skinners.svg",
+    "current_logo_path":"\/logos\/squaw-valley-skinners.jpg",
     "primary_color":"#ff6a00",
     "secondary_color":"#1c2536"
   }

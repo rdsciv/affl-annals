@@ -30,6 +30,7 @@ import {
 } from "recharts";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
+import FranchiseLogo from "@/components/FranchiseLogo";
 
 export default function FranchiseClientContent({
   franchiseId,
@@ -287,16 +288,7 @@ export default function FranchiseClientContent({
       <div className="relative overflow-hidden rounded-2xl border border-rule-bright bg-card p-6 md:p-8 shadow-xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
-            <div
-              className="h-20 w-20 md:h-24 md:w-24 rounded-2xl flex items-center justify-center font-mono font-black text-2xl md:text-3xl shadow-lg shrink-0"
-              style={{
-                backgroundColor: `${franchise.primary_color}20`,
-                color: franchise.primary_color,
-                border: `2.5px solid ${franchise.primary_color}`,
-              }}
-            >
-              {franchise.display_name.slice(0, 2).toUpperCase()}
-            </div>
+            <FranchiseLogo franchiseId={franchise.franchise_id} size="2xl" />
 
             <div className="space-y-1.5">
               <div className="flex items-center gap-3">
@@ -568,7 +560,7 @@ export default function FranchiseClientContent({
               {h2hRecords.map((r) => (
                 <div key={r.oppId} className="p-3 flex items-center justify-between hover:bg-card-hover transition-colors text-xs font-mono">
                   <div className="flex items-center gap-2.5">
-                    <div className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: r.oppColor }} />
+                    <FranchiseLogo franchiseId={r.oppId} size="sm" />
                     <div>
                       <Link href={`/franchises/${r.oppId}`} className="font-bold text-ink hover:text-brand-blue">
                         {r.oppName}

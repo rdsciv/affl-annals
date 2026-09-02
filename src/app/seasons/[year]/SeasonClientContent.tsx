@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
+import FranchiseLogo from "@/components/FranchiseLogo";
 
 export default function SeasonClientContent({
   year,
@@ -172,14 +173,11 @@ export default function SeasonClientContent({
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {CANONICAL_FRANCHISES.filter((f) => f.is_active === 1).map((f) => (
               <div key={f.franchise_id} className="glass-card rounded-xl p-4 space-y-2 text-center flex flex-col items-center">
-                <div
-                  className="h-12 w-12 rounded-xl flex items-center justify-center font-mono font-black text-base shadow-md"
-                  style={{ backgroundColor: `${f.primary_color}25`, color: f.primary_color, border: `2px solid ${f.primary_color}` }}
-                >
-                  {f.display_name.slice(0, 2).toUpperCase()}
+                <FranchiseLogo franchiseId={f.franchise_id} size="lg" />
+                <div>
+                  <h3 className="font-mono text-sm font-bold text-ink">{f.display_name}</h3>
+                  <p className="text-[10px] text-ink-dim">Owner: {f.owner_display_name}</p>
                 </div>
-                <h3 className="font-mono text-xs font-bold text-ink">{f.display_name}</h3>
-                <p className="text-[10px] text-ink-dim">Owner: {f.owner_display_name}</p>
               </div>
             ))}
           </div>
@@ -225,9 +223,10 @@ export default function SeasonClientContent({
                         <td className="py-3 px-3 font-sans text-xs">
                           <Link
                             href={`/franchises/${s.franchise_id}`}
-                            className="hover:underline font-medium text-brand-blue"
+                            className="hover:underline font-medium text-brand-blue flex items-center gap-2"
                           >
-                            {s.franchise_name}
+                            <FranchiseLogo franchiseId={s.franchise_id} size="sm" />
+                            <span>{s.franchise_name}</span>
                           </Link>
                         </td>
                         <td className="py-3 px-3 text-center font-bold text-ink">{s.wins}-{s.losses}</td>

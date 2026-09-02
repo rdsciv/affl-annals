@@ -6,6 +6,7 @@ import { Shield, Trophy, Users, Calendar, ArrowRight, Star } from "lucide-react"
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
 import HeadToHeadMatrix from "@/components/HeadToHeadMatrix";
+import FranchiseLogo from "@/components/FranchiseLogo";
 
 export default function FranchisesPage() {
   const [franchiseStats, setFranchiseStats] = useState<Record<string, any>>({});
@@ -125,12 +126,7 @@ export default function FranchisesPage() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3.5">
-                    <div
-                      className="h-12 w-12 rounded-xl flex items-center justify-center font-mono font-black text-base shadow-md shrink-0"
-                      style={{ backgroundColor: `${f.primary_color}25`, color: f.primary_color, border: `2px solid ${f.primary_color}` }}
-                    >
-                      {f.display_name.slice(0, 2).toUpperCase()}
-                    </div>
+                    <FranchiseLogo franchiseId={f.franchise_id} size="lg" />
                     <div>
                       <h3 className="font-mono text-base font-bold text-ink group-hover:text-brand-blue transition-colors">
                         {f.display_name}
@@ -199,9 +195,7 @@ export default function FranchisesPage() {
                 className="glass-card group rounded-xl p-4 hover:border-rule-bright flex items-center justify-between"
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg flex items-center justify-center font-mono font-bold text-sm bg-card-elevated text-ink-dim border border-rule">
-                    {f.display_name.slice(0, 2).toUpperCase()}
-                  </div>
+                  <FranchiseLogo franchiseId={f.franchise_id} size="md" />
                   <div>
                     <h3 className="font-mono text-sm font-bold text-ink group-hover:text-brand-blue transition-colors">
                       {f.display_name}
