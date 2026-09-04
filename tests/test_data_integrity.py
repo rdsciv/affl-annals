@@ -43,3 +43,24 @@ def test_matchup_counts(conn):
     cursor.execute("SELECT COUNT(*) FROM v_matchup WHERE phase = 'regular'")
     regular_count = cursor.fetchone()[0]
     assert regular_count > 0, "Expected regular season matchups to be populated"
+
+def test_franchise_stats_mart():
+    import json
+    mart_file = Path(__file__).resolve().parent.parent / "public" / "data" / "marts" / "mart_affl_franchise_stats.json"
+    assert mart_file.exists(), f"Franchise stats mart missing at {mart_file}"
+    with open(mart_file) as f:
+        data = json.load(f)
+    assert "seasons" in data
+    assert len(data["seasons"]) == 8, f"Expected 8 seasons, found {len(data['seasons'])}"
+    assert "starters_by_season" in data
+    assert "starters_all_time" in data
+    assert len(data["starters_all_time"]) >= 16
+
+def test_production_seo_and_assets():
+    public_dir = Path(__file__).resolve().parent.parent / "public"
+    assert (public_dir / "robots.txt").exists()
+    assert (public_dir / "sitemap.xml").exists()
+    assert (public_dir / "site.webmanifest").exists()
+    assert (public_dir / "favicon.ico").exists()
+    assert (public_dir / "favicon.ico").stat().st_size < 50000, "Favicon should be optimized (<50KB)"
+

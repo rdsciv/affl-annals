@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rdsciv.github.io/affl-annals/sitemap.xml
