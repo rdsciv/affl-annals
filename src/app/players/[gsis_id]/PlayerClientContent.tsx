@@ -103,6 +103,42 @@ export default function PlayerClientContent({
     });
   }, [seasonsData, custodySort]);
 
+  const rawFilteredLogs = useMemo(() => {
+    return selectedSeasonFilter === "ALL"
+      ? gameLogs
+      : gameLogs.filter((g) => g.season?.toString() === selectedSeasonFilter);
+  }, [gameLogs, selectedSeasonFilter]);
+
+  const sortedLogs = useMemo(() => {
+    return [...rawFilteredLogs].sort((a, b) => {
+      let valA = a[logSort.key];
+      let valB = b[logSort.key];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = (valB || "").toLowerCase();
+      }
+      if (valA < valB) return logSort.dir === "asc" ? -1 : 1;
+      if (valA > valB) return logSort.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [rawFilteredLogs, logSort]);
+
+  const chronologicalLogs = useMemo(() => {
+    return [...rawFilteredLogs].sort((a, b) => {
+      if (a.season !== b.season) return a.season - b.season;
+      return a.week - b.week;
+    }).map((l) => ({
+      name: `'${(l.season || "").toString().slice(-2)} Wk ${l.week}`,
+      points: Number(l.points || 0),
+      team_name: l.team_name,
+      started: l.started,
+      slot: l.slot,
+      nfl_team: l.nfl_team,
+      nfl_opp: l.nfl_opponent,
+      epa: l.total_epa,
+    }));
+  }, [rawFilteredLogs]);
+
   const handleCustodySort = (key: string) => {
     if (custodySort.key === key) {
       setCustodySort({ key, dir: custodySort.dir === "asc" ? "desc" : "asc" });
@@ -229,39 +265,6 @@ export default function PlayerClientContent({
 
   const availableSeasons = Array.from(new Set(gameLogs.map((g) => g.season))).sort((a: any, b: any) => b - a);
 
-  const rawFilteredLogs = selectedSeasonFilter === "ALL"
-    ? gameLogs
-    : gameLogs.filter((g) => g.season.toString() === selectedSeasonFilter);
-
-  const sortedLogs = useMemo(() => {
-    return [...rawFilteredLogs].sort((a, b) => {
-      let valA = a[logSort.key];
-      let valB = b[logSort.key];
-      if (typeof valA === "string") {
-        valA = valA.toLowerCase();
-        valB = (valB || "").toLowerCase();
-      }
-      if (valA < valB) return logSort.dir === "asc" ? -1 : 1;
-      if (valA > valB) return logSort.dir === "asc" ? 1 : -1;
-      return 0;
-    });
-  }, [rawFilteredLogs, logSort]);
-
-  const chronologicalLogs = useMemo(() => {
-    return [...rawFilteredLogs].sort((a, b) => {
-      if (a.season !== b.season) return a.season - b.season;
-      return a.week - b.week;
-    }).map((l) => ({
-      name: `'${l.season.toString().slice(-2)} Wk ${l.week}`,
-      points: Number(l.points || 0),
-      team_name: l.team_name,
-      started: l.started,
-      slot: l.slot,
-      nfl_team: l.nfl_team,
-      nfl_opp: l.nfl_opponent,
-      epa: l.total_epa,
-    }));
-  }, [rawFilteredLogs]);
 
   // Helper to format weekly NFL box line
   const formatBoxScoreLine = (log: any) => {
