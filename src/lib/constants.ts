@@ -155,8 +155,8 @@ export const CANONICAL_FRANCHISES: FranchiseInfo[] = [
     primary_color: "#14b8a6",
     secondary_color: "#6366f1",
     first_season: 2016,
-    last_season: 2023,
-    is_active: 0,
+    last_season: 2026,
+    is_active: 1,
   },
 
   // Historical / Alumni Franchises
