@@ -20,13 +20,13 @@
     "mart_affl_player_week": {
       "parquet": "mart_affl_player_week.parquet",
       "rows": 24762,
-      "md5": "61a16fd4ac2370a871353c5596b72b8b"
+      "md5": "11521d8d606dfceda45bf80189ff3aca"
     },
     "mart_affl_player_season_custody": {
       "parquet": "mart_affl_player_season_custody.parquet",
       "json": "mart_affl_player_season_custody.json",
       "rows": 4238,
-      "md5": "30070355a4be40e16e33f7cc7ce40699"
+      "md5": "2767be43acb2df36fd93b0a19381ba42"
     },
     "mart_affl_trades": {
       "json": "mart_affl_trades.json",
@@ -41,7 +41,7 @@
     "mart_affl_player_gamelogs": {
       "json": "mart_affl_player_gamelogs.json",
       "rows": 778,
-      "md5": "70636decbdeec328a6b2e82b6e93c28a"
+      "md5": "90fa407922fde79d9b8efba29257c0c6"
     },
     "mart_affl_luck_and_skill": {
       "json": "mart_affl_luck_and_skill.json",

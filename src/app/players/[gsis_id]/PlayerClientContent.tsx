@@ -15,7 +15,9 @@ import {
   CheckCircle2,
   XCircle,
   BarChart2,
-  Zap
+  Zap,
+  Target,
+  Flame
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -51,15 +53,22 @@ export default function PlayerClientContent({
         matches.sort((a: any, b: any) => b.season - a.season);
         setSeasonsData(matches);
 
-        // Load weekly gamelogs
+        // Load weekly gamelogs from on-demand partitioned JSON first (fast), with fallback
         try {
-          const allLogs = await fetchMartJson("mart_affl_player_gamelogs.json");
-          const pLogs = allLogs[rawId] || (matches[0] ? allLogs[matches[0].gsis_id || `PID_${matches[0].player_id}`] : null);
+          const pLogs = await fetchMartJson(`player_gamelogs/${rawId}.json`);
           if (pLogs && pLogs.gamelogs) {
             setGameLogs(pLogs.gamelogs);
           }
-        } catch (eLogs) {
-          console.warn("Could not load player weekly gamelogs:", eLogs);
+        } catch {
+          try {
+            const allLogs = await fetchMartJson("mart_affl_player_gamelogs.json");
+            const pLogs = allLogs[rawId] || (matches[0] ? allLogs[matches[0].gsis_id || `PID_${matches[0].player_id}`] : null);
+            if (pLogs && pLogs.gamelogs) {
+              setGameLogs(pLogs.gamelogs);
+            }
+          } catch (eLogs) {
+            console.warn("Could not load player weekly gamelogs:", eLogs);
+          }
         }
       } catch (err) {
         console.error("Error loading player details:", err);
@@ -69,44 +78,6 @@ export default function PlayerClientContent({
     }
     loadPlayerData();
   }, [rawId]);
-
-  if (loading) {
-    return (
-      <div className="py-24 text-center text-xs font-mono text-ink-dim">
-        Loading player custody record...
-      </div>
-    );
-  }
-
-  if (!seasonsData.length) {
-    return (
-      <div className="mx-auto max-w-7xl px-4 py-16 text-center space-y-4">
-        <h2 className="font-mono text-xl font-bold text-ink">Player Record Not Found</h2>
-        <p className="text-xs text-ink-muted">No historical AFFL custody rows found for &ldquo;{rawId}&rdquo;.</p>
-        <Link href="/players" className="inline-flex items-center gap-2 text-xs text-brand-blue hover:underline">
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to Player Directory
-        </Link>
-      </div>
-    );
-  }
-
-  const latest = seasonsData[0];
-  const playerName = latest.player_name;
-  const position = latest.position;
-  const headshot = latest.headshot_url;
-  const college = latest.college;
-
-  const totalPoints = seasonsData.reduce((acc, r) => acc + Number(r.affl_points || 0), 0);
-  const totalBenchPoints = seasonsData.reduce((acc, r) => acc + Number(r.bench_points || 0), 0);
-  const totalStarted = seasonsData.reduce((acc, r) => acc + Number(r.weeks_started || 0), 0);
-  const totalRostered = seasonsData.reduce((acc, r) => acc + Number(r.weeks_rostered || 0), 0);
-  const totalXfp = seasonsData.reduce((acc, r) => acc + Number(r.xfp || 0), 0);
-  const totalFpoe = seasonsData.reduce((acc, r) => acc + Number(r.fpoe || 0), 0);
-  const totalPar = seasonsData.reduce((acc, r) => acc + Number(r.custody_par || 0), 0);
-  const totalEpa = seasonsData.reduce((acc, r) => acc + Number(r.epa || 0), 0);
-  const avgWopr = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.wopr || 0), 0) / seasonsData.length) : 0;
-  const avgTgtShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.target_share || 0), 0) / seasonsData.length) : 0;
-  const avgAyShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.air_yards_share || 0), 0) / seasonsData.length) : 0;
 
   const [custodySort, setCustodySort] = useState<{ key: string; dir: "asc" | "desc" }>({
     key: "season",
@@ -136,7 +107,7 @@ export default function PlayerClientContent({
     if (custodySort.key === key) {
       setCustodySort({ key, dir: custodySort.dir === "asc" ? "desc" : "asc" });
     } else {
-      setCustodySort({ key, dir: ["season", "affl_points", "bench_points", "xfp", "fpoe", "custody_par"].includes(key) ? "desc" : "asc" });
+      setCustodySort({ key, dir: ["season", "affl_points", "bench_points", "xfp", "fpoe", "custody_par", "epa", "pass_yds", "rush_yds", "rec_yds"].includes(key) ? "desc" : "asc" });
     }
   };
 
@@ -145,11 +116,11 @@ export default function PlayerClientContent({
     return (
       <th
         onClick={() => handleCustodySort(key)}
-        className={`py-3 px-4 cursor-pointer select-none hover:text-brand-blue transition-colors ${
+        className={`py-3 px-3 cursor-pointer select-none hover:text-brand-blue transition-colors ${
           align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
         } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"}`}
       >
-        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+        <div className={`inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
           <span>{label}</span>
           {isSorted ? (
             custodySort.dir === "desc" ? (
@@ -169,11 +140,11 @@ export default function PlayerClientContent({
     if (logSort.key === key) {
       setLogSort({ key, dir: logSort.dir === "asc" ? "desc" : "asc" });
     } else {
-      setLogSort({ key, dir: ["points", "week", "season"].includes(key) ? "desc" : "asc" });
+      setLogSort({ key, dir: ["points", "week", "season", "total_epa", "passing_yards", "rushing_yards", "receiving_yards"].includes(key) ? "desc" : "asc" });
     }
   };
 
-  const renderLogSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left", extraClass: string = "py-2.5 px-4") => {
+  const renderLogSortHeader = (label: string, key: string, align: "left" | "center" | "right" = "left", extraClass: string = "py-2.5 px-3") => {
     const isSorted = logSort.key === key;
     return (
       <th
@@ -182,7 +153,7 @@ export default function PlayerClientContent({
           align === "center" ? "text-center" : align === "right" ? "text-right" : "text-left"
         } ${isSorted ? "text-brand-orange bg-brand-orange/5" : "text-ink-dim"}`}
       >
-        <div className={`inline-flex items-center gap-1 ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
+        <div className={`inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider ${align === "right" ? "justify-end" : align === "center" ? "justify-center" : "justify-start"}`}>
           <span>{label}</span>
           {isSorted ? (
             logSort.dir === "desc" ? (
@@ -197,6 +168,64 @@ export default function PlayerClientContent({
       </th>
     );
   };
+
+  if (loading) {
+    return (
+      <div className="py-24 text-center text-xs font-mono text-ink-dim">
+        Loading player custody and nflverse statistics...
+      </div>
+    );
+  }
+
+  if (!seasonsData.length) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-16 text-center space-y-4">
+        <h2 className="font-mono text-xl font-bold text-ink">Player Record Not Found</h2>
+        <p className="text-xs text-ink-muted">No historical AFFL custody rows found for &ldquo;{rawId}&rdquo;.</p>
+        <Link href="/players" className="inline-flex items-center gap-2 text-xs text-brand-blue hover:underline">
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to Player Directory
+        </Link>
+      </div>
+    );
+  }
+
+  const latest = seasonsData[0];
+  const playerName = latest.player_name;
+  const position = latest.position;
+  const headshot = latest.headshot_url;
+  const college = latest.college;
+
+  // AFFL totals
+  const totalPoints = seasonsData.reduce((acc, r) => acc + Number(r.affl_points || 0), 0);
+  const totalBenchPoints = seasonsData.reduce((acc, r) => acc + Number(r.bench_points || 0), 0);
+  const totalStarted = seasonsData.reduce((acc, r) => acc + Number(r.weeks_started || 0), 0);
+  const totalRostered = seasonsData.reduce((acc, r) => acc + Number(r.weeks_rostered || 0), 0);
+  const totalXfp = seasonsData.reduce((acc, r) => acc + Number(r.xfp || 0), 0);
+  const totalFpoe = seasonsData.reduce((acc, r) => acc + Number(r.fpoe || 0), 0);
+  const totalPar = seasonsData.reduce((acc, r) => acc + Number(r.custody_par || 0), 0);
+
+  // NFLverse career totals
+  const totalEpa = seasonsData.reduce((acc, r) => acc + Number(r.epa || 0), 0);
+  const totalPassYds = seasonsData.reduce((acc, r) => acc + Number(r.pass_yds || 0), 0);
+  const totalPassTds = seasonsData.reduce((acc, r) => acc + Number(r.pass_tds || 0), 0);
+  const totalPassInt = seasonsData.reduce((acc, r) => acc + Number(r.pass_int || 0), 0);
+  const totalPassCmp = seasonsData.reduce((acc, r) => acc + Number(r.pass_cmp || 0), 0);
+  const totalPassAtt = seasonsData.reduce((acc, r) => acc + Number(r.pass_att || 0), 0);
+
+  const totalCarries = seasonsData.reduce((acc, r) => acc + Number(r.carries || 0), 0);
+  const totalRushYds = seasonsData.reduce((acc, r) => acc + Number(r.rush_yds || 0), 0);
+  const totalRushTds = seasonsData.reduce((acc, r) => acc + Number(r.rush_tds || 0), 0);
+
+  const totalTgts = seasonsData.reduce((acc, r) => acc + Number(r.targets || 0), 0);
+  const totalRec = seasonsData.reduce((acc, r) => acc + Number(r.receptions || 0), 0);
+  const totalRecYds = seasonsData.reduce((acc, r) => acc + Number(r.rec_yds || 0), 0);
+  const totalRecTds = seasonsData.reduce((acc, r) => acc + Number(r.rec_tds || 0), 0);
+  const totalAirYds = seasonsData.reduce((acc, r) => acc + Number(r.air_yards || 0), 0);
+  const totalYac = seasonsData.reduce((acc, r) => acc + Number(r.yac || 0), 0);
+
+  const avgWopr = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.wopr || 0), 0) / seasonsData.length) : 0;
+  const avgTgtShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.target_share || 0), 0) / seasonsData.length) : 0;
+  const avgAyShare = seasonsData.length ? (seasonsData.reduce((acc, r) => acc + Number(r.air_yards_share || 0), 0) / seasonsData.length) : 0;
 
   const availableSeasons = Array.from(new Set(gameLogs.map((g) => g.season))).sort((a: any, b: any) => b - a);
 
@@ -218,25 +247,61 @@ export default function PlayerClientContent({
     });
   }, [rawFilteredLogs, logSort]);
 
-  // Chart data sorted chronologically for area chart
-  const chronologicalLogs = [...rawFilteredLogs].reverse().map((g) => ({
-    name: `${g.season} Wk${g.week}`,
-    points: Number(g.points || 0),
-    started: g.started,
-    opponent: g.opponent_name,
-    team: g.team_name,
-  }));
+  const chronologicalLogs = useMemo(() => {
+    return [...rawFilteredLogs].sort((a, b) => {
+      if (a.season !== b.season) return a.season - b.season;
+      return a.week - b.week;
+    }).map((l) => ({
+      name: `'${l.season.toString().slice(-2)} Wk ${l.week}`,
+      points: Number(l.points || 0),
+      team_name: l.team_name,
+      started: l.started,
+      slot: l.slot,
+      nfl_team: l.nfl_team,
+      nfl_opp: l.nfl_opponent,
+      epa: l.total_epa,
+    }));
+  }, [rawFilteredLogs]);
+
+  // Helper to format weekly NFL box line
+  const formatBoxScoreLine = (log: any) => {
+    const parts = [];
+    if (log.attempts > 0 || log.passing_yards > 0 || log.passing_tds > 0) {
+      parts.push(`${log.completions}/${log.attempts} pass, ${Math.round(log.passing_yards)} yds${log.passing_tds > 0 ? `, ${log.passing_tds} TD` : ""}${log.interceptions > 0 ? `, ${log.interceptions} INT` : ""}`);
+    }
+    if (log.carries > 0 || log.rushing_yards > 0 || log.rushing_tds > 0) {
+      parts.push(`${log.carries} car, ${Math.round(log.rushing_yards)} yds${log.rushing_tds > 0 ? `, ${log.rushing_tds} TD` : ""}`);
+    }
+    if (log.targets > 0 || log.receptions > 0 || log.receiving_yards > 0 || log.receiving_tds > 0) {
+      parts.push(`${log.receptions}/${log.targets} rec, ${Math.round(log.receiving_yards)} yds${log.receiving_tds > 0 ? `, ${log.receiving_tds} TD` : ""}`);
+    }
+    return parts.join(" • ") || "No NFL stats recorded";
+  };
 
   const CustomChartTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
-      const d = payload[0].payload;
+      const data = payload[0].payload;
       return (
-        <div className="rounded-lg border border-rule-bright bg-card-elevated p-2.5 shadow-xl text-xs font-mono space-y-1">
-          <div className="font-bold text-ink">{d.name}</div>
-          <div className="text-[11px] text-ink-muted">vs {d.opponent}</div>
-          <div className="text-brand-blue font-bold">{d.points.toFixed(1)} Pts</div>
-          <div className="text-[10px] text-ink-dim">
-            {d.started ? "Started in Lineup" : "Benched"}
+        <div className="rounded-lg border border-rule-bright bg-card/95 p-2.5 shadow-xl backdrop-blur-md text-xs font-mono">
+          <div className="font-bold text-ink mb-1">{data.name}</div>
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-ink-dim">Fantasy Pts:</span>
+            <span className="font-bold text-brand-blue">{data.points.toFixed(1)}</span>
+          </div>
+          {data.nfl_team && data.nfl_opp && (
+            <div className="text-[11px] text-ink-dim">
+              NFL: <strong className="text-ink">{data.nfl_team}</strong> vs {data.nfl_opp}
+            </div>
+          )}
+          {data.epa !== undefined && (
+            <div className="text-[11px] text-ink-dim">
+              EPA: <strong className={data.epa >= 0 ? "text-emerald-400" : "text-rose-400"}>
+                {data.epa > 0 ? `+${data.epa.toFixed(1)}` : data.epa?.toFixed(1)}
+              </strong>
+            </div>
+          )}
+          <div className="text-[10px] text-ink-dim pt-1 border-t border-rule mt-1">
+            Status: {data.started === 1 ? `Started (${data.slot})` : "Bench"} · {data.team_name}
           </div>
         </div>
       );
@@ -246,56 +311,56 @@ export default function PlayerClientContent({
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      
       {/* Back Link */}
       <div>
-        <Link
-          href="/players"
-          className="inline-flex items-center gap-1.5 text-xs text-ink-muted hover:text-brand-blue transition-colors font-mono"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          <span>Back to Player Directory</span>
+        <Link href="/players" className="inline-flex items-center gap-1.5 text-xs font-mono text-brand-blue hover:underline">
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to Player Directory
         </Link>
       </div>
 
-      {/* Player Header Banner */}
-      <div className="relative overflow-hidden rounded-2xl border border-rule-bright bg-card p-6 md:p-8 shadow-xl">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      {/* Hero Header Card */}
+      <div className="glass-card rounded-2xl p-6 md:p-8 border border-rule relative overflow-hidden shadow-2xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
-            <div className="relative h-20 w-20 md:h-24 md:w-24 rounded-full overflow-hidden border-2 border-rule-bright bg-canvas shrink-0 shadow-lg">
+            <div className="h-20 w-20 md:h-24 md:w-24 rounded-full overflow-hidden border-2 border-rule-bright bg-canvas shrink-0 shadow-lg">
               {headshot ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={headshot}
                   alt={playerName}
-                  className="h-full w-full object-cover object-top"
+                  className="h-full w-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = "none";
+                  }}
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center font-mono text-xl font-bold text-ink-dim">
-                  {playerName.slice(0, 2).toUpperCase()}
+                <div className="h-full w-full flex items-center justify-center font-mono font-black text-xl text-ink-dim bg-card-elevated">
+                  {position}
                 </div>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <div className="flex items-center gap-3">
-                <h1 className="font-mono text-2xl md:text-3xl font-black text-ink">
+              <div className="flex items-center gap-2.5">
+                <h1 className="font-mono text-2xl md:text-3xl font-black text-ink tracking-tight">
                   {playerName}
                 </h1>
-                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-brand-blue/15 text-brand-blue border border-brand-blue/30">
+                <span className="rounded-md bg-brand-blue/15 px-2.5 py-0.5 text-xs font-mono font-bold text-brand-blue border border-brand-blue/30">
                   {position}
                 </span>
               </div>
-              <p className="text-xs font-mono text-ink-dim">
-                {college ? `College: ${college} • ` : ""}
-                GSIS: {rawId}
+              <p className="text-xs md:text-sm text-ink-dim font-mono">
+                {college ? `College: ${college}` : "NFL Veteran"} · {seasonsData.length} AFFL Stints ({seasonsData[seasonsData.length - 1].season}–{latest.season})
               </p>
-              <div className="flex items-center gap-2 pt-1">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-card-elevated text-ink-muted border border-rule">
-                  {seasonsData.length} AFFL Seasons
-                </span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-brand-lime/10 text-brand-lime border border-brand-lime/20 font-semibold">
-                  {totalPoints.toFixed(1)} Lifetime Pts
-                </span>
+              <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
+                <span className="text-ink-dim">Career AFFL Points:</span>
+                <strong className="text-brand-lime font-bold">{totalPoints.toFixed(1)}</strong>
+                <span className="text-rule">|</span>
+                <span className="text-ink-dim">Career NFL EPA:</span>
+                <strong className={totalEpa >= 0 ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>
+                  {totalEpa > 0 ? `+${totalEpa.toFixed(1)}` : totalEpa.toFixed(1)}
+                </strong>
               </div>
             </div>
           </div>
@@ -328,6 +393,65 @@ export default function PlayerClientContent({
             </div>
           </div>
         </div>
+
+        {/* Position-Tailored NFL Career Stats Bar */}
+        <div className="mt-6 pt-5 border-t border-rule flex flex-wrap items-center gap-3 text-xs font-mono">
+          <span className="text-[11px] text-ink-dim uppercase font-bold flex items-center gap-1 mr-1">
+            <Zap className="h-3.5 w-3.5 text-brand-yellow" />
+            <span>NFLverse Career Box:</span>
+          </span>
+
+          {position === "QB" && (
+            <>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Pass: <strong className="text-brand-blue">{totalPassYds.toLocaleString()} yds</strong> ({totalPassTds} TD / {totalPassInt} INT)
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Comp: <strong className="text-ink">{totalPassAtt > 0 ? ((totalPassCmp / totalPassAtt) * 100).toFixed(1) : 0}%</strong> ({totalPassCmp}/{totalPassAtt})
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Rush: <strong className="text-brand-lime">{totalRushYds.toLocaleString()} yds</strong> ({totalRushTds} TD)
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Total TDs: <strong className="text-brand-yellow font-bold">{totalPassTds + totalRushTds}</strong>
+              </span>
+            </>
+          )}
+
+          {position === "RB" && (
+            <>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Rush: <strong className="text-brand-lime">{totalRushYds.toLocaleString()} yds</strong> ({totalCarries} car, {totalRushTds} TD)
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                YPC: <strong className="text-ink">{totalCarries > 0 ? (totalRushYds / totalCarries).toFixed(2) : "0.00"}</strong>
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Rec: <strong className="text-purple-400">{totalRec} rec, {totalRecYds.toLocaleString()} yds</strong> ({totalRecTds} TD)
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Scrimmage: <strong className="text-brand-yellow">{(totalRushYds + totalRecYds).toLocaleString()} yds</strong> ({totalRushTds + totalRecTds} TD)
+              </span>
+            </>
+          )}
+
+          {(position === "WR" || position === "TE") && (
+            <>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Rec: <strong className="text-purple-400">{totalRec} rec / {totalTgts} tgts</strong> ({totalTgts > 0 ? ((totalRec / totalTgts) * 100).toFixed(1) : 0}%)
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Rec Yds: <strong className="text-brand-yellow">{totalRecYds.toLocaleString()} yds</strong> ({totalRecTds} TD)
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Air Yds: <strong className="text-ink-muted">{Math.round(totalAirYds).toLocaleString()}</strong> · YAC: <strong className="text-brand-blue">{Math.round(totalYac).toLocaleString()}</strong>
+              </span>
+              <span className="px-2.5 py-1 rounded bg-card-elevated border border-rule text-ink">
+                Avg WOPR: <strong className="text-brand-blue">{avgWopr.toFixed(3)}</strong>
+              </span>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Advanced NFLverse Opportunity Matrix */}
@@ -337,7 +461,7 @@ export default function PlayerClientContent({
             <span>Career EPA</span>
             <Zap className="h-3.5 w-3.5 text-brand-yellow" />
           </div>
-          <div className="font-mono text-xl font-bold text-ink">
+          <div className={`font-mono text-xl font-bold ${totalEpa >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
             {totalEpa > 0 ? `+${totalEpa.toFixed(1)}` : totalEpa.toFixed(1)}
           </div>
           <p className="text-[10px] text-ink-dim">Total Expected Points Added</p>
@@ -446,12 +570,12 @@ export default function PlayerClientContent({
         </div>
       )}
 
-      {/* AFFL Custody Stint Breakdown */}
+      {/* AFFL Custody Timeline & Stint Breakdown */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <Shield className="h-4 w-4 text-brand-blue" />
           <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
-            AFFL Custody Timeline & Stint Breakdown
+            AFFL Custody Timeline & NFL Season Totals
           </h2>
         </div>
 
@@ -459,66 +583,139 @@ export default function PlayerClientContent({
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-rule bg-card-elevated/70 text-[11px] font-mono uppercase tracking-wider">
+                <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider">
                   {renderCustodySortHeader("Season", "season", "left")}
                   {renderCustodySortHeader("AFFL Franchise", "franchise_name", "left")}
-                  {renderCustodySortHeader("Rostered", "weeks_rostered", "right")}
-                  {renderCustodySortHeader("Started", "weeks_started", "right")}
-                  {renderCustodySortHeader("AFFL Points", "affl_points", "right")}
-                  {renderCustodySortHeader("Bench Points", "bench_points", "right")}
-                  {renderCustodySortHeader("xFP", "xfp", "right")}
-                  {renderCustodySortHeader("FPOE", "fpoe", "right")}
+                  {renderCustodySortHeader("Starts", "weeks_started", "right")}
+                  {renderCustodySortHeader("AFFL Pts", "affl_points", "right")}
+
+                  {/* Position-Specific Columns */}
+                  {position === "QB" && (
+                    <>
+                      {renderCustodySortHeader("Cmp/Att", "pass_att", "right")}
+                      {renderCustodySortHeader("Pass Yds", "pass_yds", "right")}
+                      {renderCustodySortHeader("Pass TD/INT", "pass_tds", "right")}
+                      {renderCustodySortHeader("Rush Yds", "rush_yds", "right")}
+                      {renderCustodySortHeader("Rush TD", "rush_tds", "right")}
+                    </>
+                  )}
+
+                  {position === "RB" && (
+                    <>
+                      {renderCustodySortHeader("Carries", "carries", "right")}
+                      {renderCustodySortHeader("Rush Yds", "rush_yds", "right")}
+                      {renderCustodySortHeader("Rush TD", "rush_tds", "right")}
+                      {renderCustodySortHeader("Rec Yds", "rec_yds", "right")}
+                      {renderCustodySortHeader("Rec TD", "rec_tds", "right")}
+                    </>
+                  )}
+
+                  {(position === "WR" || position === "TE") && (
+                    <>
+                      {renderCustodySortHeader("Tgts", "targets", "right")}
+                      {renderCustodySortHeader("Rec", "receptions", "right")}
+                      {renderCustodySortHeader("Rec Yds", "rec_yds", "right")}
+                      {renderCustodySortHeader("Rec TD", "rec_tds", "right")}
+                      {renderCustodySortHeader("Air Yds", "air_yards", "right")}
+                      {renderCustodySortHeader("YAC", "yac", "right")}
+                    </>
+                  )}
+
+                  {renderCustodySortHeader("EPA", "epa", "right")}
                   {renderCustodySortHeader("Custody PAR", "custody_par", "right")}
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule/60 stat-mono">
-                {sortedSeasonsData.map((s, idx) => (
-                  <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
-                    <td className="py-3 px-4 font-mono font-bold text-ink">{s.season}</td>
-                    <td className="py-3 px-4 font-sans font-semibold">
-                      <Link
-                        href={`/franchises/${s.franchise_id}`}
-                        className="hover:underline flex items-center gap-2"
-                        style={{ color: s.franchise_color || "#5b87ac" }}
-                      >
-                        <div
-                          className="h-2.5 w-2.5 rounded-full shrink-0"
-                          style={{ backgroundColor: s.franchise_color || "#5b87ac" }}
-                        />
-                        <span>{s.franchise_name}</span>
-                      </Link>
-                    </td>
-                    <td className="py-3 px-3 text-right text-ink-muted">{s.weeks_rostered} wks</td>
-                    <td className="py-3 px-3 text-right font-bold text-brand-lime">{s.weeks_started} wks</td>
-                    <td className="py-3 px-4 text-right font-bold text-ink">{Number(s.affl_points || 0).toFixed(1)}</td>
-                    <td className="py-3 px-4 text-right text-ink-dim">{Number(s.bench_points || 0).toFixed(1)}</td>
-                    <td className="py-3 px-4 text-right text-brand-blue">{Number(s.xfp || 0).toFixed(1)}</td>
-                    <td className="py-3 px-4 text-right text-brand-orange">
-                      {Number(s.fpoe || 0) > 0 ? `+${Number(s.fpoe || 0).toFixed(1)}` : Number(s.fpoe || 0).toFixed(1)}
-                    </td>
-                    <td className="py-3 px-4 text-right font-bold text-ink">
-                      {Number(s.custody_par || 0) > 0 ? `+${Number(s.custody_par || 0).toFixed(1)}` : Number(s.custody_par || 0).toFixed(1)}
-                    </td>
-                  </tr>
-                ))}
+                {sortedSeasonsData.map((s, idx) => {
+                  const passTds = Number(s.pass_tds || 0);
+                  const passInt = Number(s.pass_int || 0);
+                  const epaVal = Number(s.epa || 0);
+                  const parVal = Number(s.custody_par || 0);
+
+                  return (
+                    <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
+                      <td className="py-3 px-3 font-mono font-bold text-ink">{s.season}</td>
+                      <td className="py-3 px-3 font-sans font-semibold">
+                        <Link
+                          href={`/franchises/${s.franchise_id}`}
+                          className="hover:underline flex items-center gap-2"
+                          style={{ color: s.franchise_color || "#5b87ac" }}
+                        >
+                          <div
+                            className="h-2.5 w-2.5 rounded-full shrink-0"
+                            style={{ backgroundColor: s.franchise_color || "#5b87ac" }}
+                          />
+                          <span>{s.franchise_name}</span>
+                        </Link>
+                      </td>
+                      <td className="py-3 px-3 text-right font-bold text-brand-lime">
+                        {s.weeks_started} <span className="text-[10px] text-ink-dim font-normal">/ {s.weeks_rostered}</span>
+                      </td>
+                      <td className="py-3 px-3 text-right font-bold text-ink">{Number(s.affl_points || 0).toFixed(1)}</td>
+
+                      {/* Position Values */}
+                      {position === "QB" && (
+                        <>
+                          <td className="py-3 px-3 text-right text-ink-muted">{s.pass_cmp}/{s.pass_att}</td>
+                          <td className="py-3 px-3 text-right font-bold text-brand-blue">{Math.round(s.pass_yds || 0).toLocaleString()}</td>
+                          <td className="py-3 px-3 text-right">
+                            <span className="text-brand-yellow font-bold">{passTds}</span>
+                            <span className="text-ink-dim"> / </span>
+                            <span className="text-rose-400">{passInt}</span>
+                          </td>
+                          <td className="py-3 px-3 text-right text-brand-lime">{Math.round(s.rush_yds || 0).toLocaleString()}</td>
+                          <td className="py-3 px-3 text-right text-brand-yellow font-bold">{s.rush_tds}</td>
+                        </>
+                      )}
+
+                      {position === "RB" && (
+                        <>
+                          <td className="py-3 px-3 text-right text-ink-muted">{s.carries}</td>
+                          <td className="py-3 px-3 text-right font-bold text-brand-lime">{Math.round(s.rush_yds || 0).toLocaleString()}</td>
+                          <td className="py-3 px-3 text-right text-brand-yellow font-bold">{s.rush_tds}</td>
+                          <td className="py-3 px-3 text-right text-purple-400">{Math.round(s.rec_yds || 0).toLocaleString()}</td>
+                          <td className="py-3 px-3 text-right text-brand-yellow font-bold">{s.rec_tds}</td>
+                        </>
+                      )}
+
+                      {(position === "WR" || position === "TE") && (
+                        <>
+                          <td className="py-3 px-3 text-right text-ink-muted">{s.targets}</td>
+                          <td className="py-3 px-3 text-right text-ink font-semibold">{s.receptions}</td>
+                          <td className="py-3 px-3 text-right font-bold text-purple-400">{Math.round(s.rec_yds || 0).toLocaleString()}</td>
+                          <td className="py-3 px-3 text-right text-brand-yellow font-bold">{s.rec_tds}</td>
+                          <td className="py-3 px-3 text-right text-ink-dim">{Math.round(s.air_yards || 0).toLocaleString()}</td>
+                          <td className="py-3 px-3 text-right text-brand-blue">{Math.round(s.yac || 0).toLocaleString()}</td>
+                        </>
+                      )}
+
+                      <td className={`py-3 px-3 text-right font-semibold ${epaVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                        {epaVal > 0 ? `+${epaVal.toFixed(1)}` : epaVal.toFixed(1)}
+                      </td>
+                      <td className="py-3 px-3 text-right font-bold text-ink">
+                        {parVal > 0 ? `+${parVal.toFixed(1)}` : parVal.toFixed(1)}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      {/* Weekly Game Logs Table */}
+      {/* Enriched Weekly Game Logs Table with NFL Box Score */}
       {gameLogs.length > 0 && (
         <div className="space-y-4 pt-4 border-t border-rule">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-brand-orange" />
               <h2 className="font-mono text-base font-bold text-ink uppercase tracking-wider">
-                Weekly Game Logs & Lineup Status ({rawFilteredLogs.length} Games)
+                Weekly Game Logs & NFL Box Scores ({rawFilteredLogs.length} Matchups)
               </h2>
             </div>
             <span className="text-[11px] font-mono text-ink-dim">
-              Click any column header to sort
+              Complete nflverse passing, rushing, receiving, and EPA breakdowns
             </span>
           </div>
 
@@ -527,55 +724,81 @@ export default function PlayerClientContent({
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="border-b border-rule bg-card-elevated/70 text-[10px] font-mono uppercase tracking-wider">
-                    {renderLogSortHeader("Season", "season", "left", "py-2.5 px-4")}
-                    {renderLogSortHeader("Week", "week", "left", "py-2.5 px-3")}
-                    {renderLogSortHeader("AFFL Franchise", "team_name", "left", "py-2.5 px-4")}
-                    {renderLogSortHeader("Opponent", "opponent_name", "left", "py-2.5 px-4")}
-                    {renderLogSortHeader("Slot", "slot", "center", "py-2.5 px-3")}
-                    {renderLogSortHeader("Status", "started", "center", "py-2.5 px-3")}
-                    {renderLogSortHeader("Points", "points", "right", "py-2.5 px-4")}
+                    {renderLogSortHeader("Season", "season", "left", "py-2.5 px-3")}
+                    {renderLogSortHeader("Week", "week", "left", "py-2.5 px-2")}
+                    {renderLogSortHeader("AFFL Franchise", "team_name", "left", "py-2.5 px-3")}
+                    <th className="py-2.5 px-3 text-left text-ink-dim text-[10px]">NFL Matchup</th>
+                    {renderLogSortHeader("Status", "started", "center", "py-2.5 px-2")}
+                    <th className="py-2.5 px-3 text-left text-ink-dim text-[10px] min-w-[220px]">NFL Game Box Line</th>
+                    {renderLogSortHeader("EPA", "total_epa", "right", "py-2.5 px-3")}
+                    {renderLogSortHeader("AFFL Pts", "points", "right", "py-2.5 px-3")}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule/60 font-mono">
-                  {sortedLogs.map((log, idx) => (
-                    <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
-                      <td className="py-2.5 px-4 font-bold text-ink">{log.season}</td>
-                      <td className="py-2.5 px-3 text-ink-dim">Wk {log.week}</td>
-                      <td className="py-2.5 px-4 font-sans font-medium text-ink">
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="h-2 w-2 rounded-full shrink-0"
-                            style={{ backgroundColor: log.franchise_color || "#5b87ac" }}
-                          />
-                          <span>{log.team_name}</span>
-                        </div>
-                      </td>
-                      <td className="py-2.5 px-4 font-sans text-ink-muted">{log.opponent_name}</td>
-                      <td className="py-2.5 px-3 text-center">
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-card-elevated border border-rule text-ink-dim">
-                          {log.slot}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 text-center">
-                        {log.started === 1 ? (
-                          <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
-                            <CheckCircle2 className="h-2.5 w-2.5" /> Started
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.2 rounded bg-card-elevated text-ink-dim border border-rule">
-                            <XCircle className="h-2.5 w-2.5 text-ink-dim/60" /> Bench
-                          </span>
-                        )}
-                      </td>
-                      <td
-                        className={`py-2.5 px-4 text-right font-bold text-sm ${
-                          log.started === 1 ? "text-brand-blue" : "text-ink-dim"
-                        }`}
-                      >
-                        {log.points.toFixed(1)}
-                      </td>
-                    </tr>
-                  ))}
+                  {sortedLogs.map((log, idx) => {
+                    const epaVal = Number(log.total_epa || 0);
+
+                    return (
+                      <tr key={idx} className="hover:bg-card-hover/80 transition-colors">
+                        <td className="py-2.5 px-3 font-bold text-ink">{log.season}</td>
+                        <td className="py-2.5 px-2 text-ink-dim">Wk {log.week}</td>
+                        <td className="py-2.5 px-3 font-sans font-medium text-ink">
+                          <div className="flex items-center gap-1.5 truncate max-w-[160px]">
+                            <div
+                              className="h-2 w-2 rounded-full shrink-0"
+                              style={{ backgroundColor: log.franchise_color || "#5b87ac" }}
+                            />
+                            <span className="truncate">{log.team_name}</span>
+                          </div>
+                        </td>
+
+                        {/* NFL Matchup */}
+                        <td className="py-2.5 px-3 font-mono text-[11px]">
+                          {log.nfl_team && log.nfl_opponent ? (
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-card-elevated border border-rule">
+                              <strong className="text-ink">{log.nfl_team}</strong>
+                              <span className="text-ink-dim text-[9px]">vs</span>
+                              <span className="text-ink-muted">{log.nfl_opponent}</span>
+                            </span>
+                          ) : (
+                            <span className="text-ink-dim text-[10px]">BYE</span>
+                          )}
+                        </td>
+
+                        {/* Status */}
+                        <td className="py-2.5 px-2 text-center">
+                          {log.started === 1 ? (
+                            <span className="inline-flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
+                              <CheckCircle2 className="h-2.5 w-2.5" /> {log.slot || "Start"}
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded bg-card-elevated text-ink-dim border border-rule">
+                              <XCircle className="h-2.5 w-2.5 text-ink-dim/60" /> Bench
+                            </span>
+                          )}
+                        </td>
+
+                        {/* NFL Box Line */}
+                        <td className="py-2.5 px-3 font-mono text-[11px] text-ink">
+                          {formatBoxScoreLine(log)}
+                        </td>
+
+                        {/* Game EPA */}
+                        <td className={`py-2.5 px-3 text-right font-bold ${epaVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                          {epaVal > 0 ? `+${epaVal.toFixed(1)}` : epaVal.toFixed(1)}
+                        </td>
+
+                        {/* AFFL Points */}
+                        <td
+                          className={`py-2.5 px-3 text-right font-bold text-sm ${
+                            log.started === 1 ? "text-brand-blue" : "text-ink-dim"
+                          }`}
+                        >
+                          {Number(log.points || 0).toFixed(1)}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

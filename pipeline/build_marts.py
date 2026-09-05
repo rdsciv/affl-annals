@@ -9,6 +9,7 @@ import json
 import hashlib
 import sqlite3
 import pandas as pd
+import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 from pathlib import Path
@@ -238,15 +239,25 @@ def build_all_marts():
     num_cols = ["carries", "rushing_yards", "rushing_tds", "rushing_fumbles_lost",
                 "receptions", "targets", "receiving_yards", "receiving_tds", "receiving_fumbles_lost",
                 "completions", "attempts", "passing_yards", "passing_tds", "interceptions",
-                "passing_air_yards", "passing_yards_after_catch", "fantasy_points_ppr", "target_share", "air_yards_share", "wopr",
-                "passing_epa", "rushing_epa", "receiving_epa"]
+                "passing_air_yards", "passing_yards_after_catch", "receiving_air_yards", "receiving_yards_after_catch",
+                "fantasy_points_ppr", "target_share", "air_yards_share", "wopr",
+                "passing_epa", "rushing_epa", "receiving_epa", "pacr", "racr"]
     for c in num_cols:
         if c in df_rw.columns:
             df_rw[c] = df_rw[c].fillna(0.0)
         else:
             df_rw[c] = 0.0
             
+    df_rw["recent_team"] = df_rw["recent_team"].fillna("") if "recent_team" in df_rw.columns else ""
+    df_rw["opponent_team"] = df_rw["opponent_team"].fillna("") if "opponent_team" in df_rw.columns else ""
     df_rw["total_epa"] = (df_rw["passing_epa"] + df_rw["rushing_epa"] + df_rw["receiving_epa"]).round(2)
+    df_rw["player_air_yards"] = np.where(
+        df_rw["position"].isin(["WR", "TE", "RB"]),
+        df_rw["receiving_air_yards"],
+        df_rw["passing_air_yards"]
+    )
+    df_rw["player_yac"] = df_rw["receiving_yards_after_catch"]
+
     df_rw["wopr"] = df_rw.apply(
         lambda r: calc_wopr(r.get("target_share", 0), r.get("air_yards_share", 0)),
         axis=1
@@ -256,7 +267,7 @@ def build_all_marts():
             pass_att=r.get("attempts", 0),
             rush_att=r.get("carries", 0),
             targets=r.get("targets", 0),
-            air_yards=r.get("passing_air_yards", 0),
+            air_yards=r.get("player_air_yards", 0),
             position=r.get("position", "WR")
         ),
         axis=1
@@ -298,8 +309,8 @@ def build_all_marts():
         wopr=("wopr", "mean"),
         target_share=("target_share", "mean"),
         air_yards_share=("air_yards_share", "mean"),
-        air_yards=("passing_air_yards", "sum"),
-        yac=("passing_yards_after_catch", "sum"),
+        air_yards=("player_air_yards", "sum"),
+        yac=("player_yac", "sum"),
         carries=("carries", "sum"),
         rush_yds=("rushing_yards", "sum"),
         rush_tds=("rushing_tds", "sum"),
@@ -496,65 +507,90 @@ def build_all_marts():
     }
     print(f"Built mart_affl_head_to_head: {len(h2h_list)} franchise rivalry pairs")
 
-    # 8. mart_affl_player_gamelogs
-    cursor.execute("""
-        SELECT 
-            rw.season,
-            rw.week,
-            rw.player_id,
-            p.gsis_id,
-            p.name AS player_name,
-            p.position,
-            rw.slot,
-            rw.points,
-            rw.started,
-            t.name AS team_name,
-            t.owner_id,
-            COALESCE(opp.name, 'BYE') AS opponent_name
-        FROM fact_roster_week rw
-        JOIN dim_player p ON rw.player_id = p.player_id
-        JOIN v_team t ON rw.season = t.season AND rw.team_id = t.team_id
-        LEFT JOIN v_matchup m ON rw.season = m.season AND rw.week = m.week AND rw.team_id = m.team_id
+    # 8. mart_affl_player_gamelogs (Enriched with nflverse weekly box scores & advanced stats)
+    df_opp = pd.read_sql_query("""
+        SELECT m.season, m.week, m.team_id, COALESCE(opp.name, 'BYE') AS opponent_name
+        FROM v_matchup m
         LEFT JOIN v_team opp ON m.season = opp.season AND m.opponent_id = opp.team_id
-        ORDER BY rw.season DESC, rw.week ASC
-    """)
-    gamelogs_raw = cursor.fetchall()
+    """, conn).drop_duplicates(subset=["season", "week", "team_id"])
+
+    df_team_names = pd.read_sql_query("SELECT season, team_id, name as team_name FROM v_team", conn)
+    df_rw_gl = df_rw.merge(df_opp, on=["season", "week", "team_id"], how="left")
+    df_rw_gl["opponent_name"] = df_rw_gl["opponent_name"].fillna("BYE")
+    df_rw_gl = df_rw_gl.merge(df_team_names, on=["season", "team_id"], how="left")
+    df_rw_gl["team_name"] = df_rw_gl["team_name"].fillna("")
+
+    df_rw_gl = df_rw_gl.sort_values(["season", "week"], ascending=[False, True])
     gamelogs_by_player = {}
-    for r in gamelogs_raw:
-        season, week, pid, gsis, pname, pos, slot, pts, started, tname, oid, opp_name = r
-        fid, fname, _, color, _ = get_franchise_meta(oid)
-        key = gsis if gsis else f"PID_{pid}"
+    for _, row in df_rw_gl.iterrows():
+        gsis = str(row.get("gsis_id", "") or "")
+        pid = row.get("player_id", "")
+        pname = str(row.get("player_name", "") or "")
+        pos = str(row.get("position", "") or "")
+        key = gsis if (gsis and gsis != "nan") else f"PID_{pid}"
         if key not in gamelogs_by_player:
             gamelogs_by_player[key] = {
-                "gsis_id": gsis,
+                "gsis_id": gsis if gsis != "nan" else "",
                 "player_id": pid,
                 "player_name": pname,
                 "position": pos,
                 "gamelogs": []
             }
         gamelogs_by_player[key]["gamelogs"].append({
-            "season": season,
-            "week": week,
-            "slot": slot,
-            "points": pts,
-            "started": started,
-            "team_name": tname,
-            "franchise_id": fid,
-            "franchise_name": fname,
-            "franchise_color": color,
-            "opponent_name": opp_name
+            "season": int(row["season"]),
+            "week": int(row["week"]),
+            "slot": str(row.get("slot", "") or ""),
+            "points": round(float(row.get("affl_points", 0)), 1),
+            "started": int(row.get("started", 0)),
+            "team_name": str(row.get("team_name", "") or ""),
+            "franchise_id": str(row.get("franchise_id", "") or ""),
+            "franchise_name": str(row.get("franchise_name", "") or ""),
+            "franchise_color": str(row.get("franchise_color", "#5b87ac")),
+            "opponent_name": str(row.get("opponent_name", "BYE")),
+            # NFL Matchup & Box Score
+            "nfl_team": str(row.get("recent_team", "") or ""),
+            "nfl_opponent": str(row.get("opponent_team", "") or ""),
+            "completions": int(row.get("completions", 0)),
+            "attempts": int(row.get("attempts", 0)),
+            "passing_yards": round(float(row.get("passing_yards", 0)), 1),
+            "passing_tds": int(row.get("passing_tds", 0)),
+            "interceptions": int(row.get("interceptions", 0)),
+            "passing_epa": round(float(row.get("passing_epa", 0)), 2),
+            "carries": int(row.get("carries", 0)),
+            "rushing_yards": round(float(row.get("rushing_yards", 0)), 1),
+            "rushing_tds": int(row.get("rushing_tds", 0)),
+            "rushing_epa": round(float(row.get("rushing_epa", 0)), 2),
+            "targets": int(row.get("targets", 0)),
+            "receptions": int(row.get("receptions", 0)),
+            "receiving_yards": round(float(row.get("receiving_yards", 0)), 1),
+            "receiving_tds": int(row.get("receiving_tds", 0)),
+            "receiving_epa": round(float(row.get("receiving_epa", 0)), 2),
+            "air_yards": round(float(row.get("player_air_yards", 0)), 1),
+            "yac": round(float(row.get("player_yac", 0)), 1),
+            "target_share": round(float(row.get("target_share", 0)) * 100, 1),
+            "air_yards_share": round(float(row.get("air_yards_share", 0)) * 100, 1),
+            "wopr": round(float(row.get("wopr", 0)), 3),
+            "total_epa": round(float(row.get("total_epa", 0)), 2),
         })
         
     gl_json = MARTS_DIR / "mart_affl_player_gamelogs.json"
     with open(gl_json, "w") as f:
         json.dump(gamelogs_by_player, f)
+
+    # Also partition individual player gamelogs for ultra-fast on-demand loading
+    p_gl_dir = MARTS_DIR / "player_gamelogs"
+    p_gl_dir.mkdir(exist_ok=True)
+    for key, pdata in gamelogs_by_player.items():
+        safe_key = key.replace("/", "_")
+        with open(p_gl_dir / f"{safe_key}.json", "w") as pf:
+            json.dump(pdata, pf)
         
     manifest["marts"]["mart_affl_player_gamelogs"] = {
         "json": "mart_affl_player_gamelogs.json",
         "rows": len(gamelogs_by_player),
         "md5": compute_md5(gl_json)
     }
-    print(f"Built mart_affl_player_gamelogs: {len(gamelogs_by_player)} player profiles")
+    print(f"Built mart_affl_player_gamelogs: {len(gamelogs_by_player)} player profiles (and partitioned player_gamelogs/)")
 
     # 9. mart_affl_luck_and_skill
     print("Building mart_affl_luck_and_skill...")

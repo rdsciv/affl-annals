@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { Search, Users, Shield, TrendingUp, Sparkles, Filter } from "lucide-react";
+import { Search, Users, Shield, TrendingUp, Sparkles, Filter, Zap, Award } from "lucide-react";
 import { CANONICAL_FRANCHISES } from "@/lib/constants";
 import { fetchMartJson } from "@/lib/api";
 
@@ -19,42 +19,63 @@ export default function PlayersPage() {
         const data = await fetchMartJson("mart_affl_player_season_custody.json");
         const playerMap: Record<string, any> = {};
         for (const row of data) {
-        const key = row.gsis_id || row.player_name;
-        if (!playerMap[key]) {
-          playerMap[key] = {
-            gsis_id: row.gsis_id,
-            player_name: row.player_name,
-            position: row.position,
-            headshot_url: row.headshot_url,
-            college: row.college,
-            franchises: new Set(),
-            seasons: new Set(),
-            total_points: 0,
-            total_started: 0,
-            total_rostered: 0,
-            total_xfp: 0,
-            total_fpoe: 0,
-            total_par: 0,
-          };
+          const key = row.gsis_id || row.player_name;
+          if (!playerMap[key]) {
+            playerMap[key] = {
+              gsis_id: row.gsis_id,
+              player_name: row.player_name,
+              position: row.position,
+              headshot_url: row.headshot_url,
+              college: row.college,
+              franchises: new Set(),
+              seasons: new Set(),
+              total_points: 0,
+              total_started: 0,
+              total_rostered: 0,
+              total_xfp: 0,
+              total_fpoe: 0,
+              total_par: 0,
+              // NFLverse totals
+              total_epa: 0,
+              total_pass_yds: 0,
+              total_pass_tds: 0,
+              total_rush_yds: 0,
+              total_rush_tds: 0,
+              total_rec_yds: 0,
+              total_rec_tds: 0,
+              total_air_yds: 0,
+              total_yac: 0,
+            };
+          }
+          const p = playerMap[key];
+          if (row.franchise_name) p.franchises.add(row.franchise_name);
+          p.seasons.add(row.season);
+          p.total_points += Number(row.affl_points || 0);
+          p.total_started += Number(row.weeks_started || 0);
+          p.total_rostered += Number(row.weeks_rostered || 0);
+          p.total_xfp += Number(row.xfp || 0);
+          p.total_fpoe += Number(row.fpoe || 0);
+          p.total_par += Number(row.custody_par || 0);
+
+          p.total_epa += Number(row.epa || 0);
+          p.total_pass_yds += Number(row.pass_yds || 0);
+          p.total_pass_tds += Number(row.pass_tds || 0);
+          p.total_rush_yds += Number(row.rush_yds || 0);
+          p.total_rush_tds += Number(row.rush_tds || 0);
+          p.total_rec_yds += Number(row.rec_yds || 0);
+          p.total_rec_tds += Number(row.rec_tds || 0);
+          p.total_air_yds += Number(row.air_yards || 0);
+          p.total_yac += Number(row.yac || 0);
         }
-        const p = playerMap[key];
-        if (row.franchise_name) p.franchises.add(row.franchise_name);
-        p.seasons.add(row.season);
-        p.total_points += Number(row.affl_points || 0);
-        p.total_started += Number(row.weeks_started || 0);
-        p.total_rostered += Number(row.weeks_rostered || 0);
-        p.total_xfp += Number(row.xfp || 0);
-        p.total_fpoe += Number(row.fpoe || 0);
-        p.total_par += Number(row.custody_par || 0);
-      }
-      const list = Object.values(playerMap).map((p) => ({
-        ...p,
-        franchises_list: Array.from(p.franchises),
-        seasons_list: Array.from(p.seasons).sort(),
-      }));
-      list.sort((a, b) => b.total_points - a.total_points);
-      setPlayers(list);
-    } catch (err) {
+        const list = Object.values(playerMap).map((p) => ({
+          ...p,
+          total_tds: p.total_pass_tds + p.total_rush_tds + p.total_rec_tds,
+          franchises_list: Array.from(p.franchises),
+          seasons_list: Array.from(p.seasons).sort(),
+        }));
+        list.sort((a, b) => b.total_points - a.total_points);
+        setPlayers(list);
+      } catch (err) {
         console.error("Error loading players:", err);
       } finally {
         setLoading(false);
@@ -80,6 +101,11 @@ export default function PlayersPage() {
 
     return [...raw].sort((a, b) => {
       if (sortBy === "points") return b.total_points - a.total_points;
+      if (sortBy === "epa") return b.total_epa - a.total_epa;
+      if (sortBy === "tds") return b.total_tds - a.total_tds;
+      if (sortBy === "pass_yds") return b.total_pass_yds - a.total_pass_yds;
+      if (sortBy === "rush_yds") return b.total_rush_yds - a.total_rush_yds;
+      if (sortBy === "rec_yds") return b.total_rec_yds - a.total_rec_yds;
       if (sortBy === "par") return b.total_par - a.total_par;
       if (sortBy === "xfp") return b.total_xfp - a.total_xfp;
       if (sortBy === "fpoe") return b.total_fpoe - a.total_fpoe;
@@ -99,7 +125,7 @@ export default function PlayersPage() {
             <span>AFFL Player Custody Directory</span>
           </h1>
           <p className="text-xs md:text-sm text-ink-muted mt-1">
-            Browse all NFL players rostered across the 2014–2025 AFFL history, with stint metrics, xFP opportunity, and career custody PAR.
+            Browse all NFL players rostered across the 2014–2025 AFFL history, enriched with nflverse box score totals, Expected Points Added (EPA), and custody PAR.
           </p>
         </div>
         <div className="flex items-center gap-2 font-mono text-xs text-ink-dim">
@@ -165,6 +191,11 @@ export default function PlayersPage() {
               className="rounded-md bg-card-elevated px-2.5 py-1.5 text-xs text-ink font-medium border border-rule focus:outline-none"
             >
               <option value="points">Total AFFL Points</option>
+              <option value="epa">Highest Career EPA (nflverse)</option>
+              <option value="tds">Most Touchdowns</option>
+              <option value="pass_yds">Most Passing Yards</option>
+              <option value="rush_yds">Most Rushing Yards</option>
+              <option value="rec_yds">Most Receiving Yards</option>
               <option value="par">Career Custody PAR</option>
               <option value="xfp">Expected Points (xFP)</option>
               <option value="fpoe">Efficiency (FPOE)</option>
@@ -178,7 +209,7 @@ export default function PlayersPage() {
       {/* Players Grid */}
       {loading ? (
         <div className="py-20 text-center text-xs font-mono text-ink-dim">
-          Loading player database...
+          Loading player database and nflverse metrics...
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -186,7 +217,7 @@ export default function PlayersPage() {
             <Link
               key={player.gsis_id || idx}
               href={`/players/${player.gsis_id || player.player_name}`}
-              className="glass-card group rounded-xl p-4 hover:border-brand-blue/50 flex flex-col justify-between space-y-4"
+              className="glass-card group rounded-xl p-4 hover:border-brand-blue/50 flex flex-col justify-between space-y-4 transition-all"
             >
               <div className="flex items-start gap-3">
                 <div className="h-12 w-12 rounded-full overflow-hidden border border-rule bg-canvas shrink-0">
@@ -217,9 +248,22 @@ export default function PlayersPage() {
                     </span>
                   </div>
 
-                  <p className="text-[11px] text-ink-dim truncate">
-                    {player.college ? `College: ${player.college}` : "NFL Veteran"}
-                  </p>
+                  {/* NFLverse Stat Snippet */}
+                  {player.position === "QB" && player.total_pass_yds > 0 && (
+                    <p className="text-[11px] font-mono text-ink truncate">
+                      NFL: <span className="text-brand-blue font-bold">{Math.round(player.total_pass_yds).toLocaleString()} Pass Yds</span> · <span className="text-brand-yellow font-bold">{player.total_pass_tds} TD</span>
+                    </p>
+                  )}
+                  {player.position === "RB" && player.total_rush_yds > 0 && (
+                    <p className="text-[11px] font-mono text-ink truncate">
+                      NFL: <span className="text-brand-lime font-bold">{Math.round(player.total_rush_yds).toLocaleString()} Rush Yds</span> · <span className="text-brand-yellow font-bold">{player.total_rush_tds} TD</span>
+                    </p>
+                  )}
+                  {(player.position === "WR" || player.position === "TE") && player.total_rec_yds > 0 && (
+                    <p className="text-[11px] font-mono text-ink truncate">
+                      NFL: <span className="text-purple-400 font-bold">{Math.round(player.total_rec_yds).toLocaleString()} Rec Yds</span> · <span className="text-brand-yellow font-bold">{player.total_rec_tds} TD</span>
+                    </p>
+                  )}
 
                   <p className="text-[11px] text-ink-muted truncate">
                     Custody: <strong className="text-brand-blue">{player.franchises_list.join(", ") || "Free Agent"}</strong>
@@ -234,8 +278,10 @@ export default function PlayersPage() {
                   <span className="text-xs font-bold text-ink">{player.total_points.toFixed(1)}</span>
                 </div>
                 <div className="rounded bg-card-elevated py-1 px-1">
-                  <span className="text-[9px] uppercase text-ink-dim block">xFP</span>
-                  <span className="text-xs font-bold text-brand-blue">{player.total_xfp.toFixed(1)}</span>
+                  <span className="text-[9px] uppercase text-ink-dim block">Career EPA</span>
+                  <span className={`text-xs font-bold ${player.total_epa >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                    {player.total_epa > 0 ? `+${player.total_epa.toFixed(1)}` : player.total_epa.toFixed(1)}
+                  </span>
                 </div>
                 <div className="rounded bg-card-elevated py-1 px-1">
                   <span className="text-[9px] uppercase text-ink-dim block">FPOE</span>
