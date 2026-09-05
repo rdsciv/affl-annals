@@ -457,51 +457,222 @@ export default function PlayerClientContent({
         </div>
       </div>
 
-      {/* Advanced NFLverse Opportunity Matrix */}
+      {/* Position-Specific NFLverse Performance & Opportunity Matrix */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
-            <span>Career EPA</span>
-            <Zap className="h-3.5 w-3.5 text-brand-yellow" />
-          </div>
-          <div className={`font-mono text-xl font-bold ${totalEpa >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
-            {totalEpa > 0 ? `+${totalEpa.toFixed(1)}` : totalEpa.toFixed(1)}
-          </div>
-          <p className="text-[10px] text-ink-dim">Total Expected Points Added</p>
-        </div>
+        {position === "QB" ? (
+          <>
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Career NFL EPA</span>
+                <Zap className="h-3.5 w-3.5 text-brand-yellow" />
+              </div>
+              <div className={`font-mono text-xl font-bold ${totalEpa >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                {totalEpa > 0 ? `+${totalEpa.toFixed(1)}` : totalEpa.toFixed(1)}
+              </div>
+              <p className="text-[10px] text-ink-dim">Total Expected Points Added</p>
+            </div>
 
-        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
-            <span>Avg WOPR</span>
-            <BarChart2 className="h-3.5 w-3.5 text-brand-blue" />
-          </div>
-          <div className="font-mono text-xl font-bold text-brand-blue">
-            {avgWopr.toFixed(3)}
-          </div>
-          <p className="text-[10px] text-ink-dim">Weighted Opportunity Rating</p>
-        </div>
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Y/A & Comp %</span>
+                <Activity className="h-3.5 w-3.5 text-brand-blue" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-blue">
+                {totalPassAtt > 0 ? (totalPassYds / totalPassAtt).toFixed(2) : "0.00"}{" "}
+                <span className="text-xs text-ink-dim font-normal">Y/A</span> ·{" "}
+                <span className="text-ink">
+                  {totalPassAtt > 0 ? ((totalPassCmp / totalPassAtt) * 100).toFixed(1) : "0.0"}%
+                </span>
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {totalPassCmp.toLocaleString()} / {totalPassAtt.toLocaleString()} passes completed
+              </p>
+            </div>
 
-        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
-            <span>Avg Target Share</span>
-            <Activity className="h-3.5 w-3.5 text-brand-lime" />
-          </div>
-          <div className="font-mono text-xl font-bold text-brand-lime">
-            {(avgTgtShare * 100).toFixed(1)}%
-          </div>
-          <p className="text-[10px] text-ink-dim">Team Target Percentage</p>
-        </div>
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>TD:INT & Pass TD %</span>
+                <Flame className="h-3.5 w-3.5 text-brand-orange" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-orange">
+                {totalPassInt > 0 ? (totalPassTds / totalPassInt).toFixed(2) : totalPassTds}:1{" "}
+                <span className="text-xs text-ink-dim font-normal">
+                  ({totalPassTds} / {totalPassInt})
+                </span>
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {totalPassAtt > 0 ? ((totalPassTds / totalPassAtt) * 100).toFixed(1) : "0.0"}% Pass Touchdown Rate
+              </p>
+            </div>
 
-        <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
-            <span>Avg Air Yards %</span>
-            <TrendingUp className="h-3.5 w-3.5 text-brand-orange" />
-          </div>
-          <div className="font-mono text-xl font-bold text-brand-orange">
-            {(avgAyShare * 100).toFixed(1)}%
-          </div>
-          <p className="text-[10px] text-ink-dim">Team Air Yards Share</p>
-        </div>
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Dual-Threat Production</span>
+                <TrendingUp className="h-3.5 w-3.5 text-brand-lime" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-lime">
+                {totalRushYds.toLocaleString()} <span className="text-xs text-ink-dim font-normal">Yds</span> ·{" "}
+                <span className="text-brand-yellow font-bold">{totalPassTds + totalRushTds} TDs</span>
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {(totalPassYds + totalRushYds).toLocaleString()} Total Offensive Yds ({totalRushTds} Rush TD)
+              </p>
+            </div>
+          </>
+        ) : position === "RB" ? (
+          <>
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Career NFL EPA</span>
+                <Zap className="h-3.5 w-3.5 text-brand-yellow" />
+              </div>
+              <div className={`font-mono text-xl font-bold ${totalEpa >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                {totalEpa > 0 ? `+${totalEpa.toFixed(1)}` : totalEpa.toFixed(1)}
+              </div>
+              <p className="text-[10px] text-ink-dim">Total Expected Points Added</p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Yards Per Carry</span>
+                <Activity className="h-3.5 w-3.5 text-brand-lime" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-lime">
+                {totalCarries > 0 ? (totalRushYds / totalCarries).toFixed(2) : "0.00"}{" "}
+                <span className="text-xs text-ink-dim font-normal">YPC</span>
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {totalRushYds.toLocaleString()} Rush Yds on {totalCarries.toLocaleString()} Carries
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Total Touchdowns</span>
+                <Flame className="h-3.5 w-3.5 text-brand-orange" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-yellow">
+                {totalRushTds + totalRecTds}{" "}
+                <span className="text-xs text-ink-dim font-normal">Total TDs</span>
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {totalRushTds} Rushing TD · {totalRecTds} Receiving TD
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Scrimmage Production</span>
+                <Layers className="h-3.5 w-3.5 text-brand-blue" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-blue">
+                {(totalRushYds + totalRecYds).toLocaleString()}{" "}
+                <span className="text-xs text-ink-dim font-normal">Scrimmage Yds</span>
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {totalRushYds.toLocaleString()} rush + {totalRecYds.toLocaleString()} rec ({totalRec} rec)
+              </p>
+            </div>
+          </>
+        ) : position === "WR" || position === "TE" ? (
+          <>
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Career NFL EPA</span>
+                <Zap className="h-3.5 w-3.5 text-brand-yellow" />
+              </div>
+              <div className={`font-mono text-xl font-bold ${totalEpa >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                {totalEpa > 0 ? `+${totalEpa.toFixed(1)}` : totalEpa.toFixed(1)}
+              </div>
+              <p className="text-[10px] text-ink-dim">Total Expected Points Added</p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Avg WOPR</span>
+                <BarChart2 className="h-3.5 w-3.5 text-brand-blue" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-blue">
+                {avgWopr.toFixed(3)}
+              </div>
+              <p className="text-[10px] text-ink-dim">Weighted Opportunity Rating</p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Avg Target Share</span>
+                <Target className="h-3.5 w-3.5 text-brand-lime" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-lime">
+                {(avgTgtShare * 100).toFixed(1)}%
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {totalRec} rec / {totalTgts} tgts ({totalTgts > 0 ? ((totalRec / totalTgts) * 100).toFixed(1) : 0}%)
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Avg Air Yards % & YAC</span>
+                <TrendingUp className="h-3.5 w-3.5 text-brand-orange" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-orange">
+                {(avgAyShare * 100).toFixed(1)}%
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {Math.round(totalAirYds).toLocaleString()} Air Yds · {Math.round(totalYac).toLocaleString()} YAC
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Career AFFL Points</span>
+                <Zap className="h-3.5 w-3.5 text-brand-yellow" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-lime">
+                {totalPoints.toFixed(1)}
+              </div>
+              <p className="text-[10px] text-ink-dim">Total Fantasy Output</p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Starts Consistency</span>
+                <Activity className="h-3.5 w-3.5 text-brand-blue" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-blue">
+                {totalStarted} <span className="text-xs text-ink-dim font-normal">/ {totalRostered}</span>
+              </div>
+              <p className="text-[10px] text-ink-dim">
+                {totalRostered > 0 ? ((totalStarted / totalRostered) * 100).toFixed(1) : 0}% Active Start Rate
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Custody PAR</span>
+                <Award className="h-3.5 w-3.5 text-brand-orange" />
+              </div>
+              <div className="font-mono text-xl font-bold text-ink">
+                {totalPar > 0 ? `+${totalPar.toFixed(1)}` : totalPar.toFixed(1)}
+              </div>
+              <p className="text-[10px] text-ink-dim">Points Above Replacement</p>
+            </div>
+
+            <div className="rounded-xl border border-rule bg-card p-4 space-y-1">
+              <div className="flex items-center justify-between text-xs text-ink-dim font-mono">
+                <span>Career FPOE</span>
+                <Flame className="h-3.5 w-3.5 text-brand-orange" />
+              </div>
+              <div className="font-mono text-xl font-bold text-brand-orange">
+                {totalFpoe > 0 ? `+${totalFpoe.toFixed(1)}` : totalFpoe.toFixed(1)}
+              </div>
+              <p className="text-[10px] text-ink-dim">Fantasy Points Over Expected</p>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Interactive Weekly Scoring Trajectory Area Chart */}
